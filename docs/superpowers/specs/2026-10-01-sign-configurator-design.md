@@ -345,3 +345,23 @@ since the WebGL-unavailable fallback already provides a non-visual path for that
 - AI/EPS support is blocked on adding any server-side conversion capability, which this project
   does not currently have (confirmed: fully static hosting, no backend, per the existing
   `DEPLOY.md`).
+
+## Implementation notes (post-build deviations)
+
+Recorded after implementation so the spec matches what shipped:
+
+- **Cast Block Acrylic backdrop.** The spec says no backdrop plane for this product. Visual tuning found
+  clear acrylic reads as a flat dark card with nothing behind it to show through, so the shipped
+  `AcrylicScene` renders a plain backdrop wall (and a subtle colored glow spill at night). This is a
+  rendering aid for translucency, not a halo-lit option; it can be removed if undesired.
+- **Artwork normalization.** Uploaded artwork is centered, uniformly scaled so its larger dimension is
+  2.4 world units, and Y-flipped (SVG/PDF are Y-down) before rendering (`normalizeShapes.ts`).
+- **PDF live text** now throws `TextNotOutlinedError`, matching the SVG rule.
+- **SVG hostile-file caps:** max 20,000 elements, 50 `<use>` elements, 500 shapes (all `ParseError`).
+- **HDRI asset** is ~1.6MB (Poly Haven studio_small_03, 1k), above the 100-300KB budget; it only loads on
+  the lazy `/configurator` route. A smaller HDRI could be swapped in later.
+- **PDF limitations (v1, accepted):** counters (O, A, B, R) render filled; nested content-stream
+  transforms are ignored; clip rectangles / stroke-only paths become shapes. SVG is the recommended
+  format and has none of these limits.
+- **Not built:** multi-page-PDF note, underpowered-GPU degradation beyond a capped device pixel ratio.
+- Trimless depth presets and swatch hex values remain placeholders pending real fabrication limits.
