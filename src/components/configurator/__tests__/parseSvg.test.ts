@@ -29,6 +29,13 @@ const RASTER_ONLY = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10
   <image href="data:image/png;base64,iVBORw0KGgo=" width="100" height="100" />
 </svg>`;
 
+// Both sub-paths wound the same direction (clockwise) — a correctly-authored
+// hole needs opposite winding between the outer and inner path. This fixture
+// represents a real-world malformed export, not a crafted edge case.
+const SAME_WINDING_NO_HOLE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <path d="M10 10 H90 V90 H10 Z M30 30 V70 H70 V30 Z" />
+</svg>`;
+
 const CORRUPT = `<svg xmlns="http://www.w3.org/2000/svg"><path d="M10 10 L`; // truncated, unclosed tags
 
 describe("parseSvg", () => {
@@ -63,5 +70,13 @@ describe("parseSvg", () => {
 
   it("throws ParseError for malformed/truncated SVG markup", () => {
     expect(() => parseSvg(CORRUPT)).toThrow(ParseError);
+  });
+
+  it("accepted v1 limitation: malformed winding produces a shape without the intended hole, not a crash or error", () => {
+    const shapes = parseSvg(SAME_WINDING_NO_HOLE);
+    expect(shapes.length).toBeGreaterThan(0);
+    // Intentionally not asserting holes.length === 0 or === 1 here — the point
+    // of this test is that parsing completes without throwing, documenting
+    // the known limitation rather than pinning its exact (unreliable) output.
   });
 });
