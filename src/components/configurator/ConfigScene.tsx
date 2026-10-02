@@ -5,6 +5,8 @@ import { useSignGeometry } from "./useSignGeometry";
 import HaloGlow from "./HaloGlow";
 import BackdropWall from "./BackdropWall";
 import NightEffects from "./NightEffects";
+import { getBackground } from "./backgrounds";
+import { useWallTexture } from "./useWallTexture";
 import { GlowMaterial, PaintedMaterial, SideLitMaterial } from "./SceneMaterials";
 import { depthRatioFor, sideBandThickness, wallGapFor } from "./renderMath";
 import { emitsLight, type ConfiguratorState } from "./types";
@@ -36,6 +38,8 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
     return { depth: bb.max.z, height: bb.max.y - bb.min.y };
   }, [geometry]);
 
+  const background = getBackground(state.background);
+  const wall = useWallTexture(background.id);
   const gap = wallGapFor(mount);
   const band = sideBandThickness(depth, height);
   const lit = emitsLight(config);
@@ -79,9 +83,11 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
         {face}
       </mesh>
 
-      <BackdropWall gap={gap} />
+      <BackdropWall gap={gap} background={background} wall={wall} />
 
-      {wallSpill && <HaloGlow shapes={shapes} z={-gap + 0.003} color={haloColor} spread={spill.spread} />}
+      {wallSpill && (
+        <HaloGlow shapes={shapes} z={-gap + 0.003} color={haloColor} spread={spill.spread} background={background} wall={wall} />
+      )}
 
       <NightEffects lit={lit} />
     </>

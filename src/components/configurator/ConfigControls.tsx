@@ -1,5 +1,6 @@
 import { useId } from "react";
 import type { LightConfig } from "../../data/configurations";
+import { BACKGROUNDS } from "./backgrounds";
 import {
   emitsLight,
   formatDepth,
@@ -82,6 +83,7 @@ export default function ConfigControls({ config, state, onChange }: ConfigContro
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
 
   const depthId = useId();
+  const backgroundName = useId();
   const lights = emitsLight(config);
   const hasPaint = config.profile !== "tube"; // the whole tube glows: nothing painted to colour
   const illustrative = config.profile === "tube" || config.profile === "conical";
@@ -144,6 +146,29 @@ export default function ConfigControls({ config, state, onChange }: ConfigContro
           onChange={(hex) => set({ glowColor: hex })}
         />
       )}
+
+      <fieldset role="radiogroup" className="space-y-2">
+        <legend className="text-sm font-medium mb-2">Background</legend>
+        <div className="grid grid-cols-2 gap-2">
+          {BACKGROUNDS.map((b) => (
+            <label
+              key={b.id}
+              className="flex cursor-pointer items-center gap-2 rounded-md border border-input bg-background px-2 py-1.5 text-sm has-[:checked]:border-primary has-[:checked]:ring-1 has-[:checked]:ring-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-primary"
+            >
+              <input
+                type="radio"
+                name={backgroundName}
+                value={b.id}
+                checked={state.background === b.id}
+                onChange={() => set({ background: b.id })}
+                className="sr-only"
+              />
+              <span aria-hidden="true" className="h-5 w-5 shrink-0 rounded border border-border" style={{ backgroundColor: b.swatch }} />
+              {b.label}
+            </label>
+          ))}
+        </div>
+      </fieldset>
 
       <label className="flex items-center gap-2 text-sm font-medium">
         <input

@@ -19,6 +19,10 @@ describe("defaultStateFor", () => {
     expect(defaultStateFor(byId("lp-1-flat-cutout")).depthMm).toBe(5);
   });
 
+  it("starts on the concrete background", () => {
+    for (const c of configurations) expect(defaultStateFor(c).background).toBe("concrete");
+  });
+
   it("starts in day mode with dark paint and a white glow", () => {
     const s = defaultStateFor(byId("lp-5-trimless-face-lit"));
     expect(s).toMatchObject({

@@ -10,8 +10,6 @@ export function mulberry32(seed: number): () => number {
   };
 }
 
-const smooth = (t: number) => t * t * (3 - 2 * t);
-
 /**
  * Value noise on a `cells` x `cells` lattice that wraps, so it repeats exactly every
  * 1.0 in u and v and a texture painted from it tiles without seams. Returns [0, 1].
@@ -19,23 +17,40 @@ const smooth = (t: number) => t * t * (3 - 2 * t);
 export function makeTileableNoise(cells: number, seed: number): (u: number, v: number) => number {
   const rand = mulberry32(seed);
   const lattice = Float32Array.from({ length: cells * cells }, () => rand());
-  const at = (i: number, j: number) => lattice[(((j % cells) + cells) % cells) * cells + (((i % cells) + cells) % cells)];
   return (u, v) => {
     const x = u * cells;
     const y = v * cells;
-    const i = Math.floor(x);
-    const j = Math.floor(y);
-    const fx = smooth(x - i);
-    const fy = smooth(y - j);
-    const top = at(i, j) + (at(i + 1, j) - at(i, j)) * fx;
-    const bottom = at(i, j + 1) + (at(i + 1, j + 1) - at(i, j + 1)) * fx;
-    return top + (bottom - top) * fy;
+    const fi = Math.floor(x);
+    const fj = Math.floor(y);
+    const fx = x - fi;
+    const fy = y - fj;
+    const sx = fx * fx * (3 - 2 * fx);
+    const sy = fy * fy * (3 - 2 * fy);
+    // Wrap the lattice indices once (negative u or v just wraps the other way).
+    const i0 = ((fi % cells) + cells) % cells;
+    const j0 = ((fj % cells) + cells) % cells;
+    const i1 = i0 + 1 === cells ? 0 : i0 + 1;
+    const j1 = j0 + 1 === cells ? 0 : j0 + 1;
+    const r0 = j0 * cells;
+    const r1 = j1 * cells;
+    const top = lattice[r0 + i0] + (lattice[r0 + i1] - lattice[r0 + i0]) * sx;
+    const bottom = lattice[r1 + i0] + (lattice[r1 + i1] - lattice[r1 + i0]) * sx;
+    return top + (bottom - top) * sy;
   };
 }
 
 /** Sum of tileable noise octaves (each twice the frequency, half the weight), normalised to [0, 1]. */
 export function makeFbm(baseCells: number, octaves: number, seed: number): (u: number, v: number) => number {
   const layers = Array.from({ length: octaves }, (_, o) => makeTileableNoise(baseCells * 2 ** o, seed + o * 101));
-  const total = layers.reduce((sum, _, o) => sum + 0.5 ** o, 0);
-  return (u, v) => layers.reduce((sum, n, o) => sum + n(u, v) * 0.5 ** o, 0) / total;
+  let total = 0;
+  for (let o = 0; o < octaves; o++) total += 0.5 ** o;
+  return (u, v) => {
+    let sum = 0;
+    let weight = 1;
+    for (let o = 0; o < octaves; o++) {
+      sum += layers[o](u, v) * weight;
+      weight *= 0.5;
+    }
+    return sum / total;
+  };
 }

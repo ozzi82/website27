@@ -1,4 +1,5 @@
 import type { LightConfig } from "../../data/configurations";
+import { DEFAULT_BACKGROUND, type BackgroundId } from "./backgrounds";
 
 export type DayNight = "day" | "night";
 
@@ -12,6 +13,8 @@ export interface ConfiguratorState {
   /** Hex colour of the light-emitting parts. */
   glowColor: string;
   dayNight: DayNight;
+  /** The wall the sign is mounted on. */
+  background: BackgroundId;
 }
 
 export const DEFAULT_PAINT_COLOR = "#4b5059";
@@ -34,6 +37,7 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
     color: DEFAULT_PAINT_COLOR,
     glowColor: DEFAULT_GLOW_COLOR,
     dayNight: "day",
+    background: DEFAULT_BACKGROUND,
   };
 }
 

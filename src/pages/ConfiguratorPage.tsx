@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import * as THREE from "three";
@@ -12,6 +12,7 @@ import PreviewErrorFallback from "../components/configurator/PreviewErrorFallbac
 import { useWebglSupported } from "../components/configurator/webglSupport";
 import { defaultStateFor } from "../components/configurator/types";
 import type { ConfiguratorState } from "../components/configurator/types";
+import { DEFAULT_BACKGROUND, type BackgroundId } from "../components/configurator/backgrounds";
 import { configurations } from "../data/configurations";
 
 function findConfig(id: string | null) {
@@ -27,12 +28,20 @@ export default function ConfiguratorPage() {
   );
   const [shapes, setShapes] = useState<THREE.Shape[] | null>(null);
 
+  // The wall is a scene preference, not part of a configuration: it survives picking another one.
+  const background = useRef<BackgroundId>(DEFAULT_BACKGROUND);
+
   const webglSupported = useWebglSupported();
   const config = findConfig(state?.configId ?? null);
 
+  function handleChange(next: ConfiguratorState) {
+    background.current = next.background;
+    setState(next);
+  }
+
   function handleSelectConfig(id: string) {
     const selected = findConfig(id);
-    if (selected) setState(defaultStateFor(selected)); // shapes, if any, are intentionally left as-is — parsing is configuration-agnostic.
+    if (selected) setState({ ...defaultStateFor(selected), background: background.current }); // shapes, if any, are intentionally left as-is — parsing is configuration-agnostic.
   }
 
   if (!webglSupported) {
@@ -96,7 +105,7 @@ export default function ConfiguratorPage() {
                 <SignPreview shapes={shapes} config={config} state={state} />
               </ErrorBoundary>
               <div className="space-y-6">
-                <ConfigControls config={config} state={state} onChange={setState} />
+                <ConfigControls config={config} state={state} onChange={handleChange} />
                 <Button asChild size="lg" className="w-full">
                   <Link to="/contact">Get a Quote</Link>
                 </Button>

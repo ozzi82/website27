@@ -132,6 +132,40 @@ describe("ConfigControls guidance", () => {
   });
 });
 
+describe("ConfigControls background", () => {
+  const group = () => screen.getByRole("radiogroup", { name: "Background" });
+
+  it("offers the four scenes as a radio group with concrete selected by default", () => {
+    setup("lp-5-trimless-face-lit");
+    const radios = within(group()).getAllByRole("radio");
+    expect(radios.map((r) => r.getAttribute("value"))).toEqual(["concrete", "brick", "wood", "plaster"]);
+    expect(within(group()).getByRole("radio", { name: "Concrete" })).toBeChecked();
+    expect(within(group()).getByRole("radio", { name: "Brick" })).not.toBeChecked();
+    expect(within(group()).getByRole("radio", { name: "Wood slats" })).toBeInTheDocument();
+    expect(within(group()).getByRole("radio", { name: "White plaster" })).toBeInTheDocument();
+  });
+
+  it("reports the chosen background", async () => {
+    const user = userEvent.setup();
+    const { onChange } = setup("lp-5-trimless-face-lit");
+    await user.click(within(group()).getByRole("radio", { name: "Brick" }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ background: "brick" }));
+  });
+
+  it("reflects the background in the state it is given", () => {
+    setup("lp-5-trimless-face-lit", { background: "wood" });
+    expect(within(group()).getByRole("radio", { name: "Wood slats" })).toBeChecked();
+  });
+
+  it("is available on every configuration, including the unlit LP 1", () => {
+    for (const c of configurations) {
+      const { unmount } = render(<ConfigControls config={c} state={defaultStateFor(c)} onChange={vi.fn()} />);
+      expect(group()).toBeInTheDocument();
+      unmount();
+    }
+  });
+});
+
 describe("ConfigControls profile note and day/night", () => {
   it("flags the tube and conical profiles as illustrative", () => {
     const { unmount } = render(

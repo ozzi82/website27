@@ -1,18 +1,36 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { getBackground, makeWallLook, wallLookAt } from "./backgrounds";
+import { makeWallLook, wallLookAt, type BackgroundDef } from "./backgrounds";
 import { useNightEffect } from "./NightContext";
+import type { WallTexture } from "./wallTextures";
 
 interface BackdropWallProps {
   gap: number;
+  background: BackgroundDef;
+  wall: WallTexture | null;
 }
 
-// Oversized so its edges stay out of frame from the fixed camera — a smaller
-// plane reads as a floating card.
-export default function BackdropWall({ gap }: BackdropWallProps) {
+/** World size of the wall. */
+export const WALL_SIZE = { w: 48, h: 30 };
+
+// Big enough that its edges stay out of frame even when the camera is orbited and
+// zoomed out; a smaller plane reads as a floating card. The texture tiles across it,
+// with a tile centred on the origin so tile seams never cross the artwork.
+export default function BackdropWall({ gap, background, wall }: BackdropWallProps) {
   const material = useRef<THREE.MeshStandardMaterial>(null);
   const look = useMemo(makeWallLook, []);
-  const background = getBackground("concrete");
+  const { tile } = background;
+
+  const geometry = useMemo(() => {
+    const g = new THREE.PlaneGeometry(WALL_SIZE.w, WALL_SIZE.h);
+    const uv = g.attributes.uv;
+    for (let i = 0; i < uv.count; i++) {
+      uv.setXY(i, (uv.getX(i) - 0.5) * (WALL_SIZE.w / tile.w) + 0.5, (uv.getY(i) - 0.5) * (WALL_SIZE.h / tile.h) + 0.5);
+    }
+    return g;
+  }, [tile.w, tile.h]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+
   useNightEffect((n) => {
     const m = material.current;
     if (!m) return;
@@ -21,10 +39,19 @@ export default function BackdropWall({ gap }: BackdropWallProps) {
     m.emissive.copy(look.emissive);
     m.emissiveIntensity = look.emissiveIntensity;
   });
+
+  const map = wall?.texture;
   return (
-    <mesh position={[0, 0, -gap]}>
-      <planeGeometry args={[16, 10]} />
-      <meshStandardMaterial ref={material} roughness={0.9} />
+    <mesh position={[0, 0, -gap]} geometry={geometry}>
+      {/* The same canvas serves as colour, relief and (faintly) self-lit texture, so the wall keeps its character in the dark. */}
+      <meshStandardMaterial
+        ref={material}
+        map={map}
+        bumpMap={map}
+        bumpScale={background.day.bumpScale}
+        emissiveMap={map}
+        roughness={background.day.roughness}
+      />
     </mesh>
   );
 }

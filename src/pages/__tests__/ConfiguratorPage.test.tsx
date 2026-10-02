@@ -151,6 +151,22 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
   });
 
+  it("keeps the chosen background when switching configuration", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+    renderPage("/configurator?config=lp-5-trimless-face-lit");
+    await upload(user);
+    expect(screen.getByRole("radio", { name: "Concrete" })).toBeChecked();
+    await user.click(screen.getByRole("radio", { name: "Brick" }));
+    expect(screen.getByRole("radio", { name: "Brick" })).toBeChecked();
+
+    await user.click(screen.getByRole("button", { name: /change configuration/i }));
+    await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
+
+    expect(screen.getByRole("radio", { name: "Brick" })).toBeChecked();
+    expect(screen.getByLabelText("Depth")).toHaveValue("30"); // everything else still resets
+  });
+
   it("only offers 'Use a different file' once a logo has been uploaded", () => {
     renderPage("/configurator?config=lp-11-f-face-lit");
     expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
