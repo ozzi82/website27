@@ -87,6 +87,10 @@ export default function ConfigurationPage() {
                 </div>
               ))}
             </dl>
+
+            <Button asChild variant="outline" size="lg" className="mt-8">
+              <Link to={`/configurator?config=${c.id}`}>See it with your logo</Link>
+            </Button>
           </div>
         </div>
 

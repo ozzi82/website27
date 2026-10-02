@@ -7,6 +7,13 @@ import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import Seo from "../components/Seo";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
 
+// The configurator works in terms of the 12 EdgeLuxe configurations; these two
+// products map onto their closest one.
+const CONFIGURATOR_CONFIG: Record<string, string> = {
+  "trimless-letters": "lp-5-trimless-face-lit",
+  "cast-block-acrylic": "lp-11-f-face-lit",
+};
+
 export default function ServicePage() {
   const { id } = useParams();
   const service = services.find((s) => s.id === id);
@@ -106,9 +113,9 @@ export default function ServicePage() {
           <Button size="lg" asChild><Link to="/contact">Get a Quote</Link></Button>
         </section>
 
-        {(service.id === "trimless-letters" || service.id === "cast-block-acrylic") && (
+        {service.id in CONFIGURATOR_CONFIG && (
           <Link
-            to={`/configurator?product=${service.id}`}
+            to={`/configurator?config=${CONFIGURATOR_CONFIG[service.id]}`}
             className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
           >
             See it on your sign <ArrowUpRight className="w-4 h-4" />
