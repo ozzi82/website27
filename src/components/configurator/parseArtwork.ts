@@ -1,6 +1,5 @@
 import * as THREE from "three";
 import { parseSvg } from "./parseSvg";
-import { parsePdf } from "./parsePdf";
 import { normalizeShapes } from "./normalizeShapes";
 import { UnsupportedFormatError, FileTooLargeError } from "./parseErrors";
 
@@ -20,6 +19,8 @@ export async function parseArtwork(file: File): Promise<THREE.Shape[]> {
 
   if (extension === "pdf") {
     const data = new Uint8Array(await file.arrayBuffer());
+    // Lazy-loaded: pdf.js is large and SVG-only users shouldn't download it.
+    const { parsePdf } = await import("./parsePdf");
     return normalizeShapes(await parsePdf(data));
   }
 
