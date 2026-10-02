@@ -147,7 +147,7 @@ export default function ConfiguratorPage() {
       <div className="mx-auto max-w-[1700px] px-3 pb-10 pt-3 sm:px-5 lg:pb-3">
         {seo}
         <h1 className="sr-only">Sign Configurator</h1>
-        <div className="flex flex-col gap-3 lg:h-[calc(100svh-117px)] lg:min-h-[560px] lg:flex-row lg:gap-5">
+        <div className="flex flex-col gap-3 lg:h-[calc(100svh-117px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
           {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
           <div className="sticky top-[65px] z-10 -mx-3 h-[36svh] min-h-[230px] bg-background px-3 pb-2 sm:-mx-5 sm:px-5 lg:static lg:z-auto lg:m-0 lg:h-auto lg:min-w-0 lg:flex-1 lg:bg-transparent lg:p-0">
             {shapes ? (
@@ -161,7 +161,7 @@ export default function ConfiguratorPage() {
             )}
           </div>
 
-          <aside aria-label="Sign options" className="flex min-w-0 flex-col gap-2.5 [@media(min-height:830px)]:gap-4 lg:w-[440px] lg:shrink-0 lg:overflow-y-auto lg:pr-1">
+          <aside aria-label="Sign options" className="flex min-w-0 flex-col gap-2 [&>*]:shrink-0 [@media(min-height:830px)]:gap-4 lg:w-[440px] lg:shrink-0 lg:overflow-y-auto lg:pr-1">
             <div className="flex items-start justify-between gap-2">
               <p className="min-w-0 leading-tight">
                 <span className="mono-label text-primary">{config.code}</span>{" "}
@@ -206,7 +206,7 @@ export default function ConfiguratorPage() {
 
             <ConfigControls config={config} state={state} onChange={handleChange} strokeRatio={strokeRatio} />
 
-            <Button asChild size="lg" className="mt-auto w-full">
+            <Button asChild size="lg" className="sticky bottom-2 z-20 mt-auto w-full shrink-0 shadow-lg lg:static lg:shadow-none">
               <Link to="/contact" onClick={handleQuote} aria-busy={quoting || undefined}>
                 Get a Quote
               </Link>

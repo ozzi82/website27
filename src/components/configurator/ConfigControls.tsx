@@ -96,7 +96,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
   const singleDepth = config.depthOptionsMm.length === 1;
 
   return (
-    <div className="space-y-2.5 [@media(min-height:830px)]:space-y-4">
+    <div className="space-y-2 [@media(min-height:830px)]:space-y-4">
       <Row label="Depth" labelId="depth-label">
         <SegmentedControl
           label="Depth"

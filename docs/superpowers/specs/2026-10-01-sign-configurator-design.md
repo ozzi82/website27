@@ -496,3 +496,46 @@ default upload) sits above the preview and stays available after artwork exists.
 - **Known limitation.** Script fonts draw some letters as one self-looping stroke, so their counters are narrow slits
   rather than separate holes (Lobster's O); the extrusion matches what the font fills (verified per glyph against the
   font's non-zero fill in `textToShapes.test.ts`) but thin script strokes are fragile at the minimum stroke width.
+
+## Revision 5 (compact layout, quote carry-over, backgrounds, dimmer, day/night button, thin strokes)
+
+**1. Compact layout.** Once there is artwork (or the text source is chosen) the page is a two-column workspace: the 3D
+preview on the left fills the viewport (`100svh` minus the site header, at least 500 px), a 440 px options column on
+the right holds every control, one row each: artwork source toggle, depth chips, paint and glow swatches (24 px rounds plus
+a custom picker), a Brightness slider, four background thumbnails, a Day | Night toggle, the thin-stroke note when due, a one-line size
+guidance, a collapsed "About this preview" `<details>` (depth note, custom depths, illustrative note, colour hints) and Get a Quote.
+Measured with headless Chrome: 1366x768, 1440x900 and 1366x657 need no internal scroll in upload mode (text mode needs
+none at 1366x657 either unless a thin-stroke note is also showing); the document only scrolls to reach the footer. The column
+scrolls internally only below that. On phones the preview is sticky under the header (36svh) and the options scroll beneath it, with
+Get a Quote pinned to the bottom of the viewport. Built on a shared `SegmentedControl` (real radio inputs, arrow keys work).
+
+**2. Get a Quote carries the configuration.** Clicking it captures a snapshot of the canvas, saves a `QuoteSnapshot`
+(plain-text summary, label/value rows, JPEG data URL) to `sessionStorage` (`sls.quote.v1`) and navigates to `/contact` with
+the same object in router state (state wins on arrival, storage covers a refresh). Modified clicks (new tab) skip the snapshot
+but still store the summary. The snapshot is reliable because it is read inside a `useFrame` callback at priority 2, after the
+EffectComposer's priority-1 render and in the same task, so the drawing buffer is still valid without `preserveDrawingBuffer`;
+it is downscaled to 720 px wide JPEG (about 25 KB), falls back to no image after 2.5 s, and a failed capture never blocks the quote.
+`/contact` shows a "Your configuration" card (rows with colour chips, snapshot, Copy summary, Clear). The HubSpot form renders in a
+same-origin iframe, so `ContactForm` finds its `message` textarea inside that iframe's document, fills it from `onFormReady`
+(native value setter plus `input`/`change` events) and empties it again on Clear, never replacing text the visitor typed. The summary
+is `formatConfigSummary(state, config, artwork)`: configuration, depth (US first), paint (omitted on the neon tube), glow colour and
+LED brightness (omitted on unlit LP 1), artwork (file name, or typed text and font), optional note. Background and day/night are left out.
+The nav bar's own Get a Quote button does not carry a configuration (only the configurator's button does).
+
+**3. Backgrounds.** Concrete (unchanged, default), Light concrete (lighter cool grey) and Warm concrete (beige grey) share one painter
+(different seeds and contrast), and Brick is a small format, 8 bricks by 16 courses per tile (half the former size). Wood slats and White
+plaster are removed (`getBackground` falls back to Concrete for an unknown id).
+
+**4. LED dimmer.** `ConfiguratorState.brightness` (0-100, default 100). `brightnessFactor(p) = (p/100)^2` scales the face and tube
+emissive, the side-band glow, the halo spill opacity and the bloom intensity, all multiplied by the night amount, so it has no visible
+effect in day mode. At 0% the side band's milky base also darkens at night so nothing looks lit. Hidden for LP 1; listed in the quote summary.
+
+**5. Day | Night** is a segmented radio group (sun / moon icons) over the unchanged 0.9 s fade.
+
+**6. Thin strokes.** `strokeHeightRatio(shapes)` = average stroke (2 x area/perimeter, `estimateHalfStroke`) over artwork height; typed text is
+multiplied by `lineStackFactor(lines)` so the ratio refers to one line's letters. `neededLetterHeightMm = minStrokeMm / ratio`
+(a 12 mm minimum needs a 12 in letter at 4% and a 6 in letter at 8%). LP 11-N and 11-C (tube / conical) get a prominent amber note below 6%
+("... would need to be at least about X tall"); every other configuration gets a quiet note only when X exceeds 24 in. The 3D approximation
+degrades with `bevelStrength(ratio)` (0 below 2%, 1 above 8%, smoothstep between): tube radius and cone inset are scaled by it and hairline art
+becomes a plain straight extrusion. Known limit: the estimate is the mean stroke, so a mixed-weight typeface (thin hairlines on thick stems)
+can still carry a thinner stroke than reported.
