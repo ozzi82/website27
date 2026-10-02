@@ -3,7 +3,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as THREE from "three";
 import { parsePdf } from "../parsePdf";
-import { ParseError, NoVectorPathsFoundError } from "../parseErrors";
+import { ParseError, NoVectorPathsFoundError, TextNotOutlinedError } from "../parseErrors";
 
 function loadFixture(name: string): Uint8Array {
   return new Uint8Array(fs.readFileSync(path.join(__dirname, "fixtures", name)));
@@ -57,5 +57,10 @@ describe("parsePdf", () => {
     // A minimal valid PDF with a page but no drawing operators at all.
     const blankPdfFixture = loadFixture("blank-page.pdf");
     await expect(parsePdf(blankPdfFixture)).rejects.toThrow(NoVectorPathsFoundError);
+  });
+
+  it("throws TextNotOutlinedError for a PDF containing live (un-outlined) text", async () => {
+    // Live text isn't extruded, so fail loudly instead of silently dropping letters.
+    await expect(parsePdf(loadFixture("live-text.pdf"))).rejects.toThrow(TextNotOutlinedError);
   });
 });

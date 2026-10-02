@@ -4,7 +4,7 @@ import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 // the legacy build imported above. Without it, browsers throw 'No
 // "GlobalWorkerOptions.workerSrc" specified'.
 import pdfWorkerUrl from "pdfjs-dist/legacy/build/pdf.worker.min.mjs?url";
-import { ParseError, NoVectorPathsFoundError } from "./parseErrors";
+import { ParseError, NoVectorPathsFoundError, TextNotOutlinedError } from "./parseErrors";
 
 // Only configure the worker in a real browser. Under Node (including Vitest,
 // where Vite's ?url yields a root-relative path Node can't import) pdf.js
@@ -16,6 +16,15 @@ if (!isNode) {
 }
 
 const { OPS } = pdfjsLib;
+
+// Operators that paint live text. Glyphs are never turned into shapes here, so
+// their presence means letters would silently vanish from the sign.
+const TEXT_SHOW_OPS: ReadonlySet<number> = new Set([
+  OPS.showText,
+  OPS.showSpacedText,
+  OPS.nextLineShowText,
+  OPS.nextLineSetSpacingShowText,
+]);
 
 // pdf.js packs each constructPath operator's drawing commands into a flat
 // number array at argsArray[i][1][0], using pdf.js's OWN PRIVATE, UNEXPORTED
@@ -41,6 +50,7 @@ const DRAW_CLOSE_PATH = 4;
  *    hole detection, so they extrude as solid slabs rather than openings.
  *  - Nested cm/q/Q transforms are ignored; only the page viewport transform is
  *    applied, so artwork positioned via content-stream transforms is misplaced.
+ *  - Live text is rejected (TextNotOutlinedError), not extruded.
  *  - Anything painted as a path becomes a shape: clip rectangles, stroke-only
  *    paths and full-page background rects are not distinguished from artwork.
  */
@@ -72,6 +82,10 @@ async function extractShapes(page: pdfjsLib.PDFPageProxy): Promise<THREE.Shape[]
   ];
 
   const opList = await page.getOperatorList();
+  if (opList.fnArray.some((fn) => TEXT_SHOW_OPS.has(fn))) {
+    throw new TextNotOutlinedError();
+  }
+
   const shapes: THREE.Shape[] = [];
   let currentShape: THREE.Shape | null = null;
 

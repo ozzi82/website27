@@ -1,4 +1,4 @@
-import { PDFDocument, rgb } from "pdf-lib";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
 import { writeFile } from "fs/promises";
 
 const doc = await PDFDocument.create();
@@ -37,3 +37,16 @@ await writeFile(
   blankBytes
 );
 console.log("Wrote blank-page.pdf");
+
+// Live (un-outlined) text: parsePdf must reject this rather than silently drop
+// the letters, since text-show operators carry no outlines to extrude.
+const textDoc = await PDFDocument.create();
+const textPage = textDoc.addPage([200, 200]);
+const helvetica = await textDoc.embedFont(StandardFonts.Helvetica);
+textPage.drawText("SUN", { x: 40, y: 80, size: 48, font: helvetica, color: rgb(0, 0, 0) });
+const textBytes = await textDoc.save();
+await writeFile(
+  new URL("../src/components/configurator/__tests__/fixtures/live-text.pdf", import.meta.url),
+  textBytes
+);
+console.log("Wrote live-text.pdf");
