@@ -103,55 +103,32 @@ describe("ConfigControls colours", () => {
   });
 });
 
-describe("ConfigControls letter height", () => {
-  it("reports a new height in inches", async () => {
-    const user = userEvent.setup();
-    const { onChange } = setup("lp-5-trimless-face-lit");
-    const input = screen.getByLabelText(/letter height/i);
-    await user.clear(input);
-    await user.type(input, "24");
-    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ letterHeightIn: 24 }));
-  });
-
-  it("does not report an empty or non-positive height", async () => {
-    const user = userEvent.setup();
-    const { onChange } = setup("lp-5-trimless-face-lit");
-    await user.clear(screen.getByLabelText(/letter height/i));
-    expect(onChange).not.toHaveBeenCalled();
-  });
-
-  it("declares sensible bounds", () => {
-    setup("lp-5-trimless-face-lit");
-    const input = screen.getByLabelText(/letter height/i);
-    expect(input).toHaveAttribute("min", "0.4");
-    expect(input).toHaveAttribute("max", "240");
-  });
-
-  it("warns, without blocking, when the letter is below the minimum height", () => {
-    setup("lp-3-1-standoff-halo", { letterHeightIn: 1 });
-    const warning = screen.getByRole("status");
-    expect(warning).toHaveTextContent(/minimum/i);
-    expect(warning).toHaveTextContent("2″ (50 mm)");
-    expect(screen.getByLabelText(/letter height/i)).toBeEnabled();
-  });
-
-  it("shows no warning at or above the minimum, and uses LP 1's smaller minimum", () => {
-    const { unmount } = render(
-      <ConfigControls
-        config={byId("lp-3-1-standoff-halo")}
-        state={{ ...defaultStateFor(byId("lp-3-1-standoff-halo")), letterHeightIn: 2 }}
-        onChange={vi.fn()}
-      />
-    );
+describe("ConfigControls guidance", () => {
+  it("has no letter height input and no below-minimum warning", () => {
+    setup("lp-3-1-standoff-halo");
+    expect(screen.queryByLabelText(/letter height/i)).not.toBeInTheDocument();
+    expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
-    unmount();
-    setup("lp-1-flat-cutout", { letterHeightIn: 1 });
-    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+  });
+
+  it("shows the configuration's minimum letter height as plain text, inches first", () => {
+    setup("lp-3-1-standoff-halo");
+    expect(screen.getByText(/minimum letter height/i)).toHaveTextContent("2″ (50 mm)");
+  });
+
+  it("uses each configuration's own minimum (LP 1 allows 0.4 inch letters)", () => {
+    setup("lp-1-flat-cutout");
+    expect(screen.getByText(/minimum letter height/i)).toHaveTextContent("0.39″ (10 mm)");
   });
 
   it("shows the minimum stroke width as guidance", () => {
     setup("lp-11-f-face-lit");
     expect(screen.getByText(/minimum stroke width/i)).toHaveTextContent("0.47″ (12 mm)");
+  });
+
+  it("says depth is shown relative to a nominal 12 inch letter", () => {
+    setup("lp-3-1-standoff-halo");
+    expect(screen.getByText(/nominal 12″ letter/i)).toBeInTheDocument();
   });
 });
 

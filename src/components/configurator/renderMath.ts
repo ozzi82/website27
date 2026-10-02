@@ -4,9 +4,15 @@ export const MM_PER_INCH = 25.4;
 export const MIN_DEPTH_RATIO = 0.01;
 export const MAX_DEPTH_RATIO = 0.6;
 
-/** Share of the letter height that the extrusion depth takes, so 1.2" deep looks very different on a 2" letter than on a 24" one. Clamped so extreme combinations stay renderable. */
-export function depthRatioFor(depthMm: number, letterHeightIn: number): number {
-  const ratio = depthMm / (letterHeightIn * MM_PER_INCH);
+/**
+ * The preview has no letter-height input (it made deeper-looking letters thinner), so depth is
+ * drawn against one fixed, illustrative letter height: about 12 inches.
+ */
+export const NOMINAL_LETTER_HEIGHT_MM = 300;
+
+/** Share of the (nominal) letter height that the extrusion depth takes. Clamped so extreme depths stay renderable. */
+export function depthRatioFor(depthMm: number): number {
+  const ratio = depthMm / NOMINAL_LETTER_HEIGHT_MM;
   if (Number.isNaN(ratio)) return MIN_DEPTH_RATIO;
   return Math.min(MAX_DEPTH_RATIO, Math.max(MIN_DEPTH_RATIO, ratio));
 }
@@ -16,11 +22,11 @@ const BAND_MM = 10;
 
 /**
  * World-unit thickness of the glowing band on a partial side-lit wall: the
- * 10 mm exposed acrylic scaled to the letter, kept between 15% and 40% of the
+ * 10 mm exposed acrylic scaled to the nominal letter, kept between 15% and 40% of the
  * depth so it reads as a band (not a hairline, not the whole wall).
  */
-export function sideBandThickness(depthWorld: number, heightWorld: number, letterHeightIn: number): number {
-  const raw = (BAND_MM / (letterHeightIn * MM_PER_INCH)) * heightWorld;
+export function sideBandThickness(depthWorld: number, heightWorld: number): number {
+  const raw = (BAND_MM / NOMINAL_LETTER_HEIGHT_MM) * heightWorld;
   return Math.min(depthWorld * 0.4, Math.max(depthWorld * 0.15, raw));
 }
 

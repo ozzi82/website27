@@ -1,11 +1,8 @@
-import { useEffect, useId, useState } from "react";
+import { useId } from "react";
 import type { LightConfig } from "../../data/configurations";
 import {
-  MAX_LETTER_HEIGHT_IN,
-  MIN_LETTER_HEIGHT_IN,
   emitsLight,
   formatDepth,
-  isBelowMinHeight,
   type ConfiguratorState,
 } from "./types";
 
@@ -84,14 +81,7 @@ function ColorField({ legend, hint, value, swatches, onChange }: ColorFieldProps
 export default function ConfigControls({ config, state, onChange }: ConfigControlsProps) {
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
 
-  // Keep what the user is typing (e.g. "" or "1." on the way to "12") apart from the value we report.
-  const [heightText, setHeightText] = useState(String(state.letterHeightIn));
-  useEffect(() => {
-    setHeightText((text) => (Number(text) === state.letterHeightIn ? text : String(state.letterHeightIn)));
-  }, [state.letterHeightIn]);
-
   const depthId = useId();
-  const heightId = useId();
   const lights = emitsLight(config);
   const hasPaint = config.profile !== "tube"; // the whole tube glows: nothing painted to colour
   const illustrative = config.profile === "tube" || config.profile === "conical";
@@ -121,33 +111,14 @@ export default function ConfigControls({ config, state, onChange }: ConfigContro
         {config.customDepth && (
           <p className="text-xs text-muted-foreground">Custom depths available — ask us.</p>
         )}
+        <p className="text-xs text-muted-foreground">
+          Depth is drawn against a nominal 12″ letter, so the preview is illustrative.
+        </p>
       </div>
 
-      <div className="space-y-2">
-        <label className="block text-sm font-medium" htmlFor={heightId}>
-          Letter height (inches)
-        </label>
-        <input
-          id={heightId}
-          type="number"
-          inputMode="decimal"
-          min={MIN_LETTER_HEIGHT_IN}
-          max={MAX_LETTER_HEIGHT_IN}
-          step="any"
-          value={heightText}
-          onChange={(e) => {
-            setHeightText(e.target.value);
-            const n = e.target.valueAsNumber;
-            if (Number.isFinite(n) && n > 0) set({ letterHeightIn: n });
-          }}
-          className={FIELD}
-        />
-        {isBelowMinHeight(state, config) && (
-          <p role="status" className="text-sm rounded-md border border-amber-500/50 bg-amber-500/10 text-amber-200 px-3 py-2">
-            Below the minimum letter height for this configuration, which is {formatDepth(config.minHeightMm)}.
-            You can still preview it, but we may not be able to fabricate it at this size.
-          </p>
-        )}
+      <div className="space-y-1">
+        <p className="text-sm font-medium">Size guidance</p>
+        <p className="text-xs text-muted-foreground">Minimum letter height: {formatDepth(config.minHeightMm)}.</p>
         <p className="text-xs text-muted-foreground">
           Minimum stroke width: {formatDepth(config.minStrokeMm)}. We don't check stroke width automatically, so keep
           your thinnest strokes at least this thick.

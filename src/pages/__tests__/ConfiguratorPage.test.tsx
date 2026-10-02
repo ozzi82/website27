@@ -141,19 +141,14 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(parseArtwork).toHaveBeenCalledTimes(1);
   });
 
-  it("warns when the letter height is below the configuration's minimum", async () => {
+  it("has no letter height input; the minimum height is guidance text", async () => {
     const user = userEvent.setup();
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
     renderPage("/configurator?config=lp-3-1-standoff-halo");
     await upload(user);
+    expect(screen.queryByLabelText(/letter height/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/minimum letter height/i)).toHaveTextContent("2″ (50 mm)");
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
-
-    const height = screen.getByLabelText(/letter height/i);
-    await user.clear(height);
-    await user.type(height, "1");
-
-    expect(screen.getByRole("status")).toHaveTextContent(/minimum letter height/i);
-    expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument(); // not blocked
   });
 
   it("only offers 'Use a different file' once a logo has been uploaded", () => {

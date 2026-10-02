@@ -29,7 +29,7 @@ const FLUSH_HALO = { scale: 1.1, spread: 0.55 };
 export default function ConfigScene({ shapes, config, state }: ConfigSceneProps) {
   const { light, profile, mount } = config;
   const isNight = state.dayNight === "night";
-  const geometry = useSignGeometry(shapes, depthRatioFor(state.depthMm, state.letterHeightIn), profile);
+  const geometry = useSignGeometry(shapes, depthRatioFor(state.depthMm), profile);
 
   // Real extents of the built geometry (the visible letter spans z in [0, depth]).
   const { depth, height } = useMemo(() => {
@@ -39,7 +39,7 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
   }, [geometry]);
 
   const gap = wallGapFor(mount);
-  const band = sideBandThickness(depth, height, state.letterHeightIn);
+  const band = sideBandThickness(depth, height);
   const lit = emitsLight(config);
   const glowColor = useMemo(() => new THREE.Color(state.glowColor), [state.glowColor]);
   const spill = light.halo === "standoff" ? STANDOFF_HALO : FLUSH_HALO;

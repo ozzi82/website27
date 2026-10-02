@@ -12,15 +12,10 @@ export interface ConfiguratorState {
   /** Hex colour of the light-emitting parts. */
   glowColor: string;
   dayNight: DayNight;
-  /** Real-world letter height in inches. */
-  letterHeightIn: number;
 }
 
 export const DEFAULT_PAINT_COLOR = "#4b5059";
 export const DEFAULT_GLOW_COLOR = "#ffffff";
-export const DEFAULT_LETTER_HEIGHT_IN = 12;
-export const MIN_LETTER_HEIGHT_IN = 0.4;
-export const MAX_LETTER_HEIGHT_IN = 240;
 
 const PREFERRED_DEPTH_MM: Record<LightConfig["family"], number> = {
   "Flat cutout": 5,
@@ -39,13 +34,7 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
     color: DEFAULT_PAINT_COLOR,
     glowColor: DEFAULT_GLOW_COLOR,
     dayNight: "day",
-    letterHeightIn: DEFAULT_LETTER_HEIGHT_IN,
   };
-}
-
-/** True when the entered letter height is under the configuration's minimum. A warning only, never a block. */
-export function isBelowMinHeight(state: ConfiguratorState, config: LightConfig): boolean {
-  return state.letterHeightIn * 25.4 < config.minHeightMm;
 }
 
 /** True when any part of the letter emits light (everything but the flat cutout). */

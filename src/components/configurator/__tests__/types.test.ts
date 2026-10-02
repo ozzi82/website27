@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { configurations } from "../../../data/configurations";
-import { defaultStateFor, isBelowMinHeight, formatDepth, emitsLight } from "../types";
+import { defaultStateFor, formatDepth, emitsLight } from "../types";
 
 const byId = (id: string) => configurations.find((c) => c.id === id)!;
 
@@ -19,34 +19,15 @@ describe("defaultStateFor", () => {
     expect(defaultStateFor(byId("lp-1-flat-cutout")).depthMm).toBe(5);
   });
 
-  it("starts in day mode with a 12 inch letter, dark paint and a white glow", () => {
+  it("starts in day mode with dark paint and a white glow", () => {
     const s = defaultStateFor(byId("lp-5-trimless-face-lit"));
     expect(s).toMatchObject({
       configId: "lp-5-trimless-face-lit",
       dayNight: "day",
-      letterHeightIn: 12,
       glowColor: "#ffffff",
     });
+    expect(s).not.toHaveProperty("letterHeightIn"); // height was dropped: it made deeper letters look thinner
     expect(s.color).toMatch(/^#[0-9a-f]{6}$/i);
-  });
-});
-
-describe("isBelowMinHeight", () => {
-  const lp31 = byId("lp-3-1-standoff-halo"); // min 50 mm = 1.97 in
-  const lp1 = byId("lp-1-flat-cutout"); // min 10 mm = 0.39 in
-
-  it("flags letters shorter than the configuration's minimum height", () => {
-    expect(isBelowMinHeight({ ...defaultStateFor(lp31), letterHeightIn: 1 }, lp31)).toBe(true);
-  });
-
-  it("does not flag letters at or above the minimum", () => {
-    expect(isBelowMinHeight({ ...defaultStateFor(lp31), letterHeightIn: 2 }, lp31)).toBe(false);
-    expect(isBelowMinHeight({ ...defaultStateFor(lp31), letterHeightIn: 12 }, lp31)).toBe(false);
-  });
-
-  it("uses each configuration's own minimum (LP 1 allows 0.4 inch letters)", () => {
-    expect(isBelowMinHeight({ ...defaultStateFor(lp1), letterHeightIn: 0.5 }, lp1)).toBe(false);
-    expect(isBelowMinHeight({ ...defaultStateFor(lp1), letterHeightIn: 0.3 }, lp1)).toBe(true);
   });
 });
 

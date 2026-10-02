@@ -393,9 +393,8 @@ Switching configuration keeps the uploaded artwork.
 - Glow color — for configurations whose face/halo/sides emit light: white by default plus the brochure's
   "pigmented translucent acrylic" colored options (free color input).
 - Day / Night toggle.
-- Letter height (inches) — real-world size; validated against `minHeightMm` (2" for most systems,
-  0.4" for LP 1) with a friendly warning (not a hard block). Stroke width is not auto-checked in v1;
-  the minimum stroke is shown as guidance text.
+- ~~Letter height (inches)~~ — **dropped** (see Revision 3 below). The configuration's minimum letter height
+  (`minHeightMm`, inches first) and minimum stroke width are shown as plain guidance text instead.
 
 **Rendering model (one data-driven scene replaces TrimlessScene/AcrylicScene):**
 - `light.face === "glow"` → face emissive at night (colored by glow color).
@@ -414,8 +413,8 @@ Switching configuration keeps the uploaded artwork.
 
 ### Revision 2 implementation notes
 
-- `ConfiguratorState` (`configId, depthMm, color, glowColor, dayNight, letterHeightIn`) replaces the Product/ProductConfig
-  union. Depth renders as `depthMm / (letterHeightIn * 25.4)` of the artwork height, clamped to 0.01-0.6.
+- `ConfiguratorState` (`configId, depthMm, color, glowColor, dayNight`; `background` is added in Revision 3) replaces the Product/ProductConfig
+  union. Depth renders as `depthMm / NOMINAL_LETTER_HEIGHT_MM` (300) of the artwork height, clamped to 0.01-0.6.
 - `ConfigScene` builds one `ExtrudeGeometry` per profile (conical = single-segment bevel with the widest layer at the wall
   plane so the mirrored taper hides behind the wall; tube = 8-segment bevel). Bevel/taper sizes are limited by an
   area/perimeter half-stroke estimate so thin strokes don't fold over. Both remain approximations.

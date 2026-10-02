@@ -5,6 +5,7 @@ import {
   estimateHalfStroke,
   MIN_DEPTH_RATIO,
   MAX_DEPTH_RATIO,
+  NOMINAL_LETTER_HEIGHT_MM,
   depthRatioFor,
   sideBandThickness,
   tubeRadius,
@@ -12,36 +13,37 @@ import {
 } from "../renderMath";
 
 describe("depthRatioFor", () => {
-  it("is depth over letter height in the same unit", () => {
-    // 50 mm deep on a 12 in (304.8 mm) letter
-    expect(depthRatioFor(50, 12)).toBeCloseTo(50 / 304.8, 6);
+  it("is depth over the nominal letter height", () => {
+    expect(NOMINAL_LETTER_HEIGHT_MM).toBe(300);
+    expect(depthRatioFor(30)).toBeCloseTo(0.1, 6);
+    expect(depthRatioFor(75)).toBeCloseTo(0.25, 6);
   });
 
-  it("makes the same depth look much deeper on a smaller letter", () => {
-    expect(depthRatioFor(30, 2)).toBeGreaterThan(depthRatioFor(30, 24) * 10);
+  it("always grows with depth, so a deeper choice is visibly thicker", () => {
+    const ratios = [5, 15, 30, 50, 75, 100].map((mm) => depthRatioFor(mm));
+    for (let i = 1; i < ratios.length; i++) expect(ratios[i]).toBeGreaterThan(ratios[i - 1]);
   });
 
-  it("clamps extreme combinations so the preview stays renderable", () => {
-    expect(depthRatioFor(200, 2)).toBe(MAX_DEPTH_RATIO);
-    expect(depthRatioFor(1, 240)).toBe(MIN_DEPTH_RATIO);
+  it("clamps extreme depths so the preview stays renderable", () => {
+    expect(depthRatioFor(1000)).toBe(MAX_DEPTH_RATIO);
+    expect(depthRatioFor(0.5)).toBe(MIN_DEPTH_RATIO);
     expect(MIN_DEPTH_RATIO).toBe(0.01);
     expect(MAX_DEPTH_RATIO).toBe(0.6);
   });
 
-  it("falls back to the minimum for a non-positive or non-finite letter height", () => {
-    expect(depthRatioFor(30, 0)).toBe(MAX_DEPTH_RATIO);
-    expect(Number.isFinite(depthRatioFor(30, NaN))).toBe(true);
+  it("falls back to the minimum for a non-finite depth", () => {
+    expect(depthRatioFor(NaN)).toBe(MIN_DEPTH_RATIO);
   });
 });
 
 describe("sideBandThickness", () => {
-  it("is about 10 mm of the letter, but never more than 40% or less than 15% of the depth", () => {
-    // 12 in letter, 1.0 world height unit, depth 0.1: 10 mm = 0.033 -> inside [0.015, 0.04]
-    expect(sideBandThickness(0.1, 1, 12)).toBeCloseTo(0.0328, 3);
-    // very small letter: 10 mm is huge relative to the letter -> clamped to 40% of depth
-    expect(sideBandThickness(0.1, 1, 2)).toBeCloseTo(0.04, 6);
-    // very large letter: 10 mm is tiny -> clamped to 15% of depth
-    expect(sideBandThickness(0.1, 1, 240)).toBeCloseTo(0.015, 6);
+  it("is about 10 mm of the nominal letter, but never more than 40% or less than 15% of the depth", () => {
+    // 1.0 world height unit: 10 mm of 300 mm = 0.0333
+    expect(sideBandThickness(0.1, 1)).toBeCloseTo(0.0333, 3);
+    // shallow depth: the raw band is huge relative to the depth -> clamped to 40% of depth
+    expect(sideBandThickness(0.05, 1)).toBeCloseTo(0.02, 6);
+    // very deep letter: the raw band is a sliver -> clamped to 15% of depth
+    expect(sideBandThickness(0.4, 1)).toBeCloseTo(0.06, 6);
   });
 });
 
