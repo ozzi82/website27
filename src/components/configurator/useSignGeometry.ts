@@ -1,49 +1,85 @@
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
+import type { Profile } from "../../data/configurations";
+import { tubeRadius } from "./renderMath";
+
+/** How much narrower the front face of a conical letter is than its base, per side, as a share of the letter height. */
+const CONICAL_INSET = 0.02;
+const TUBE_SEGMENTS = 8;
+const CURVE_SEGMENTS = 12;
 
 /**
- * Builds one ExtrudeGeometry from the parsed artwork shapes, with two material
- * groups: index 0 = the extruded side walls (the "returns"), index 1 = the
- * front and back caps (the "face"). Depth is expressed as a fraction of the
- * combined shapes' bounding-box height, not an absolute unit — this keeps the
- * sign's proportions sensible regardless of the uploaded artwork's own scale,
- * since real-world inch values for Trimless's depth presets are still
- * unconfirmed (see the spec's "Trimless depth presets" section).
+ * Builds one ExtrudeGeometry from the parsed artwork shapes, with ExtrudeGeometry's own two
+ * material groups: index 0 = the front and back caps (the "face"), index 1 = the extruded
+ * side walls. Depth is expressed as a fraction of the combined shapes' bounding-box height
+ * (see depthRatioFor), not an absolute unit, so the proportions hold whatever the artwork's
+ * own scale.
+ *
+ * The visible letter always spans z in [0, depth] (back against the wall at z = 0), whatever
+ * the profile:
+ *  - flat / standard: a straight extrusion (flat is simply very thin).
+ *  - conical: the widest layer sits at z = 0 and tapers to a smaller front face at z = depth.
+ *    The mirrored taper below z = 0 lies behind the wall and is never seen.
+ *  - tube: a heavily rounded bevel all round, approximating a neon tube. True tube and
+ *    conical geometry need per-stroke offset curves that arbitrary outlines don't give us,
+ *    so both are an approximation.
  */
-export function useSignGeometry(shapes: THREE.Shape[], depthRatio: number): THREE.ExtrudeGeometry {
+export function useSignGeometry(
+  shapes: THREE.Shape[],
+  depthRatio: number,
+  profile: Profile = "standard"
+): THREE.ExtrudeGeometry {
   const geometry = useMemo(() => {
     // Same points ShapeGeometry would triangulate (curveSegments 12), without
     // building a throwaway geometry just to read its bounding box.
     const box = new THREE.Box2();
     for (const shape of shapes) {
-      const { shape: outline, holes } = shape.extractPoints(12);
+      const { shape: outline, holes } = shape.extractPoints(CURVE_SEGMENTS);
       for (const p of outline) box.expandByPoint(p);
       for (const hole of holes) for (const p of hole) box.expandByPoint(p);
     }
     const height = box.max.y - box.min.y || 1;
-
     const depth = height * depthRatio;
-    // Deliberately NOT calling clearGroups()/addGroup() here. ExtrudeGeometry
-    // already assigns its own material groups when built from one or more
-    // Shapes with bevelEnabled: false — materialIndex 0 for the front/back
-    // caps, materialIndex 1 for the extruded side walls — and, critically for
-    // multi-shape artwork (the normal case from parseArtwork), it emits one
-    // cap+side GROUP PAIR PER SHAPE, not one global boundary for the whole
-    // geometry. An earlier version of this hook tried to recompute that
-    // boundary manually and was verified (by actually rendering it) to
-    // produce a single pair of fully-overlapping groups covering the entire
-    // geometry — i.e. no face/return split at all, for every shape count.
-    // Trusting the built-in default groups, confirmed by live rendering to
-    // already do this correctly, is both simpler and the thing that actually
-    // works.
-    const extruded = new THREE.ExtrudeGeometry(shapes, {
+
+    // Deliberately NOT calling clearGroups()/addGroup(): ExtrudeGeometry already emits one
+    // cap+side group pair per Shape (an earlier hand-rolled boundary produced a single pair
+    // of overlapping groups, i.e. no face/side split, for every shape count). With a bevel
+    // the bevel layers are part of the side group (1), so the face stays material 0.
+    if (profile === "conical") {
+      const inset = height * CONICAL_INSET;
+      const flatPart = depth * 0.001;
+      return new THREE.ExtrudeGeometry(shapes, {
+        depth: flatPart,
+        bevelEnabled: true,
+        bevelThickness: depth - flatPart,
+        bevelSize: inset,
+        bevelOffset: -inset,
+        bevelSegments: 1,
+        curveSegments: CURVE_SEGMENTS,
+      });
+    }
+
+    if (profile === "tube") {
+      const r = tubeRadius(depth, height);
+      const extruded = new THREE.ExtrudeGeometry(shapes, {
+        depth: Math.max(depth - 2 * r, depth * 0.001),
+        bevelEnabled: true,
+        bevelThickness: r,
+        bevelSize: r,
+        bevelOffset: -r,
+        bevelSegments: TUBE_SEGMENTS,
+        curveSegments: CURVE_SEGMENTS,
+      });
+      extruded.translate(0, 0, r); // bevel runs from z = -r; bring the back to the wall plane
+      return extruded;
+    }
+
+    return new THREE.ExtrudeGeometry(shapes, {
       depth,
       bevelEnabled: false,
-      curveSegments: 12,
+      curveSegments: CURVE_SEGMENTS,
     });
-
-    return extruded;
-  }, [shapes, depthRatio]);
+  }, [shapes, depthRatio, profile]);
 
   // Free GPU buffers when the geometry is replaced or the scene unmounts.
   // Safe under StrictMode: dispose() only releases GPU resources, and three
