@@ -1,6 +1,19 @@
 import * as THREE from "three";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
+// Vite resolves this to the bundled worker's URL. The legacy worker must match
+// the legacy build imported above. Without it, browsers throw 'No
+// "GlobalWorkerOptions.workerSrc" specified'.
+import pdfWorkerUrl from "pdfjs-dist/legacy/build/pdf.worker.min.mjs?url";
 import { ParseError, NoVectorPathsFoundError } from "./parseErrors";
+
+// Only configure the worker in a real browser. Under Node (including Vitest,
+// where Vite's ?url yields a root-relative path Node can't import) pdf.js
+// falls back to its own built-in fake-worker loading, which works — and is why
+// the tests never caught the missing workerSrc in the first place.
+const isNode = typeof process !== "undefined" && !!process.versions?.node;
+if (!isNode) {
+  pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+}
 
 const { OPS } = pdfjsLib;
 
