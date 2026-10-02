@@ -1,0 +1,37 @@
+export class UnsupportedFormatError extends Error {
+  constructor(fileName: string) {
+    super(`Unsupported file type: ${fileName}. Only SVG and PDF are supported.`);
+    this.name = "UnsupportedFormatError";
+  }
+}
+
+export class FileTooLargeError extends Error {
+  constructor(sizeBytes: number, maxBytes: number) {
+    super(`File is ${sizeBytes} bytes, which exceeds the ${maxBytes}-byte limit.`);
+    this.name = "FileTooLargeError";
+  }
+}
+
+export class ParseError extends Error {
+  constructor(fileName: string, cause: unknown) {
+    super(`Failed to parse ${fileName}: ${cause instanceof Error ? cause.message : String(cause)}`);
+    this.name = "ParseError";
+  }
+}
+
+export class TextNotOutlinedError extends Error {
+  constructor() {
+    super(
+      "This file has text that hasn't been converted to outlines. In most design tools this is " +
+        "called 'Create Outlines' or 'Convert to Path' — re-export and try again."
+    );
+    this.name = "TextNotOutlinedError";
+  }
+}
+
+export class NoVectorPathsFoundError extends Error {
+  constructor() {
+    super("We couldn't find a clean outline in this file. Please send us a vector file instead.");
+    this.name = "NoVectorPathsFoundError";
+  }
+}
