@@ -95,6 +95,11 @@ describe("bloomIntensityFor", () => {
     expect(bloomIntensityFor(0.5, true)).toBeCloseTo(0.225, 6);
   });
 
+  it("follows the dimmer: half level is half the bloom, and none at all at 0", () => {
+    expect(bloomIntensityFor(1, true, 0.25)).toBeCloseTo(0.1125, 6);
+    expect(bloomIntensityFor(1, true, 0)).toBe(0);
+  });
+
   it("never blooms an unlit letter", () => {
     expect(bloomIntensityFor(1, false)).toBe(0);
   });

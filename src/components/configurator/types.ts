@@ -1,5 +1,6 @@
 import type { LightConfig } from "../../data/configurations";
 import { DEFAULT_BACKGROUND, type BackgroundId } from "./backgrounds";
+import { DEFAULT_BRIGHTNESS } from "./brightness";
 
 export type DayNight = "day" | "night";
 
@@ -13,6 +14,8 @@ export interface ConfiguratorState {
   /** Hex colour of the light-emitting parts. */
   glowColor: string;
   dayNight: DayNight;
+  /** LED dimmer, 0-100 percent (only meaningful for configurations that emit light). */
+  brightness: number;
   /** The wall the sign is mounted on. */
   background: BackgroundId;
 }
@@ -37,6 +40,7 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
     color: DEFAULT_PAINT_COLOR,
     glowColor: DEFAULT_GLOW_COLOR,
     dayNight: "day",
+    brightness: DEFAULT_BRIGHTNESS,
     background: DEFAULT_BACKGROUND,
   };
 }

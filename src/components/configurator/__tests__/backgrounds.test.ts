@@ -12,11 +12,28 @@ import { makeTileableNoise, mulberry32 } from "../wallNoise";
 const luminance = (c: THREE.Color) => 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;
 
 describe("BACKGROUNDS", () => {
-  it("offers exactly four scenes with unique ids and labels, concrete first and default", () => {
-    expect(BACKGROUNDS.map((b) => b.id)).toEqual(["concrete", "brick", "wood", "plaster"]);
+  it("offers concrete (the default, first), two more concretes and a brick wall, with unique ids and labels", () => {
+    expect(BACKGROUNDS.map((b) => b.id)).toEqual(["concrete", "light-concrete", "warm-concrete", "brick"]);
     expect(new Set(BACKGROUNDS.map((b) => b.label)).size).toBe(4);
     expect(DEFAULT_BACKGROUND).toBe("concrete");
-    expect(BACKGROUNDS.map((b) => b.label)).toEqual(["Concrete", "Brick", "Wood slats", "White plaster"]);
+    expect(BACKGROUNDS.map((b) => b.label)).toEqual(["Concrete", "Light concrete", "Warm concrete", "Brick"]);
+    // wood slats and white plaster are gone
+    expect(BACKGROUNDS.some((b) => /wood|plaster/i.test(b.id + b.label))).toBe(false);
+  });
+
+  it("keeps the original concrete look exactly (the brochure wall)", () => {
+    const concrete = getBackground("concrete");
+    expect(concrete.day).toEqual({ color: "#8d929d", roughness: 0.92, bumpScale: 0.9, scene: "#2b3242" });
+    expect(concrete.night).toEqual({ color: "#363a44", emissive: "#171a20", emissiveIntensity: 1, scene: "#04060a" });
+    expect(concrete.tile).toEqual({ w: 6, h: 6 });
+  });
+
+  it("makes the light concrete clearly lighter than the concrete, and the warm one warmer", () => {
+    const lum = (hex: string) => luminance(new THREE.Color(hex));
+    expect(lum(getBackground("light-concrete").day.color)).toBeGreaterThan(lum(getBackground("concrete").day.color) * 1.25);
+    const warm = new THREE.Color(getBackground("warm-concrete").day.color);
+    const cool = new THREE.Color(getBackground("concrete").day.color);
+    expect(warm.r - warm.b).toBeGreaterThan(cool.r - cool.b + 0.05);
   });
 
   it("gives each scene a valid texture tile size and halo modulation", () => {
@@ -41,6 +58,7 @@ describe("getBackground", () => {
   it("looks a scene up by id and falls back to the default for an unknown id", () => {
     expect(getBackground("brick").id).toBe("brick");
     expect(getBackground("nope" as never).id).toBe("concrete");
+    expect(getBackground("wood" as never).id).toBe("concrete"); // a removed scene
   });
 });
 

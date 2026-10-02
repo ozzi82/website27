@@ -48,7 +48,10 @@ export function atmosphereFor(n: number, dark: boolean): Atmosphere {
 
 const NIGHT_BLOOM = 0.45;
 
-/** Bloom stays mounted and only its strength follows the fade; an unlit letter never blooms. */
-export function bloomIntensityFor(n: number, lit: boolean): number {
-  return lit ? NIGHT_BLOOM * n : 0;
+/**
+ * Bloom stays mounted and only its strength follows the fade; an unlit letter never blooms.
+ * `level` is the dimmer (0-1): at 0 there is no bloom at all, so a switched-off sign shows no halo artefacts.
+ */
+export function bloomIntensityFor(n: number, lit: boolean, level = 1): number {
+  return lit ? NIGHT_BLOOM * n * level : 0;
 }

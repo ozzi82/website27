@@ -9,6 +9,7 @@ import { getBackground } from "./backgrounds";
 import { useWallTexture } from "./useWallTexture";
 import { GlowMaterial, PaintedMaterial, SideLitMaterial } from "./SceneMaterials";
 import { depthRatioFor, sideBandThickness, wallGapFor } from "./renderMath";
+import { brightnessFactor } from "./brightness";
 import { emitsLight, type ConfiguratorState } from "./types";
 
 interface ConfigSceneProps {
@@ -43,6 +44,7 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
   const gap = wallGapFor(mount);
   const band = sideBandThickness(depth, height);
   const lit = emitsLight(config);
+  const level = brightnessFactor(state.brightness);
   const glowColor = useMemo(() => new THREE.Color(state.glowColor), [state.glowColor]);
   const spill = light.halo === "standoff" ? STANDOFF_HALO : FLUSH_HALO;
   const haloColor = useMemo(() => glowColor.clone().multiplyScalar(spill.scale), [glowColor, spill]);
@@ -52,7 +54,7 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
   const isTube = profile === "tube";
   const face =
     light.face === "glow" ? (
-      <GlowMaterial attach="material-0" glow={state.glowColor} rounded={isTube} />
+      <GlowMaterial attach="material-0" glow={state.glowColor} rounded={isTube} level={level} />
     ) : (
       <PaintedMaterial attach="material-0" color={state.color} />
     );
@@ -62,14 +64,14 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
         attach="material-1"
         color={state.color}
         glow={state.glowColor}
-       
         mode={light.side}
         band={band}
         depth={depth}
+        level={level}
       />
     ) : isTube ? (
       // The whole tube glows, not just its front.
-      <GlowMaterial attach="material-1" glow={state.glowColor} rounded />
+      <GlowMaterial attach="material-1" glow={state.glowColor} rounded level={level} />
     ) : (
       <PaintedMaterial attach="material-1" color={state.color} />
     );
@@ -86,10 +88,10 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
       <BackdropWall gap={gap} background={background} wall={wall} />
 
       {wallSpill && (
-        <HaloGlow shapes={shapes} z={-gap + 0.003} color={haloColor} spread={spill.spread} background={background} wall={wall} />
+        <HaloGlow shapes={shapes} z={-gap + 0.003} color={haloColor} spread={spill.spread} background={background} wall={wall} level={level} />
       )}
 
-      <NightEffects lit={lit} />
+      <NightEffects lit={lit} level={level} />
     </>
   );
 }

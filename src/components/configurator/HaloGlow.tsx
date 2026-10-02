@@ -13,6 +13,8 @@ interface HaloGlowProps {
   spread?: number;
   background: BackgroundDef;
   wall: WallTexture | null;
+  /** Dimmer, 0-1 (see brightnessFactor): scales the light spilled on the wall. */
+  level?: number;
 }
 
 const VERTEX = /* glsl */ `
@@ -47,7 +49,7 @@ void main() {
 }`;
 
 // Soft light spill on the wall around the artwork outline; fades in with the night amount.
-export default function HaloGlow({ shapes, z, color, spread = 1.4, background, wall }: HaloGlowProps) {
+export default function HaloGlow({ shapes, z, color, spread = 1.4, background, wall, level = 1 }: HaloGlowProps) {
   const glow = useMemo(() => createHaloGlow(shapes, spread), [shapes, spread]);
   useEffect(() => () => glow?.texture.dispose(), [glow]);
   const mesh = useRef<THREE.Mesh>(null);
@@ -72,8 +74,8 @@ export default function HaloGlow({ shapes, z, color, spread = 1.4, background, w
   uniforms.uMod.value = wall ? background.haloModulation : 0;
 
   useNightEffect((n) => {
-    uniforms.uOpacity.value = n;
-    if (mesh.current) mesh.current.visible = n > 0.002;
+    uniforms.uOpacity.value = n * level;
+    if (mesh.current) mesh.current.visible = n * level > 0.002;
   });
   if (!glow) return null;
   return (

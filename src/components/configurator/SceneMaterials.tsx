@@ -41,10 +41,12 @@ interface GlowMaterialProps extends Attach {
   glow: string;
   /** Shade by view angle so a rounded profile reads as a tube. */
   rounded?: boolean;
+  /** Dimmer, 0-1 (see brightnessFactor): scales how hard it glows at night. */
+  level?: number;
 }
 
 /** Light-emitting acrylic: milky tinted acrylic by day, glowing in `glow` at night, fading between the two. */
-export function GlowMaterial({ attach, glow, rounded = false }: GlowMaterialProps) {
+export function GlowMaterial({ attach, glow, rounded = false, level = 1 }: GlowMaterialProps) {
   const material = useRef<THREE.MeshPhysicalMaterial>(null);
   // Lit, the surface is the glow colour itself; a milky diffuse base on top of the
   // emission would wash saturated colours out toward white.
@@ -54,7 +56,7 @@ export function GlowMaterial({ attach, glow, rounded = false }: GlowMaterialProp
     const m = material.current;
     if (!m) return;
     m.color.copy(milk).lerp(lit, n);
-    m.emissiveIntensity = lerp(0, GLOW_INTENSITY, n);
+    m.emissiveIntensity = lerp(0, GLOW_INTENSITY, n) * level;
   });
   return (
     <meshPhysicalMaterial
@@ -83,6 +85,8 @@ interface SideLitMaterialProps extends Attach {
   band: number;
   /** Total letter depth in world units (front face z). */
   depth: number;
+  /** Dimmer, 0-1 (see brightnessFactor): scales the band's night glow. */
+  level?: number;
 }
 
 /**
@@ -90,7 +94,7 @@ interface SideLitMaterialProps extends Attach {
  * `full` lights the whole wall, `partial-back` / `partial-front` a band at that edge.
  * By day the band is milky acrylic; at night it also emits the glow colour, faded in with the night amount.
  */
-export function SideLitMaterial({ attach, color, glow, mode, band, depth }: SideLitMaterialProps) {
+export function SideLitMaterial({ attach, color, glow, mode, band, depth, level = 1 }: SideLitMaterialProps) {
   const uniforms = useMemo(
     () => ({
       uMode: { value: 0 },
@@ -107,7 +111,7 @@ export function SideLitMaterial({ attach, color, glow, mode, band, depth }: Side
   uniforms.uMode.value = SIDE_MODE[mode];
   uniforms.uBand.value = band;
   uniforms.uDepth.value = depth;
-  uniforms.uGlow.value.set(glow).multiplyScalar(GLOW_INTENSITY);
+  uniforms.uGlow.value.set(glow).multiplyScalar(GLOW_INTENSITY * level);
   uniforms.uMilk.value.copy(milkyTint(glow));
   useNightEffect((n) => {
     uniforms.uNight.value = n;

@@ -129,6 +129,34 @@ describe("useSignGeometry", () => {
       expect(front).toBeLessThan(widest);
     });
 
+    describe("thin strokes", () => {
+      // A hairline circle logo: stroke is about 1% of the artwork height.
+      function hairlineRing(): THREE.Shape {
+        const pts = (r: number) =>
+          Array.from({ length: 96 }, (_, i) => new THREE.Vector2(r * Math.cos((2 * Math.PI * i) / 96), r * Math.sin((2 * Math.PI * i) / 96)));
+        const shape = new THREE.Shape(pts(1));
+        shape.holes = [new THREE.Path(pts(0.98))];
+        return shape;
+      }
+
+      it("degrades the tube to a plain straight extrusion rather than folding the outline", () => {
+        const shapes = [hairlineRing()];
+        const tube = renderHook(() => useSignGeometry(shapes, 0.2, "tube")).result.current;
+        const standard = renderHook(() => useSignGeometry(shapes, 0.2, "standard")).result.current;
+        expect(tube.attributes.position.count).toBe(standard.attributes.position.count);
+        tube.computeBoundingBox();
+        expect(tube.boundingBox!.min.z).toBeCloseTo(0, 6);
+      });
+
+      it("degrades the cone to a straight extrusion too (no taper behind the wall)", () => {
+        const shapes = [hairlineRing()];
+        const cone = renderHook(() => useSignGeometry(shapes, 0.2, "conical")).result.current;
+        cone.computeBoundingBox();
+        expect(cone.boundingBox!.min.z).toBeCloseTo(0, 6);
+        expect(cone.boundingBox!.max.z).toBeCloseTo(0.4, 6);
+      });
+    });
+
     it("keeps ExtrudeGeometry's cap (0) and side (1) material groups for every profile", () => {
       for (const profile of ["flat", "standard", "conical", "tube"] as const) {
         const { result } = renderHook(() => useSignGeometry([curvedShape()], 0.1, profile));

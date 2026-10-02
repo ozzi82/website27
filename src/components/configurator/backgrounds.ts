@@ -1,6 +1,6 @@
 import * as THREE from "three";
 
-export type BackgroundId = "concrete" | "brick" | "wood" | "plaster";
+export type BackgroundId = "concrete" | "light-concrete" | "warm-concrete" | "brick";
 
 export interface BackgroundDef {
   id: BackgroundId;
@@ -19,8 +19,9 @@ export interface BackgroundDef {
 
 export const DEFAULT_BACKGROUND: BackgroundId = "concrete";
 
-// Concrete is the brochure look and keeps the original wall values; the others are tuned to read
-// clearly at both ends of the fade without washing out the halo and side glows.
+// Concrete is the brochure look and keeps the original wall values; the other two concretes share its
+// character (same relief and form-tie holes) in a lighter cool grey and a warmer beige grey. Brick is a small
+// format. All are tuned to read clearly at both ends of the day/night fade without washing out the halo and side glows.
 export const BACKGROUNDS: readonly BackgroundDef[] = [
   {
     id: "concrete",
@@ -32,31 +33,31 @@ export const BACKGROUNDS: readonly BackgroundDef[] = [
     haloModulation: 0.55,
   },
   {
+    id: "light-concrete",
+    label: "Light concrete",
+    swatch: "#b9bdc6",
+    tile: { w: 6, h: 6 },
+    day: { color: "#bcc0c9", roughness: 0.9, bumpScale: 0.8, scene: "#323a4b" },
+    night: { color: "#464a55", emissive: "#1d2026", emissiveIntensity: 1, scene: "#05070b" },
+    haloModulation: 0.5,
+  },
+  {
+    id: "warm-concrete",
+    label: "Warm concrete",
+    swatch: "#a39a8c",
+    tile: { w: 6, h: 6 },
+    day: { color: "#a69d8f", roughness: 0.92, bumpScale: 0.9, scene: "#34302a" },
+    night: { color: "#403b36", emissive: "#1c1916", emissiveIntensity: 1, scene: "#070605" },
+    haloModulation: 0.55,
+  },
+  {
     id: "brick",
     label: "Brick",
     swatch: "#9a4b36",
     tile: { w: 6, h: 4 },
-    day: { color: "#e4dad6", roughness: 0.95, bumpScale: -1.6, scene: "#2e211e" },
+    day: { color: "#e4dad6", roughness: 0.95, bumpScale: -1.1, scene: "#2e211e" },
     night: { color: "#6b5754", emissive: "#241512", emissiveIntensity: 1, scene: "#070404" },
     haloModulation: 0.35,
-  },
-  {
-    id: "wood",
-    label: "Wood slats",
-    swatch: "#b07a47",
-    tile: { w: 4.8, h: 4.8 },
-    day: { color: "#ffffff", roughness: 0.62, bumpScale: 0.8, scene: "#2a1f17" },
-    night: { color: "#6e5a48", emissive: "#241810", emissiveIntensity: 1, scene: "#060403" },
-    haloModulation: 0.6,
-  },
-  {
-    id: "plaster",
-    label: "White plaster",
-    swatch: "#e6e2da",
-    tile: { w: 6, h: 6 },
-    day: { color: "#e9e6df", roughness: 0.88, bumpScale: 0.35, scene: "#33363d" },
-    night: { color: "#5c5f66", emissive: "#181b20", emissiveIntensity: 1, scene: "#05060a" },
-    haloModulation: 0.25,
   },
 ];
 

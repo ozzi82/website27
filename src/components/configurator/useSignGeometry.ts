@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import type { Profile } from "../../data/configurations";
 import { conicalInset, estimateHalfStroke, tubeRadius } from "./renderMath";
+import { bevelStrength } from "./strokeGuard";
 
 const TUBE_SEGMENTS = 8;
 const CURVE_SEGMENTS = 12;
@@ -16,6 +17,7 @@ const CURVE_SEGMENTS = 12;
  * The visible letter always spans z in [0, depth] (back against the wall at z = 0), whatever
  * the profile:
  *  - flat / standard: a straight extrusion (flat is simply very thin).
+ *  - thin artwork (see bevelStrength): conical and tube fall back to a straight extrusion.
  *  - conical: the widest layer sits at z = 0 and tapers to a smaller front face at z = depth.
  *    The mirrored taper below z = 0 lies behind the wall and is never seen.
  *  - tube: a heavily rounded bevel all round, approximating a neon tube. True tube and
@@ -39,13 +41,18 @@ export function useSignGeometry(
     });
     const height = box.max.y - box.min.y || 1;
     const depth = height * depthRatio;
+    // Thin art cannot carry a tube or cone profile: scale the rounding down with the stroke width and
+    // fall back to a straight extrusion for hairlines, so it degrades gracefully instead of folding over.
+    const halfStroke = estimateHalfStroke(rings);
+    const strength = bevelStrength((2 * halfStroke) / height);
+    const rounded = (profile === "conical" || profile === "tube") && strength > 0;
 
     // Deliberately NOT calling clearGroups()/addGroup(): ExtrudeGeometry already emits one
     // cap+side group pair per Shape (an earlier hand-rolled boundary produced a single pair
     // of overlapping groups, i.e. no face/side split, for every shape count). With a bevel
     // the bevel layers are part of the side group (1), so the face stays material 0.
-    if (profile === "conical") {
-      const inset = conicalInset(height, estimateHalfStroke(rings));
+    if (profile === "conical" && rounded) {
+      const inset = conicalInset(height, halfStroke) * strength;
       const flatPart = depth * 0.001;
       return new THREE.ExtrudeGeometry(shapes, {
         depth: flatPart,
@@ -58,9 +65,9 @@ export function useSignGeometry(
       });
     }
 
-    if (profile === "tube") {
+    if (profile === "tube" && rounded) {
       // Leave a sliver of straight wall so the two bevels never meet exactly.
-      const r = Math.min(tubeRadius(depth, estimateHalfStroke(rings)), depth * 0.499);
+      const r = Math.min(tubeRadius(depth, halfStroke) * strength, depth * 0.499);
       const extruded = new THREE.ExtrudeGeometry(shapes, {
         depth: depth - 2 * r,
         bevelEnabled: true,

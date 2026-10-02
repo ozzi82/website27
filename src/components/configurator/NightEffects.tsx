@@ -10,13 +10,13 @@ import { bloomIntensityFor } from "./nightFade";
  * or out: the fade drives the bloom intensity and the tone mapper's day-to-night crossfade.
  * EffectComposer replaces the renderer's own tone mapping, hence the explicit one.
  */
-export default function NightEffects({ lit }: { lit: boolean }) {
+export default function NightEffects({ lit, level = 1 }: { lit: boolean; level?: number }) {
   const bloom = useRef<BloomEffect>(null);
   const toneMapping = useMemo(() => new DayNightToneMapping(), []);
 
   useNightEffect((n) => {
     // The wrapper types its ref as the effect class rather than an instance, so `bloom` is cast below.
-    if (bloom.current) bloom.current.intensity = bloomIntensityFor(n, lit);
+    if (bloom.current) bloom.current.intensity = bloomIntensityFor(n, lit, level);
     toneMapping.night = n;
   });
 
