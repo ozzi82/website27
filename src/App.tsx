@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -7,6 +8,8 @@ import ServicePage from "./pages/ServicePage";
 import GalleryPage from "./pages/GalleryPage";
 import ContactPage from "./pages/ContactPage";
 import ConfigurationPage from "./pages/ConfigurationPage";
+
+const ConfiguratorPage = lazy(() => import("./pages/ConfiguratorPage"));
 
 // The embedded HubSpot form triggers this harmless browser warning; keep it from surfacing as an error.
 if (typeof window !== "undefined" && window.ResizeObserver && !(window as any).__roPatched) {
@@ -44,6 +47,14 @@ export default function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route
+              path="/configurator"
+              element={
+                <Suspense fallback={<div className="pt-28 pb-24 text-center text-muted-foreground">Loading…</div>}>
+                  <ConfiguratorPage />
+                </Suspense>
+              }
+            />
           </Routes>
         </main>
         <Footer />
