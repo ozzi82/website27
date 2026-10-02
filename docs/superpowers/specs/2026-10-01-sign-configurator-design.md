@@ -470,3 +470,29 @@ shader's night uniform, halo opacity, bloom intensity (`bloomIntensityFor`) and 
 Khronos neutral (night) tone mapping (`DayNightToneMapping`). The EffectComposer and the key point light stay
 mounted for both states so toggling never pops a pass in or out or recompiles materials. Reversing mid-fade
 continues from the current value.
+
+## Revision 4 (typed text as artwork)
+
+Visitors can type text instead of uploading a logo. An "Artwork source" radio group ("Upload logo" | "Type text",
+default upload) sits above the preview and stays available after artwork exists.
+
+- **Text -> shapes.** `textToShapes.ts` lays the text out with opentype.js (centre-aligned lines, 1.2em line height,
+  per-glyph advance and pair kerning; GSUB features are deliberately skipped because opentype.js 2.0 throws on some
+  lookup types, e.g. Oswald's), writes one SVG path and feeds `<svg><path/></svg>` through the existing `parseSvg` +
+  `normalizeShapes`, so holes, centring and size behave exactly like an upload. Limits: 3 lines, 40 characters per line,
+  100 in all. Emoji and control characters are dropped silently; characters the font lacks are skipped and listed to the
+  visitor; text with nothing drawable raises `TextRenderError`, shown as "Couldn't render that text with this font. Try
+  different characters or another font." opentype.js 2.0.0's own `Path.toPathData` can emit `NaN`, so path data is
+  written by hand.
+- **Fonts** (Latin subset WOFF from `@fontsource/*`, all SIL OFL 1.1, bundled and hashed by Vite, never fetched from
+  Google): Montserrat 700, Poppins 700, Bebas Neue 400, Oswald 600, Playfair Display 700, Arvo 700 (the slab; Roboto
+  Slab is Apache-2.0 rather than OFL), Pacifico 400, Lobster 400. Font files, the picker's `@font-face` rules and
+  opentype.js are all behind dynamic imports and load only when text mode is used.
+- **UI.** In text mode the page always shows the preview slot (a prompt while the text is empty) with a text panel
+  (textarea, font radio group with each name set in its own font, aria-live "Preview updated") above the configuration
+  controls in the right column, so editing never remounts the input and depth/colour/background persist. Typing is
+  debounced (250 ms); stale results are discarded. The typed text, font and the last uploaded artwork are kept
+  separately, so the sign shown always belongs to the selected source.
+- **Known limitation.** Script fonts draw some letters as one self-looping stroke, so their counters are narrow slits
+  rather than separate holes (Lobster's O); the extrusion matches what the font fills (verified per glyph against the
+  font's non-zero fill in `textToShapes.test.ts`) but thin script strokes are fragile at the minimum stroke width.

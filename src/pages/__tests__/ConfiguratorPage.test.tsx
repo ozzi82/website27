@@ -1,14 +1,25 @@
-import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import * as THREE from "three";
 import ConfiguratorPage from "../ConfiguratorPage";
 import { parseArtwork } from "../../components/configurator/parseArtwork";
+import { generateTextShapes } from "../../components/configurator/textArtwork";
+import { TextRenderError } from "../../components/configurator/textToShapes";
 
 vi.mock("../../components/configurator/parseArtwork", () => ({
   parseArtwork: vi.fn(),
+}));
+
+// The real generator pulls in opentype.js and a font file over the network; the page only cares that the
+// debounced text and chosen font are handed to it and what comes back is shown.
+vi.mock("../../components/configurator/textArtwork", () => ({
+  generateTextShapes: vi.fn(),
+}));
+vi.mock("../../components/configurator/fontFaces", () => ({
+  ensureFontFaces: vi.fn().mockResolvedValue(undefined),
 }));
 
 const previewState = vi.hoisted(() => ({ shouldThrow: false }));
@@ -170,6 +181,155 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
   it("only offers 'Use a different file' once a logo has been uploaded", () => {
     renderPage("/configurator?config=lp-11-f-face-lit");
     expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
+  });
+
+  describe("typed text artwork", () => {
+    beforeEach(() => {
+      vi.mocked(generateTextShapes).mockReset();
+      vi.mocked(generateTextShapes).mockImplementation(async (text) =>
+        text.trim() === "" ? { shapes: null, skipped: [] } : { shapes: [new THREE.Shape()], skipped: [] }
+      );
+    });
+
+    async function chooseText(user: ReturnType<typeof userEvent.setup>) {
+      await user.click(screen.getByRole("radio", { name: "Type text" }));
+    }
+
+    it("defaults to uploading a logo and offers the toggle", () => {
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      expect(screen.getByRole("radio", { name: "Upload logo" })).toBeChecked();
+      expect(screen.getByLabelText(/upload your logo/i)).toBeInTheDocument();
+      expect(screen.queryByLabelText(/your text/i)).not.toBeInTheDocument();
+      expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    });
+
+    it("shows the text box, the font picker and an empty prompt (no error) in text mode", async () => {
+      const user = userEvent.setup();
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await chooseText(user);
+
+      expect(screen.queryByLabelText(/upload your logo/i)).not.toBeInTheDocument();
+      expect(screen.getByLabelText(/your text/i)).toHaveValue("");
+      expect(screen.getByRole("radiogroup", { name: /font/i })).toBeInTheDocument();
+      expect(screen.getByText(/type your text to see your sign/i)).toBeInTheDocument();
+      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+      expect(generateTextShapes).not.toHaveBeenCalled();
+    });
+
+    it("builds the preview from typed text (debounced) and keeps the configuration controls", async () => {
+      const user = userEvent.setup();
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await chooseText(user);
+      await user.selectOptions(screen.getByLabelText("Depth"), "75");
+
+      await user.type(screen.getByLabelText(/your text/i), "Sunlite");
+      expect(await screen.findByTestId("sign-preview-stub")).toBeInTheDocument();
+      expect(generateTextShapes).toHaveBeenCalledTimes(1); // typing 7 characters in a row is one rebuild
+      expect(generateTextShapes).toHaveBeenCalledWith("Sunlite", "montserrat");
+      expect(screen.getByRole("status")).toHaveTextContent("Preview updated");
+      expect(screen.getByLabelText("Depth")).toHaveValue("75");
+    });
+
+    it("rebuilds with the new font when the font changes, without touching depth or the text", async () => {
+      const user = userEvent.setup();
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await chooseText(user);
+      await user.selectOptions(screen.getByLabelText("Depth"), "75");
+      await user.type(screen.getByLabelText(/your text/i), "Hi");
+      await screen.findByTestId("sign-preview-stub");
+
+      await user.click(screen.getByRole("radio", { name: "Pacifico" }));
+      await waitFor(() => expect(generateTextShapes).toHaveBeenLastCalledWith("Hi", "pacifico"));
+      expect(screen.getByLabelText(/your text/i)).toHaveValue("Hi");
+      expect(screen.getByLabelText("Depth")).toHaveValue("75");
+    });
+
+    it("returns to the prompt, with no error, when the text is cleared", async () => {
+      const user = userEvent.setup();
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await chooseText(user);
+      await user.type(screen.getByLabelText(/your text/i), "Hi");
+      await screen.findByTestId("sign-preview-stub");
+
+      await user.clear(screen.getByLabelText(/your text/i));
+      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.getByText(/type your text to see your sign/i)).toBeInTheDocument();
+      expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    });
+
+    it("shows a friendly message and no preview when the text cannot be rendered", async () => {
+      const user = userEvent.setup();
+      const spy = vi.spyOn(console, "error").mockImplementation(() => {});
+      vi.mocked(generateTextShapes).mockRejectedValue(new TextRenderError("no glyphs"));
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await chooseText(user);
+      await user.type(screen.getByLabelText(/your text/i), "x");
+
+      expect(await screen.findByRole("alert")).toHaveTextContent(
+        "Couldn't render that text with this font. Try different characters or another font."
+      );
+      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.getByLabelText("Depth")).toBeInTheDocument(); // the page keeps working
+      spy.mockRestore();
+    });
+
+    it("keeps the uploaded artwork and the typed text apart when switching back and forth", async () => {
+      const user = userEvent.setup();
+      vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+
+      // Upload first, then switch to text: the uploaded sign must not be shown for the text source.
+      await upload(user);
+      await user.selectOptions(screen.getByLabelText("Depth"), "75");
+      await chooseText(user);
+      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.getByLabelText("Depth")).toHaveValue("75");
+      expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
+
+      await user.type(screen.getByLabelText(/your text/i), "Hello");
+      await user.click(screen.getByRole("radio", { name: "Poppins" }));
+      await screen.findByTestId("sign-preview-stub");
+
+      // Back to upload: the earlier upload returns at once, text controls are gone.
+      await user.click(screen.getByRole("radio", { name: "Upload logo" }));
+      expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
+      expect(screen.queryByLabelText(/your text/i)).not.toBeInTheDocument();
+      expect(screen.getByRole("button", { name: /use a different file/i })).toBeInTheDocument();
+      expect(screen.getByLabelText("Depth")).toHaveValue("75");
+
+      // Back to text: what was typed, and the font, were remembered.
+      await chooseText(user);
+      expect(screen.getByLabelText(/your text/i)).toHaveValue("Hello");
+      expect(screen.getByRole("radio", { name: "Poppins" })).toBeChecked();
+      expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
+    });
+
+    it("shows the upload prompt when switching to upload before anything was uploaded", async () => {
+      const user = userEvent.setup();
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await chooseText(user);
+      await user.type(screen.getByLabelText(/your text/i), "Hello");
+      await screen.findByTestId("sign-preview-stub");
+
+      await user.click(screen.getByRole("radio", { name: "Upload logo" }));
+      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.getByLabelText(/upload your logo/i)).toBeInTheDocument();
+    });
+
+    it("keeps the text when switching configuration", async () => {
+      const user = userEvent.setup();
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await chooseText(user);
+      await user.type(screen.getByLabelText(/your text/i), "Hello");
+      await screen.findByTestId("sign-preview-stub");
+
+      await user.click(screen.getByRole("button", { name: /change configuration/i }));
+      await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
+      expect(screen.getByLabelText(/your text/i)).toHaveValue("Hello");
+      expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
+      expect(screen.getByLabelText("Depth")).toHaveValue("30");
+    });
   });
 
   describe("preview failure", () => {
