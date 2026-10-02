@@ -4,35 +4,35 @@ import { ErrorBoundary } from "react-error-boundary";
 import * as THREE from "three";
 import { Button } from "@project/components/ui/button";
 import Seo from "../components/Seo";
-import ProductChooser from "../components/configurator/ProductChooser";
+import ConfigChooser from "../components/configurator/ConfigChooser";
 import UploadDropzone from "../components/configurator/UploadDropzone";
 import ConfigControls from "../components/configurator/ConfigControls";
 import SignPreview from "../components/configurator/SignPreview";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
-import { defaultConfigFor } from "../components/configurator/types";
-import type { Product, ProductConfig } from "../components/configurator/types";
+import { defaultStateFor } from "../components/configurator/types";
+import type { ConfiguratorState } from "../components/configurator/types";
+import { configurations } from "../data/configurations";
 
-function isValidProduct(value: string | null): value is Product {
-  return value === "trimless-letters" || value === "cast-block-acrylic";
+function findConfig(id: string | null) {
+  return configurations.find((c) => c.id === id);
 }
 
 export default function ConfiguratorPage() {
   const [searchParams] = useSearchParams();
-  const preselected = searchParams.get("product");
-  const initialProduct = isValidProduct(preselected) ? preselected : null;
+  const preselected = findConfig(searchParams.get("config")); // an unknown id falls back to the chooser
 
-  const [product, setProduct] = useState<Product | null>(initialProduct);
-  const [config, setConfig] = useState<ProductConfig | null>(
-    initialProduct ? defaultConfigFor(initialProduct) : null
+  const [state, setState] = useState<ConfiguratorState | null>(
+    preselected ? defaultStateFor(preselected) : null
   );
   const [shapes, setShapes] = useState<THREE.Shape[] | null>(null);
 
   const webglSupported = useWebglSupported();
+  const config = findConfig(state?.configId ?? null);
 
-  function handleSelectProduct(selected: Product) {
-    setProduct(selected);
-    setConfig(defaultConfigFor(selected)); // shapes, if any, are intentionally left as-is — parsing is product-agnostic.
+  function handleSelectConfig(id: string) {
+    const selected = findConfig(id);
+    if (selected) setState(defaultStateFor(selected)); // shapes, if any, are intentionally left as-is — parsing is configuration-agnostic.
   }
 
   if (!webglSupported) {
@@ -63,16 +63,20 @@ export default function ConfiguratorPage() {
       />
       <h1 className="text-5xl md:text-7xl mb-4">Sign Configurator</h1>
 
-      {!product && <ProductChooser onSelect={handleSelectProduct} />}
+      {!config && <ConfigChooser onSelect={handleSelectConfig} />}
 
-      {product && config && (
+      {config && state && (
         <>
+          <p className="mb-4">
+            <span className="mono-label text-primary">{config.code}</span>{" "}
+            <span className="text-lg font-semibold">{config.subtitle}</span>
+          </p>
           <div className="flex gap-6 mb-6">
             <button
-              onClick={() => setProduct(null)}
+              onClick={() => setState(null)}
               className="text-sm text-muted-foreground hover:text-foreground"
             >
-              ← Switch product
+              ← Change configuration
             </button>
             {shapes && (
               <button
@@ -89,10 +93,10 @@ export default function ConfiguratorPage() {
           {shapes && (
             <div className="grid lg:grid-cols-[2fr_1fr] gap-8 mt-6">
               <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                <SignPreview shapes={shapes} config={config} />
+                <SignPreview shapes={shapes} config={config} state={state} />
               </ErrorBoundary>
               <div className="space-y-6">
-                <ConfigControls config={config} onChange={setConfig} />
+                <ConfigControls config={config} state={state} onChange={setState} />
                 <Button asChild size="lg" className="w-full">
                   <Link to="/contact">Get a Quote</Link>
                 </Button>

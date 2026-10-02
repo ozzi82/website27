@@ -53,54 +53,60 @@ function renderPage(initialPath: string) {
   );
 }
 
+const file = () => new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
+
+async function upload(user: ReturnType<typeof userEvent.setup>) {
+  await user.upload(screen.getByLabelText(/upload your logo/i), file());
+  return screen.findByTestId("sign-preview-stub");
+}
+
 describe("ConfiguratorPage end-to-end smoke tests", () => {
-  it("Trimless path: choose product, upload, change illumination, toggle day/night, reach Get a Quote", async () => {
+  it("chooser path: pick a configuration, upload, change depth, toggle day/night, reach Get a Quote", async () => {
     const user = userEvent.setup();
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
 
     renderPage("/configurator");
 
-    await user.click(screen.getByText(/trimless letters/i));
+    expect(screen.getAllByRole("button", { name: /EdgeLuxe LP/ })).toHaveLength(12);
+    await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 3\.1/ }));
+    expect(screen.queryByRole("button", { name: /EdgeLuxe LP 5/ })).not.toBeInTheDocument(); // chooser is gone
 
-    const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
-    await user.upload(screen.getByLabelText(/upload your logo/i), file);
+    await upload(user);
 
-    expect(await screen.findByTestId("sign-preview-stub")).toBeInTheDocument();
-
-    await user.selectOptions(screen.getByLabelText(/illumination/i), "halo-lit");
+    await user.selectOptions(screen.getByLabelText("Depth"), "100");
+    expect(screen.getByLabelText("Depth")).toHaveValue("100");
     await user.click(screen.getByLabelText(/day.*night|night.*day/i));
+    expect(screen.getByLabelText(/day.*night|night.*day/i)).toBeChecked();
 
     expect(screen.getByRole("link", { name: /get a quote/i })).toHaveAttribute("href", "/contact");
   });
 
-  it("Cast Block Acrylic path: pre-selected via query param, upload, change acrylic color, toggle day/night, reach Get a Quote", async () => {
+  it("preselects the configuration from ?config= and skips the chooser", async () => {
     const user = userEvent.setup();
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
 
-    renderPage("/configurator?product=cast-block-acrylic");
+    renderPage("/configurator?config=lp-11-b-back-lit");
 
-    expect(screen.queryByText(/trimless letters/i)).not.toBeInTheDocument();
-
-    const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
-    await user.upload(screen.getByLabelText(/upload your logo/i), file);
-
-    expect(await screen.findByTestId("sign-preview-stub")).toBeInTheDocument();
-
-    await user.selectOptions(screen.getByLabelText(/acrylic color/i), "opal");
-    await user.click(screen.getByLabelText(/day.*night|night.*day/i));
-
-    expect(screen.getByRole("link", { name: /get a quote/i })).toHaveAttribute("href", "/contact");
+    expect(screen.queryByRole("button", { name: /EdgeLuxe LP 5/ })).not.toBeInTheDocument();
+    expect(screen.getByText("LP 11-B")).toBeInTheDocument();
+    await upload(user);
+    const depth = screen.getByLabelText("Depth") as HTMLSelectElement;
+    expect([...depth.options].map((o) => o.value)).toEqual(["10", "15", "20", "30"]);
+    expect(depth).toHaveValue("30");
   });
 
-  it("lets the user swap the logo without losing the chosen product and configuration", async () => {
+  it("falls back to the chooser for an unknown ?config= id", () => {
+    renderPage("/configurator?config=lp-99-nonexistent");
+    expect(screen.getAllByRole("button", { name: /EdgeLuxe LP/ })).toHaveLength(12);
+    expect(screen.queryByLabelText(/upload your logo/i)).not.toBeInTheDocument();
+  });
+
+  it("lets the user swap the logo without losing the chosen configuration and its settings", async () => {
     const user = userEvent.setup();
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
-    renderPage("/configurator");
-    await user.click(screen.getByText(/trimless letters/i));
-    const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
-    await user.upload(screen.getByLabelText(/upload your logo/i), file);
-    await screen.findByTestId("sign-preview-stub");
-    await user.selectOptions(screen.getByLabelText(/illumination/i), "halo-lit");
+    renderPage("/configurator?config=lp-5-trimless-face-lit");
+    await upload(user);
+    await user.selectOptions(screen.getByLabelText("Depth"), "75");
 
     await user.click(screen.getByRole("button", { name: /use a different file/i }));
 
@@ -108,16 +114,50 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
     expect(screen.getByLabelText(/upload your logo/i)).toBeInTheDocument();
-    expect(screen.queryByText(/cast block acrylic/i)).not.toBeInTheDocument(); // chooser not shown again
+    expect(screen.queryByRole("button", { name: /EdgeLuxe LP 3\.1/ })).not.toBeInTheDocument(); // chooser not shown again
 
     // Uploading the same filename again works, and the configuration was kept.
-    await user.upload(screen.getByLabelText(/upload your logo/i), file);
-    await screen.findByTestId("sign-preview-stub");
-    expect(screen.getByLabelText(/illumination/i)).toHaveValue("halo-lit");
+    await upload(user);
+    expect(screen.getByLabelText("Depth")).toHaveValue("75");
+  });
+
+  it("switching configuration keeps the uploaded artwork and resets to the new defaults", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+    renderPage("/configurator?config=lp-5-trimless-face-lit");
+    await upload(user);
+    await user.selectOptions(screen.getByLabelText("Depth"), "75");
+    await user.click(screen.getByLabelText(/day.*night|night.*day/i));
+
+    await user.click(screen.getByRole("button", { name: /change configuration/i }));
+    expect(screen.getAllByRole("button", { name: /EdgeLuxe LP/ })).toHaveLength(12);
+    await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
+
+    // Straight to the preview with the same artwork (no second upload) and LP 11-F's defaults.
+    expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
+    expect(screen.queryByLabelText(/upload your logo/i)).not.toBeInTheDocument();
+    expect(screen.getByLabelText("Depth")).toHaveValue("30");
+    expect(screen.getByLabelText(/day.*night|night.*day/i)).not.toBeChecked();
+    expect(parseArtwork).toHaveBeenCalledTimes(1);
+  });
+
+  it("warns when the letter height is below the configuration's minimum", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+    renderPage("/configurator?config=lp-3-1-standoff-halo");
+    await upload(user);
+    expect(screen.queryByRole("status")).not.toBeInTheDocument();
+
+    const height = screen.getByLabelText(/letter height/i);
+    await user.clear(height);
+    await user.type(height, "1");
+
+    expect(screen.getByRole("status")).toHaveTextContent(/minimum letter height/i);
+    expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument(); // not blocked
   });
 
   it("only offers 'Use a different file' once a logo has been uploaded", () => {
-    renderPage("/configurator?product=cast-block-acrylic");
+    renderPage("/configurator?config=lp-11-f-face-lit");
     expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
   });
 
@@ -133,15 +173,14 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
       previewState.shouldThrow = true;
 
-      renderPage("/configurator?product=cast-block-acrylic");
-      const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
-      await user.upload(screen.getByLabelText(/upload your logo/i), file);
+      renderPage("/configurator?config=lp-11-f-face-lit");
+      await user.upload(screen.getByLabelText(/upload your logo/i), file());
 
       expect(await screen.findByText(/3D preview couldn't load/i)).toBeInTheDocument();
       expect(screen.queryByText(/WebGL context lost/)).not.toBeInTheDocument();
       expect(screen.getByRole("link", { name: /send it to us directly/i })).toHaveAttribute("href", "/contact");
       // The rest of the page keeps working.
-      expect(screen.getByLabelText(/acrylic color/i)).toBeInTheDocument();
+      expect(screen.getByLabelText("Depth")).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /get a quote/i })).toBeInTheDocument();
 
       // Retry re-renders the preview once the underlying problem is gone.
