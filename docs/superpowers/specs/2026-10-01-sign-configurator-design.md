@@ -29,10 +29,10 @@ sales, then hand them off to the existing `/contact` quote flow.
 - Rendering fidelity: photoreal product render (PBR materials, environment reflections) — the
   highest-fidelity option considered, selected deliberately over cheaper "schematic" or "neon
   glow" stylizations.
-- Viewer: a single fixed, pre-tuned camera angle (a 3/4 front view, matching the angle used in the
-  site's existing product photography) with a day/night toggle — not a free orbit/zoom viewer.
-  Chosen specifically because a tuned fixed angle is far easier to guarantee looks good than a
-  model that has to look good from every angle, and is lighter on mobile GPUs.
+- Viewer: opens on a pre-tuned 3/4 front view (matching the angle used in the site's existing
+  product photography) with a day/night toggle. *Superseded by Revision 3: the camera is now a
+  limited orbit/zoom camera that starts on that view.* Originally a single fixed angle, chosen because
+  it is far easier to guarantee looks good than a model that has to look good from every angle.
 - Placement: a new dedicated page (`/configurator`), with a nav entry and a "See it on your sign"
   link from the two eligible product pages.
 - File handling: 100% client-side. The uploaded file is parsed and rendered in the browser and
@@ -47,7 +47,7 @@ sales, then hand them off to the existing `/contact` quote flow.
 **Out of scope for v1 (explicitly deferred):**
 - AI/EPS upload support (needs server-side conversion infra).
 - Cabinet signs / other product lines.
-- Free orbit/zoom 3D viewer.
+- Free orbit/zoom 3D viewer. *(Superseded by Revision 3: a limited orbit/zoom camera was added.)*
 - Carrying the uploaded file through to the quote request automatically.
 - True geometric union of overlapping vector shapes.
 - Letting the user pick a page from a multi-page PDF (only page 1 is used).
@@ -89,7 +89,7 @@ sales, then hand them off to the existing `/contact` quote flow.
    │                            • .pdf -> pdf.js loads page 1 -> renders to an SVG string
    │                              -> same SVGLoader path (see "PDF-to-SVG feasibility risk")
    ├─ SignPreview.tsx      — react-three-fiber <Canvas>: ExtrudeGeometry from the parsed shapes,
-   │                          one fixed camera angle, an environment map for reflections, a bloom
+   │                          a camera that starts on one tuned angle (orbit/zoom since Revision 3), an environment map for reflections, a bloom
    │                          post-processing pass for the lit/glow look. Geometry/material setup
    │                          branches per product — see "Face/return materials" and "Illumination
    │                          model" below for exactly what each product renders, including the
@@ -372,7 +372,7 @@ The company's "European Wholesale Signage Spec Guide" (2026-27 brochure) defines
 range: 12 EdgeLuxe letter configurations. The original Trimless / Cast Block Acrylic split, the
 Face/Return/illumination-style model and the placeholder depth presets were assumptions made without
 that guide and are replaced by the following. Everything else (client-side only, SVG/PDF parsing and
-its error taxonomy, normalization, fixed 3/4 camera, day/night toggle, error handling, a11y, no backend)
+its error taxonomy, normalization, the 3/4 starting camera view, day/night toggle, error handling, a11y, no backend)
 is unchanged.
 
 **Single source of truth:** `src/data/configurations.ts` (12 `LightConfig` entries). The configurator, the
@@ -423,3 +423,50 @@ Switching configuration keeps the uploaded artwork.
 - Night uses bloom plus Khronos "neutral" tone mapping (ACES pulled cyan/red toward white).
 - The paint colour control is hidden for LP 11-N (the whole tube glows, nothing is painted).
 - Unlit LP 1 keeps a dim key light at night so the letter stays readable.
+
+## Revision 3 (height removed, orbit camera, backgrounds, day/night fade)
+
+Feedback on Revision 2: changing the entered letter height changed the apparent thickness (the higher
+the height, the thinner the letter), so the input is dropped; zoom and rotate were wanted; a choice of
+backgrounds; and a fade instead of a snap when toggling day/night. This revision supersedes the parts of
+the spec above that say "single fixed camera / no orbit controls", and the Revision 2 letter-height input.
+
+**1. No letter height.** `letterHeightIn`, `isBelowMinHeight` and the below-minimum warning are gone.
+Depth is drawn against one fixed nominal letter height, `NOMINAL_LETTER_HEIGHT_MM = 300` (about 12"):
+`depthRatioFor(depthMm) = clamp(depthMm / 300, 0.01, 0.6)`. A deeper depth always looks thicker and nothing
+else changes it, so the preview is illustrative and the controls say so ("Depth is drawn against a nominal
+12" letter"). The configuration's `minHeightMm` (inches first) and `minStrokeMm` are plain guidance text.
+The glowing side-band thickness (10 mm) is scaled against the same nominal height.
+
+**2. Orbit / zoom camera.** drei `OrbitControls` (in `CameraRig`) replaces the fixed camera and opens on the
+same 3/4 view (`HOME_POSITION`). Drag rotates; wheel or pinch zooms; panning is off; damping is on.
+Limits (`VIEW_LIMITS` in `cameraMath.ts`): distance 2.4-9.5 (the artwork is normalised to 2.4 units, so the
+camera cannot enter the sign or lose it), azimuth +-60 degrees (stay in front of the wall), polar 40-98
+degrees (no looking from under the sign). One-finger drag rotates and two-finger pinch zooms on touch.
+`PreviewFrame` adds overlay buttons (Zoom in, Zoom out, Reset view, all labelled) and keyboard control while
+the preview has focus (arrows rotate, +/- zoom, 0 resets). Button and key commands ease toward a goal view
+(`dampView`) rather than jumping; grabbing the scene cancels them. **Scroll tradeoff:** the wheel zooms while
+the pointer is over the canvas, which can intercept page scrolling there; to limit that, once the camera is at
+the zoom limit in the direction of the wheel the event is handed back to the page
+(`shouldPassWheelToPage`), and the rest of the layout is unaffected. On touch, one-finger drags on the canvas
+rotate rather than scroll, so the page is scrolled from outside the preview.
+The wall is 120 x 60 units so its edges never show at the widest angles.
+
+**3. Backgrounds.** `ConfiguratorState.background` (default `concrete`) selects one of four procedurally
+generated walls (`backgrounds.ts`): Concrete (brochure look, with panel joints and form-tie holes), Brick
+(red clay, running bond), Wood slats (vertical, warm) and White plaster. Textures are 512 px seamless canvas
+textures built from seeded tileable noise (`wallNoise.ts`, `wallTextures.ts`), cost roughly 50-90 ms to
+generate, tile across the wall in world units (a tile is centred on the artwork so seams never cross it) and
+double as bump and faint emissive maps, so each wall keeps its texture at night. Each background defines its
+own day and night wall, backdrop colour and how strongly the halo spill is modulated by the wall's luminance
+(light visibly catches mortar lines and wood grain). No external images; textures, geometry and halo textures
+are disposed with the scene. The picker is a radio group and the choice survives switching configuration.
+
+**4. Day/night fade.** A damped `nightAmount` (0 day, 1 night) owned by `NightProvider` (a ref, not React
+state, advanced once per frame by `stepProgress` at constant rate over `FADE_SECONDS = 0.9` then eased with
+`easeInOut`) drives, via `useNightEffect`: ambient / directional / key point light and environment intensity
+(`atmosphereFor`), the scene and wall colours, face / side / tube emissives and diffuse tint, the side-band
+shader's night uniform, halo opacity, bloom intensity (`bloomIntensityFor`) and a crossfade from ACES (day) to
+Khronos neutral (night) tone mapping (`DayNightToneMapping`). The EffectComposer and the key point light stay
+mounted for both states so toggling never pops a pass in or out or recompiles materials. Reversing mid-fade
+continues from the current value.
