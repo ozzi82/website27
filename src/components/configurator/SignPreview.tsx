@@ -10,14 +10,21 @@ interface SignPreviewProps {
   config: ProductConfig;
 }
 
+// Hoisted so the props are referentially stable across re-renders (a fresh
+// camera/args object each render makes r3f re-apply them).
+const CAMERA = { position: [2.6, 1.42, 4.73] as [number, number, number], fov: 35 };
+const DPR: [number, number] = [1, 1.5]; // cap pixel ratio: 3x displays would push SwiftShader/low-end GPUs hard
+const NIGHT_BACKGROUND: [string] = ["#04060a"];
+const DAY_BACKGROUND: [string] = ["#2b3242"];
+
 export default function SignPreview({ shapes, config }: SignPreviewProps) {
   const isNight = config.dayNight === "night";
 
   return (
     <div className="w-full aspect-[4/3] rounded-xl overflow-hidden border border-border bg-card">
-      <Canvas camera={{ position: [2.6, 1.42, 4.73], fov: 35 }}>
+      <Canvas camera={CAMERA} dpr={DPR}>
         {/* Explicit background: the canvas is otherwise transparent, and the night bloom pass lets the page behind it bleed through as a grey haze. */}
-        <color attach="background" args={[isNight ? "#04060a" : "#2b3242"]} />
+        <color attach="background" args={isNight ? NIGHT_BACKGROUND : DAY_BACKGROUND} />
         <ambientLight intensity={isNight ? 0.02 : 0.04} />
         <directionalLight position={[3, 5, 4]} intensity={isNight ? 0.1 : 0.35} />
         {!isNight && <pointLight position={[-1.8, 1.5, 1.8]} intensity={9} />}

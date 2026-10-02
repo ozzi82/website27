@@ -54,11 +54,6 @@ export default function AcrylicScene({ shapes, config }: AcrylicSceneProps) {
 
   return (
     <>
-      {/* One material for the whole mesh — no face/return split, per the
-          spec: a solid cast block has no face/return distinction. Passing a
-          single material (not an array) applies it across every group
-          ExtrudeGeometry generated, regardless of the multi-shape grouping
-          behavior documented in useSignGeometry.ts. */}
       <BackdropWall gap={WALL_GAP} isNight={isNight} />
 
       {isNight && <HaloGlow shapes={shapes} z={-WALL_GAP + 0.003} color={appearance.spill} />}
