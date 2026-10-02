@@ -1,6 +1,9 @@
 import * as THREE from "three";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
+import { ToneMappingMode } from "postprocessing";
+import { EffectComposer, Bloom, ToneMapping } from "@react-three/postprocessing";
 import { useSignGeometry } from "./useSignGeometry";
+import HaloGlow from "./HaloGlow";
+import BackdropWall from "./BackdropWall";
 import type { TrimlessConfig } from "./types";
 
 const DEPTH_RATIOS: Record<TrimlessConfig["depth"], number> = {
@@ -20,6 +23,11 @@ const SWATCH_HEX: Record<string, string> = {
   blue: "#2b4c8c",
   custom: "#999999",
 };
+
+// Halo-lit letters stand slightly off the wall so the light has somewhere to spill.
+const WALL_GAP = 0.08;
+// Pushed above 1.0 so the glow reads as a light source and feeds the bloom.
+const HALO_COLOR = new THREE.Color("#ffe9c4").multiplyScalar(2);
 
 interface TrimlessSceneProps {
   shapes: THREE.Shape[];
@@ -41,10 +49,10 @@ export default function TrimlessScene({ shapes, config }: TrimlessSceneProps) {
     <meshPhysicalMaterial
       attach="material-0"
       color={SWATCH_HEX[config.faceColor]}
-      metalness={0.1}
-      roughness={0.3}
+      metalness={0.05}
+      roughness={0.45}
       emissive={faceGlows ? SWATCH_HEX[config.faceColor] : "#000000"}
-      emissiveIntensity={faceGlows ? 1.5 : 0}
+      emissiveIntensity={faceGlows ? 0.7 : 0}
     />
   );
 
@@ -64,20 +72,15 @@ export default function TrimlessScene({ shapes, config }: TrimlessSceneProps) {
         {faceMaterial}
       </mesh>
 
-      {showBacking && (
-        <mesh position={[0, 0, -0.5]}>
-          <planeGeometry args={[4, 4]} />
-          <meshStandardMaterial color="#e8e8e8" />
-        </mesh>
-      )}
+      {showBacking && <BackdropWall gap={WALL_GAP} isNight={isNight} />}
 
-      {haloGlows && (
-        <pointLight position={[0, 0, -0.3]} intensity={3} distance={3} color="#fff4e0" />
-      )}
+      {haloGlows && <HaloGlow shapes={shapes} z={-WALL_GAP + 0.003} color={HALO_COLOR} />}
 
       {bloomActive && (
         <EffectComposer>
-          <Bloom intensity={0.8} luminanceThreshold={0.4} luminanceSmoothing={0.2} />
+          <Bloom mipmapBlur intensity={0.7} luminanceThreshold={0.45} luminanceSmoothing={0.3} radius={0.7} />
+          {/* EffectComposer switches the renderer's tone mapping off, so re-apply it or night renders flatter than day. */}
+          <ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
         </EffectComposer>
       )}
     </>
