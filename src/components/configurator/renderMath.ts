@@ -72,7 +72,7 @@ export function tubeRadius(depthWorld: number, halfStroke: number): number {
 
 /** How much narrower the front face of a conical letter is than its base, per side. */
 export function conicalInset(heightWorld: number, halfStroke: number): number {
-  return Math.min(heightWorld * 0.02, halfStroke * 0.5);
+  return Math.min(heightWorld * 0.035, halfStroke * 0.5);
 }
 
 /** Distance between the back of the letter and the wall behind it, in world units. */

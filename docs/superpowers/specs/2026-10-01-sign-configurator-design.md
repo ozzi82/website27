@@ -411,3 +411,16 @@ Switching configuration keeps the uploaded artwork.
 - Depth maps to real millimetres relative to the entered letter height (depth/height ratio), so 1.2" depth
   on a 2" letter looks very different from 1.2" on a 24" letter.
 - LP 1 (flat cutout) has no illumination: day/night shows the unlit letter only.
+
+### Revision 2 implementation notes
+
+- `ConfiguratorState` (`configId, depthMm, color, glowColor, dayNight, letterHeightIn`) replaces the Product/ProductConfig
+  union. Depth renders as `depthMm / (letterHeightIn * 25.4)` of the artwork height, clamped to 0.01-0.6.
+- `ConfigScene` builds one `ExtrudeGeometry` per profile (conical = single-segment bevel with the widest layer at the wall
+  plane so the mirrored taper hides behind the wall; tube = 8-segment bevel). Bevel/taper sizes are limited by an
+  area/perimeter half-stroke estimate so thin strokes don't fold over. Both remain approximations.
+- Side bands (`partial-back`, `partial-front`, `full`) are an `onBeforeCompile` mask on the side material keyed to
+  object-space z; band thickness is the brochure's 10 mm scaled to the letter, clamped to 15-40% of the depth.
+- Night uses bloom plus Khronos "neutral" tone mapping (ACES pulled cyan/red toward white).
+- The paint colour control is hidden for LP 11-N (the whole tube glows, nothing is painted).
+- Unlit LP 1 keeps a dim key light at night so the letter stays readable.

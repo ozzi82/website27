@@ -84,8 +84,8 @@ describe("tubeRadius", () => {
 });
 
 describe("conicalInset", () => {
-  it("tapers by 2% of the letter height, but never more than half the half-stroke", () => {
-    expect(conicalInset(2.4, 1)).toBeCloseTo(0.048, 6);
+  it("tapers by 3.5% of the letter height, but never more than half the half-stroke", () => {
+    expect(conicalInset(2.4, 1)).toBeCloseTo(0.084, 6);
     expect(conicalInset(2.4, 0.04)).toBeCloseTo(0.02, 6);
   });
 });
