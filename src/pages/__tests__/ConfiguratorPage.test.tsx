@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Routes, Route } from "react-router-dom";
@@ -11,8 +11,13 @@ vi.mock("../../components/configurator/parseArtwork", () => ({
   parseArtwork: vi.fn(),
 }));
 
+const previewState = vi.hoisted(() => ({ shouldThrow: false }));
+
 vi.mock("../../components/configurator/SignPreview", () => ({
-  default: () => <div data-testid="sign-preview-stub" />,
+  default: () => {
+    if (previewState.shouldThrow) throw new Error("WebGL context lost");
+    return <div data-testid="sign-preview-stub" />;
+  },
 }));
 
 // jsdom has no real WebGL, so the real isWebglSupported() genuinely returns
@@ -85,5 +90,35 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     await user.click(screen.getByLabelText(/day.*night|night.*day/i));
 
     expect(screen.getByRole("link", { name: /get a quote/i })).toHaveAttribute("href", "/contact");
+  });
+
+  describe("preview failure", () => {
+    afterEach(() => {
+      previewState.shouldThrow = false;
+      vi.restoreAllMocks();
+    });
+
+    it("shows a local fallback (with contact link and retry) instead of crashing the page when the preview throws", async () => {
+      const user = userEvent.setup();
+      vi.spyOn(console, "error").mockImplementation(() => {}); // React logs caught render errors
+      vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+      previewState.shouldThrow = true;
+
+      renderPage("/configurator?product=cast-block-acrylic");
+      const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
+      await user.upload(screen.getByLabelText(/upload your logo/i), file);
+
+      expect(await screen.findByText(/3D preview couldn't load/i)).toBeInTheDocument();
+      expect(screen.queryByText(/WebGL context lost/)).not.toBeInTheDocument();
+      expect(screen.getByRole("link", { name: /send it to us directly/i })).toHaveAttribute("href", "/contact");
+      // The rest of the page keeps working.
+      expect(screen.getByLabelText(/acrylic color/i)).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: /get a quote/i })).toBeInTheDocument();
+
+      // Retry re-renders the preview once the underlying problem is gone.
+      previewState.shouldThrow = false;
+      await user.click(screen.getByRole("button", { name: /try again/i }));
+      expect(await screen.findByTestId("sign-preview-stub")).toBeInTheDocument();
+    });
   });
 });

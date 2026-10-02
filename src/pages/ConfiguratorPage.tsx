@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
 import * as THREE from "three";
 import { Button } from "@project/components/ui/button";
 import Seo from "../components/Seo";
@@ -7,6 +8,7 @@ import ProductChooser from "../components/configurator/ProductChooser";
 import UploadDropzone from "../components/configurator/UploadDropzone";
 import ConfigControls from "../components/configurator/ConfigControls";
 import SignPreview from "../components/configurator/SignPreview";
+import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
 import { defaultConfigFor } from "../components/configurator/types";
 import type { Product, ProductConfig } from "../components/configurator/types";
@@ -76,7 +78,9 @@ export default function ConfiguratorPage() {
 
           {shapes && (
             <div className="grid lg:grid-cols-[2fr_1fr] gap-8 mt-6">
-              <SignPreview shapes={shapes} config={config} />
+              <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
+                <SignPreview shapes={shapes} config={config} />
+              </ErrorBoundary>
               <div className="space-y-6">
                 <ConfigControls config={config} onChange={setConfig} />
                 <Button asChild size="lg" className="w-full">
