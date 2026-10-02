@@ -18,6 +18,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 const navLinks = [
+  { label: "Configurator", href: "/configurator" },
   { label: "About", href: "/about" },
   { label: "Gallery", href: "/gallery" },
   { label: "Contact", href: "/contact" },

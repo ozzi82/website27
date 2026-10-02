@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Button } from "@project/components/ui/button";
 import { services } from "../data/services";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
@@ -105,6 +105,15 @@ export default function ServicePage() {
           </div>
           <Button size="lg" asChild><Link to="/contact">Get a Quote</Link></Button>
         </section>
+
+        {(service.id === "trimless-letters" || service.id === "cast-block-acrylic") && (
+          <Link
+            to={`/configurator?product=${service.id}`}
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+          >
+            See it on your sign <ArrowUpRight className="w-4 h-4" />
+          </Link>
+        )}
 
         <section>
           <h2 className="text-xl font-bold mb-5">Other Products</h2>
