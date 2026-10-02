@@ -1,6 +1,6 @@
 # Sign Configurator — Design
 
-Status: revised through 5 automated review passes; pending your review
+Status: approved
 Date: 2026-10-01
 
 ## Purpose
