@@ -8,7 +8,7 @@ import { ParseError, NoVectorPathsFoundError } from "./parseErrors";
 
 // Only configure the worker in a real browser. Under Node (including Vitest,
 // where Vite's ?url yields a root-relative path Node can't import) pdf.js
-// falls back to its own built-in fake-worker loading, which works � and is why
+// falls back to its own built-in fake-worker loading, which works — and is why
 // the tests never caught the missing workerSrc in the first place.
 const isNode = typeof process !== "undefined" && !!process.versions?.node;
 if (!isNode) {
@@ -34,15 +34,36 @@ const DRAW_CURVE_TO = 2;
 const DRAW_QUADRATIC_CURVE_TO = 3;
 const DRAW_CLOSE_PATH = 4;
 
+/**
+ * Known limitations (this is a deliberately minimal path extractor, not a PDF
+ * renderer):
+ *  - Counters (the hole in an "O") become separate filled shapes: there is no
+ *    hole detection, so they extrude as solid slabs rather than openings.
+ *  - Nested cm/q/Q transforms are ignored; only the page viewport transform is
+ *    applied, so artwork positioned via content-stream transforms is misplaced.
+ *  - Anything painted as a path becomes a shape: clip rectangles, stroke-only
+ *    paths and full-page background rects are not distinguished from artwork.
+ */
 export async function parsePdf(data: Uint8Array): Promise<THREE.Shape[]> {
-  let page;
+  // Keep the loading task so its worker/transport can be released afterwards.
+  // (pdfjs-dist 6.x no longer has an isEvalSupported option — it never uses
+  // eval — so there is nothing to disable.)
+  const loadingTask = pdfjsLib.getDocument({ data });
   try {
-    const doc = await pdfjsLib.getDocument({ data }).promise;
-    page = await doc.getPage(1); // only page 1 is used, per spec
-  } catch (cause) {
-    throw new ParseError("artwork.pdf", cause);
+    let page;
+    try {
+      const doc = await loadingTask.promise;
+      page = await doc.getPage(1); // only page 1 is used, per spec
+    } catch (cause) {
+      throw new ParseError("artwork.pdf", cause);
+    }
+    return await extractShapes(page);
+  } finally {
+    await loadingTask.destroy();
   }
+}
 
+async function extractShapes(page: pdfjsLib.PDFPageProxy): Promise<THREE.Shape[]> {
   const viewport = page.getViewport({ scale: 1 });
   const [a, b, c, d, e, f] = viewport.transform;
   const transformPoint = (x: number, y: number): [number, number] => [
