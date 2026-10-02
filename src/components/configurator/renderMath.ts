@@ -24,9 +24,55 @@ export function sideBandThickness(depthWorld: number, heightWorld: number, lette
   return Math.min(depthWorld * 0.4, Math.max(depthWorld * 0.15, raw));
 }
 
-/** Corner radius of the neon-tube approximation: half the depth at most, and small relative to the letter so thin strokes don't invert. */
-export function tubeRadius(depthWorld: number, heightWorld: number): number {
-  return Math.min(depthWorld / 2, heightWorld * 0.04);
+interface Rings {
+  outline: { x: number; y: number }[];
+  holes: { x: number; y: number }[][];
+}
+
+function ringArea(ring: { x: number; y: number }[]): number {
+  let sum = 0;
+  for (let i = 0; i < ring.length; i++) {
+    const a = ring[i];
+    const b = ring[(i + 1) % ring.length];
+    sum += a.x * b.y - b.x * a.y;
+  }
+  return Math.abs(sum) / 2;
+}
+
+function ringPerimeter(ring: { x: number; y: number }[]): number {
+  let sum = 0;
+  for (let i = 0; i < ring.length; i++) {
+    const a = ring[i];
+    const b = ring[(i + 1) % ring.length];
+    sum += Math.hypot(b.x - a.x, b.y - a.y);
+  }
+  return sum;
+}
+
+/**
+ * Rough half stroke width of the artwork: for a stroke of width w and length L the
+ * area is w*L and the perimeter about 2L, so half the width is area / perimeter.
+ * Exact for uniform strokes, a middling estimate for mixed ones. Used to keep the
+ * tube and cone offsets from folding the outline over itself.
+ */
+export function estimateHalfStroke(shapes: Rings[]): number {
+  let area = 0;
+  let perimeter = 0;
+  for (const { outline, holes } of shapes) {
+    area += ringArea(outline) - holes.reduce((sum, h) => sum + ringArea(h), 0);
+    perimeter += ringPerimeter(outline) + holes.reduce((sum, h) => sum + ringPerimeter(h), 0);
+  }
+  return perimeter > 0 && area > 0 ? area / perimeter : 0;
+}
+
+/** Corner radius of the neon-tube approximation: at most half the depth (a round tube is as thick as it is deep) and under the half-stroke so the front cap survives. */
+export function tubeRadius(depthWorld: number, halfStroke: number): number {
+  return Math.min(depthWorld / 2, halfStroke * 0.85);
+}
+
+/** How much narrower the front face of a conical letter is than its base, per side. */
+export function conicalInset(heightWorld: number, halfStroke: number): number {
+  return Math.min(heightWorld * 0.02, halfStroke * 0.5);
 }
 
 /** Distance between the back of the letter and the wall behind it, in world units. */

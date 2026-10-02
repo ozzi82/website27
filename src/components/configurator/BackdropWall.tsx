@@ -10,8 +10,8 @@ export default function BackdropWall({ gap, isNight }: BackdropWallProps) {
     <mesh position={[0, 0, -gap]}>
       <planeGeometry args={[16, 10]} />
       <meshStandardMaterial
-        color={isNight ? "#2a2d33" : "#737882"}
-        emissive="#15171c"
+        color={isNight ? "#363a44" : "#737882"}
+        emissive="#171a20"
         emissiveIntensity={isNight ? 1 : 0}
         roughness={0.9}
       />

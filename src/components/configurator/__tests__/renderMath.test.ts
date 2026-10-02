@@ -1,5 +1,8 @@
 import { describe, it, expect } from "vitest";
+import * as THREE from "three";
 import {
+  conicalInset,
+  estimateHalfStroke,
   MIN_DEPTH_RATIO,
   MAX_DEPTH_RATIO,
   depthRatioFor,
@@ -42,13 +45,48 @@ describe("sideBandThickness", () => {
   });
 });
 
-describe("tubeRadius", () => {
-  it("is limited to half the depth so the rounded profile always fits", () => {
-    expect(tubeRadius(0.05, 2.4)).toBeCloseTo(0.025, 6);
+describe("estimateHalfStroke", () => {
+  const ring = (r: number, n = 256) =>
+    Array.from({ length: n }, (_, i) => new THREE.Vector2(r * Math.cos((2 * Math.PI * i) / n), r * Math.sin((2 * Math.PI * i) / n)));
+
+  it("recovers half the stroke width of a uniform ring (area / perimeter)", () => {
+    // outer radius 1.2, inner radius 0.6: stroke 0.6, half-stroke 0.3
+    expect(estimateHalfStroke([{ outline: ring(1.2), holes: [ring(0.6)] }])).toBeCloseTo(0.3, 2);
   });
 
-  it("is limited relative to the letter height so thin strokes survive", () => {
-    expect(tubeRadius(10, 2.4)).toBeLessThanOrEqual(2.4 * 0.04 + 1e-9);
+  it("recovers half the width of a thin bar", () => {
+    const bar = [new THREE.Vector2(0, 0), new THREE.Vector2(10, 0), new THREE.Vector2(10, 0.4), new THREE.Vector2(0, 0.4)];
+    expect(estimateHalfStroke([{ outline: bar, holes: [] }])).toBeCloseTo(0.4 / 2, 1);
+  });
+
+  it("is orientation independent and sums over several shapes", () => {
+    const bar = [new THREE.Vector2(0, 0), new THREE.Vector2(10, 0), new THREE.Vector2(10, 0.4), new THREE.Vector2(0, 0.4)];
+    const one = estimateHalfStroke([{ outline: bar, holes: [] }]);
+    const reversed = estimateHalfStroke([{ outline: [...bar].reverse(), holes: [] }, { outline: bar, holes: [] }]);
+    expect(reversed).toBeCloseTo(one, 6);
+  });
+
+  it("returns 0 for degenerate input", () => {
+    expect(estimateHalfStroke([])).toBe(0);
+  });
+});
+
+describe("tubeRadius", () => {
+  it("is limited to half the depth so the rounded profile always fits", () => {
+    expect(tubeRadius(0.05, 10)).toBeCloseTo(0.025, 6);
+  });
+
+  it("stays below the half-stroke so the front cap never inverts", () => {
+    const r = tubeRadius(1, 0.3);
+    expect(r).toBeGreaterThan(0.2);
+    expect(r).toBeLessThan(0.3);
+  });
+});
+
+describe("conicalInset", () => {
+  it("tapers by 2% of the letter height, but never more than half the half-stroke", () => {
+    expect(conicalInset(2.4, 1)).toBeCloseTo(0.048, 6);
+    expect(conicalInset(2.4, 0.04)).toBeCloseTo(0.02, 6);
   });
 });
 
