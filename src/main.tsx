@@ -29,6 +29,11 @@ function RuntimeErrorFallback({ error }: { error: Error }) {
   );
 }
 
+// index.html ships homepage-default SEO tags for crawlers that don't run JS.
+// Remove them before React mounts so the per-page tags from <Seo> are the only
+// ones (otherwise every page would carry two conflicting canonical URLs).
+document.querySelectorAll('[data-static-seo]').forEach((el) => el.remove());
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ErrorBoundary fallbackRender={(p) => <RuntimeErrorFallback error={p.error} />}>

@@ -83,8 +83,8 @@ export default function Header() {
                 <div className="grid grid-cols-2 gap-1">
                   {configurations.map(c => (
                     <Link key={c.id} to={`/light-effects/${c.id}`} className="flex items-center gap-2.5 rounded-md px-2 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors">
-                      <img src={c.nightImg} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
-                      <span className="truncate">{c.title}</span>
+                      <img src={c.img} alt="" className="w-10 h-10 rounded object-cover shrink-0" />
+                      <span className="min-w-0"><span className="block truncate text-foreground/90">{c.title}</span><span className="block truncate text-xs">{c.subtitle}</span></span>
                     </Link>
                   ))}
                 </div>
@@ -127,7 +127,7 @@ export default function Header() {
         <div className="grid grid-cols-2 gap-1">
           {configurations.map(c => (
             <button key={c.id} onClick={() => handleNav(`/light-effects/${c.id}`)} className="flex items-center gap-2 w-full text-left py-1.5 pl-3 text-sm text-muted-foreground hover:text-foreground">
-              <img src={c.nightImg} alt="" className="w-7 h-7 rounded object-cover shrink-0" />
+              <img src={c.img} alt="" className="w-7 h-7 rounded object-cover shrink-0" />
               <span className="truncate">{c.title}</span>
             </button>
           ))}
