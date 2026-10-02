@@ -67,12 +67,22 @@ export default function ConfiguratorPage() {
 
       {product && config && (
         <>
-          <button
-            onClick={() => setProduct(null)}
-            className="text-sm text-muted-foreground hover:text-foreground mb-6"
-          >
-            ← Switch product
-          </button>
+          <div className="flex gap-6 mb-6">
+            <button
+              onClick={() => setProduct(null)}
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
+              ← Switch product
+            </button>
+            {shapes && (
+              <button
+                onClick={() => setShapes(null)}
+                className="text-sm text-muted-foreground hover:text-foreground"
+              >
+                Use a different file
+              </button>
+            )}
+          </div>
 
           {!shapes && <UploadDropzone onParsed={setShapes} />}
 

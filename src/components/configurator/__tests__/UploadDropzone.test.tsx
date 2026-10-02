@@ -112,6 +112,26 @@ describe("UploadDropzone", () => {
     expect(await screen.findByRole("alert")).not.toHaveTextContent(/xref/i);
   });
 
+  it("triggers again when the same file is selected twice in a row", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockReset();
+    vi.mocked(parseArtwork).mockRejectedValueOnce(new ParseError("logo.svg", new Error("x")));
+    vi.mocked(parseArtwork).mockResolvedValueOnce([new THREE.Shape()]);
+    const onParsed = vi.fn();
+    renderDropzone(onParsed);
+    const input = screen.getByLabelText(/upload your logo/i) as HTMLInputElement;
+    const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
+
+    await user.upload(input, file);
+    await screen.findByRole("alert");
+    // The input is cleared after reading, so the same filename fires change again.
+    expect(input.value).toBe("");
+
+    await user.upload(input, file);
+    await waitFor(() => expect(onParsed).toHaveBeenCalledTimes(1));
+    expect(parseArtwork).toHaveBeenCalledTimes(2);
+  });
+
   it("keeps a /contact footer link as a client-side router link", () => {
     renderDropzone();
     expect(screen.getByRole("link", { name: /contact us/i })).toHaveAttribute("href", "/contact");

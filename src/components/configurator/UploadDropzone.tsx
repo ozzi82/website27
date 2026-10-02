@@ -42,6 +42,9 @@ export default function UploadDropzone({ onParsed }: UploadDropzoneProps) {
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
+    // Clear after grabbing the File (the FileList is live) so picking the same
+    // filename again — e.g. after fixing it and re-exporting — fires change.
+    e.target.value = "";
     if (file) void handleFile(file);
   }
 

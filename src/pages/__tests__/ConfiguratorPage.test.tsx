@@ -92,6 +92,35 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(screen.getByRole("link", { name: /get a quote/i })).toHaveAttribute("href", "/contact");
   });
 
+  it("lets the user swap the logo without losing the chosen product and configuration", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+    renderPage("/configurator");
+    await user.click(screen.getByText(/trimless letters/i));
+    const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
+    await user.upload(screen.getByLabelText(/upload your logo/i), file);
+    await screen.findByTestId("sign-preview-stub");
+    await user.selectOptions(screen.getByLabelText(/illumination/i), "halo-lit");
+
+    await user.click(screen.getByRole("button", { name: /use a different file/i }));
+
+    // Back to the upload step: no preview, no replace button, dropzone is shown.
+    expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
+    expect(screen.getByLabelText(/upload your logo/i)).toBeInTheDocument();
+    expect(screen.queryByText(/cast block acrylic/i)).not.toBeInTheDocument(); // chooser not shown again
+
+    // Uploading the same filename again works, and the configuration was kept.
+    await user.upload(screen.getByLabelText(/upload your logo/i), file);
+    await screen.findByTestId("sign-preview-stub");
+    expect(screen.getByLabelText(/illumination/i)).toHaveValue("halo-lit");
+  });
+
+  it("only offers 'Use a different file' once a logo has been uploaded", () => {
+    renderPage("/configurator?product=cast-block-acrylic");
+    expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
+  });
+
   describe("preview failure", () => {
     afterEach(() => {
       previewState.shouldThrow = false;
