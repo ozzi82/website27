@@ -28,3 +28,12 @@ await writeFile(
   bytes
 );
 console.log("Wrote vector-sample.pdf");
+
+const blankDoc = await PDFDocument.create();
+blankDoc.addPage([200, 200]); // a page with no drawing operators at all
+const blankBytes = await blankDoc.save();
+await writeFile(
+  new URL("../src/components/configurator/__tests__/fixtures/blank-page.pdf", import.meta.url),
+  blankBytes
+);
+console.log("Wrote blank-page.pdf");

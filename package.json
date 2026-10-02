@@ -22,7 +22,7 @@
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "lucide-react": "^0.475.0",
-    "pdfjs-dist": "^6.3.289",
+    "pdfjs-dist": "6.3.289",
     "postprocessing": "^6.39.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
