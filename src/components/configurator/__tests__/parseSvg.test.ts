@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import * as THREE from "three";
-import { parseSvg } from "../parseSvg";
+import { parseSvg, MAX_SVG_ELEMENTS, MAX_SVG_USE_ELEMENTS, MAX_SVG_SHAPES } from "../parseSvg";
 import { ParseError, TextNotOutlinedError, NoVectorPathsFoundError } from "../parseErrors";
 
 const SIMPLE_SQUARE = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -78,5 +78,35 @@ describe("parseSvg", () => {
     // Intentionally not asserting holes.length === 0 or === 1 here — the point
     // of this test is that parsing completes without throwing, documenting
     // the known limitation rather than pinning its exact (unreliable) output.
+  });
+
+  describe("complexity caps (hostile or huge files)", () => {
+    const wrap = (inner: string) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">${inner}</svg>`;
+
+    it("rejects a document with more than MAX_SVG_ELEMENTS elements with a ParseError", () => {
+      const svg = wrap('<path d="M0 0H1V1Z"/>'.repeat(MAX_SVG_ELEMENTS + 1));
+      expect(() => parseSvg(svg)).toThrow(ParseError);
+      expect(() => parseSvg(svg)).toThrow(/too many elements/i);
+    });
+
+    it("rejects more than MAX_SVG_USE_ELEMENTS <use> elements (billion-laughs style fan-out)", () => {
+      const svg = wrap(
+        '<defs><path id="a" d="M0 0H1V1Z"/></defs>' + '<use href="#a"/>'.repeat(MAX_SVG_USE_ELEMENTS + 1)
+      );
+      expect(() => parseSvg(svg)).toThrow(ParseError);
+      expect(() => parseSvg(svg)).toThrow(/<use>/);
+    });
+
+    it("rejects a file that produces more than MAX_SVG_SHAPES shapes", () => {
+      // Well under the element cap, so this exercises the post-SVGLoader check.
+      const svg = wrap('<path d="M0 0H1V1Z"/>'.repeat(MAX_SVG_SHAPES + 1));
+      expect(() => parseSvg(svg)).toThrow(ParseError);
+      expect(() => parseSvg(svg)).toThrow(/too many shapes/i);
+    });
+
+    it("accepts a file with exactly MAX_SVG_SHAPES shapes", () => {
+      const svg = wrap('<path d="M0 0H1V1Z"/>'.repeat(MAX_SVG_SHAPES));
+      expect(parseSvg(svg)).toHaveLength(MAX_SVG_SHAPES);
+    });
   });
 });
