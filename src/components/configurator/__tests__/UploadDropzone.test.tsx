@@ -40,7 +40,7 @@ describe("UploadDropzone", () => {
     renderDropzone(onParsed);
     await uploadSvg(user);
 
-    await waitFor(() => expect(onParsed).toHaveBeenCalledWith([shape]));
+    await waitFor(() => expect(onParsed).toHaveBeenCalledWith([shape], "logo.svg"));
   });
 
   it("shows the specific NoVectorPathsFoundError message when parsing fails that way", async () => {

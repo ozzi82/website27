@@ -1,57 +1,54 @@
-import { useId } from "react";
+import { useId, type ReactNode } from "react";
+import { AlertTriangle, Info } from "lucide-react";
 import type { LightConfig } from "../../data/configurations";
 import { BACKGROUNDS } from "./backgrounds";
-import {
-  emitsLight,
-  formatDepth,
-  type ConfiguratorState,
-} from "./types";
+import DayNightToggle from "./DayNightToggle";
+import SegmentedControl from "./SegmentedControl";
+import { GLOW_SWATCHES, PAINT_SWATCHES, type Swatch } from "./swatches";
+import { thinStrokeAdvice } from "./strokeGuard";
+import { emitsLight, formatDepth, type ConfiguratorState } from "./types";
 
 interface ConfigControlsProps {
   config: LightConfig;
   state: ConfiguratorState;
   onChange: (state: ConfiguratorState) => void;
+  /** Average stroke width over artwork height (see strokeHeightRatio); null/undefined when unknown. */
+  strokeRatio?: number | null;
 }
 
-// The brochure paints in "any PMS color", so these are just quick picks next to a free colour input.
-const PAINT_SWATCHES = [
-  { name: "Charcoal", hex: "#4b5059" },
-  { name: "Black", hex: "#15161a" },
-  { name: "White", hex: "#f2f2f2" },
-  { name: "Silver", hex: "#aeb3ba" },
-  { name: "Red", hex: "#b4332a" },
-  { name: "Burgundy", hex: "#6a1f33" },
-  { name: "Navy", hex: "#1f3a68" },
-  { name: "Gold", hex: "#b8903a" },
-];
+/** One compact row: a short label on the left, the control on the right. */
+function Row({ label, htmlFor, labelId, children }: { label: string; htmlFor?: string; labelId?: string; children: ReactNode }) {
+  return (
+    <div className="grid grid-cols-[5.25rem_minmax(0,1fr)] items-center gap-x-3">
+      {htmlFor ? (
+        <label htmlFor={htmlFor} className="text-sm font-medium">
+          {label}
+        </label>
+      ) : (
+        <span id={labelId} className="text-sm font-medium">
+          {label}
+        </span>
+      )}
+      <div className="min-w-0">{children}</div>
+    </div>
+  );
+}
 
-const GLOW_SWATCHES = [
-  { name: "White", hex: "#ffffff" },
-  { name: "Warm white", hex: "#ffd9a0" },
-  { name: "Red", hex: "#ff1a1a" },
-  { name: "Amber", hex: "#ff9a1a" },
-  { name: "Green", hex: "#20e060" },
-  { name: "Cyan", hex: "#19e0ff" },
-  { name: "Blue", hex: "#2d5bff" },
-  { name: "Magenta", hex: "#ff2bd6" },
-];
-
-const FIELD = "w-full rounded-md border border-input bg-background px-3 py-2 text-sm";
-
-interface ColorFieldProps {
+interface ColorRowProps {
+  /** Short visible label ("Paint"). */
+  label: string;
+  /** Accessible name of the group and base of each swatch's name ("Paint color"). */
   legend: string;
-  hint: string;
   value: string;
-  swatches: { name: string; hex: string }[];
+  swatches: Swatch[];
   onChange: (hex: string) => void;
 }
 
-function ColorField({ legend, hint, value, swatches, onChange }: ColorFieldProps) {
-  const hintId = useId();
+function ColorRow({ label, legend, value, swatches, onChange }: ColorRowProps) {
+  const labelId = useId();
   return (
-    <fieldset aria-describedby={hintId} className="space-y-2">
-      <legend className="text-sm font-medium mb-2">{legend}</legend>
-      <div className="flex flex-wrap items-center gap-2">
+    <Row label={label} labelId={labelId}>
+      <div role="group" aria-label={legend} className="flex flex-wrap items-center gap-1.5">
         {swatches.map((s) => (
           <button
             key={s.hex}
@@ -61,76 +58,63 @@ function ColorField({ legend, hint, value, swatches, onChange }: ColorFieldProps
             aria-pressed={value.toLowerCase() === s.hex}
             onClick={() => onChange(s.hex)}
             style={{ backgroundColor: s.hex }}
-            className="h-8 w-8 rounded-full border border-border aria-pressed:ring-2 aria-pressed:ring-primary aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+            className="h-6 w-6 rounded-full border border-border aria-pressed:ring-2 aria-pressed:ring-primary aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
           />
         ))}
         <input
           type="color"
           aria-label={`Custom ${legend.toLowerCase()}`}
+          title="Any color"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="h-8 w-10 cursor-pointer rounded border border-border bg-transparent p-0.5"
+          className="h-6 w-8 cursor-pointer rounded border border-border bg-transparent p-0.5"
         />
       </div>
-      <p id={hintId} className="text-xs text-muted-foreground">
-        {hint}
-      </p>
-    </fieldset>
+    </Row>
   );
 }
 
-export default function ConfigControls({ config, state, onChange }: ConfigControlsProps) {
+/** "1.2″" in the segment with the metric size beside it in the same text: `1.2″ (30 mm)`. */
+function DepthLabel({ mm }: { mm: number }) {
+  const [inches, rest] = formatDepth(mm).split(" (");
+  return (
+    <span>
+      {inches}
+      <span className="font-normal opacity-75"> ({rest}</span>
+    </span>
+  );
+}
+
+export default function ConfigControls({ config, state, onChange, strokeRatio = null }: ConfigControlsProps) {
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
 
-  const depthId = useId();
-  const backgroundName = useId();
+  const brightnessId = useId();
   const lights = emitsLight(config);
   const hasPaint = config.profile !== "tube"; // the whole tube glows: nothing painted to colour
   const illustrative = config.profile === "tube" || config.profile === "conical";
+  const advice = thinStrokeAdvice(config, strokeRatio);
+  const singleDepth = config.depthOptionsMm.length === 1;
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-2">
-        <label className="block text-sm font-medium" htmlFor={depthId}>
-          Depth
-        </label>
-        <select
-          id={depthId}
+    <div className="space-y-2.5 [@media(min-height:830px)]:space-y-4">
+      <Row label="Depth" labelId="depth-label">
+        <SegmentedControl
+          label="Depth"
           value={state.depthMm}
-          disabled={config.depthOptionsMm.length === 1}
-          onChange={(e) => set({ depthMm: Number(e.target.value) })}
-          className={FIELD}
-        >
-          {config.depthOptionsMm.map((mm) => (
-            <option key={mm} value={mm}>
-              {formatDepth(mm)}
-            </option>
-          ))}
-        </select>
-        {config.depthOptionsMm.length === 1 && (
-          <p className="text-xs text-muted-foreground">This is the only standard depth for this configuration.</p>
-        )}
-        {config.customDepth && (
-          <p className="text-xs text-muted-foreground">Custom depths available — ask us.</p>
-        )}
-        <p className="text-xs text-muted-foreground">
-          Depth is drawn against a nominal 12″ letter, so the preview is illustrative.
-        </p>
-      </div>
-
-      <div className="space-y-1">
-        <p className="text-sm font-medium">Size guidance</p>
-        <p className="text-xs text-muted-foreground">Minimum letter height: {formatDepth(config.minHeightMm)}.</p>
-        <p className="text-xs text-muted-foreground">
-          Minimum stroke width: {formatDepth(config.minStrokeMm)}. We don't check stroke width automatically, so keep
-          your thinnest strokes at least this thick.
-        </p>
-      </div>
+          disabled={singleDepth}
+          onChange={(depthMm) => set({ depthMm })}
+          options={config.depthOptionsMm.map((mm) => ({
+            value: mm,
+            label: <DepthLabel mm={mm} />,
+            ariaLabel: formatDepth(mm),
+          }))}
+        />
+      </Row>
 
       {hasPaint && (
-        <ColorField
+        <ColorRow
+          label="Paint"
           legend="Paint color"
-          hint="Applies to the painted surfaces: sides and any face that isn't lit."
           value={state.color}
           swatches={PAINT_SWATCHES}
           onChange={(hex) => set({ color: hex })}
@@ -138,50 +122,95 @@ export default function ConfigControls({ config, state, onChange }: ConfigContro
       )}
 
       {lights && (
-        <ColorField
+        <ColorRow
+          label="Glow"
           legend="Glow color"
-          hint="The color of the light, from pigmented translucent acrylic or vinyl."
           value={state.glowColor}
           swatches={GLOW_SWATCHES}
           onChange={(hex) => set({ glowColor: hex })}
         />
       )}
 
-      <fieldset role="radiogroup" className="space-y-2">
-        <legend className="text-sm font-medium mb-2">Background</legend>
-        <div className="grid grid-cols-2 gap-2">
+      {lights && (
+        <Row label="Brightness" htmlFor={brightnessId}>
+          <div className="flex items-center gap-2">
+            <input
+              id={brightnessId}
+              type="range"
+              min={0}
+              max={100}
+              step={5}
+              value={state.brightness}
+              onChange={(e) => set({ brightness: Number(e.target.value) })}
+              aria-valuetext={`${state.brightness} percent`}
+              className="h-5 min-w-0 flex-1 cursor-pointer accent-[hsl(var(--primary))]"
+            />
+            <span aria-hidden="true" className="w-10 text-right text-xs tabular-nums text-muted-foreground">
+              {state.brightness}%
+            </span>
+          </div>
+        </Row>
+      )}
+
+      <Row label="Background" labelId="bg-label">
+        <div role="radiogroup" aria-label="Background" className="grid grid-cols-4 gap-1.5">
           {BACKGROUNDS.map((b) => (
             <label
               key={b.id}
-              className="flex cursor-pointer items-center gap-2 rounded-md border border-input bg-background px-2 py-1.5 text-sm has-[:checked]:border-primary has-[:checked]:ring-1 has-[:checked]:ring-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-primary"
+              title={b.label}
+              style={{ background: b.thumb }}
+              className="relative flex h-11 cursor-pointer sm:h-9 [@media(min-height:830px)]:sm:h-11 items-end overflow-hidden rounded-md border border-border has-[:checked]:border-primary has-[:checked]:ring-2 has-[:checked]:ring-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-1 has-[:focus-visible]:outline-primary"
             >
               <input
                 type="radio"
-                name={backgroundName}
+                name="configurator-background"
                 value={b.id}
                 checked={state.background === b.id}
                 onChange={() => set({ background: b.id })}
                 className="sr-only"
               />
-              <span aria-hidden="true" className="h-5 w-5 shrink-0 rounded border border-border" style={{ backgroundColor: b.swatch }} />
-              {b.label}
+              <span className="w-full bg-black/55 px-1 py-px text-center text-[10px] leading-[1.1] text-white">
+                {b.label}
+              </span>
             </label>
           ))}
         </div>
-      </fieldset>
+      </Row>
 
-      <label className="flex items-center gap-2 text-sm font-medium">
-        <input
-          type="checkbox"
-          checked={state.dayNight === "night"}
-          onChange={(e) => set({ dayNight: e.target.checked ? "night" : "day" })}
-        />
-        Day / Night
-      </label>
+      <DayNightToggle value={state.dayNight} onChange={(dayNight) => set({ dayNight })} />
 
-      {illustrative && (
-        <p className="text-xs text-muted-foreground">Illustrative preview — this profile is approximated.</p>
+      {advice && (
+        <p
+          role="note"
+          className={
+            advice.severity === "strong"
+              ? "flex gap-2 rounded-lg border border-amber-500/60 bg-amber-500/15 p-2.5 text-xs leading-snug text-amber-100"
+              : "flex gap-2 text-[11px] leading-snug text-amber-200/90"
+          }
+        >
+          <AlertTriangle aria-hidden="true" className={`mt-px shrink-0 text-amber-400 ${advice.severity === "strong" ? "h-4 w-4" : "h-3.5 w-3.5"}`} />
+          <span>{advice.message}</span>
+        </p>
       )}
+
+      <p className="text-[11px] leading-snug text-muted-foreground">
+        Minimum letter height {formatDepth(config.minHeightMm)} · minimum stroke width {formatDepth(config.minStrokeMm)}
+      </p>
+
+      <details className="group text-[11px] leading-snug text-muted-foreground">
+        <summary className="flex cursor-pointer list-none items-center gap-1 hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+          <Info aria-hidden="true" className="h-3.5 w-3.5" />
+          About this preview
+        </summary>
+        <div className="mt-1.5 space-y-1">
+          <p>Depth is drawn against a nominal 12″ letter, so the preview is illustrative.</p>
+          {singleDepth && <p>This is the only standard depth for this configuration.</p>}
+          {config.customDepth && <p>Custom depths available — ask us.</p>}
+          {illustrative && <p>Illustrative preview — this profile is approximated.</p>}
+          <p>Paint color applies to the sides and any face that isn’t lit; glow color is the pigmented acrylic or vinyl.</p>
+          <p>The brightness slider dims the LEDs in the night view.</p>
+        </div>
+      </details>
     </div>
   );
 }

@@ -1,7 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import ContactForm from "../components/ContactForm";
 import FAQSection, { faqs } from "../components/FAQSection";
 import Seo from "../components/Seo";
+import QuoteCard from "../components/configurator/QuoteCard";
+import { clearQuote, isQuoteSnapshot, loadQuote, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -15,6 +18,20 @@ const jsonLd = {
 
 export default function ContactPage() {
   useEffect(() => { window.scrollTo(0, 0); }, []);
+
+  // The configurator hands its configuration over in router state (fresh navigation) and sessionStorage (a refresh).
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [quote, setQuote] = useState<QuoteSnapshot | null>(() => {
+    const fromState = (location.state as { quote?: unknown } | null)?.quote;
+    return isQuoteSnapshot(fromState) ? fromState : loadQuote();
+  });
+
+  function handleClear() {
+    clearQuote();
+    setQuote(null);
+    navigate(location.pathname, { replace: true, state: null }); // otherwise a refresh would bring it back from history state
+  }
 
   return (
     <>
@@ -32,7 +49,10 @@ export default function ContactPage() {
           </p>
         </div>
       </section>
-      <ContactForm />
+      <ContactForm
+        prefill={quote?.summary ?? null}
+        aboveForm={quote ? <QuoteCard quote={quote} onClear={handleClear} /> : null}
+      />
       <FAQSection />
     </>
   );

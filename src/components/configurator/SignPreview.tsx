@@ -1,5 +1,5 @@
-import { useMemo, useRef } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import * as THREE from "three";
 import CameraRig, { type CameraApi } from "./CameraRig";
@@ -12,10 +12,15 @@ import { atmosphereFor } from "./nightFade";
 import { emitsLight, type ConfiguratorState } from "./types";
 import type { LightConfig } from "../../data/configurations";
 
+/** Resolves to a small JPEG data URL of the current preview, or null if it could not be captured. */
+export type CaptureSnapshot = () => Promise<string | null>;
+
 interface SignPreviewProps {
   shapes: THREE.Shape[];
   config: LightConfig;
   state: ConfiguratorState;
+  /** Filled with the snapshot function while the preview is mounted (used by "Get a Quote"). */
+  captureRef?: MutableRefObject<CaptureSnapshot | null>;
 }
 
 // Hoisted so the props are referentially stable across re-renders (a fresh
@@ -55,7 +60,59 @@ function SceneAtmosphere({ dark, background }: { dark: boolean; background: Back
   );
 }
 
-export default function SignPreview({ shapes, config, state }: SignPreviewProps) {
+const SNAPSHOT_WIDTH = 720;
+
+/** Downscales the WebGL canvas into a small JPEG. Must run in the same task as the render that filled the drawing buffer. */
+function snapshotOf(source: HTMLCanvasElement): string | null {
+  if (!source.width || !source.height) return null;
+  const out = document.createElement("canvas");
+  out.width = SNAPSHOT_WIDTH;
+  out.height = Math.max(1, Math.round((SNAPSHOT_WIDTH * source.height) / source.width));
+  const ctx = out.getContext("2d");
+  if (!ctx) return null;
+  ctx.drawImage(source, 0, 0, out.width, out.height);
+  return out.toDataURL("image/jpeg", 0.85);
+}
+
+/**
+ * Lets the page grab the current frame. A WebGL canvas without preserveDrawingBuffer is blank once the task that
+ * rendered it ends, so the capture waits for the next frame and reads it in a frame callback that runs after the
+ * composer's render (priority 2 > the composer's 1), still inside that same task.
+ */
+function SnapshotBridge({ captureRef }: { captureRef: MutableRefObject<CaptureSnapshot | null> }) {
+  const canvas = useThree((s) => s.gl.domElement);
+  const waiting = useRef<((url: string | null) => void)[]>([]);
+
+  useFrame(() => {
+    if (waiting.current.length === 0) return;
+    let url: string | null = null;
+    try {
+      url = snapshotOf(canvas);
+    } catch {
+      url = null;
+    }
+    for (const resolve of waiting.current.splice(0)) resolve(url);
+  }, 2);
+
+  useEffect(() => {
+    captureRef.current = () =>
+      new Promise((resolve) => {
+        const timer = setTimeout(() => resolve(null), 2500); // a hidden tab pauses frames: never hang the click
+        waiting.current.push((url) => {
+          clearTimeout(timer);
+          resolve(url);
+        });
+      });
+    return () => {
+      captureRef.current = null;
+      for (const resolve of waiting.current.splice(0)) resolve(null);
+    };
+  }, [captureRef]);
+
+  return null;
+}
+
+export default function SignPreview({ shapes, config, state, captureRef }: SignPreviewProps) {
   const isNight = state.dayNight === "night";
   // At night the room goes dark so the lit parts carry the picture. An unlit
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
@@ -75,6 +132,7 @@ export default function SignPreview({ shapes, config, state }: SignPreviewProps)
           <SceneAtmosphere dark={dark} background={getBackground(state.background)} />
           <ConfigScene shapes={shapes} config={config} state={state} />
           <CameraRig ref={camera} />
+          {captureRef && <SnapshotBridge captureRef={captureRef} />}
         </NightProvider>
       </Canvas>
     </PreviewFrame>

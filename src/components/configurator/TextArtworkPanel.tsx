@@ -16,7 +16,7 @@ interface TextArtworkPanelProps {
   announcement: string;
 }
 
-const FIELD = "w-full rounded-md border border-input bg-background px-3 py-2 text-base";
+const FIELD = "w-full rounded-md border border-input bg-background px-2.5 py-1.5 text-sm";
 
 /** Typed-text artwork: a small multi-line box plus a picker of the bundled fonts, each shown in its own face. */
 export default function TextArtworkPanel({
@@ -40,9 +40,9 @@ export default function TextArtworkPanel({
   const used = Array.from(text.replace(/\n/g, "")).length;
 
   return (
-    <section aria-label="Text artwork" className="space-y-4 rounded-xl border border-border bg-card p-4">
-      <div className="space-y-2">
-        <label className="block text-sm font-medium" htmlFor={textId}>
+    <section aria-label="Text artwork" className="space-y-2">
+      <div className="space-y-1">
+        <label className="sr-only" htmlFor={textId}>
           Your text
         </label>
         <textarea
@@ -57,49 +57,47 @@ export default function TextArtworkPanel({
           onChange={(e) => onTextChange(clampTextInput(e.target.value))}
           className={`${FIELD} resize-none leading-snug`}
         />
-        <p id={hintId} className="flex justify-between gap-2 text-xs text-muted-foreground">
+        <p id={hintId} className="flex justify-between gap-2 text-[11px] leading-tight text-muted-foreground">
           <span>
-            Up to {MAX_LINES} lines, {MAX_CHARS_PER_LINE} characters each. Press Enter for a new line.
+            Up to {MAX_LINES} lines, {MAX_CHARS_PER_LINE} characters each. Enter starts a new line.
           </span>
           <span aria-hidden="true">
             {used} / {MAX_CHARS}
           </span>
         </p>
         {error && (
-          <p role="alert" className="text-sm text-destructive">
+          <p role="alert" className="text-xs text-destructive">
             {error}
           </p>
         )}
         {skipped.length > 0 && !error && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[11px] leading-tight text-muted-foreground">
             Not available in this font, so left out: {skipped.map((c) => `‘${c}’`).join(" ")}. Try another font.
           </p>
         )}
       </div>
 
-      <fieldset role="radiogroup" className="space-y-2">
-        <legend className="text-sm font-medium mb-2">Font</legend>
-        <div className="grid grid-cols-2 gap-2">
-          {TEXT_FONTS.map((f) => (
-            <label
-              key={f.id}
-              className="flex min-h-12 cursor-pointer items-center rounded-md border border-input bg-background px-3 py-2 has-[:checked]:border-primary has-[:checked]:ring-1 has-[:checked]:ring-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-primary"
-            >
-              <input
-                type="radio"
-                name={fontName}
-                value={f.id}
-                checked={fontId === f.id}
-                onChange={() => onFontChange(f.id)}
-                className="sr-only"
-              />
-              <span className="text-lg leading-tight" style={{ fontFamily: `"${f.cssFamily}", sans-serif` }}>
-                {f.label}
-              </span>
-            </label>
-          ))}
-        </div>
-      </fieldset>
+      <div role="radiogroup" aria-label="Font" className="grid grid-cols-4 gap-1">
+        {TEXT_FONTS.map((f) => (
+          <label
+            key={f.id}
+            title={f.label}
+            className="flex h-8 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-1 has-[:checked]:border-primary has-[:checked]:ring-1 has-[:checked]:ring-primary has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-primary"
+          >
+            <input
+              type="radio"
+              name={fontName}
+              value={f.id}
+              checked={fontId === f.id}
+              onChange={() => onFontChange(f.id)}
+              className="sr-only"
+            />
+            <span className="truncate text-xs leading-tight" style={{ fontFamily: `"${f.cssFamily}", sans-serif` }}>
+              {f.label}
+            </span>
+          </label>
+        ))}
+      </div>
 
       <p role="status" aria-live="polite" className="sr-only">
         {announcement}

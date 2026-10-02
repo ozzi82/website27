@@ -3,6 +3,7 @@ import * as THREE from "three";
 import {
   bevelStrength,
   formatNeededHeight,
+  lineStackFactor,
   neededLetterHeightMm,
   strokeHeightRatio,
   thinStrokeAdvice,
@@ -40,6 +41,19 @@ describe("strokeHeightRatio", () => {
   it("is null when there is nothing to measure", () => {
     expect(strokeHeightRatio([])).toBeNull();
     expect(strokeHeightRatio([new THREE.Shape()])).toBeNull();
+  });
+});
+
+describe("lineStackFactor", () => {
+  it("is 1 for a single line and grows by 1.5 per extra line", () => {
+    expect(lineStackFactor(1)).toBe(1);
+    expect(lineStackFactor(2)).toBe(2.5);
+    expect(lineStackFactor(3)).toBe(4);
+  });
+
+  it("never drops below 1 for zero or odd input", () => {
+    expect(lineStackFactor(0)).toBe(1);
+    expect(lineStackFactor(-3)).toBe(1);
   });
 });
 

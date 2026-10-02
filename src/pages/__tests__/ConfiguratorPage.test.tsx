@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Routes, Route } from "react-router-dom";
+import { MemoryRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import * as THREE from "three";
 import ConfiguratorPage from "../ConfiguratorPage";
@@ -45,6 +45,18 @@ vi.mock("../../components/configurator/webglSupport", () => ({
   isWebglSupported: () => true,
 }));
 
+/** Stands in for /contact: shows the quote that arrived in router state. */
+function ContactProbe() {
+  const state = useLocation().state as { quote?: { summary: string; image: string | null } } | null;
+  return (
+    <div>
+      <p>Contact Page</p>
+      <pre data-testid="quote-summary">{state?.quote?.summary ?? "no quote"}</pre>
+      <p data-testid="quote-image">{state?.quote?.image ?? "no image"}</p>
+    </div>
+  );
+}
+
 function renderPage(initialPath: string) {
   render(
     // ConfiguratorPage renders <Seo>, which needs a <HelmetProvider> ancestor
@@ -57,7 +69,7 @@ function renderPage(initialPath: string) {
       <MemoryRouter initialEntries={[initialPath]}>
         <Routes>
           <Route path="/configurator" element={<ConfiguratorPage />} />
-          <Route path="/contact" element={<div>Contact Page</div>} />
+          <Route path="/contact" element={<ContactProbe />} />
         </Routes>
       </MemoryRouter>
     </HelmetProvider>
@@ -84,12 +96,13 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
 
     await upload(user);
 
-    await user.selectOptions(screen.getByLabelText("Depth"), "100");
-    expect(screen.getByLabelText("Depth")).toHaveValue("100");
-    await user.click(screen.getByLabelText(/day.*night|night.*day/i));
-    expect(screen.getByLabelText(/day.*night|night.*day/i)).toBeChecked();
+    await user.click(screen.getByRole("radio", { name: "4″ (100 mm)" }));
+    expect(screen.getByRole("radio", { name: "4″ (100 mm)" })).toBeChecked();
+    await user.click(screen.getByRole("radio", { name: "Night" }));
+    expect(screen.getByRole("radio", { name: "Night" })).toBeChecked();
 
-    expect(screen.getByRole("link", { name: /get a quote/i })).toHaveAttribute("href", "/contact");
+    const quote = screen.getByRole("link", { name: /get a quote/i });
+    expect(quote).toHaveAttribute("href", "/contact");
   });
 
   it("preselects the configuration from ?config= and skips the chooser", async () => {
@@ -101,9 +114,9 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(screen.queryByRole("button", { name: /EdgeLuxe LP 5/ })).not.toBeInTheDocument();
     expect(screen.getByText("LP 11-B")).toBeInTheDocument();
     await upload(user);
-    const depth = screen.getByLabelText("Depth") as HTMLSelectElement;
-    expect([...depth.options].map((o) => o.value)).toEqual(["10", "15", "20", "30"]);
-    expect(depth).toHaveValue("30");
+    const depth = screen.getByRole("radiogroup", { name: "Depth" });
+    expect(within(depth).getAllByRole("radio").map((o) => o.getAttribute("value"))).toEqual(["10", "15", "20", "30"]);
+    expect(within(depth).getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked();
   });
 
   it("falls back to the chooser for an unknown ?config= id", () => {
@@ -117,7 +130,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
     renderPage("/configurator?config=lp-5-trimless-face-lit");
     await upload(user);
-    await user.selectOptions(screen.getByLabelText("Depth"), "75");
+    await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
 
     await user.click(screen.getByRole("button", { name: /use a different file/i }));
 
@@ -129,7 +142,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
 
     // Uploading the same filename again works, and the configuration was kept.
     await upload(user);
-    expect(screen.getByLabelText("Depth")).toHaveValue("75");
+    expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
   });
 
   it("switching configuration keeps the uploaded artwork and resets to the new defaults", async () => {
@@ -137,8 +150,8 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
     renderPage("/configurator?config=lp-5-trimless-face-lit");
     await upload(user);
-    await user.selectOptions(screen.getByLabelText("Depth"), "75");
-    await user.click(screen.getByLabelText(/day.*night|night.*day/i));
+    await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
+    await user.click(screen.getByRole("radio", { name: "Night" }));
 
     await user.click(screen.getByRole("button", { name: /change configuration/i }));
     expect(screen.getAllByRole("button", { name: /EdgeLuxe LP/ })).toHaveLength(12);
@@ -147,8 +160,8 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     // Straight to the preview with the same artwork (no second upload) and LP 11-F's defaults.
     expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
     expect(screen.queryByLabelText(/upload your logo/i)).not.toBeInTheDocument();
-    expect(screen.getByLabelText("Depth")).toHaveValue("30");
-    expect(screen.getByLabelText(/day.*night|night.*day/i)).not.toBeChecked();
+    expect(screen.getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked();
+    expect(screen.getByRole("radio", { name: "Day" })).toBeChecked();
     expect(parseArtwork).toHaveBeenCalledTimes(1);
   });
 
@@ -175,12 +188,62 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
 
     expect(screen.getByRole("radio", { name: "Brick" })).toBeChecked();
-    expect(screen.getByLabelText("Depth")).toHaveValue("30"); // everything else still resets
+    expect(screen.getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked(); // everything else still resets
   });
 
   it("only offers 'Use a different file' once a logo has been uploaded", () => {
     renderPage("/configurator?config=lp-11-f-face-lit");
     expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
+  });
+
+  describe("Get a Quote carries the configuration", () => {
+    beforeEach(() => sessionStorage.clear());
+
+    it("navigates to /contact with the configuration in router state and sessionStorage", async () => {
+      const user = userEvent.setup();
+      vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+      renderPage("/configurator?config=lp-3-1-standoff-halo");
+      await upload(user);
+      await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
+      await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /cyan/i }));
+      fireEvent.change(screen.getByRole("slider", { name: "Brightness" }), { target: { value: "70" } });
+
+      await user.click(screen.getByRole("link", { name: /get a quote/i }));
+
+      expect(await screen.findByText("Contact Page")).toBeInTheDocument();
+      const summary = screen.getByTestId("quote-summary").textContent!;
+      expect(summary).toContain("LP 3.1");
+      expect(summary).toContain("Depth: 3″ (75 mm)");
+      expect(summary).toContain("Glow color: Cyan (#19e0ff)");
+      expect(summary).toContain("LED brightness: 70%");
+      expect(summary).toContain("Artwork: uploaded file logo.svg");
+      // no snapshot function in the stubbed preview: the quote still goes through, without an image
+      expect(screen.getByTestId("quote-image")).toHaveTextContent("no image");
+      expect(JSON.parse(sessionStorage.getItem("sls.quote.v1")!).summary).toBe(summary);
+    });
+
+    it("includes typed text and its font", async () => {
+      const user = userEvent.setup();
+      vi.mocked(generateTextShapes).mockResolvedValue({ shapes: [new THREE.Shape()], skipped: [] });
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await user.click(screen.getByRole("radio", { name: "Type text" }));
+      await user.type(screen.getByLabelText(/your text/i), "Open");
+      await user.click(screen.getByRole("radio", { name: "Pacifico" }));
+      await screen.findByTestId("sign-preview-stub");
+
+      await user.click(screen.getByRole("link", { name: /get a quote/i }));
+      expect(await screen.findByTestId("quote-summary")).toHaveTextContent('Artwork: typed text "Open" in Pacifico');
+    });
+
+    it("still works with no artwork yet (a summary without the artwork line)", async () => {
+      const user = userEvent.setup();
+      renderPage("/configurator?config=lp-5-trimless-face-lit");
+      await user.click(screen.getByRole("radio", { name: "Type text" })); // the workspace, with an empty text
+      await user.click(screen.getByRole("link", { name: /get a quote/i }));
+      const summary = (await screen.findByTestId("quote-summary")).textContent!;
+      expect(summary).toContain("LP 5");
+      expect(summary).not.toMatch(/artwork:/i);
+    });
   });
 
   describe("typed text artwork", () => {
@@ -221,28 +284,28 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       const user = userEvent.setup();
       renderPage("/configurator?config=lp-5-trimless-face-lit");
       await chooseText(user);
-      await user.selectOptions(screen.getByLabelText("Depth"), "75");
+      await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
 
       await user.type(screen.getByLabelText(/your text/i), "Sunlite");
       expect(await screen.findByTestId("sign-preview-stub")).toBeInTheDocument();
       expect(generateTextShapes).toHaveBeenCalledTimes(1); // typing 7 characters in a row is one rebuild
       expect(generateTextShapes).toHaveBeenCalledWith("Sunlite", "montserrat");
       expect(screen.getByRole("status")).toHaveTextContent("Preview updated");
-      expect(screen.getByLabelText("Depth")).toHaveValue("75");
+      expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
     });
 
     it("rebuilds with the new font when the font changes, without touching depth or the text", async () => {
       const user = userEvent.setup();
       renderPage("/configurator?config=lp-5-trimless-face-lit");
       await chooseText(user);
-      await user.selectOptions(screen.getByLabelText("Depth"), "75");
+      await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
       await user.type(screen.getByLabelText(/your text/i), "Hi");
       await screen.findByTestId("sign-preview-stub");
 
       await user.click(screen.getByRole("radio", { name: "Pacifico" }));
       await waitFor(() => expect(generateTextShapes).toHaveBeenLastCalledWith("Hi", "pacifico"));
       expect(screen.getByLabelText(/your text/i)).toHaveValue("Hi");
-      expect(screen.getByLabelText("Depth")).toHaveValue("75");
+      expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
     });
 
     it("returns to the prompt, with no error, when the text is cleared", async () => {
@@ -270,7 +333,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
         "Couldn't render that text with this font. Try different characters or another font."
       );
       expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
-      expect(screen.getByLabelText("Depth")).toBeInTheDocument(); // the page keeps working
+      expect(screen.getByRole("radiogroup", { name: "Depth" })).toBeInTheDocument(); // the page keeps working
       spy.mockRestore();
     });
 
@@ -281,10 +344,10 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
 
       // Upload first, then switch to text: the uploaded sign must not be shown for the text source.
       await upload(user);
-      await user.selectOptions(screen.getByLabelText("Depth"), "75");
+      await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
       await chooseText(user);
       expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
-      expect(screen.getByLabelText("Depth")).toHaveValue("75");
+      expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
       expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
 
       await user.type(screen.getByLabelText(/your text/i), "Hello");
@@ -296,7 +359,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
       expect(screen.queryByLabelText(/your text/i)).not.toBeInTheDocument();
       expect(screen.getByRole("button", { name: /use a different file/i })).toBeInTheDocument();
-      expect(screen.getByLabelText("Depth")).toHaveValue("75");
+      expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
 
       // Back to text: what was typed, and the font, were remembered.
       await chooseText(user);
@@ -328,7 +391,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
       expect(screen.getByLabelText(/your text/i)).toHaveValue("Hello");
       expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
-      expect(screen.getByLabelText("Depth")).toHaveValue("30");
+      expect(screen.getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked();
     });
   });
 
@@ -351,7 +414,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       expect(screen.queryByText(/WebGL context lost/)).not.toBeInTheDocument();
       expect(screen.getByRole("link", { name: /send it to us directly/i })).toHaveAttribute("href", "/contact");
       // The rest of the page keeps working.
-      expect(screen.getByLabelText("Depth")).toBeInTheDocument();
+      expect(screen.getByRole("radiogroup", { name: "Depth" })).toBeInTheDocument();
       expect(screen.getByRole("link", { name: /get a quote/i })).toBeInTheDocument();
 
       // Retry re-renders the preview once the underlying problem is gone.

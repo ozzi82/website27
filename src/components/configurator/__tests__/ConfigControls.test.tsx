@@ -7,39 +7,48 @@ import { configurations } from "../../../data/configurations";
 
 const byId = (id: string) => configurations.find((c) => c.id === id)!;
 
-function setup(id: string, patch: Partial<ConfiguratorState> = {}) {
+function setup(id: string, patch: Partial<ConfiguratorState> = {}, strokeRatio: number | null = null) {
   const config = byId(id);
   const state = { ...defaultStateFor(config), ...patch };
   const onChange = vi.fn();
-  render(<ConfigControls config={config} state={state} onChange={onChange} />);
+  render(<ConfigControls config={config} state={state} onChange={onChange} strokeRatio={strokeRatio} />);
   return { config, state, onChange };
 }
 
-const dayNight = () => screen.getByLabelText(/day.*night|night.*day/i);
+const depthGroup = () => screen.getByRole("radiogroup", { name: "Depth" });
+const dayNightGroup = () => screen.getByRole("radiogroup", { name: /day or night/i });
 
 describe("ConfigControls depth", () => {
   it("offers only the configuration's own depths, labelled inches first", () => {
     setup("lp-3-1-standoff-halo");
-    const select = screen.getByLabelText("Depth") as HTMLSelectElement;
-    expect([...select.options].map((o) => o.textContent)).toEqual([
+    const radios = within(depthGroup()).getAllByRole("radio");
+    expect(radios.map((r) => r.getAttribute("aria-label"))).toEqual([
       "1.2″ (30 mm)",
       "2″ (50 mm)",
       "3″ (75 mm)",
       "4″ (100 mm)",
     ]);
-    expect(select).toHaveValue("50");
+    expect(within(depthGroup()).getByRole("radio", { name: "2″ (50 mm)" })).toBeChecked();
   });
 
   it("shows different depths for different configurations", () => {
     setup("lp-11-b-back-lit");
-    const select = screen.getByLabelText("Depth") as HTMLSelectElement;
-    expect([...select.options].map((o) => o.value)).toEqual(["10", "15", "20", "30"]);
+    const radios = within(depthGroup()).getAllByRole("radio");
+    expect(radios.map((r) => r.getAttribute("value"))).toEqual(["10", "15", "20", "30"]);
   });
 
   it("reports the chosen depth as millimetres", async () => {
     const user = userEvent.setup();
     const { onChange } = setup("lp-5-trimless-face-lit");
-    await user.selectOptions(screen.getByLabelText("Depth"), "75");
+    await user.click(within(depthGroup()).getByRole("radio", { name: "3″ (75 mm)" }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 75 }));
+  });
+
+  it("is keyboard operable with the arrow keys", async () => {
+    const user = userEvent.setup();
+    const { onChange } = setup("lp-5-trimless-face-lit");
+    within(depthGroup()).getByRole("radio", { name: "2″ (50 mm)" }).focus();
+    await user.keyboard("{ArrowRight}");
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 75 }));
   });
 
@@ -55,9 +64,11 @@ describe("ConfigControls depth", () => {
 
   it("still shows a single available depth, but disabled", () => {
     setup("lp-11-s-side-lit");
-    const select = screen.getByLabelText("Depth") as HTMLSelectElement;
-    expect(select).toBeDisabled();
-    expect(select).toHaveDisplayValue("1.2″ (30 mm)");
+    const radios = within(depthGroup()).getAllByRole("radio");
+    expect(radios).toHaveLength(1);
+    expect(radios[0]).toBeDisabled();
+    expect(radios[0]).toBeChecked();
+    expect(radios[0]).toHaveAccessibleName("1.2″ (30 mm)");
   });
 });
 
@@ -103,12 +114,49 @@ describe("ConfigControls colours", () => {
   });
 });
 
+describe("ConfigControls brightness", () => {
+  it("is a 0-100% slider starting at 100%", () => {
+    setup("lp-5-trimless-face-lit");
+    const slider = screen.getByRole("slider", { name: "Brightness" });
+    expect(slider).toHaveAttribute("min", "0");
+    expect(slider).toHaveAttribute("max", "100");
+    expect(slider).toHaveValue("100");
+    expect(screen.getByText("100%")).toBeInTheDocument();
+  });
+
+  it("reports the new brightness as a number", () => {
+    const { onChange } = setup("lp-5-trimless-face-lit");
+    fireEvent.change(screen.getByRole("slider", { name: "Brightness" }), { target: { value: "35" } });
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ brightness: 35 }));
+  });
+
+  it("reflects the brightness in the state it is given", () => {
+    setup("lp-3-1-standoff-halo", { brightness: 60 });
+    expect(screen.getByRole("slider", { name: "Brightness" })).toHaveValue("60");
+    expect(screen.getByText("60%")).toBeInTheDocument();
+  });
+
+  it("is hidden for the unlit LP 1 and shown for every configuration that emits light", () => {
+    const { unmount } = render(
+      <ConfigControls config={byId("lp-1-flat-cutout")} state={defaultStateFor(byId("lp-1-flat-cutout"))} onChange={vi.fn()} />
+    );
+    expect(screen.queryByRole("slider")).not.toBeInTheDocument();
+    unmount();
+    for (const c of configurations.filter((c) => c.id !== "lp-1-flat-cutout")) {
+      const view = render(<ConfigControls config={c} state={defaultStateFor(c)} onChange={vi.fn()} />);
+      expect(screen.getByRole("slider", { name: "Brightness" })).toBeInTheDocument();
+      view.unmount();
+    }
+  });
+});
+
 describe("ConfigControls guidance", () => {
   it("has no letter height input and no below-minimum warning", () => {
     setup("lp-3-1-standoff-halo");
     expect(screen.queryByLabelText(/letter height/i)).not.toBeInTheDocument();
     expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
+    expect(screen.queryByRole("note")).not.toBeInTheDocument();
   });
 
   it("shows the configuration's minimum letter height as plain text, inches first", () => {
@@ -126,9 +174,46 @@ describe("ConfigControls guidance", () => {
     expect(screen.getByText(/minimum stroke width/i)).toHaveTextContent("0.47″ (12 mm)");
   });
 
-  it("says depth is shown relative to a nominal 12 inch letter", () => {
+  it("says depth is shown relative to a nominal 12 inch letter, tucked into the collapsed notes", () => {
     setup("lp-3-1-standoff-halo");
-    expect(screen.getByText(/nominal 12″ letter/i)).toBeInTheDocument();
+    const text = screen.getByText(/nominal 12″ letter/i);
+    expect(text.closest("details")).not.toHaveAttribute("open");
+  });
+});
+
+describe("ConfigControls thin-stroke note", () => {
+  it("shows a prominent amber note for thin art on the faux neon, with the height it would need", () => {
+    setup("lp-11-n-faux-neon", {}, 0.03);
+    const note = screen.getByRole("note");
+    expect(note).toHaveTextContent(/thin strokes/i);
+    expect(note).toHaveTextContent("LP 11-N");
+    expect(note).toHaveTextContent("0.47″ (12 mm)");
+    expect(note).toHaveTextContent("16″");
+  });
+
+  it("does the same for the conical profile", () => {
+    setup("lp-11-c-conical", {}, 0.02);
+    expect(screen.getByRole("note")).toHaveTextContent("LP 11-C");
+  });
+
+  it("stays quiet for sturdy strokes, an unknown ratio, and ordinary thinness on other configurations", () => {
+    const { unmount } = render(
+      <ConfigControls config={byId("lp-11-n-faux-neon")} state={defaultStateFor(byId("lp-11-n-faux-neon"))} onChange={vi.fn()} strokeRatio={0.15} />
+    );
+    expect(screen.queryByRole("note")).not.toBeInTheDocument();
+    unmount();
+    setup("lp-11-n-faux-neon", {}, null);
+    expect(screen.queryByRole("note")).not.toBeInTheDocument();
+  });
+
+  it("gives other configurations only a subtle note when the letter would have to be taller than 24 inches", () => {
+    const { unmount } = render(
+      <ConfigControls config={byId("lp-5-trimless-face-lit")} state={defaultStateFor(byId("lp-5-trimless-face-lit"))} onChange={vi.fn()} strokeRatio={0.04} />
+    );
+    expect(screen.queryByRole("note")).not.toBeInTheDocument();
+    unmount();
+    setup("lp-5-trimless-face-lit", {}, 0.01);
+    expect(screen.getByRole("note")).toHaveTextContent(/thin strokes/i);
   });
 });
 
@@ -183,18 +268,35 @@ describe("ConfigControls profile note and day/night", () => {
     expect(screen.queryByText(/illustrative preview/i)).not.toBeInTheDocument();
   });
 
+  it("is a Day | Night segmented control with Day selected by default", () => {
+    setup("lp-5-trimless-face-lit");
+    const radios = within(dayNightGroup()).getAllByRole("radio");
+    expect(radios.map((r) => r.getAttribute("value"))).toEqual(["day", "night"]);
+    expect(within(dayNightGroup()).getByRole("radio", { name: "Day" })).toBeChecked();
+    expect(within(dayNightGroup()).getByRole("radio", { name: "Night" })).not.toBeChecked();
+    expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+  });
+
   it("keeps the day/night toggle on every configuration, including the unlit LP 1", async () => {
     const user = userEvent.setup();
     const { onChange } = setup("lp-1-flat-cutout");
-    await user.click(dayNight());
+    await user.click(within(dayNightGroup()).getByRole("radio", { name: "Night" }));
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ dayNight: "night" }));
   });
 
   it("round-trips night back to day", async () => {
     const user = userEvent.setup();
     const { onChange } = setup("lp-5-trimless-face-lit", { dayNight: "night" });
-    expect(dayNight()).toBeChecked();
-    await user.click(dayNight());
+    expect(within(dayNightGroup()).getByRole("radio", { name: "Night" })).toBeChecked();
+    await user.click(within(dayNightGroup()).getByRole("radio", { name: "Day" }));
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ dayNight: "day" }));
+  });
+
+  it("is keyboard operable with the arrow keys", async () => {
+    const user = userEvent.setup();
+    const { onChange } = setup("lp-5-trimless-face-lit");
+    within(dayNightGroup()).getByRole("radio", { name: "Day" }).focus();
+    await user.keyboard("{ArrowRight}");
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ dayNight: "night" }));
   });
 });

@@ -101,7 +101,9 @@ export function SideLitMaterial({ attach, color, glow, mode, band, depth, level 
       uBand: { value: 0 },
       uDepth: { value: 1 },
       uNight: { value: 0 },
+      uDim: { value: 0 },
       uGlow: { value: new THREE.Color() },
+      uGlowBase: { value: new THREE.Color() },
       uMilk: { value: new THREE.Color() },
     }),
     []
@@ -113,6 +115,9 @@ export function SideLitMaterial({ attach, color, glow, mode, band, depth, level 
   uniforms.uDepth.value = depth;
   uniforms.uGlow.value.set(glow).multiplyScalar(GLOW_INTENSITY * level);
   uniforms.uMilk.value.copy(milkyTint(glow));
+  // Dimmed all the way down at night the band goes dark like a switched-off LED: its milky base fades to the dark tinted base a lit band has.
+  uniforms.uDim.value = 1 - level;
+  uniforms.uGlowBase.value.set(glow).multiplyScalar(0.15);
   useNightEffect((n) => {
     uniforms.uNight.value = n;
   });
@@ -128,8 +133,8 @@ export function SideLitMaterial({ attach, color, glow, mode, band, depth, level 
           "#include <common>",
           `#include <common>
           varying float vObjZ;
-          uniform float uMode, uBand, uDepth, uNight;
-          uniform vec3 uGlow, uMilk;`
+          uniform float uMode, uBand, uDepth, uNight, uDim;
+          uniform vec3 uGlow, uGlowBase, uMilk;`
         )
         .replace(
           "#include <color_fragment>",
@@ -139,7 +144,7 @@ export function SideLitMaterial({ attach, color, glow, mode, band, depth, level 
           if (uMode > 2.5) lit = smoothstep(uDepth - uBand - soft, uDepth - uBand, vObjZ);
           else if (uMode > 1.5) lit = 1.0 - smoothstep(uBand, uBand + soft, vObjZ);
           else if (uMode > 0.5) lit = 1.0;
-          diffuseColor.rgb = mix(diffuseColor.rgb, uMilk, lit);`
+          diffuseColor.rgb = mix(diffuseColor.rgb, mix(uMilk, uGlowBase, uNight * uDim), lit);`
         )
         .replace(
           "#include <metalnessmap_fragment>",

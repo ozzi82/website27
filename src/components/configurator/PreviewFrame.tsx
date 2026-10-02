@@ -59,7 +59,7 @@ export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, c
       tabIndex={0}
       aria-label="3D preview. Arrow keys rotate, plus and minus zoom, zero resets the view."
       onKeyDown={handleKeyDown}
-      className="relative w-full aspect-[4/3] cursor-grab overflow-hidden rounded-xl border border-border bg-card active:cursor-grabbing focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+      className="relative h-full min-h-[220px] w-full cursor-grab overflow-hidden rounded-xl border border-border bg-card active:cursor-grabbing focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
     >
       {children}
       <div className="absolute right-3 top-3 flex flex-col gap-1.5">

@@ -27,6 +27,15 @@ export function strokeHeightRatio(shapes: THREE.Shape[]): number | null {
   return (2 * half) / height;
 }
 
+/**
+ * Typed text is measured as a stack: n lines are about 1 + 1.5 (n - 1) times as tall as one line's ink
+ * (1.2 em line pitch over roughly 0.8 em of ink), so the stroke-to-height ratio of the whole artwork
+ * is multiplied by this to get the ratio against a single line's letters, which is what a visitor means by "letter height".
+ */
+export function lineStackFactor(lines: number): number {
+  return 1 + 1.5 * Math.max(0, Math.floor(lines) - 1);
+}
+
 /** Smallest letter height (mm) at which this artwork's strokes reach `minStrokeMm`. */
 export function neededLetterHeightMm(minStrokeMm: number, ratio: number | null): number | null {
   if (ratio === null || !(ratio > 0)) return null;
@@ -76,7 +85,7 @@ export function thinStrokeAdvice(config: StrokeRules, ratio: number | null): Str
     return {
       severity: "strong",
       neededMm,
-      message: `This artwork has thin strokes. ${config.code} needs strokes of at least ${minStroke}, so the letters would need to be at least about ${needed} tall for this artwork. A bolder typeface or heavier line art works best.`,
+      message: `This artwork has thin strokes. ${config.code} needs strokes of at least ${minStroke}, so the letters (or logo) would need to be at least about ${needed} tall. A bolder typeface or heavier line art works best.`,
     };
   }
   if (!profiled && neededMm > MAX_REASONABLE_HEIGHT_MM) {
