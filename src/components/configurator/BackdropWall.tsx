@@ -11,7 +11,7 @@ interface BackdropWallProps {
 }
 
 /** World size of the wall. */
-export const WALL_SIZE = { w: 48, h: 30 };
+export const WALL_SIZE = { w: 120, h: 60 };
 
 // Big enough that its edges stay out of frame even when the camera is orbited and
 // zoomed out; a smaller plane reads as a floating card. The texture tiles across it,

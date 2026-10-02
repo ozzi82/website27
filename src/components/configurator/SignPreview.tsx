@@ -2,7 +2,10 @@ import { useMemo, useRef } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import * as THREE from "three";
+import CameraRig, { type CameraApi } from "./CameraRig";
 import ConfigScene from "./ConfigScene";
+import PreviewFrame from "./PreviewFrame";
+import { HOME_POSITION } from "./cameraMath";
 import { NightProvider, useNightEffect } from "./NightContext";
 import { getBackground, makeWallLook, wallLookAt, type BackgroundDef } from "./backgrounds";
 import { atmosphereFor } from "./nightFade";
@@ -17,7 +20,7 @@ interface SignPreviewProps {
 
 // Hoisted so the props are referentially stable across re-renders (a fresh
 // camera/args object each render makes r3f re-apply them).
-const CAMERA = { position: [2.6, 1.42, 4.73] as [number, number, number], fov: 35 };
+const CAMERA = { position: HOME_POSITION, fov: 35 };
 const DPR: [number, number] = [1, 1.5]; // cap pixel ratio: 3x displays would push SwiftShader/low-end GPUs hard
 
 /** Lights, environment and the colour behind the wall, all following the day/night fade. */
@@ -58,14 +61,22 @@ export default function SignPreview({ shapes, config, state }: SignPreviewProps)
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
   const dark = emitsLight(config);
 
+  const camera = useRef<CameraApi>(null);
+
   return (
-    <div className="w-full aspect-[4/3] rounded-xl overflow-hidden border border-border bg-card">
+    <PreviewFrame
+      onZoomIn={() => camera.current?.zoomIn()}
+      onZoomOut={() => camera.current?.zoomOut()}
+      onReset={() => camera.current?.reset()}
+      onRotate={(dTheta, dPhi) => camera.current?.rotate(dTheta, dPhi)}
+    >
       <Canvas camera={CAMERA} dpr={DPR}>
         <NightProvider isNight={isNight}>
           <SceneAtmosphere dark={dark} background={getBackground(state.background)} />
           <ConfigScene shapes={shapes} config={config} state={state} />
+          <CameraRig ref={camera} />
         </NightProvider>
       </Canvas>
-    </div>
+    </PreviewFrame>
   );
 }
