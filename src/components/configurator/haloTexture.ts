@@ -2,11 +2,13 @@ import * as THREE from "three";
 
 const PX_PER_UNIT = 100;
 
-// Three box-blur passes approximate a gaussian.
-function gaussianBlur(src: Float32Array, w: number, h: number, sigma: number): Float32Array {
+// Three box-blur passes approximate a gaussian. Never writes into `src`: the
+// six ping-pong passes would otherwise land the result back in the caller's
+// array, so a second blur of the same mask would blur the already-blurred one.
+export function gaussianBlur(src: Float32Array, w: number, h: number, sigma: number): Float32Array {
   const radius = Math.max(1, Math.round((Math.sqrt(4 * sigma * sigma + 1) - 1) / 2));
   const scale = 1 / (2 * radius + 1);
-  let a = src;
+  let a = Float32Array.from(src);
   let b = new Float32Array(src.length);
   const pass = (horizontal: boolean) => {
     const lines = horizontal ? h : w;
