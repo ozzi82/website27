@@ -19,6 +19,7 @@ export default function UploadDropzone({ onParsed }: UploadDropzoneProps) {
       const shapes = await parseArtwork(file);
       onParsed(shapes);
     } catch (err) {
+      console.error("Artwork upload failed:", err);
       setError(userMessageFor(err));
     } finally {
       setLoading(false);

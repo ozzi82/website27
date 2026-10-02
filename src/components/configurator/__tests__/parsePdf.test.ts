@@ -1,9 +1,10 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
 import * as THREE from "three";
 import { parsePdf } from "../parsePdf";
 import { ParseError, NoVectorPathsFoundError, TextNotOutlinedError } from "../parseErrors";
+import { buildPdf } from "./helpers/buildPdf";
 
 function loadFixture(name: string): Uint8Array {
   return new Uint8Array(fs.readFileSync(path.join(__dirname, "fixtures", name)));
@@ -62,5 +63,44 @@ describe("parsePdf", () => {
   it("throws TextNotOutlinedError for a PDF containing live (un-outlined) text", async () => {
     // Live text isn't extruded, so fail loudly instead of silently dropping letters.
     await expect(parsePdf(loadFixture("live-text.pdf"))).rejects.toThrow(TextNotOutlinedError);
+  });
+});
+
+// Regression suite for the generic "Something went wrong reading that file"
+// error: each of these streams used to make extraction throw a raw TypeError
+// (not one of the typed parse errors), so the UI fell through to the generic
+// message instead of the specific guidance.
+describe("parsePdf degenerate content streams", () => {
+  // A normal filled artwork shape the degenerate operators are mixed with.
+  const ART = "0.9 0.1 0.1 rg 50 50 m 200 50 l 200 150 l 50 150 l h f\n";
+
+  afterEach(() => vi.restoreAllMocks());
+
+  it.each([
+    ["a stray endPath (n) with no path under construction", ART + "n\n"],
+    ["a stray fill (f) with no path", ART + "f\n"],
+    ["a stray stroke (S) with no path", ART + "S\n"],
+    ["a lone moveTo subpath that never draws anything", "30 30 m 60 60 m\n" + ART],
+    ["a moveTo immediately followed by closePath", "20 20 m h\n" + ART],
+  ])("still extracts the artwork when the stream has %s", async (_label, content) => {
+    const shapes = await parsePdf(buildPdf(content));
+    expect(shapes).toHaveLength(1);
+    const xs = shapes[0].getPoints().map((p) => p.x);
+    expect(Math.min(...xs)).toBeCloseTo(50, 0);
+    expect(Math.max(...xs)).toBeCloseTo(200, 0);
+  });
+
+  it.each([
+    ["only an empty-path paint op", "n\n"],
+    ["only a degenerate moveTo+closePath", "20 20 m h f\n"],
+  ])("reports NoVectorPathsFoundError (not a TypeError) when the stream has %s", async (_label, content) => {
+    await expect(parsePdf(buildPdf(content))).rejects.toThrow(NoVectorPathsFoundError);
+  });
+
+  it("surfaces any unexpected extraction failure as a typed ParseError", async () => {
+    vi.spyOn(THREE.Path.prototype, "moveTo").mockImplementation(() => {
+      throw new TypeError("boom");
+    });
+    await expect(parsePdf(buildPdf(ART))).rejects.toThrow(ParseError);
   });
 });

@@ -16,10 +16,15 @@ const CURVE_SEGMENTS = 12;
 export function normalizeShapes(shapes: THREE.Shape[]): THREE.Shape[] {
   if (shapes.length === 0) return [];
 
-  const sampled = shapes.map((shape) => ({
-    outline: shape.getPoints(CURVE_SEGMENTS),
-    holes: shape.holes.map((hole) => hole.getPoints(CURVE_SEGMENTS)),
-  }));
+  // Shapes that never drew a segment (a lone moveTo) sample to zero points, and
+  // `new THREE.Shape([])` throws on points[0]; there is nothing to extrude.
+  const sampled = shapes
+    .map((shape) => ({
+      outline: shape.getPoints(CURVE_SEGMENTS),
+      holes: shape.holes.map((hole) => hole.getPoints(CURVE_SEGMENTS)).filter((h) => h.length > 0),
+    }))
+    .filter(({ outline }) => outline.length > 0);
+  if (sampled.length === 0) return [];
 
   const box = new THREE.Box2();
   for (const { outline, holes } of sampled) {

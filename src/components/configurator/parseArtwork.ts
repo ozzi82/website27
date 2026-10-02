@@ -1,11 +1,19 @@
 import * as THREE from "three";
 import { parseSvg } from "./parseSvg";
 import { normalizeShapes } from "./normalizeShapes";
-import { UnsupportedFormatError, FileTooLargeError } from "./parseErrors";
+import { UnsupportedFormatError, FileTooLargeError, NoVectorPathsFoundError } from "./parseErrors";
 
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 
 export async function parseArtwork(file: File): Promise<THREE.Shape[]> {
+  const shapes = await parseShapes(file);
+  // Normalization drops shapes with no outline; if nothing drawable is left
+  // there is no sign to preview.
+  if (shapes.length === 0) throw new NoVectorPathsFoundError();
+  return shapes;
+}
+
+async function parseShapes(file: File): Promise<THREE.Shape[]> {
   if (file.size > MAX_FILE_SIZE_BYTES) {
     throw new FileTooLargeError(file.size, MAX_FILE_SIZE_BYTES);
   }

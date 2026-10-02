@@ -67,7 +67,21 @@ export async function parsePdf(data: Uint8Array): Promise<THREE.Shape[]> {
     } catch (cause) {
       throw new ParseError("artwork.pdf", cause);
     }
-    return await extractShapes(page);
+    try {
+      return await extractShapes(page);
+    } catch (cause) {
+      // Typed errors already carry user-facing meaning; anything else is an
+      // unexpected failure inside the extractor and must not leak out as a raw
+      // TypeError (the UI would show the generic "something went wrong").
+      if (
+        cause instanceof ParseError ||
+        cause instanceof TextNotOutlinedError ||
+        cause instanceof NoVectorPathsFoundError
+      ) {
+        throw cause;
+      }
+      throw new ParseError("artwork.pdf", cause);
+    }
   } finally {
     await loadingTask.destroy();
   }
@@ -97,7 +111,10 @@ async function extractShapes(page: pdfjsLib.PDFPageProxy): Promise<THREE.Shape[]
     // loosely here since only indexed access and .length are used, both of
     // which behave identically on either type.
     const drawArgs = opList.argsArray[i][1] as [ArrayLike<number>];
-    const flat = drawArgs[0];
+    const flat = drawArgs?.[0];
+    // pdf.js emits [op, [null], null] for a paint/endPath operator that has no
+    // path under construction (e.g. a stray `n`, `f` or `S`). Nothing to draw.
+    if (!flat) continue;
     let j = 0;
 
     while (j < flat.length) {
@@ -133,7 +150,9 @@ async function extractShapes(page: pdfjsLib.PDFPageProxy): Promise<THREE.Shape[]
           break;
         }
         case DRAW_CLOSE_PATH: {
-          currentShape?.closePath();
+          // three's closePath() dereferences curves[0], so it throws on a
+          // subpath that is just a moveTo (`x y m h`). Nothing to close.
+          if (currentShape && currentShape.curves.length > 0) currentShape.closePath();
           break;
         }
         default:
@@ -149,9 +168,12 @@ async function extractShapes(page: pdfjsLib.PDFPageProxy): Promise<THREE.Shape[]
     }
   }
 
-  if (shapes.length === 0) {
+  // A moveTo that never got a segment leaves an empty Shape; it has no outline
+  // to extrude (and used to crash normalizeShapes).
+  const drawable = shapes.filter((shape) => shape.curves.length > 0);
+  if (drawable.length === 0) {
     throw new NoVectorPathsFoundError();
   }
 
-  return shapes;
+  return drawable;
 }

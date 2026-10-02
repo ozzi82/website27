@@ -119,4 +119,18 @@ describe("normalizeShapes", () => {
   it("handles an empty list", () => {
     expect(normalizeShapes([])).toEqual([]);
   });
+
+  it("drops shapes with no outline instead of throwing, and keeps the rest", () => {
+    const empty = new THREE.Shape(); // moveTo-only / never drawn
+    empty.moveTo(5, 5);
+    const out = normalizeShapes([empty, rect(0, 0, 10, 10)]);
+    expect(out).toHaveLength(1);
+    expect(bboxOf(out).getSize(new THREE.Vector2()).x).toBeCloseTo(TARGET_SIZE, 5);
+  });
+
+  it("returns [] when every shape is degenerate", () => {
+    const empty = new THREE.Shape();
+    empty.moveTo(5, 5);
+    expect(normalizeShapes([empty])).toEqual([]);
+  });
 });
