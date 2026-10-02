@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 
 /**
@@ -11,12 +11,16 @@ import * as THREE from "three";
  * unconfirmed (see the spec's "Trimless depth presets" section).
  */
 export function useSignGeometry(shapes: THREE.Shape[], depthRatio: number): THREE.ExtrudeGeometry {
-  return useMemo(() => {
-    const combined = new THREE.ShapeGeometry(shapes);
-    combined.computeBoundingBox();
-    const bbox = combined.boundingBox!;
-    const height = bbox.max.y - bbox.min.y || 1;
-    combined.dispose();
+  const geometry = useMemo(() => {
+    // Same points ShapeGeometry would triangulate (curveSegments 12), without
+    // building a throwaway geometry just to read its bounding box.
+    const box = new THREE.Box2();
+    for (const shape of shapes) {
+      const { shape: outline, holes } = shape.extractPoints(12);
+      for (const p of outline) box.expandByPoint(p);
+      for (const hole of holes) for (const p of hole) box.expandByPoint(p);
+    }
+    const height = box.max.y - box.min.y || 1;
 
     const depth = height * depthRatio;
     // Deliberately NOT calling clearGroups()/addGroup() here. ExtrudeGeometry
@@ -32,12 +36,19 @@ export function useSignGeometry(shapes: THREE.Shape[], depthRatio: number): THRE
     // Trusting the built-in default groups, confirmed by live rendering to
     // already do this correctly, is both simpler and the thing that actually
     // works.
-    const geometry = new THREE.ExtrudeGeometry(shapes, {
+    const extruded = new THREE.ExtrudeGeometry(shapes, {
       depth,
       bevelEnabled: false,
       curveSegments: 12,
     });
 
-    return geometry;
+    return extruded;
   }, [shapes, depthRatio]);
+
+  // Free GPU buffers when the geometry is replaced or the scene unmounts.
+  // Safe under StrictMode: dispose() only releases GPU resources, and three
+  // re-uploads them if the same geometry renders again.
+  useEffect(() => () => geometry.dispose(), [geometry]);
+
+  return geometry;
 }
