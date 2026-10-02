@@ -35,3 +35,7 @@ export function userMessageFor(error: unknown): string {
   }
   return `Something went wrong reading that file. Please try again, or ${CONTACT_PHRASE} and we'll quote it by hand.`;
 }
+
+/** Shown when typed text cannot be turned into letters (see TextRenderError). */
+export const TEXT_RENDER_MESSAGE =
+  "Couldn't render that text with this font. Try different characters or another font.";
