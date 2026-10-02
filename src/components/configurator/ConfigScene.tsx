@@ -1,11 +1,10 @@
 import { useMemo } from "react";
 import * as THREE from "three";
-import { ToneMappingMode } from "postprocessing";
-import { EffectComposer, Bloom, ToneMapping } from "@react-three/postprocessing";
 import type { LightConfig } from "../../data/configurations";
 import { useSignGeometry } from "./useSignGeometry";
 import HaloGlow from "./HaloGlow";
 import BackdropWall from "./BackdropWall";
+import NightEffects from "./NightEffects";
 import { GlowMaterial, PaintedMaterial, SideLitMaterial } from "./SceneMaterials";
 import { depthRatioFor, sideBandThickness, wallGapFor } from "./renderMath";
 import { emitsLight, type ConfiguratorState } from "./types";
@@ -28,7 +27,6 @@ const FLUSH_HALO = { scale: 1.1, spread: 0.55 };
  */
 export default function ConfigScene({ shapes, config, state }: ConfigSceneProps) {
   const { light, profile, mount } = config;
-  const isNight = state.dayNight === "night";
   const geometry = useSignGeometry(shapes, depthRatioFor(state.depthMm), profile);
 
   // Real extents of the built geometry (the visible letter spans z in [0, depth]).
@@ -50,7 +48,7 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
   const isTube = profile === "tube";
   const face =
     light.face === "glow" ? (
-      <GlowMaterial attach="material-0" glow={state.glowColor} isNight={isNight} rounded={isTube} />
+      <GlowMaterial attach="material-0" glow={state.glowColor} rounded={isTube} />
     ) : (
       <PaintedMaterial attach="material-0" color={state.color} />
     );
@@ -60,19 +58,19 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
         attach="material-1"
         color={state.color}
         glow={state.glowColor}
-        isNight={isNight}
+       
         mode={light.side}
         band={band}
         depth={depth}
       />
     ) : isTube ? (
       // The whole tube glows, not just its front.
-      <GlowMaterial attach="material-1" glow={state.glowColor} isNight={isNight} rounded />
+      <GlowMaterial attach="material-1" glow={state.glowColor} rounded />
     ) : (
       <PaintedMaterial attach="material-1" color={state.color} />
     );
 
-  const wallSpill = isNight && (light.halo === "standoff" || light.side === "partial-back");
+  const wallSpill = (light.halo === "standoff" || light.side === "partial-back");
 
   return (
     <>
@@ -81,17 +79,11 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
         {face}
       </mesh>
 
-      <BackdropWall gap={gap} isNight={isNight} />
+      <BackdropWall gap={gap} />
 
       {wallSpill && <HaloGlow shapes={shapes} z={-gap + 0.003} color={haloColor} spread={spill.spread} />}
 
-      {isNight && lit && (
-        <EffectComposer>
-          <Bloom mipmapBlur intensity={0.45} luminanceThreshold={0.7} luminanceSmoothing={0.25} radius={0.6} />
-          {/* EffectComposer switches the renderer's tone mapping off, so re-apply one. Neutral rather than ACES: ACES pulls saturated glows (cyan, red) toward white. */}
-          <ToneMapping mode={ToneMappingMode.NEUTRAL} />
-        </EffectComposer>
-      )}
+      <NightEffects lit={lit} />
     </>
   );
 }

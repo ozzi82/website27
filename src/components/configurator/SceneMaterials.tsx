@@ -1,6 +1,8 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useRef } from "react";
 import * as THREE from "three";
 import type { SideLight } from "../../data/configurations";
+import { useNightEffect } from "./NightContext";
+import { lerp } from "./nightFade";
 
 // Painted metal / painted acrylic: slightly metallic with a soft clearcoat.
 const PAINT = { metalness: 0.35, roughness: 0.42, clearcoat: 0.3, clearcoatRoughness: 0.4 } as const;
@@ -37,30 +39,34 @@ const addTubeShading = (shader: Shader) => {
 
 interface GlowMaterialProps extends Attach {
   glow: string;
-  isNight: boolean;
   /** Shade by view angle so a rounded profile reads as a tube. */
   rounded?: boolean;
 }
 
-/** Light-emitting acrylic: glows in `glow` at night, milky tinted acrylic by day. */
-export function GlowMaterial({ attach, glow, isNight, rounded = false }: GlowMaterialProps) {
+/** Light-emitting acrylic: milky tinted acrylic by day, glowing in `glow` at night, fading between the two. */
+export function GlowMaterial({ attach, glow, rounded = false }: GlowMaterialProps) {
+  const material = useRef<THREE.MeshPhysicalMaterial>(null);
   // Lit, the surface is the glow colour itself; a milky diffuse base on top of the
   // emission would wash saturated colours out toward white.
-  const tint = useMemo(
-    () => (isNight ? new THREE.Color(glow).multiplyScalar(0.15) : milkyTint(glow)),
-    [glow, isNight]
-  );
+  const milk = useMemo(() => milkyTint(glow), [glow]);
+  const lit = useMemo(() => new THREE.Color(glow).multiplyScalar(0.15), [glow]);
+  useNightEffect((n) => {
+    const m = material.current;
+    if (!m) return;
+    m.color.copy(milk).lerp(lit, n);
+    m.emissiveIntensity = lerp(0, GLOW_INTENSITY, n);
+  });
   return (
     <meshPhysicalMaterial
+      ref={material}
       key={rounded ? "rounded" : "flat"}
       attach={attach}
-      color={tint}
       metalness={0}
       roughness={0.35}
       clearcoat={0.5}
       clearcoatRoughness={0.25}
-      emissive={isNight ? glow : "#000000"}
-      emissiveIntensity={isNight ? GLOW_INTENSITY : 0}
+      emissive={glow}
+      emissiveIntensity={0}
       onBeforeCompile={rounded ? addTubeShading : undefined}
       customProgramCacheKey={() => (rounded ? "glow-rounded" : "glow-flat")}
     />
@@ -72,7 +78,6 @@ const SIDE_MODE: Record<SideLight, number> = { none: 0, full: 1, "partial-back":
 interface SideLitMaterialProps extends Attach {
   color: string;
   glow: string;
-  isNight: boolean;
   mode: SideLight;
   /** World-unit thickness of the lit band (partial modes). */
   band: number;
@@ -83,9 +88,9 @@ interface SideLitMaterialProps extends Attach {
 /**
  * Painted side wall with a lit band keyed to object-space z (back = 0, front = depth):
  * `full` lights the whole wall, `partial-back` / `partial-front` a band at that edge.
- * By day the band is milky acrylic; at night it also emits the glow colour.
+ * By day the band is milky acrylic; at night it also emits the glow colour, faded in with the night amount.
  */
-export function SideLitMaterial({ attach, color, glow, isNight, mode, band, depth }: SideLitMaterialProps) {
+export function SideLitMaterial({ attach, color, glow, mode, band, depth }: SideLitMaterialProps) {
   const uniforms = useMemo(
     () => ({
       uMode: { value: 0 },
@@ -102,9 +107,11 @@ export function SideLitMaterial({ attach, color, glow, isNight, mode, band, dept
   uniforms.uMode.value = SIDE_MODE[mode];
   uniforms.uBand.value = band;
   uniforms.uDepth.value = depth;
-  uniforms.uNight.value = isNight ? 1 : 0;
   uniforms.uGlow.value.set(glow).multiplyScalar(GLOW_INTENSITY);
   uniforms.uMilk.value.copy(milkyTint(glow));
+  useNightEffect((n) => {
+    uniforms.uNight.value = n;
+  });
 
   const onBeforeCompile = useCallback(
     (shader: Shader) => {
