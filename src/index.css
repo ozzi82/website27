@@ -1,0 +1,205 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .steel-plate {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.02) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .caution-tape {
+    background: linear-gradient(90deg, hsl(var(--primary) / 0.7), hsl(var(--primary) / 0.15));
+  }
+  .corner-marks { position: relative; }
+  .corner-marks::before, .corner-marks::after {
+    content: ""; position: absolute; width: 12px; height: 12px; border-color: hsl(var(--primary) / 0.7);
+  }
+  .corner-marks::before { top: -1px; left: -1px; border-top: 1.5px solid; border-left: 1.5px solid; border-radius: 2px 0 0 0; }
+  .corner-marks::after { bottom: -1px; right: -1px; border-bottom: 1.5px solid; border-right: 1.5px solid; border-radius: 0 0 2px 0; }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer base {
+  :root {
+    --font-serif: ui-serif;
+
+    --background: 222 26% 12%;
+    --foreground: 210 20% 95%;
+    --muted: 222 22% 18%;
+    --muted-foreground: 215 14% 68%;
+    --popover: 222 24% 16%;
+    --popover-foreground: 210 20% 95%;
+    --border: 222 16% 27%;
+    --input: 222 16% 28%;
+    --card: 222 24% 16%;
+    --card-foreground: 210 20% 95%;
+    --primary: 25 88% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 20% 21%;
+    --secondary-foreground: 210 18% 92%;
+    --accent: 25 45% 18%;
+    --accent-foreground: 25 85% 65%;
+    --destructive: 0 65% 54%;
+    --destructive-foreground: 210 40% 98%;
+    --ring: 25 88% 55%;
+
+    --radius: 0.875rem;
+
+    --chart-1: 25 88% 55%;
+    --chart-2: 22 55% 45%;
+    --chart-3: 210 16% 55%;
+    --chart-4: 210 12% 38%;
+    --chart-5: 22 45% 65%;
+
+    --sidebar-background: 222 26% 12%;
+    --sidebar-foreground: 210 16% 87%;
+    --sidebar-primary: 25 88% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 222 20% 18%;
+    --sidebar-accent-foreground: 210 16% 90%;
+    --sidebar-border: 222 16% 22%;
+    --sidebar-ring: 25 88% 55%;
+
+    --font-sans: 'Barlow', 'Helvetica Neue', sans-serif;
+    --font-heading: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --shadow-x: 0px;
+    --shadow-y: 2px;
+    --shadow-blur: 8px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.22;
+    --shadow-color: #000000;
+
+    --shadow-2xs: var(--shadow-x) var(--shadow-y) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+    --shadow-xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+    --shadow-sm: var(--shadow-x) var(--shadow-y) calc(var(--shadow-blur) * 1.5) var(--shadow-spread) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+    --shadow-md: calc(var(--shadow-x) * 2) calc(var(--shadow-y) * 2) calc(var(--shadow-blur) * 3) calc(var(--shadow-spread) - 1px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+    --shadow-lg: calc(var(--shadow-x) * 4) calc(var(--shadow-y) * 4) calc(var(--shadow-blur) * 5) calc(var(--shadow-spread) - 3px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+    --shadow-xl: calc(var(--shadow-x) * 6) calc(var(--shadow-y) * 6) calc(var(--shadow-blur) * 7) calc(var(--shadow-spread) - 5px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+    --shadow-2xl: calc(var(--shadow-x) * 8) calc(var(--shadow-y) * 8) calc(max(0px, var(--shadow-blur) * 9 - 8px)) calc(var(--shadow-spread) - 12px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 250%), transparent);
+    --shadow: var(--shadow-md);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.008em;
+    line-height: 1.05;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* HubSpot form light-mode overrides */
+.hubspot-form-wrapper {
+  background-color: #ffffff;
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+.hubspot-form-wrapper .hs-form-field label,
+.hubspot-form-wrapper .hs-form-field label span {
+  color: #1a1a1a !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  margin-bottom: 0.25rem !important;
+}
+.hubspot-form-wrapper .hs-input,
+.hubspot-form-wrapper input,
+.hubspot-form-wrapper textarea,
+.hubspot-form-wrapper select {
+  background-color: #f5f5f5 !important;
+  border: 1px solid #d4d4d4 !important;
+  border-radius: var(--radius) !important;
+  color: #1a1a1a !important;
+  padding: 0.625rem 0.75rem !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.875rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+.hubspot-form-wrapper .hs-input:focus,
+.hubspot-form-wrapper input:focus,
+.hubspot-form-wrapper textarea:focus,
+.hubspot-form-wrapper select:focus {
+  outline: none !important;
+  border-color: hsl(var(--primary)) !important;
+  box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2) !important;
+}
+.hubspot-form-wrapper textarea.hs-input {
+  min-height: 120px !important;
+  resize: vertical !important;
+}
+.hubspot-form-wrapper .hs-form-field {
+  margin-bottom: 1.25rem !important;
+}
+.hubspot-form-wrapper .hs-submit .hs-button {
+  background-color: hsl(var(--primary)) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  padding: 0.75rem 2rem !important;
+  font-family: var(--font-sans) !important;
+  font-weight: 600 !important;
+  font-size: 0.9375rem !important;
+  cursor: pointer !important;
+  transition: opacity 0.2s !important;
+}
+.hubspot-form-wrapper .hs-submit .hs-button:hover {
+  opacity: 0.9 !important;
+}
+.hubspot-form-wrapper .hs-error-msgs {
+  color: #dc2626 !important;
+  font-size: 0.75rem !important;
+  margin-top: 0.25rem !important;
+  list-style: none !important;
+  padding: 0 !important;
+}
+.hubspot-form-wrapper select.hs-input {
+  appearance: auto !important;
+}
+.hubspot-form-wrapper .hs-richtext,
+.hubspot-form-wrapper .hs-richtext p,
+.hubspot-form-wrapper .hs-form-field > label .hs-form-required,
+.hubspot-form-wrapper .hs-fieldtype-select label,
+.hubspot-form-wrapper .legal-consent-container,
+.hubspot-form-wrapper .legal-consent-container span,
+.hubspot-form-wrapper .legal-consent-container p,
+.hubspot-form-wrapper .hs-form-booleancheckbox label span,
+.hubspot-form-wrapper .inputs-list label span {
+  color: #525252 !important;
+  font-size: 0.8125rem !important;
+}
+.hubspot-form-wrapper .submitted-message {
+  color: #1a1a1a !important;
+  font-family: var(--font-sans) !important;
+  text-align: center !important;
+  padding: 2rem 0 !important;
+}
