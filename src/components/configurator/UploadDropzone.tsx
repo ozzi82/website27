@@ -1,6 +1,8 @@
 import { useState, type ChangeEvent, type DragEvent } from "react";
+import { Link } from "react-router-dom";
 import * as THREE from "three";
 import { parseArtwork } from "./parseArtwork";
+import { CONTACT_PHRASE, userMessageFor } from "./errorMessages";
 
 interface UploadDropzoneProps {
   onParsed: (shapes: THREE.Shape[]) => void;
@@ -17,10 +19,25 @@ export default function UploadDropzone({ onParsed }: UploadDropzoneProps) {
       const shapes = await parseArtwork(file);
       onParsed(shapes);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong reading that file.");
+      setError(userMessageFor(err));
     } finally {
       setLoading(false);
     }
+  }
+
+  // Turns the CONTACT_PHRASE inside a message into a router link to /contact.
+  function renderMessage(message: string) {
+    const at = message.indexOf(CONTACT_PHRASE);
+    if (at === -1) return message;
+    return (
+      <>
+        {message.slice(0, at)}
+        <Link to="/contact" className="underline">
+          {CONTACT_PHRASE}
+        </Link>
+        {message.slice(at + CONTACT_PHRASE.length)}
+      </>
+    );
   }
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -47,12 +64,12 @@ export default function UploadDropzone({ onParsed }: UploadDropzoneProps) {
       {loading && <p className="text-sm text-muted-foreground mt-3">Reading file…</p>}
       {error && (
         <p className="text-sm text-destructive mt-3" role="alert">
-          {error}
+          {renderMessage(error)}
         </p>
       )}
       <p className="text-xs text-muted-foreground mt-4">
         Need to send us your artwork directly instead?{" "}
-        <a href="/contact" className="underline">Contact us</a>.
+        <Link to="/contact" className="underline">Contact us</Link>.
       </p>
     </div>
   );

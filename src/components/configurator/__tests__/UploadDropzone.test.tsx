@@ -1,14 +1,34 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { MemoryRouter } from "react-router-dom";
 import * as THREE from "three";
 import UploadDropzone from "../UploadDropzone";
 import { parseArtwork } from "../parseArtwork";
-import { NoVectorPathsFoundError, UnsupportedFormatError } from "../parseErrors";
+import {
+  FileTooLargeError,
+  NoVectorPathsFoundError,
+  ParseError,
+  TextNotOutlinedError,
+  UnsupportedFormatError,
+} from "../parseErrors";
 
 vi.mock("../parseArtwork", () => ({
   parseArtwork: vi.fn(),
 }));
+
+function renderDropzone(onParsed = vi.fn()) {
+  return render(
+    <MemoryRouter>
+      <UploadDropzone onParsed={onParsed} />
+    </MemoryRouter>
+  );
+}
+
+async function uploadSvg(user: ReturnType<typeof userEvent.setup>, name = "logo.svg") {
+  const file = new File(["<svg></svg>"], name, { type: "image/svg+xml" });
+  await user.upload(screen.getByLabelText(/upload your logo/i), file);
+}
 
 describe("UploadDropzone", () => {
   it("calls onParsed with the shapes when parsing succeeds", async () => {
@@ -17,9 +37,8 @@ describe("UploadDropzone", () => {
     vi.mocked(parseArtwork).mockResolvedValue([shape]);
     const onParsed = vi.fn();
 
-    render(<UploadDropzone onParsed={onParsed} />);
-    const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
-    await user.upload(screen.getByLabelText(/upload your logo/i), file);
+    renderDropzone(onParsed);
+    await uploadSvg(user);
 
     await waitFor(() => expect(onParsed).toHaveBeenCalledWith([shape]));
   });
@@ -27,9 +46,8 @@ describe("UploadDropzone", () => {
   it("shows the specific NoVectorPathsFoundError message when parsing fails that way", async () => {
     const user = userEvent.setup();
     vi.mocked(parseArtwork).mockRejectedValue(new NoVectorPathsFoundError());
-    render(<UploadDropzone onParsed={vi.fn()} />);
-    const file = new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
-    await user.upload(screen.getByLabelText(/upload your logo/i), file);
+    renderDropzone();
+    await uploadSvg(user);
 
     expect(await screen.findByText(/couldn't find a clean outline/i)).toBeInTheDocument();
   });
@@ -45,10 +63,57 @@ describe("UploadDropzone", () => {
     // that path by bypassing accept-filtering on the input instead.)
     const user = userEvent.setup({ applyAccept: false });
     vi.mocked(parseArtwork).mockRejectedValue(new UnsupportedFormatError("logo.png"));
-    render(<UploadDropzone onParsed={vi.fn()} />);
+    renderDropzone();
     const file = new File(["not a logo"], "logo.png", { type: "image/png" });
     await user.upload(screen.getByLabelText(/upload your logo/i), file);
 
-    expect(await screen.findByText(/unsupported file type/i)).toBeInTheDocument();
+    const alert = await screen.findByRole("alert");
+    expect(alert).toHaveTextContent(
+      "We support SVG and PDF right now. Export your logo as SVG, or send it to us directly and we'll quote it by hand."
+    );
+    // The raw technical message must not reach the user.
+    expect(alert).not.toHaveTextContent(/unsupported file type/i);
+  });
+
+  it.each([
+    ["FileTooLargeError", new FileTooLargeError(20_000_000, 10_485_760), /10MB/],
+    ["ParseError", new ParseError("artwork.pdf", new Error("bad xref table")), /couldn't be read.*corrupted.*re-exporting/i],
+    ["TextNotOutlinedError", new TextNotOutlinedError(), /Create Outlines/],
+    ["NoVectorPathsFoundError", new NoVectorPathsFoundError(), /couldn't find a clean outline.*send us a vector file/i],
+  ])("shows friendly copy plus a /contact link for %s", async (_name, error, copy) => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockRejectedValue(error);
+    renderDropzone();
+    await uploadSvg(user);
+
+    const alert = await screen.findByRole("alert");
+    expect(alert).toHaveTextContent(copy);
+    const link = within(alert).getByRole("link", { name: /send it to us directly/i });
+    expect(link).toHaveAttribute("href", "/contact");
+  });
+
+  it("does not leak the raw message of an unexpected error", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockRejectedValue(new TypeError("Cannot read properties of undefined (reading 'x')"));
+    renderDropzone();
+    await uploadSvg(user);
+
+    const alert = await screen.findByRole("alert");
+    expect(alert).not.toHaveTextContent(/cannot read properties/i);
+    expect(alert).toHaveTextContent(/something went wrong/i);
+    expect(within(alert).getByRole("link", { name: /send it to us directly/i })).toHaveAttribute("href", "/contact");
+  });
+
+  it("does not leak the raw ParseError cause", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockRejectedValue(new ParseError("artwork.pdf", new Error("bad xref table")));
+    renderDropzone();
+    await uploadSvg(user);
+    expect(await screen.findByRole("alert")).not.toHaveTextContent(/xref/i);
+  });
+
+  it("keeps a /contact footer link as a client-side router link", () => {
+    renderDropzone();
+    expect(screen.getByRole("link", { name: /contact us/i })).toHaveAttribute("href", "/contact");
   });
 });
