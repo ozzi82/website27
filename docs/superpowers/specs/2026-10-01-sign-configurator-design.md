@@ -365,3 +365,49 @@ Recorded after implementation so the spec matches what shipped:
   format and has none of these limits.
 - **Not built:** multi-page-PDF note, underpowered-GPU degradation beyond a capped device pixel ratio.
 - Trimless depth presets and swatch hex values remain placeholders pending real fabrication limits.
+
+## Revision 2 (supersedes the two-product model above)
+
+The company's "European Wholesale Signage Spec Guide" (2026-27 brochure) defines the real product
+range: 12 EdgeLuxe letter configurations. The original Trimless / Cast Block Acrylic split, the
+Face/Return/illumination-style model and the placeholder depth presets were assumptions made without
+that guide and are replaced by the following. Everything else (client-side only, SVG/PDF parsing and
+its error taxonomy, normalization, fixed 3/4 camera, day/night toggle, error handling, a11y, no backend)
+is unchanged.
+
+**Single source of truth:** `src/data/configurations.ts` (12 `LightConfig` entries). The configurator, the
+`/light-effects/:id` product pages, the home grid and the nav all read it. Each entry carries
+`light: {face, halo, side}`, `profile` (flat | standard | tube | conical), `mount`
+(flat | standoff | flush), allowed `depthOptionsMm`, `minHeightMm`, `minStrokeMm`.
+
+**Flow:** choose a configuration (all 12, with the brochure photo and one-line summary) → upload SVG/PDF →
+preview. `?config=<id>` preselects one (product pages link here via "See it with your logo").
+Switching configuration keeps the uploaded artwork.
+
+**Controls (all configurations):**
+- Depth — only that configuration's allowed depths, shown as inches with mm in parentheses (US-first).
+  Configurations with `customDepth` show a note "custom depths available — ask us".
+- Color — the brochure says "painted in any PMS color", so a swatch list plus a free color input is
+  correct here (the earlier "curated swatches only" rule is dropped). Applies to the opaque painted
+  parts (face for non-glowing faces, side walls, returns).
+- Glow color — for configurations whose face/halo/sides emit light: white by default plus the brochure's
+  "pigmented translucent acrylic" colored options (free color input).
+- Day / Night toggle.
+- Letter height (inches) — real-world size; validated against `minHeightMm` (2" for most systems,
+  0.4" for LP 1) with a friendly warning (not a hard block). Stroke width is not auto-checked in v1;
+  the minimum stroke is shown as guidance text.
+
+**Rendering model (one data-driven scene replaces TrimlessScene/AcrylicScene):**
+- `light.face === "glow"` → face emissive at night (colored by glow color).
+- `light.halo === "standoff"` → letter stands off the wall on spacers; wall halo glow behind at night.
+- `light.side` → a glowing band on the side wall: `full` = whole side wall; `partial-back` = thin band at
+  the back edge (flush-mounted: letter sits flush to the wall so the band lights the wall edge);
+  `partial-front` = thin band at the front edge.
+- `mount`: `flat` = on the wall; `standoff` = gap behind; `flush` = flush to wall.
+- `profile`: `flat` = thin sheet, no light; `standard` = straight extrusion; `conical` and `tube` are
+  approximations (tapered/bevelled face; heavily rounded bevel to suggest a neon tube) — true conical and
+  routed-tube geometry need centerline/offset operations not available from arbitrary outlines. These two
+  are visually approximate and should be labelled "illustrative" in the UI.
+- Depth maps to real millimetres relative to the entered letter height (depth/height ratio), so 1.2" depth
+  on a 2" letter looks very different from 1.2" on a 24" letter.
+- LP 1 (flat cutout) has no illumination: day/night shows the unlit letter only.
