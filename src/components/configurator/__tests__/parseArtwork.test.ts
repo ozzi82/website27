@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import * as fs from "fs";
 import * as path from "path";
+import * as THREE from "three";
 import { parseArtwork } from "../parseArtwork";
 import { UnsupportedFormatError, FileTooLargeError } from "../parseErrors";
 
@@ -15,6 +16,15 @@ describe("parseArtwork", () => {
     const file = new File([svgText], "logo.svg", { type: "image/svg+xml" });
     const shapes = await parseArtwork(file);
     expect(shapes.length).toBe(1);
+  });
+
+  it("returns shapes normalized to the preview coordinate space", async () => {
+    const svgText = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 120"><rect x="10" y="10" width="260" height="100" /></svg>`;
+    const file = new File([svgText], "logo.svg", { type: "image/svg+xml" });
+    const shapes = await parseArtwork(file);
+    const box = new THREE.Box2().setFromPoints(shapes.flatMap((s) => s.getPoints(12)));
+    expect(box.getCenter(new THREE.Vector2()).length()).toBeCloseTo(0, 5);
+    expect(box.getSize(new THREE.Vector2()).x).toBeCloseTo(2.4, 5);
   });
 
   it("parses a valid PDF file", async () => {
