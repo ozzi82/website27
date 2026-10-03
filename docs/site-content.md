@@ -123,6 +123,16 @@ Custom logos and illuminated letter projects fabricated to your drawings.
 
 [See Custom Fabrication](/services/channel-letters#custom-fabrication)
 
+Proven production partner
+
+#### Built for sign companies. Trusted by sign companies.
+
+We are a wholesale manufacturer of channel letters and illuminated signage for sign shops across North America — German-engineered, UL 48 listed, built to your drawings and shipped ready for installation.
+
+[Request Wholesale Pricing](/contact)
+
+*[Image: Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German engineered, nationwide sign company partner]*
+
 Sunlite Ultra-Slim
 
 #### 25–30 mm. Less depth. More design freedom.

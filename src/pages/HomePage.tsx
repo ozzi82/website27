@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Hero from "../components/home/Hero";
 import TrustStrip from "../components/home/TrustStrip";
 import ProductsSection from "../components/home/ProductsSection";
+import TrustBadgeSection from "../components/home/TrustBadgeSection";
 import UltraSlimSection from "../components/home/UltraSlimSection";
 import OutsourcingSection from "../components/home/OutsourcingSection";
 import ManufacturingSection from "../components/home/ManufacturingSection";
@@ -59,6 +60,7 @@ export default function HomePage() {
       <Hero />
       <TrustStrip />
       <ProductsSection />
+      <TrustBadgeSection />
       <UltraSlimSection />
       <OutsourcingSection />
       <ManufacturingSection />
