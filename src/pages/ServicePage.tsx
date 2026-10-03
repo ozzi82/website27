@@ -3,6 +3,8 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { Button } from "@project/components/ui/button";
 import { services } from "../data/services";
+import { LEGACY_SERVICE_REDIRECTS } from "../data/products";
+import { CTA_PRIMARY } from "../lib/cta";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import Seo from "../components/Seo";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
@@ -10,16 +12,18 @@ import { SITE_URL, absoluteUrl } from "../lib/seo";
 // The configurator works in terms of the 12 EdgeLuxe configurations; these two
 // products map onto their closest one.
 const CONFIGURATOR_CONFIG: Record<string, string> = {
-  "trimless-letters": "lp-5-trimless-face-lit",
+  "ultra-slim-trimless-channel-letters": "lp-5-trimless-face-lit",
   "cast-block-acrylic": "lp-11-f-face-lit",
 };
 
 export default function ServicePage() {
   const { id } = useParams();
+  const redirect = id ? LEGACY_SERVICE_REDIRECTS[id] : undefined;
   const service = services.find((s) => s.id === id);
 
   useEffect(() => { window.scrollTo(0, 0); }, [id]);
 
+  if (redirect) return <Navigate to={redirect} replace />;
   if (!service) return <Navigate to="/" replace />;
   const { details } = service;
   const others = services.filter((s) => s.id !== service.id);
@@ -44,7 +48,7 @@ export default function ServicePage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "Product Lines", item: `${SITE_URL}/#products` },
+        { "@type": "ListItem", position: 2, name: "Products", item: `${SITE_URL}/#products` },
         { "@type": "ListItem", position: 3, name: service.title, item: absoluteUrl(`/services/${service.id}`) },
       ],
     },
@@ -99,7 +103,7 @@ export default function ServicePage() {
           <div className="grid sm:grid-cols-2 gap-4">
             {details.gallery.map((src, i) => (
               <div key={i} className="rounded-xl overflow-hidden aspect-[4/3] bg-muted">
-                <img src={src} alt={`${service.title} reference ${i + 1}`} className="w-full h-full object-cover" />
+                <img src={src} alt={`${service.title} reference ${i + 1}`} loading="lazy" decoding="async" className="w-full h-full object-cover" />
               </div>
             ))}
           </div>
@@ -110,7 +114,7 @@ export default function ServicePage() {
             <p className="font-semibold text-lg">Interested in {service.title}?</p>
             <p className="text-sm text-muted-foreground">Send us your project files – we'll quote within 48 hours.</p>
           </div>
-          <Button size="lg" asChild><Link to="/contact">Get a Quote</Link></Button>
+          <Button size="lg" asChild className="uppercase tracking-wider font-semibold"><Link to={CTA_PRIMARY.to}>{CTA_PRIMARY.label}</Link></Button>
         </section>
 
         {service.id in CONFIGURATOR_CONFIG && (
@@ -127,7 +131,7 @@ export default function ServicePage() {
           <div className="grid sm:grid-cols-2 gap-4">
             {others.map((s) => (
               <Link key={s.id} to={`/services/${s.id}`} className="group flex items-center gap-4 p-3 rounded-xl bg-card border border-border hover:border-primary transition-colors">
-                <img src={s.img} alt={s.title} className="w-20 h-20 rounded-lg object-cover" />
+                <img src={s.img} alt={s.title} width={80} height={80} loading="lazy" className="w-20 h-20 rounded-lg object-cover" />
                 <div>
                   <p className="font-semibold group-hover:text-primary transition-colors">{s.title}</p>
                   <p className="text-xs text-muted-foreground line-clamp-2">{s.desc}</p>
