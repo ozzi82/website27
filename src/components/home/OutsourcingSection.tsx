@@ -19,6 +19,7 @@ const itemClass = (i: number) =>
     "pt-6 pb-8 pr-6 border-border lg:pr-5",
     i % 2 === 0 ? "sm:pl-0 sm:border-l-0" : "sm:pl-6 sm:border-l",
     i === 0 ? "lg:pl-0 lg:border-l-0" : "lg:pl-6 lg:border-l",
+    i === outsourcingBenefits.length - 1 ? "sm:col-span-2 lg:col-span-1" : "", // the odd one out spans the row on two columns
   ].join(" ");
 
 export default function OutsourcingSection() {

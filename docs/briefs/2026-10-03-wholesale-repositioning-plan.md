@@ -115,3 +115,7 @@ Side-profile photograph of a real 25-30 mm letter (slot is `sideProfileMedia` in
 
 ### Left for Phase 3
 Quote/contact page rewrite (H1, company-type field, retired-CTA allowlist for `ContactForm`/`ContactPage`), `SITE_URL` as a build setting + noindex handling, final SEO pass on `/contact`, `docs/site-content.md` regeneration, content export, full QA.
+
+## Phase 3 outcome
+
+Quote page, why-Sunlite benefits, Build Your Sign, channel-letter depth, case-study template, `VITE_SITE_URL` / `VITE_NOINDEX`, final SEO pass and full QA are done. See `2026-10-03-wholesale-repositioning-report.md` (what changed, the consolidated owner-confirmation list, missing assets and owner decisions).
