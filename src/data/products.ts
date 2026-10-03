@@ -1,4 +1,4 @@
-import { CTA_LINKS, CTA_PRIMARY } from "../lib/cta";
+import { CTA_LINKS } from "../lib/cta";
 
 /**
  * The product categories shown on the homepage and in the header's Products menu (brief sections 3 and 13).
@@ -66,8 +66,8 @@ export const productCategories: ProductCategory[] = [
     title: "Custom Sign Fabrication",
     navLabel: "Custom Fabrication",
     description: "Custom logos and illuminated letter projects fabricated to your drawings.",
-    // No dedicated page: custom work is quoted per drawing, so this goes to the pricing request.
-    cta: CTA_PRIMARY,
+    // No separate page: custom logos and illuminated letter projects are a section of the channel-letters page.
+    cta: CTA_LINKS.customFabrication,
     image: {
       src: "/images/pasted-image-1786571174777-ihzwikss.jpg",
       alt: "Illuminated crest logo on a wood-slat wall",

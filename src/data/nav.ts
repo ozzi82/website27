@@ -7,9 +7,9 @@ export interface NavItem {
 }
 
 /**
- * Header / footer navigation (brief section 13).
- * Phase 1 targets: PROJECTS -> /gallery, MANUFACTURING -> homepage anchor, ABOUT -> /about.
- * Intended final targets (Phase 2 decides): PROJECTS -> /gallery or /projects, MANUFACTURING -> a manufacturing page or /about.
+ * Header / footer navigation (brief section 13). Final targets:
+ * PRODUCTS (channel letters, ultra-slim, cast acrylic, custom fabrication), PROJECTS -> /projects,
+ * MANUFACTURING -> /manufacturing, ABOUT -> /about. Product targets come from data/products.ts.
  */
 export const productNav: NavItem[] = productCategories.map((p) => ({ label: p.navLabel, to: productHref(p) }));
 
@@ -20,7 +20,7 @@ export const productNavExtras: NavItem[] = [
 ];
 
 export const primaryNav: NavItem[] = [
-  { label: "Projects", to: "/gallery" },
-  { label: "Manufacturing", to: "/#manufacturing" },
+  { label: "Projects", to: CTA_LINKS.viewProjects.to },
+  { label: "Manufacturing", to: CTA_LINKS.viewManufacturing.to },
   { label: "About", to: "/about" },
 ];

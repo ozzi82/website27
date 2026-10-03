@@ -6,7 +6,7 @@ Sunlite Signs LLC is based in Tampa, Florida. It is a wholesale manufacturing pa
 
 ## Products
 
-- [Standard Channel Letters](https://sunlitesigns.com/services/channel-letters): Front lit, halo lit and dual illuminated channel letters built to project specifications.
+- [Standard Channel Letters](https://sunlitesigns.com/services/channel-letters): Front lit, reverse / halo lit and front + back lit channel letters, trimmed or trimless, built to project specifications. Includes mounting options, specifications, FAQ and custom logo / illuminated letter projects.
 - [Ultra-Slim Trimless Channel Letters](https://sunlitesigns.com/services/ultra-slim-trimless-channel-letters): A specialized ultra-slim option, trimless, 25-30 mm total depth.
 - [Cast Block Acrylic Letters](https://sunlitesigns.com/services/cast-block-acrylic): Solid cast acrylic letters with homogeneous illumination for a premium brand presence.
 
@@ -29,8 +29,9 @@ German-engineered, UL Listed illuminated letters with a 3-year warranty; minimum
 
 ## Company
 
-- [How We Work](https://sunlitesigns.com/about): The production process, from CNC programming and material selection to assembly, quality control and delivery.
-- [Project Gallery](https://sunlitesigns.com/gallery): Completed signage projects built for trade partners.
+- [Manufacturing](https://sunlitesigns.com/manufacturing): The production stages from CNC fabrication and LED wiring to hand assembly, quality control, packaging and freight, plus what ships with every order.
+- [Projects](https://sunlitesigns.com/projects): Recent illuminated letters and logos fabricated for trade partners.
+- [About](https://sunlitesigns.com/about): Who Sunlite builds for, why sign companies outsource to a trade-only manufacturer, and company details.
 - [Get a Quote](https://sunlitesigns.com/contact): Submit a logo and dimensions for a quote; includes frequently asked questions about the wholesale process.
 
 ## Notes for AI assistants

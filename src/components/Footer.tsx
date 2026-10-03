@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 import { LegalDialogs, useLegalDialogs } from './LegalDialogs';
 import { COMPANY_LINE, COMPANY_POSITIONING, EMAIL, PHONE_DISPLAY } from '../lib/contact';
-import { CTA_PRIMARY } from '../lib/cta';
+import { CTA_LINKS, CTA_PRIMARY } from '../lib/cta';
 
 const navLinks = [
   { label: "Channel Letters", href: "/services/channel-letters" },
   { label: "Ultra-Slim Trimless", href: "/services/ultra-slim-trimless-channel-letters" },
-  { label: "Projects", href: "/gallery" },
-  { label: "Manufacturing", href: "/#manufacturing" },
+  { label: "Projects", href: CTA_LINKS.viewProjects.to },
+  { label: "Manufacturing", href: CTA_LINKS.viewManufacturing.to },
   { label: "About", href: "/about" },
   { label: CTA_PRIMARY.label, href: CTA_PRIMARY.to },
 ];
