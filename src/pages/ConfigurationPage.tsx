@@ -71,6 +71,8 @@ export default function ConfigurationPage() {
             <img
               src={c.img}
               alt={`${c.title} ${c.subtitle} — sample letter`}
+              width={852}
+              height={1331}
               className="w-full h-auto object-cover"
               loading="eager"
             />
