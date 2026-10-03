@@ -20,6 +20,11 @@ export interface LightBehavior {
   face: FaceLight;
   halo: HaloLight;
   side: SideLight;
+  /**
+   * Share of the side wall's depth (0-1) that glows, for the partial modes. Left out, the brochure's nominal
+   * exposed band applies (LP 3.2 / 11-BS / 11-FS). LP 11-N lights the front half of the side wall: 0.5.
+   */
+  sideBand?: number;
 }
 
 export interface LightConfig {
@@ -349,12 +354,13 @@ export const configurations: LightConfig[] = [
     title: "EdgeLuxe LP 11-N",
     subtitle: "Block Acrylic Faux Neon",
     family: "Block acrylic",
-    summary: "Routed block acrylic that simulates the look of a neon glass tube, face-lit.",
+    summary: "Block acrylic with a routed, rounded front edge that simulates a neon glass tube, lit on the face and the front half of the side.",
     description:
-      "Cast block acrylic routed into a rounded profile to simulate a neon glass tube, with embedded LEDs for uniform face lighting. The neon look without glass, with IP67 sealing and no maintenance.",
+      "Cast block acrylic with the front edge routed round (up to 0.5\" / 12.7 mm, never more than half the thickness) to simulate a neon glass tube. Embedded LEDs light the face and the front half of the side wall; the back half of the side stays unlit. The neon look without glass, with IP67 sealing and no maintenance.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
-      { label: "Illumination", value: "Embedded LEDs for uniform face-lit, routed to simulate neon glass tube" },
+      { label: "Illumination", value: "Embedded LEDs light the face and the front half of the side wall; the back half of the side is unlit" },
+      { label: "Edge profile", value: 'Front edge routed round to simulate a neon glass tube: up to 0.5" (12.7 mm), at most half the thickness' },
       { label: "Depth", value: 'Standard 1.2" (30 mm) for durability and optimal light diffusion' },
       { label: "Customization", value: PMS_FACE_LIT },
       { label: "Min. stroke width", value: '0.47" (12 mm) for stability and even illumination' },
@@ -365,7 +371,7 @@ export const configurations: LightConfig[] = [
     ],
     img: IMG + "lp-11-n-faux-neon.jpg",
     profile: "tube",
-    light: { face: "glow", halo: "none", side: "none" },
+    light: { face: "glow", halo: "none", side: "partial-front", sideBand: 0.5 },
     mount: "flat",
     depthOptionsMm: [30],
     customDepth: false,

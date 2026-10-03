@@ -1,11 +1,19 @@
 import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import type { Profile } from "../../data/configurations";
-import { conicalInset, estimateHalfStroke, tubeRadius } from "./renderMath";
+import { toCreasedNormals } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import { conicalInset, estimateHalfStroke, neonRoundRadius } from "./renderMath";
 import { bevelStrength } from "./strokeGuard";
 
 const TUBE_SEGMENTS = 8;
 const CURVE_SEGMENTS = 12;
+/** Walls turn smooth below this angle between neighbouring faces, so curved letters and the rounded edge do not facet. */
+const CREASE_ANGLE = (35 * Math.PI) / 180;
+
+/** ExtrudeGeometry shades every triangle flat; smooth the curved parts, keep the sharp corners. Keeps the material groups. */
+function smoothed(geometry: THREE.ExtrudeGeometry): THREE.ExtrudeGeometry {
+  return toCreasedNormals(geometry, CREASE_ANGLE) as THREE.ExtrudeGeometry;
+}
 
 /**
  * Builds one ExtrudeGeometry from the parsed artwork shapes, with ExtrudeGeometry's own two
@@ -20,9 +28,9 @@ const CURVE_SEGMENTS = 12;
  *  - thin artwork (see bevelStrength): conical and tube fall back to a straight extrusion.
  *  - conical: the widest layer sits at z = 0 and tapers to a smaller front face at z = depth.
  *    The mirrored taper below z = 0 lies behind the wall and is never seen.
- *  - tube: a heavily rounded bevel all round, approximating a neon tube. True tube and
- *    conical geometry need per-stroke offset curves that arbitrary outlines don't give us,
- *    so both are an approximation.
+ *  - tube (LP 11-N faux neon): only the FRONT edge is rounded, by at most 0.5" (see neonRoundRadius) and never more than
+ *    half the thickness; the sides below the rounding stay straight and the back is flat against the wall. The conical
+ *    profile needs per-stroke offset curves that arbitrary outlines don't give us, so it stays an approximation.
  */
 export function useSignGeometry(
   shapes: THREE.Shape[],
@@ -54,38 +62,47 @@ export function useSignGeometry(
     if (profile === "conical" && rounded) {
       const inset = conicalInset(height, halfStroke) * strength;
       const flatPart = depth * 0.001;
-      return new THREE.ExtrudeGeometry(shapes, {
-        depth: flatPart,
-        bevelEnabled: true,
-        bevelThickness: depth - flatPart,
-        bevelSize: inset,
-        bevelOffset: -inset,
-        bevelSegments: 1,
-        curveSegments: CURVE_SEGMENTS,
-      });
+      return smoothed(
+        new THREE.ExtrudeGeometry(shapes, {
+          depth: flatPart,
+          bevelEnabled: true,
+          bevelThickness: depth - flatPart,
+          bevelSize: inset,
+          bevelOffset: -inset,
+          bevelSegments: 1,
+          curveSegments: CURVE_SEGMENTS,
+        })
+      );
     }
 
     if (profile === "tube" && rounded) {
-      // Leave a sliver of straight wall so the two bevels never meet exactly.
-      const r = Math.min(tubeRadius(depth, halfStroke) * strength, depth * 0.499);
-      const extruded = new THREE.ExtrudeGeometry(shapes, {
-        depth: depth - 2 * r,
-        bevelEnabled: true,
-        bevelThickness: r,
-        bevelSize: r,
-        bevelOffset: -r,
-        bevelSegments: TUBE_SEGMENTS,
-        curveSegments: CURVE_SEGMENTS,
-      });
-      extruded.translate(0, 0, r); // bevel runs from z = -r; bring the back to the wall plane
-      return extruded;
+      // The extrusion is symmetric (a bevel at both ends); the back one is squashed flat against the wall plane below,
+      // so only the front edge is round.
+      const r = neonRoundRadius(depth, height, halfStroke) * strength;
+      if (r > 0) {
+        const extruded = new THREE.ExtrudeGeometry(shapes, {
+          depth: depth - r,
+          bevelEnabled: true,
+          bevelThickness: r,
+          bevelSize: r,
+          bevelOffset: -r,
+          bevelSegments: TUBE_SEGMENTS,
+          curveSegments: CURVE_SEGMENTS,
+        });
+        // Spans z in [-r, depth]: flatten everything behind the wall plane onto it (a flat back, no back rounding).
+        const pos = extruded.attributes.position;
+        for (let i = 0; i < pos.count; i++) if (pos.getZ(i) < 0) pos.setZ(i, 0);
+        return smoothed(extruded);
+      }
     }
 
-    return new THREE.ExtrudeGeometry(shapes, {
-      depth,
-      bevelEnabled: false,
-      curveSegments: CURVE_SEGMENTS,
-    });
+    return smoothed(
+      new THREE.ExtrudeGeometry(shapes, {
+        depth,
+        bevelEnabled: false,
+        curveSegments: CURVE_SEGMENTS,
+      })
+    );
   }, [shapes, depthRatio, profile]);
 
   // Free GPU buffers when the geometry is replaced or the scene unmounts.

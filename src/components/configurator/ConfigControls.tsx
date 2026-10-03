@@ -90,7 +90,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
 
   const brightnessId = useId();
   const lights = emitsLight(config);
-  const hasPaint = config.profile !== "tube"; // the whole tube glows: nothing painted to colour
+  const hasPaint = true; // even the neon profile has painted parts: the back half of its side
   const illustrative = config.profile === "tube" || config.profile === "conical";
   const advice = thinStrokeAdvice(config, strokeRatio);
   const singleDepth = config.depthOptionsMm.length === 1;

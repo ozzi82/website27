@@ -71,9 +71,21 @@ export function estimateHalfStroke(shapes: Rings[]): number {
   return perimeter > 0 && area > 0 ? area / perimeter : 0;
 }
 
-/** Corner radius of the neon-tube approximation: at most half the depth (a round tube is as thick as it is deep) and under the half-stroke so the front cap survives. */
-export function tubeRadius(depthWorld: number, halfStroke: number): number {
-  return Math.min(depthWorld / 2, halfStroke * 0.85);
+/** The LP 11-N routing tool rounds the front edge by at most 0.5" (owner fact, 2026-10-03). */
+export const NEON_MAX_ROUND_MM = 12.7;
+
+/**
+ * Radius of LP 11-N's rounded FRONT edge in world units: at most 0.5" (scaled to the nominal letter), never more
+ * than half the thickness, and under the half-stroke so the front cap survives thin strokes.
+ */
+export function neonRoundRadius(depthWorld: number, heightWorld: number, halfStroke: number): number {
+  const byTool = (NEON_MAX_ROUND_MM / NOMINAL_LETTER_HEIGHT_MM) * heightWorld;
+  return Math.max(0, Math.min(byTool, depthWorld / 2, halfStroke * 0.85));
+}
+
+/** World-unit thickness of the lit side band: `fraction` of the depth when the configuration says so, else the nominal brochure band. */
+export function litBandThickness(depthWorld: number, heightWorld: number, fraction?: number): number {
+  return fraction === undefined ? sideBandThickness(depthWorld, heightWorld) : depthWorld * Math.min(1, Math.max(0, fraction));
 }
 
 /** How much narrower the front face of a conical letter is than its base, per side. */

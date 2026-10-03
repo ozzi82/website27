@@ -46,7 +46,7 @@ export function atmosphereFor(n: number, dark: boolean): Atmosphere {
   };
 }
 
-const NIGHT_BLOOM = 0.45;
+const NIGHT_BLOOM = 0.55;
 
 /**
  * Bloom stays mounted and only its strength follows the fade; an unlit letter never blooms.

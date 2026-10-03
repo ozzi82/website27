@@ -27,7 +27,7 @@ German-engineered, UL Listed illuminated letters with a 3-year warranty; minimum
 - [EdgeLuxe LP 11-BS — Block Acrylic Partial Back Side-lit]({{SITE_URL}}/light-effects/lp-11-bs-back-side-lit): flush-mount, light glows from the back edge.
 - [EdgeLuxe LP 11-FS — Block Acrylic Face-lit + Partial Front Side-lit]({{SITE_URL}}/light-effects/lp-11-fs-front-side-lit): flush-mount, glowing face plus a band of light along the front edge of the side wall.
 - [EdgeLuxe LP 11-S — Block Acrylic Full Side-lit]({{SITE_URL}}/light-effects/lp-11-s-side-lit): the whole side wall glows around an opaque painted face.
-- [EdgeLuxe LP 11-N — Block Acrylic Faux Neon]({{SITE_URL}}/light-effects/lp-11-n-faux-neon): routed to simulate a neon glass tube.
+- [EdgeLuxe LP 11-N — Block Acrylic Faux Neon]({{SITE_URL}}/light-effects/lp-11-n-faux-neon): front edge routed round (up to 0.5 in, at most half the thickness) to simulate a neon glass tube; the face and the front half of the side wall glow.
 - [EdgeLuxe LP 11-C — Block Acrylic Conical Profile]({{SITE_URL}}/light-effects/lp-11-c-conical): narrow strokes and serifs (face stroke as narrow as 0.12").
 
 ## Company

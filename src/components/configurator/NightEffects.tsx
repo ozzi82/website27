@@ -22,7 +22,7 @@ export default function NightEffects({ lit, level = 1 }: { lit: boolean; level?:
 
   return (
     <EffectComposer>
-      <Bloom ref={bloom as never} mipmapBlur intensity={0} luminanceThreshold={0.7} luminanceSmoothing={0.25} radius={0.6} />
+      <Bloom ref={bloom as never} mipmapBlur intensity={0} luminanceThreshold={0.2} luminanceSmoothing={0.3} radius={0.6} />
       <primitive object={toneMapping} dispose={null} />
     </EffectComposer>
   );

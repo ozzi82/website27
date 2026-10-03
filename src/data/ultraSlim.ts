@@ -68,7 +68,7 @@ const HOW_IT_LIGHTS: Record<string, { lights: string; mounting: string; short: s
   "lp-11-bs-back-side-lit": { short: "Back side", lights: "A band of light glows along the back edge of the side wall.", mounting: "Flush-mount" },
   "lp-11-fs-front-side-lit": { short: "Face + front side", lights: "The face glows and a thin band lights the front edge of the side wall.", mounting: "Flush-mount" },
   "lp-11-s-side-lit": { short: "Full side", lights: "The whole side wall glows; the painted face stays solid.", mounting: "Mounts flat" },
-  "lp-11-n-faux-neon": { short: "Faux neon", lights: "Routed to simulate a neon glass tube, face-lit.", mounting: "Mounts flat" },
+  "lp-11-n-faux-neon": { short: "Faux neon", lights: "Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.", mounting: "Mounts flat" },
   "lp-11-c-conical": { short: "Conical", lights: "Tapered conical profile for narrow strokes and serifs, face-lit.", mounting: "Mounts flat" },
 };
 
@@ -115,7 +115,7 @@ export const ultraSlimOtherLighting = [
   { code: "BS", title: "Partial back side-lit", text: "Flush-mount. A band of light glows along the back edge of the side wall." },
   { code: "FS", title: "Face-lit + partial front side-lit", text: "Flush-mount. The face glows and a thin band of light also glows along the front edge of the side wall." },
   { code: "S", title: "Full side-lit", text: "The whole side wall glows while the painted face stays solid." },
-  { code: "N", title: "Faux neon", text: "Block acrylic routed to simulate a neon glass tube, face-lit." },
+  { code: "N", title: "Faux neon", text: "Block acrylic with the front edge routed round (up to 0.5\" / 12.7 mm, at most half the thickness) to simulate a neon glass tube. The face and the front half of the side wall glow." },
   { code: "C", title: "Conical", text: "A tapered profile so the lit face can be much narrower than the body, for fine strokes and serifs." },
 ];
 

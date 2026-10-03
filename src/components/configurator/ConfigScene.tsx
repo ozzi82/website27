@@ -8,10 +8,10 @@ import NightEffects from "./NightEffects";
 import { getBackground } from "./backgrounds";
 import { useWallTexture } from "./useWallTexture";
 import { GlowMaterial, PaintedMaterial, SideLitMaterial } from "./SceneMaterials";
-import { depthRatioFor, sideBandThickness, wallGapFor } from "./renderMath";
+import { depthRatioFor, litBandThickness, wallGapFor } from "./renderMath";
 import { brightnessFactor } from "./brightness";
 import { emitsLight, type ConfiguratorState } from "./types";
-import { glowParts } from "./glowParts";
+import { glowParts, type WallSpill } from "./glowParts";
 
 interface ConfigSceneProps {
   shapes: THREE.Shape[];
@@ -19,10 +19,14 @@ interface ConfigSceneProps {
   state: ConfiguratorState;
 }
 
-// Wall halo strength (pushed above 1 so it reads as light and feeds the bloom) and reach.
-const STANDOFF_HALO = { scale: 0.8, spread: 1.4 };
-// Flush-mounted partial back-lit letters only leak light around the letter's edge.
-const FLUSH_HALO = { scale: 1.1, spread: 0.55 };
+// Light on the wall behind the letter, by how it gets there (see WallSpill). `scale` is pushed above 1 so it reads as
+// light and feeds the bloom; `spread` is its reach around the outline in world units.
+const WALL_SPILL: Record<Exclude<WallSpill, "none">, { scale: number; spread: number }> = {
+  standoff: { scale: 1.1, spread: 1.5 },
+  flush: { scale: 1.5, spread: 0.6 },
+  edge: { scale: 0.9, spread: 0.55 },
+  glare: { scale: 0.45, spread: 0.9 },
+};
 
 /**
  * One data-driven scene for all 12 configurations. What glows, where, and how
@@ -43,20 +47,19 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
   const background = getBackground(state.background);
   const wall = useWallTexture(background.id);
   const gap = wallGapFor(mount);
-  const band = sideBandThickness(depth, height);
   const lit = emitsLight(config);
   const level = brightnessFactor(state.brightness);
   const glowColor = useMemo(() => new THREE.Color(state.glowColor), [state.glowColor]);
   const parts = glowParts(light, profile);
-  const spill = parts.wallSpill === "standoff" ? STANDOFF_HALO : FLUSH_HALO;
+  const band = litBandThickness(depth, height, parts.sideBand ?? undefined);
+  const spill = WALL_SPILL[parts.wallSpill === "none" ? "glare" : parts.wallSpill];
   const haloColor = useMemo(() => glowColor.clone().multiplyScalar(spill.scale), [glowColor, spill]);
 
   // material-0 = front/back caps = the face; material-1 = extruded sides —
   // ExtrudeGeometry's own default group convention (see useSignGeometry.ts).
-  const isTube = profile === "tube";
   const face =
     parts.face ? (
-      <GlowMaterial attach="material-0" glow={state.glowColor} rounded={isTube} level={level} />
+      <GlowMaterial attach="material-0" glow={state.glowColor} level={level} />
     ) : (
       <PaintedMaterial attach="material-0" color={state.color} />
     );
@@ -71,9 +74,6 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
         depth={depth}
         level={level}
       />
-    ) : parts.tubeSides ? (
-      // The whole tube glows, not just its front.
-      <GlowMaterial attach="material-1" glow={state.glowColor} rounded level={level} />
     ) : (
       <PaintedMaterial attach="material-1" color={state.color} />
     );

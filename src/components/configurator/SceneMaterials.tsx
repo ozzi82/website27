@@ -7,9 +7,10 @@ import { lerp } from "./nightFade";
 // Painted metal / painted acrylic: slightly metallic with a soft clearcoat.
 const PAINT = { metalness: 0.35, roughness: 0.42, clearcoat: 0.3, clearcoatRoughness: 0.4 } as const;
 
-// How hard lit acrylic drives the emissive channel at night. Above 1 so the
-// bloom pass picks it up, but low enough that ACES doesn't wash colours to white.
-const GLOW_INTENSITY = 0.8;
+// How hard lit acrylic drives the emissive channel at night. Well above 1 so the surface is a light source: the bloom
+// pass spreads it and the neutral tone mapper compresses the hottest part toward a whiter core, while a saturated red
+// or blue keeps its hue (it is compressed, not clipped to white).
+export const GLOW_INTENSITY = 1.5;
 
 type Shader = { uniforms: Record<string, unknown>; vertexShader: string; fragmentShader: string };
 
@@ -26,27 +27,14 @@ export function PaintedMaterial({ attach, color }: Attach & { color: string }) {
   return <meshPhysicalMaterial attach={attach} color={color} {...PAINT} />;
 }
 
-// A neon tube is brightest where it faces the camera and falls off toward its
-// rounded edges; without that a flat emissive reads as a cut-out, not a tube.
-const addTubeShading = (shader: Shader) => {
-  shader.fragmentShader = shader.fragmentShader.replace(
-    "#include <emissivemap_fragment>",
-    `#include <emissivemap_fragment>
-    float facing = saturate(dot(normalize(normal), normalize(vViewPosition)));
-    totalEmissiveRadiance *= mix(0.3, 1.0, pow(facing, 0.6));`
-  );
-};
-
 interface GlowMaterialProps extends Attach {
   glow: string;
-  /** Shade by view angle so a rounded profile reads as a tube. */
-  rounded?: boolean;
   /** Dimmer, 0-1 (see brightnessFactor): scales how hard it glows at night. */
   level?: number;
 }
 
 /** Light-emitting acrylic: milky tinted acrylic by day, glowing in `glow` at night, fading between the two. */
-export function GlowMaterial({ attach, glow, rounded = false, level = 1 }: GlowMaterialProps) {
+export function GlowMaterial({ attach, glow, level = 1 }: GlowMaterialProps) {
   const material = useRef<THREE.MeshPhysicalMaterial>(null);
   // Lit, the surface is the glow colour itself; a milky diffuse base on top of the
   // emission would wash saturated colours out toward white.
@@ -61,7 +49,6 @@ export function GlowMaterial({ attach, glow, rounded = false, level = 1 }: GlowM
   return (
     <meshPhysicalMaterial
       ref={material}
-      key={rounded ? "rounded" : "flat"}
       attach={attach}
       metalness={0}
       roughness={0.35}
@@ -69,8 +56,6 @@ export function GlowMaterial({ attach, glow, rounded = false, level = 1 }: GlowM
       clearcoatRoughness={0.25}
       emissive={glow}
       emissiveIntensity={0}
-      onBeforeCompile={rounded ? addTubeShading : undefined}
-      customProgramCacheKey={() => (rounded ? "glow-rounded" : "glow-flat")}
     />
   );
 }
