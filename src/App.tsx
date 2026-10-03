@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ServicePage from "./pages/ServicePage";
 import ProjectsPage from "./pages/ProjectsPage";
+import CaseStudyPage from "./pages/CaseStudyPage";
 import ManufacturingPage from "./pages/ManufacturingPage";
 import ChannelLettersPage from "./pages/ChannelLettersPage";
 import UltraSlimPage from "./pages/UltraSlimPage";
@@ -35,6 +36,8 @@ export function AppRoutes() {
           <Route path="/about" element={<AboutPage />} />
           <Route path="/manufacturing" element={<ManufacturingPage />} />
           <Route path="/projects" element={<ProjectsPage />} />
+          {/* Case studies come from data/caseStudies.ts (none yet); an unknown slug goes back to /projects. */}
+          <Route path="/projects/:slug" element={<CaseStudyPage />} />
           {Object.entries(LEGACY_PAGE_REDIRECTS).map(([from, to]) => (
             <Route key={from} path={from} element={<Navigate to={to} replace />} />
           ))}

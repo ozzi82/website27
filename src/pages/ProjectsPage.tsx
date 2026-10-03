@@ -7,6 +7,7 @@ import RelatedLinks from "../components/RelatedLinks";
 import FinalCTA from "../components/FinalCTA";
 import { PrimaryCta } from "../components/CtaButton";
 import { projects } from "../data/projects";
+import { caseStudies, caseStudyToProject } from "../data/caseStudies";
 import { CTA_LINKS } from "../lib/cta";
 import { breadcrumbJsonLd, type Crumb } from "../lib/seo";
 
@@ -43,6 +44,18 @@ export default function ProjectsPage() {
           />
         </div>
       </section>
+      {caseStudies.length > 0 && (
+        <section id="case-studies" className="py-12 md:py-20 border-b border-border scroll-mt-20">
+          <div className="max-w-7xl mx-auto px-6">
+            <p className="mono-label text-primary mb-6">Case studies</p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+              {caseStudies.map((c, i) => (
+                <ProjectCard key={c.slug} project={caseStudyToProject(c)} caseStudy={c} index={i} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       <section id="projects" className="py-12 md:py-20 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">

@@ -1,4 +1,5 @@
 import type { MediaImage } from "./production";
+import type { Project } from "./projects";
 
 /**
  * Case studies for /projects/:slug (the "Challenge / Specification / Production / Result / Technical specs" template).
@@ -75,4 +76,22 @@ export function caseStudySpecRows(c: CaseStudy): CaseStudySpec[] {
   const fromFields = rows.flatMap(([label, value]) => (value && value.trim() ? [{ label, value: value.trim() }] : []));
   const extra = (c.specs ?? []).filter((s) => s.label.trim() && s.value.trim());
   return [...fromFields, ...extra];
+}
+
+/** A case study as a reference card (title, photo, known metadata), so it can sit in the same grid as the project photos. */
+export function caseStudyToProject(c: CaseStudy): Project {
+  return {
+    id: c.projectId ?? `case-${c.slug}`,
+    title: c.title,
+    image: c.image.src,
+    width: c.image.width,
+    height: c.image.height,
+    alt: c.image.alt,
+    productType: c.productType,
+    productSlug: c.productSlug,
+    depth: c.depth,
+    illumination: c.illumination,
+    finish: c.finish,
+    mounting: c.mounting,
+  };
 }

@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { projectMeta, type Project } from "../data/projects";
+import { caseStudyForProject, caseStudyPath, type CaseStudy } from "../data/caseStudies";
 import MediaFrame from "./MediaFrame";
 
 /**
  * A project photo with context: title plus whichever metadata is known (product, depth, illumination,
- * finish, mounting). Absent fields render nothing; a card can link back to its product page.
+ * finish, mounting). Absent fields render nothing; a card can link back to its product page, and to its case study
+ * when one exists (data/caseStudies.ts: none ship yet, so no card links anywhere today).
  */
-export default function ProjectCard({ project, index }: { project: Project; index?: number }) {
+export default function ProjectCard({ project, index, caseStudy }: { project: Project; index?: number; caseStudy?: CaseStudy }) {
   const meta = projectMeta(project);
+  const study = caseStudy ?? caseStudyForProject(project.id);
   return (
     <article className="group flex flex-col border border-border bg-card/50" data-project={project.id}>
       <MediaFrame
@@ -29,6 +32,15 @@ export default function ProjectCard({ project, index }: { project: Project; inde
               </div>
             ))}
           </dl>
+        )}
+        {caseStudy && <p className="text-sm text-muted-foreground mt-3">{caseStudy.summary}</p>}
+        {study && (
+          <Link
+            to={caseStudyPath(study.slug)}
+            className="mono-label mt-4 inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors"
+          >
+            Read the case study <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
+          </Link>
         )}
         {project.productSlug && (
           <Link
