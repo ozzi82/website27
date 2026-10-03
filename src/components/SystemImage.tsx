@@ -13,7 +13,7 @@ export default function SystemImage({ config }: { config: LightConfig }) {
   const [time, setTime] = useState<Time>("night");
   const hasDay = Boolean(config.imgDay);
   const src = hasDay && time === "day" ? config.imgDay! : config.img;
-  const dims = hasDay ? { width: 1200, height: 900 } : { width: 852, height: 1331 };
+  const dims = { width: 1200, height: 900 };
   return (
     <figure className="rounded-xl overflow-hidden border border-border bg-card self-start">
       <img

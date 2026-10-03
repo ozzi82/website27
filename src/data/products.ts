@@ -68,9 +68,9 @@ export const productCategories: ProductCategory[] = [
     cta: CTA_LINKS.viewFlatCutout,
     image: {
       src: "/images/edgeluxe/lp-1-flat-cutout.jpg",
-      alt: "EdgeLuxe LP 1 flat cutout letter S on a concrete wall",
-      width: 852,
-      height: 1331,
+      alt: "EdgeLuxe LP 1 flat cutout letter S in gold on a concrete wall",
+      width: 1200,
+      height: 900,
     },
   },
   {

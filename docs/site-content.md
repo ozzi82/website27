@@ -107,7 +107,7 @@ Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo
 
 [View Classic Letters](/services/channel-letters)
 
-*[Image: EdgeLuxe LP 1 flat cutout letter S on a concrete wall]*
+*[Image: EdgeLuxe LP 1 flat cutout letter S in gold on a concrete wall]*
 
 03 · EdgeLuxe LP 1 · unlit
 

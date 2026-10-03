@@ -22,7 +22,7 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
   every EdgeLuxe system page with `?config=` deep links, FinalCTA, contact page, footer, WebApplication JSON-LD, llms.txt.
 - Animated light-direction diagrams (CSS only, stop under `prefers-reduced-motion`) driven by each configuration, plus a stand-off vs flush
   mount explanation on the ultra-slim page and the system pages (`src/components/diagrams/ConfigLightDiagram.tsx`).
-- EdgeLuxe renders: owner-supplied day and night images (11 lit systems, 1200x900 JPEG) with a Day | Night switch on each system page; LP 1 keeps its single photo.
+- EdgeLuxe renders: owner-supplied day and night images (11 lit systems, 1200x900 JPEG) with a Day | Night switch on each system page; LP 1 uses the owner-supplied gold "S" photo (single image, no day/night switch).
 - 633 tests pass; `npm run build`, `npm run verify:prerender` (22 checks) and `npm run export:content` are clean.
 
 - Mounting (owner list, 2026-10-03): LP 3.1, LP 11-B and LP 11-FB are stand-off only; every other system (LP 1, 3.2, 5, 11-F, 11-BS, 11-FS, 11-S, 11-N, 11-C)

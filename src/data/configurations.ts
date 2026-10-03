@@ -37,7 +37,7 @@ export interface LightConfig {
   summary: string;
   description: string;
   specs: { label: string; value: string }[];
-  /** Render of the letter lit at night (1200 x 900); LP 1 has one unlit photo only. */
+  /** Render of the letter lit at night (1200 x 900); LP 1 has one unlit photo only (also 1200 x 900). */
   img: string;
   /** The same letter by day, where there is a day render. */
   imgDay?: string;
