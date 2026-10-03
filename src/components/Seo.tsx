@@ -7,12 +7,14 @@ interface SeoProps {
   path: string;
   image?: string;
   noindex?: boolean;
+  /** Use `title` verbatim as the <title> (no " | Sunlite Signs" suffix), for titles the owner specified exactly. */
+  exactTitle?: boolean;
   jsonLd?: object | object[];
 }
 
-export default function Seo({ title, description, path, image = DEFAULT_OG_IMAGE, noindex, jsonLd }: SeoProps) {
+export default function Seo({ title, description, path, image = DEFAULT_OG_IMAGE, noindex, exactTitle, jsonLd }: SeoProps) {
   const url = absoluteUrl(path);
-  const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+  const fullTitle = exactTitle || title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
   const jsonLdList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   return (

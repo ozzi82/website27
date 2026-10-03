@@ -1,7 +1,7 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@project/components/ui/accordion';
 import SectionHeader from './SectionHeader';
 
-export const faqs = [
+export const faqs: Faq[] = [
   { q: "Does Sunlite Signs serve retail customers?", a: "No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, shopfitters, and other trade professionals." },
   { q: "Can sign companies use Sunlite as a production partner?", a: "Yes. Sign companies use Sunlite as an outsourced manufacturer to expand their product offering with channel letters and illuminated signage – without investing in in-house production." },
   { q: "Do you handle installation?", a: "No. Sunlite delivers ready-to-install. Installation is handled by you, your crew, your electrician, or a local contractor." },
@@ -12,13 +12,26 @@ export const faqs = [
   { q: "Does Sunlite offer white-label or neutral shipping?", a: "Please contact us directly to discuss white-label and neutral shipping options." },
 ];
 
-export default function FAQSection() {
+export interface Faq {
+  q: string;
+  a: string;
+}
+
+interface FAQSectionProps {
+  /** Defaults to the company-wide questions; product pages pass their own (supported facts only). */
+  items?: Faq[];
+  eyebrow?: string;
+  title?: string;
+  titleClassName?: string;
+}
+
+export default function FAQSection({ items = faqs, eyebrow = "FAQ", title = "Frequently asked questions", titleClassName }: FAQSectionProps) {
   return (
     <section id="faq" className="py-14 md:py-28 border-t border-border bg-background scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
-        <SectionHeader eyebrow="FAQ" title="Frequently asked questions" />
+        <SectionHeader eyebrow={eyebrow} title={title} titleClassName={titleClassName} />
         <Accordion type="single" collapsible className="max-w-3xl">
-          {faqs.map((f, i) => (
+          {items.map((f, i) => (
             <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
               <AccordionTrigger className="text-left font-medium text-base py-5">{f.q}</AccordionTrigger>
               <AccordionContent className="text-muted-foreground text-sm">{f.a}</AccordionContent>

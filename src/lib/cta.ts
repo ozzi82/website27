@@ -19,8 +19,11 @@ export const CTA_LINKS = {
   viewChannelLetters: { label: "View Channel Letters", to: "/services/channel-letters" },
   exploreUltraSlim: { label: "Explore Ultra-Slim", to: "/services/ultra-slim-trimless-channel-letters" },
   viewCastAcrylic: { label: "View Cast Acrylic", to: "/services/cast-block-acrylic" },
-  viewProjects: { label: "View Projects", to: "/gallery" },
-  viewAllProjects: { label: "View All Projects", to: "/gallery" },
+  viewProjects: { label: "View Projects", to: "/projects" },
+  viewAllProjects: { label: "View All Projects", to: "/projects" },
+  viewManufacturing: { label: "View Manufacturing", to: "/manufacturing" },
+  viewSpecs: { label: "View Specs", to: "/services/channel-letters#specifications" },
+  customFabrication: { label: "See Custom Fabrication", to: "/services/channel-letters#custom-fabrication" },
   tryConfigurator: { label: "Try the 3D Configurator", to: "/configurator" },
 } as const;
 
