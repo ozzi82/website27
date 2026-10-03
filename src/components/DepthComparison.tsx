@@ -63,7 +63,7 @@ export default function DepthComparison({ size = "md", className, hideNote = fal
   return (
     <figure className={cn("w-full mx-auto", size === "lg" ? "max-w-3xl" : "max-w-md", className)}>
       <svg
-        viewBox="0 0 360 322"
+        viewBox="0 0 330 322"
         role="img"
         aria-label={LABEL}
         aria-describedby={descId}
@@ -90,20 +90,20 @@ export default function DepthComparison({ size = "md", className, hideNote = fal
         <line x1={WALL_X} y1={14} x2={WALL_X} y2={306} className="stroke-foreground/70" strokeWidth={1.5} />
 
         {/* conventional */}
-        <text x={44} y={40} className="font-mono fill-muted-foreground" fontSize={11} letterSpacing={1.3}>CONVENTIONAL CHANNEL LETTER</text>
+        <text x={44} y={40} className="font-mono fill-muted-foreground" fontSize={12} letterSpacing={1.2}>CONVENTIONAL CHANNEL LETTER</text>
         <Profile cy={84} depth={CONVENTIONAL_DEPTH} uid={uid} />
         <line x1={ultraX1} y1={46} x2={ultraX1} y2={122} className="stroke-primary" strokeWidth={1} strokeDasharray="4 3" />
-        <text x={ultraX1 + 6} y={76} className="font-mono fill-primary" fontSize={10} letterSpacing={1}>ULTRA-SLIM DEPTH</text>
+        <text x={ultraX1 + 6} y={76} className="font-mono fill-primary" fontSize={11} letterSpacing={1}>ULTRA-SLIM DEPTH</text>
         <Dimension y={138} x0={WALL_X} x1={convX1} />
-        <text x={(WALL_X + convX1) / 2} y={158} textAnchor="middle" className="font-mono fill-muted-foreground" fontSize={11} letterSpacing={1.3}>CONVENTIONAL RETURN</text>
+        <text x={(WALL_X + convX1) / 2} y={158} textAnchor="middle" className="font-mono fill-muted-foreground" fontSize={12} letterSpacing={1.2}>CONVENTIONAL RETURN</text>
 
         {/* ultra-slim */}
-        <text x={44} y={196} className="font-mono fill-foreground" fontSize={11} letterSpacing={1.3}>SUNLITE ULTRA-SLIM</text>
+        <text x={44} y={196} className="font-mono fill-foreground" fontSize={12} letterSpacing={1.2}>SUNLITE ULTRA-SLIM</text>
         <Profile cy={240} depth={ULTRA_SLIM_DEPTH} uid={uid} />
         <Dimension y={290} x0={WALL_X} x1={ultraX1} />
-        <text x={WALL_X} y={314} className="font-mono fill-muted-foreground" fontSize={10} letterSpacing={1.3}>TOTAL DEPTH</text>
+        <text x={WALL_X} y={314} className="font-mono fill-muted-foreground" fontSize={11} letterSpacing={1.2}>TOTAL DEPTH</text>
         <text x={ultraX1 + 24} y={250} className="font-heading fill-primary" fontSize={36} fontWeight={700}>25–30 mm</text>
-        <text x={ultraX1 + 24} y={270} className="font-mono fill-muted-foreground" fontSize={11} letterSpacing={1.3}>ABOUT 1″ – 1.2″</text>
+        <text x={ultraX1 + 24} y={270} className="font-mono fill-muted-foreground" fontSize={12} letterSpacing={1.2}>ABOUT 1″ – 1.2″</text>
       </svg>
       {!hideNote && (
         <figcaption className="mono-label text-muted-foreground mt-4 leading-relaxed">

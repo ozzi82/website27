@@ -36,7 +36,7 @@ export default function UltraSlimSection() {
           </ul>
           <ArrowLink label={CTA_LINKS.exploreUltraSlim.label} to={CTA_LINKS.exploreUltraSlim.to} className="mt-8 text-sm" />
         </div>
-        <div className="corner-marks border border-border bg-background/60 p-5 sm:p-8">
+        <div className="corner-marks border border-border bg-background/60 p-3 sm:p-8">
           <DepthComparison />
         </div>
       </div>

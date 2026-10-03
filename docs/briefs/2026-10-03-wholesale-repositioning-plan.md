@@ -63,3 +63,11 @@ Phase 1 = inspection, shared foundations, header/footer, homepage. Phase 2 = pro
 | Project photos and client names (Tradebyte, MACS, JenTower, ARGO-HYTOS, itonics, Stroh + Scheuerpflug, Mustang, Inspire...) | GallerySection | Kept, titles only. OWNER CONFIRM these are Sunlite-built (they came with the brochure) and that naming clients is OK. No depth/finish/mounting/product type is recorded. |
 | Cast acrylic specs ("Placeholder" height, Clear/Opal colors) | services.ts | Reconciled to LP 11-F brochure data (min 2 in height, 1.2 in / 1 in depth, PMS/vinyl/pigmented acrylic). |
 | Manufacturing location | none | Nowhere claims Tampa production; footer reads "Sunlite Signs LLC, Tampa, Florida" + "wholesale manufacturing partner for sign companies nationwide". `llms.txt` "shipped ... from Tampa" reworded. |
+
+## Phase 1 outcome (as built)
+
+- Homepage order: Hero, Trust strip, Products (`#products`), Ultra-slim (`#ultra-slim`), Built for the trade (`#trade`), Manufacturing (`#manufacturing`), Recent production (`#projects`), EdgeLuxe letter systems with a "Try the 3D Configurator" link (`#light-effects`), Process (`#process`), Trade-only statement (`#trade-only`), FAQ (`#faq`), Final CTA (`#request-pricing`). Code in `src/components/home/*`, `LightEffects`, `FAQSection`, `FinalCTA`.
+- Hero: poster-first (`public/images/hero-production-poster.jpg`, derived from the existing CNC production photo); the YouTube iframe mounts after window load + idle, only on viewports >= 768 px, not with reduced motion or save-data. H1 and body are plain CSS-animated markup (no JS-gated opacity), so they are visible in the prerendered HTML and paint before hydration.
+- `/services/channel-letters` and `/services/ultra-slim-trimless-channel-letters` currently render through the generic `ServicePage` from `data/services.ts` (interim). The depth drawing is not on the ultra-slim page yet: Phase 2 should add `<DepthComparison size="lg" />`.
+- `framer-motion` is no longer imported anywhere in `src` (the hero was its only user). The dependency is left in `package.json`; remove it separately if wanted.
+- The configurator buttons and `ContactForm`/`ContactPage` still use "Get a Quote"/"Request a Quote"; `ctaConsistency.test.ts` exempts exactly those files until Phase 3.

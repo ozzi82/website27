@@ -44,7 +44,7 @@ describe("DepthComparison", () => {
   it("scales with its container (viewBox, no fixed pixel width) and has a larger variant", () => {
     const { container, rerender } = render(<DepthComparison />);
     const svg = container.querySelector("svg")!;
-    expect(svg.getAttribute("viewBox")).toBe("0 0 360 322");
+    expect(svg.getAttribute("viewBox")).toBe("0 0 330 322");
     expect(svg.getAttribute("width")).toBeNull();
     expect(container.querySelector("figure")!.className).toContain("max-w-md");
     rerender(<DepthComparison size="lg" />);
