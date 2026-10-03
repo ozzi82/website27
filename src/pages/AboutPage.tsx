@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ProductionSection from "../components/ProductionSection";
 import DeliverySection from "../components/DeliverySection";
-import ProcessSection from "../components/ProcessSection";
+import ProcessSteps from "../components/home/ProcessSteps";
 import TargetGroups from "../components/TargetGroups";
 import FinalCTA from "../components/FinalCTA";
 import Seo from "../components/Seo";
@@ -26,7 +26,7 @@ export default function AboutPage() {
       </section>
       <ProductionSection />
       <DeliverySection />
-      <ProcessSection />
+      <ProcessSteps />
       <TargetGroups />
       <FinalCTA />
     </>

@@ -1,20 +1,36 @@
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@project/components/ui/button';
+import { Mail, Phone } from "lucide-react";
+import { PrimaryCta } from "./CtaButton";
+import { EMAIL, PHONE_DISPLAY, PHONE_NUMBER } from "../lib/contact";
 
+/** Closing call to action (brief section 18). Shared by the homepage and the inner pages. */
 export default function FinalCTA() {
-  const navigate = useNavigate();
   return (
-    <section className="py-10 md:py-16 bg-primary">
-      <div className="container mx-auto px-4 text-center max-w-2xl">
-        <h2 className="text-xl md:text-3xl font-bold mb-2 md:mb-3 text-primary-foreground">
-          Have a project? Get a quote now.
+    <section id="request-pricing" className="border-t border-border steel-plate bg-card">
+      <div className="caution-tape h-1" />
+      <div className="max-w-7xl mx-auto px-6 py-16 md:py-24 grid lg:grid-cols-[1.3fr_1fr] gap-10 items-end">
+        <h2 className="text-4xl sm:text-5xl md:text-7xl uppercase">
+          Have drawings ready?
+          <br />
+          <span className="text-primary">Let's price the job.</span>
         </h2>
-        <p className="text-primary-foreground/80 mb-4 md:mb-6 text-sm md:text-base">
-          Send your logo and dimensions — we'll send back a quote within 48 hours.
-        </p>
-        <Button size="lg" variant="secondary" onClick={() => navigate("/contact")}>
-          Start Your Project
-        </Button>
+        <div>
+          <p className="text-lg text-foreground/80 max-w-md">
+            Upload your artwork and dimensions and we'll prepare your wholesale quote.
+          </p>
+          <div className="mt-8">
+            <PrimaryCta />
+          </div>
+          <p className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">
+            <a href={`mailto:${EMAIL}`} className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+              <Mail aria-hidden="true" className="w-4 h-4 text-primary" />
+              {EMAIL}
+            </a>
+            <a href={`tel:${PHONE_NUMBER}`} className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+              <Phone aria-hidden="true" className="w-4 h-4 text-primary" />
+              {PHONE_DISPLAY}
+            </a>
+          </p>
+        </div>
       </div>
     </section>
   );

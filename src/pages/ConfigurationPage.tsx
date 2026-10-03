@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@project/components/ui/button";
 import { configurations } from "../data/configurations";
 import Seo from "../components/Seo";
+import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
 
 export default function ConfigurationPage() {
@@ -60,7 +61,7 @@ export default function ConfigurationPage() {
             <p className="text-muted-foreground mt-4 max-w-xl">{c.summary}</p>
           </div>
           <Button asChild size="lg" className="h-14 px-8 uppercase tracking-wider font-semibold">
-            <Link to="/contact">Quote this letter system</Link>
+            <Link to={CTA_PRIMARY.to}>{CTA_PRIMARY.label}</Link>
           </Button>
         </div>
 

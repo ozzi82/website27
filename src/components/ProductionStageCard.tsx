@@ -4,11 +4,13 @@ import MediaFrame from "./MediaFrame";
 /** Blueprint-style tile shown while a stage has no real photo/video yet (never stock imagery). */
 function StagePlaceholder({ stage }: { stage: ProductionStage }) {
   return (
-    <div aria-hidden="true" className="absolute inset-0 steel-plate bg-secondary/60 corner-marks flex items-end justify-between p-5">
-      <span className="font-heading text-[7rem] leading-[0.8] font-bold text-transparent [-webkit-text-stroke:1.5px_hsl(var(--primary)/0.5)]">
-        {stage.number}
-      </span>
-      <span className="mono-label text-muted-foreground text-right max-w-[9rem]">{stage.title}</span>
+    <div aria-hidden="true" className="absolute inset-0 steel-plate bg-secondary/60 p-3">
+      <div className="corner-marks h-full flex items-end justify-between p-3 border border-border/60">
+        <span className="font-heading text-[6.5rem] leading-[0.8] font-bold text-transparent [-webkit-text-stroke:1.5px_hsl(var(--primary)/0.5)]">
+          {stage.number}
+        </span>
+        <span className="mono-label text-muted-foreground text-right max-w-[9rem]">{stage.title}</span>
+      </div>
     </div>
   );
 }

@@ -1,8 +1,17 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { PlantHero, SpecRail, ProductLines } from "../components/plant/PlantTop";
-import { Facility, Workflow, TradeStatement } from "../components/plant/PlantBottom";
+import Hero from "../components/home/Hero";
+import TrustStrip from "../components/home/TrustStrip";
+import ProductsSection from "../components/home/ProductsSection";
+import UltraSlimSection from "../components/home/UltraSlimSection";
+import OutsourcingSection from "../components/home/OutsourcingSection";
+import ManufacturingSection from "../components/home/ManufacturingSection";
+import ProjectsSection from "../components/home/ProjectsSection";
+import ProcessSteps from "../components/home/ProcessSteps";
+import TradeStatement from "../components/home/TradeStatement";
 import LightEffects from "../components/LightEffects";
+import FAQSection from "../components/FAQSection";
+import FinalCTA from "../components/FinalCTA";
 import Seo from "../components/Seo";
 import { SITE_NAME, SITE_URL } from "../lib/seo";
 
@@ -13,7 +22,7 @@ const jsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   description:
-    "Wholesale B2B manufacturer of UL 48 listed channel letters, trimless letters, cast acrylic letters and illuminated cabinet signs, shipped ready-to-install nationwide.",
+    "Wholesale sign manufacturer for sign companies: UL 48 listed channel letters, ultra-slim trimless letters and cast acrylic letters, shipped ready-to-install nationwide. Trade only.",
   email: "hello@sunlitesigns.com",
   telephone: "+1-689-294-0912",
   address: {
@@ -25,9 +34,13 @@ const jsonLd = {
     addressCountry: "US",
   },
   areaServed: "United States",
-  knowsAbout: ["Channel letters", "Illuminated signage", "Cast acrylic letters", "Cabinet signs", "UL 48 certification"],
+  knowsAbout: ["Channel letters", "Ultra-slim trimless channel letters", "Illuminated signage", "Cast acrylic letters", "UL 48 certification"],
 };
 
+/**
+ * Homepage (brief section 17): hero, capability strip, products, ultra-slim differentiator, why outsource,
+ * manufacturing, projects, EdgeLuxe letter systems (+ configurator link), process, trade-only statement, FAQ, final CTA.
+ */
 export default function HomePage() {
   const { hash } = useLocation();
   useEffect(() => {
@@ -38,18 +51,23 @@ export default function HomePage() {
   return (
     <>
       <Seo
-        title="Wholesale Channel Letters & Illuminated Signage Manufacturer"
-        description="B2B production partner for channel letters, trimless letters, cast acrylic letters and illuminated cabinet signs. UL 48 listed, 48-hour quotes, shipped ready-to-install nationwide. Trade only."
+        title="Wholesale Channel Letters for Sign Companies"
+        description="Wholesale channel letter manufacturer for sign companies. Ultra-slim trimless and cast acrylic letters built to your drawings, UL 48 listed, shipped nationwide. Trade only."
         path="/"
         jsonLd={jsonLd}
       />
-      <PlantHero />
-      <SpecRail />
-      <ProductLines />
-      <Facility />
+      <Hero />
+      <TrustStrip />
+      <ProductsSection />
+      <UltraSlimSection />
+      <OutsourcingSection />
+      <ManufacturingSection />
+      <ProjectsSection />
       <LightEffects />
-      <Workflow />
+      <ProcessSteps />
       <TradeStatement />
+      <FAQSection />
+      <FinalCTA />
     </>
   );
 }

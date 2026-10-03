@@ -17,13 +17,13 @@ export default function ProjectCard({ project, index }: { project: Project; inde
         className="border-b border-border"
         imgClassName="transition-transform duration-700 group-hover:scale-[1.03]"
       />
-      <div className="p-5 flex-1 flex flex-col">
+      <div className="p-3 sm:p-5 flex-1 flex flex-col">
         {index !== undefined && <p className="mono-label text-muted-foreground">Fig. {String(index + 1).padStart(2, "0")}</p>}
-        <h3 className="text-2xl mt-1">{project.title}</h3>
+        <h3 className="text-lg sm:text-2xl mt-1 leading-tight">{project.title}</h3>
         {meta.length > 0 && (
           <dl className="mt-4 pt-4 border-t border-border grid gap-2">
             {meta.map((m) => (
-              <div key={m.label} className="grid grid-cols-[6.5rem_1fr] gap-3">
+              <div key={m.label} className="grid sm:grid-cols-[6.5rem_1fr] gap-x-3 gap-y-0.5">
                 <dt className="mono-label text-muted-foreground pt-0.5">{m.label}</dt>
                 <dd className="text-sm">{m.value}</dd>
               </div>
