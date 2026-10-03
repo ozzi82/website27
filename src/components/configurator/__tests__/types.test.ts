@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { configurations } from "../../../data/configurations";
-import { defaultStateFor, formatDepth, emitsLight } from "../types";
+import { defaultStateFor, formatDepth, emitsLight, switchConfig } from "../types";
 
 const byId = (id: string) => configurations.find((c) => c.id === id)!;
 
@@ -53,6 +53,50 @@ describe("emitsLight", () => {
     expect(emitsLight(byId("lp-1-flat-cutout"))).toBe(false);
     for (const c of configurations.filter((c) => c.id !== "lp-1-flat-cutout")) {
       expect(emitsLight(c)).toBe(true);
+    }
+  });
+});
+
+describe("switchConfig", () => {
+  it("keeps the visitor's colours, brightness, day/night and background", () => {
+    const prev = {
+      ...defaultStateFor(byId("lp-3-1-standoff-halo")),
+      color: "#aa3311",
+      glowColor: "#19e0ff",
+      brightness: 40,
+      dayNight: "night" as const,
+      background: "brick" as const,
+    };
+    const next = switchConfig(prev, byId("lp-11-f-face-lit"));
+    expect(next).toMatchObject({
+      configId: "lp-11-f-face-lit",
+      color: "#aa3311",
+      glowColor: "#19e0ff",
+      brightness: 40,
+      dayNight: "night",
+      background: "brick",
+    });
+  });
+
+  it("keeps the depth when the new configuration offers it", () => {
+    const prev = { ...defaultStateFor(byId("lp-5-trimless-face-lit")), depthMm: 75 };
+    expect(byId("lp-3-1-standoff-halo").depthOptionsMm).toContain(75);
+    expect(switchConfig(prev, byId("lp-3-1-standoff-halo")).depthMm).toBe(75);
+  });
+
+  it("falls back to the new configuration's default depth when it lacks the old one", () => {
+    const prev = { ...defaultStateFor(byId("lp-5-trimless-face-lit")), depthMm: 75 };
+    const flat = byId("lp-1-flat-cutout");
+    expect(flat.depthOptionsMm).not.toContain(75);
+    expect(switchConfig(prev, flat).depthMm).toBe(defaultStateFor(flat).depthMm);
+  });
+
+  it("always lands on one of the target's own depths", () => {
+    for (const from of configurations) {
+      for (const to of configurations) {
+        const prev = { ...defaultStateFor(from), depthMm: from.depthOptionsMm[from.depthOptionsMm.length - 1] };
+        expect(to.depthOptionsMm).toContain(switchConfig(prev, to).depthMm);
+      }
     }
   });
 });

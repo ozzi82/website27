@@ -45,6 +45,24 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
   };
 }
 
+/**
+ * Moves to another configuration in place: the visitor's paint and glow colours, brightness, day/night and
+ * background carry over (re-picking them would be annoying), and so does the depth when the new configuration
+ * offers it; otherwise the depth takes the new configuration's default.
+ */
+export function switchConfig(prev: ConfiguratorState, next: LightConfig): ConfiguratorState {
+  const fresh = defaultStateFor(next);
+  return {
+    ...fresh,
+    depthMm: next.depthOptionsMm.includes(prev.depthMm) ? prev.depthMm : fresh.depthMm,
+    color: prev.color,
+    glowColor: prev.glowColor,
+    brightness: prev.brightness,
+    dayNight: prev.dayNight,
+    background: prev.background,
+  };
+}
+
 /** True when any part of the letter emits light (everything but the flat cutout). */
 export function emitsLight(config: LightConfig): boolean {
   const { face, halo, side } = config.light;

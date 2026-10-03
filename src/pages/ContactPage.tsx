@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import ContactForm from "../components/ContactForm";
+import ContactForm, { type AttachmentStatus } from "../components/ContactForm";
 import FAQSection, { faqs } from "../components/FAQSection";
 import Seo from "../components/Seo";
 import QuoteCard from "../components/configurator/QuoteCard";
-import { clearQuote, isQuoteSnapshot, loadQuote, type QuoteSnapshot } from "../components/configurator/quoteStorage";
+import { clearQuote, isQuoteSnapshot, loadQuote, quoteFileId, type QuoteSnapshot } from "../components/configurator/quoteStorage";
+import { clearArtworkFile, loadArtworkFile } from "../components/configurator/artworkFileStorage";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -27,8 +28,29 @@ export default function ContactPage() {
     return isQuoteSnapshot(fromState) ? fromState : loadQuote();
   });
 
+  // The artwork file that went with the quote (kept in IndexedDB); the form attaches it to its file field.
+  const [artworkFile, setArtworkFile] = useState<File | null>(null);
+  const [attachStatus, setAttachStatus] = useState<AttachmentStatus>("none");
+  const artworkMeta = quote?.artworkFile ?? null;
+  const quoteId = quote ? quoteFileId(quote) : null;
+  useEffect(() => {
+    if (!artworkMeta || !quoteId) {
+      setArtworkFile(null);
+      return;
+    }
+    let cancelled = false;
+    void loadArtworkFile(quoteId).then((file) => {
+      if (!cancelled) setArtworkFile(file);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [artworkMeta, quoteId]);
+
   function handleClear() {
     clearQuote();
+    void clearArtworkFile();
+    setArtworkFile(null);
     setQuote(null);
     navigate(location.pathname, { replace: true, state: null }); // otherwise a refresh would bring it back from history state
   }
@@ -51,7 +73,18 @@ export default function ContactPage() {
       </section>
       <ContactForm
         prefill={quote?.summary ?? null}
-        aboveForm={quote ? <QuoteCard quote={quote} onClear={handleClear} /> : null}
+        attachment={artworkFile}
+        onAttachmentStatus={setAttachStatus}
+        onSubmitted={handleClear} // sent: nothing of this quote should linger for the next visit
+        aboveForm={
+          quote ? (
+            <QuoteCard
+              quote={quote}
+              onClear={handleClear}
+              artwork={artworkMeta && artworkFile ? { meta: artworkMeta, file: artworkFile, status: attachStatus } : null}
+            />
+          ) : null
+        }
       />
       <FAQSection />
     </>

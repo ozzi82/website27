@@ -1,10 +1,94 @@
-import { useEffect, useRef, useState } from "react";
-import { Check, Copy, X } from "lucide-react";
-import type { QuoteSnapshot } from "./quoteStorage";
+import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Check, Copy, Download, Paperclip, X } from "lucide-react";
+import type { ArtworkFileMeta, QuoteSnapshot } from "./quoteStorage";
+
+/** Where the artwork file stands in the contact form (see ContactForm's AttachmentStatus). */
+export type ArtworkAttachStatus = "none" | "waiting" | "attached" | "detached" | "failed";
 
 interface QuoteCardProps {
   quote: QuoteSnapshot;
   onClear: () => void;
+  /** The artwork file that travels with the quote, once loaded, and what became of attaching it to the form. */
+  artwork?: { meta: ArtworkFileMeta; file: File; status: ArtworkAttachStatus } | null;
+}
+
+function formatSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+/** A link that downloads the artwork file (an object URL, revoked when the card goes away). */
+function DownloadLink({ file, className, children }: { file: File; className: string; children: ReactNode }) {
+  const [href, setHref] = useState<string | null>(null);
+  useEffect(() => {
+    if (typeof URL.createObjectURL !== "function") return;
+    const url = URL.createObjectURL(file);
+    setHref(url);
+    return () => URL.revokeObjectURL(url);
+  }, [file]);
+  if (!href) return null;
+  return (
+    <a href={href} download={file.name} className={className}>
+      {children}
+    </a>
+  );
+}
+
+/** The artwork file that goes with the quote: attached to the form, or, if that did not work, ready to download. */
+function ArtworkFileNotice({ meta, file, status }: NonNullable<QuoteCardProps["artwork"]>) {
+  const name = (
+    <>
+      <strong className="break-all font-medium">{file.name}</strong> <span className="text-muted-foreground">({formatSize(file.size)})</span>
+      {meta.generated && <span className="text-muted-foreground"> · made from your text</span>}
+    </>
+  );
+  const link = "inline-flex items-center gap-1.5 font-medium underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
+
+  if (status === "failed" || status === "detached") {
+    return (
+      <div role="status" className="mt-4 rounded-lg border border-amber-500/60 bg-amber-500/10 p-3 text-sm">
+        <p>
+          {status === "failed"
+            ? "We couldn’t attach your artwork to the form automatically."
+            : "Your artwork isn’t attached, because the form’s file field has a different file."}{" "}
+          Your file: {name}
+        </p>
+        <DownloadLink
+          file={file}
+          className="mt-2 inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        >
+          <Download aria-hidden="true" className="h-4 w-4" />
+          Download your artwork file
+        </DownloadLink>
+        <p className="mt-1.5 text-xs text-muted-foreground">Choose it in the “Upload your file here” field of the form below.</p>
+      </div>
+    );
+  }
+
+  return (
+    <div role="status" className="mt-4 text-sm">
+      <p className="flex items-start gap-2">
+        <Paperclip aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+        <span className="min-w-0">
+          {status === "attached" ? "Artwork attached: " : "Artwork ready: "}
+          {name}
+        </span>
+      </p>
+      <p className="ml-6 text-xs text-muted-foreground">
+        {status === "attached" ? (
+          <>
+            It will be sent with the form below.{" "}
+            <DownloadLink file={file} className={`${link} text-muted-foreground hover:text-foreground`}>
+              Download a copy
+            </DownloadLink>
+          </>
+        ) : (
+          "Attaching it to the form below…"
+        )}
+      </p>
+    </div>
+  );
 }
 
 async function writeClipboard(text: string): Promise<boolean> {
@@ -31,7 +115,7 @@ async function writeClipboard(text: string): Promise<boolean> {
 }
 
 /** "Your configuration" on the contact page: what the visitor built in the configurator, with a snapshot of it. */
-export default function QuoteCard({ quote, onClear }: QuoteCardProps) {
+export default function QuoteCard({ quote, onClear, artwork = null }: QuoteCardProps) {
   const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
   const timer = useRef<ReturnType<typeof setTimeout>>();
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -75,6 +159,8 @@ export default function QuoteCard({ quote, onClear }: QuoteCardProps) {
           ))}
         </dl>
       </div>
+
+      {artwork && <ArtworkFileNotice {...artwork} />}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <button

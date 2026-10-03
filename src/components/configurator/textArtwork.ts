@@ -1,6 +1,8 @@
 import type * as THREE from "three";
 import { loadFont } from "./fontLoader";
 import { TextRenderError, textToShapesWithInfo } from "./textToShapes";
+import { createTextArtworkFile } from "./textArtworkFile";
+import { findTextFont } from "./textFonts";
 
 export interface TextArtwork {
   /** `null` when there is nothing to draw (empty or whitespace-only text). */
@@ -24,5 +26,20 @@ export async function generateTextShapes(text: string, fontId: string): Promise<
   } catch (cause) {
     if (cause instanceof TextRenderError) throw cause;
     throw new TextRenderError("Could not render the text", { cause });
+  }
+}
+
+/**
+ * The typed text as a downloadable SVG of letter outlines (it travels with the quote, so the factory has artwork
+ * to work from). Never throws: any failure, or nothing drawable, is `null` and the quote goes without a file.
+ */
+export async function generateTextArtworkFile(text: string, fontId: string): Promise<File | null> {
+  if (text.trim() === "") return null;
+  try {
+    const font = await loadFont(fontId);
+    return createTextArtworkFile(text, font, findTextFont(fontId)?.label ?? fontId);
+  } catch (err) {
+    console.error("Text artwork file failed:", err);
+    return null;
   }
 }

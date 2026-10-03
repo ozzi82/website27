@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { clearQuote, loadQuote, saveQuote, type QuoteSnapshot } from "../quoteStorage";
+import { clearQuote, isQuoteSnapshot, loadQuote, saveQuote, quoteFileId, type QuoteSnapshot } from "../quoteStorage";
 
 const quote: QuoteSnapshot = {
   v: 1,
@@ -47,5 +47,29 @@ describe("quote storage", () => {
     });
     expect(() => saveQuote(quote)).not.toThrow();
     spy.mockRestore();
+  });
+
+  describe("artwork file metadata", () => {
+    const withFile: QuoteSnapshot = { ...quote, artworkFile: { name: "logo.svg", size: 1234, generated: false } };
+
+    it("round-trips with the quote", () => {
+      saveQuote(withFile);
+      expect(loadQuote()).toEqual(withFile);
+    });
+
+    it("is optional: quotes without it are still valid", () => {
+      expect(isQuoteSnapshot(quote)).toBe(true);
+      expect(isQuoteSnapshot({ ...quote, artworkFile: null })).toBe(true);
+    });
+
+    it("rejects malformed metadata", () => {
+      expect(isQuoteSnapshot({ ...quote, artworkFile: { name: 5, size: 1, generated: false } })).toBe(false);
+      expect(isQuoteSnapshot({ ...quote, artworkFile: { name: "a.svg", size: "big", generated: false } })).toBe(false);
+      expect(isQuoteSnapshot({ ...quote, artworkFile: "logo.svg" })).toBe(false);
+    });
+
+    it("keys the stored file by the time the quote was saved", () => {
+      expect(quoteFileId(withFile)).toBe("1");
+    });
   });
 });

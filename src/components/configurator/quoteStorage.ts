@@ -5,6 +5,14 @@ export interface SummaryRow {
   swatch?: string;
 }
 
+/** The artwork file that travels with a quote (its bytes live in IndexedDB, see artworkFileStorage.ts). */
+export interface ArtworkFileMeta {
+  name: string;
+  size: number;
+  /** True when we made the file (the SVG of typed text) rather than the visitor uploading it. */
+  generated: boolean;
+}
+
 /** What "Get a Quote" hands to the contact page. */
 export interface QuoteSnapshot {
   v: 1;
@@ -14,6 +22,13 @@ export interface QuoteSnapshot {
   /** Small JPEG snapshot of the 3D preview, or null when it could not be captured. */
   image: string | null;
   savedAt: number;
+  /** Set when the artwork file was stored and should be attached to the contact form. */
+  artworkFile?: ArtworkFileMeta | null;
+}
+
+/** The IndexedDB key of this quote's artwork file. */
+export function quoteFileId(quote: Pick<QuoteSnapshot, "savedAt">): string {
+  return String(quote.savedAt);
 }
 
 const KEY = "sls.quote.v1";
@@ -33,6 +48,12 @@ export function saveQuote(quote: QuoteSnapshot): void {
   }
 }
 
+function isArtworkFileMeta(value: unknown): boolean {
+  if (value === undefined || value === null) return true;
+  const m = value as Partial<ArtworkFileMeta>;
+  return typeof m === "object" && typeof m.name === "string" && typeof m.size === "number" && typeof m.generated === "boolean";
+}
+
 export function isQuoteSnapshot(value: unknown): value is QuoteSnapshot {
   const q = value as Partial<QuoteSnapshot> | null;
   return (
@@ -42,7 +63,8 @@ export function isQuoteSnapshot(value: unknown): value is QuoteSnapshot {
     typeof q.summary === "string" &&
     Array.isArray(q.rows) &&
     q.rows.every((r) => r && typeof r.label === "string" && typeof r.value === "string") &&
-    (q.image === null || typeof q.image === "string")
+    (q.image === null || typeof q.image === "string") &&
+    isArtworkFileMeta(q.artworkFile)
   );
 }
 
