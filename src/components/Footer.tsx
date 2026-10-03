@@ -1,11 +1,15 @@
 import { Link } from 'react-router-dom';
 import { LegalDialogs, useLegalDialogs } from './LegalDialogs';
+import { COMPANY_LINE, COMPANY_POSITIONING, EMAIL, PHONE_DISPLAY } from '../lib/contact';
+import { CTA_PRIMARY } from '../lib/cta';
 
 const navLinks = [
-  { label: "Services", href: "/#products" },
+  { label: "Channel Letters", href: "/services/channel-letters" },
+  { label: "Ultra-Slim Trimless", href: "/services/ultra-slim-trimless-channel-letters" },
+  { label: "Projects", href: "/gallery" },
+  { label: "Manufacturing", href: "/#manufacturing" },
   { label: "About", href: "/about" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Contact", href: "/contact" },
+  { label: CTA_PRIMARY.label, href: CTA_PRIMARY.to },
 ];
 
 export default function Footer() {
@@ -14,20 +18,22 @@ export default function Footer() {
   return (
     <>
       <footer className="bg-secondary py-12 border-t border-border">
-        <div className="container mx-auto px-4">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-start gap-8 mb-8">
             <div className="space-y-3 max-w-md">
               <Link to="/" className="flex items-center gap-2 font-bold text-lg">
                 <span className="text-primary">SUNLITE</span> <span className="text-foreground">SIGNS</span>
               </Link>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                B2B manufacturing partner for LED channel letters, 3D logos, profile letters, and illuminated signage – shipped ready-to-install.
+                <span className="text-foreground/90">{COMPANY_LINE}</span>
+                <br />
+                {COMPANY_POSITIONING}
               </p>
               <p className="text-xs text-muted-foreground">
-                Sunlite Signs LLC · 5005 W Laurel · Tampa, FL 33607
+                5005 W Laurel · Tampa, FL 33607 · {PHONE_DISPLAY} · {EMAIL}
               </p>
             </div>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 md:ml-auto">
+            <div className="flex flex-wrap gap-x-6 gap-y-2 md:ml-auto md:max-w-md md:justify-end">
               {navLinks.map(l => (
                 <Link key={l.label} to={l.href} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                   {l.label}
@@ -43,7 +49,7 @@ export default function Footer() {
           </div>
           <div className="border-t border-border pt-6 flex flex-col md:flex-row gap-4 justify-between text-xs text-muted-foreground">
             <p suppressHydrationWarning>© {new Date().getFullYear()} Sunlite Signs LLC. All rights reserved.</p>
-            <p>B2B inquiries only. No installation services. No retail customers.</p>
+            <p>Trade customers only. No retail sales. No installation services.</p>
           </div>
         </div>
       </footer>
