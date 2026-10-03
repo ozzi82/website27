@@ -22,7 +22,7 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
   every EdgeLuxe system page with `?config=` deep links, FinalCTA, contact page, footer, WebApplication JSON-LD, llms.txt.
 - Animated light-direction diagrams (CSS only, stop under `prefers-reduced-motion`) driven by each configuration, plus a stand-off vs flush
   mount explanation on the ultra-slim page and the system pages (`src/components/diagrams/ConfigLightDiagram.tsx`).
-- 629 tests pass; `npm run build`, `npm run verify:prerender` (22 checks) and `npm run export:content` are clean.
+- 630 tests pass; `npm run build`, `npm run verify:prerender` (22 checks) and `npm run export:content` are clean.
 
 ## Owner confirmations still open
 - LP 11-B depths 10/15/20/30 mm versus the H1 "25-30 mm".
