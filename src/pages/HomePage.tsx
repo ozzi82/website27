@@ -23,7 +23,7 @@ const jsonLd = {
   name: SITE_NAME,
   url: SITE_URL,
   description:
-    "Wholesale sign manufacturer for sign companies: UL 48 listed channel letters, ultra-slim trimless letters and cast acrylic letters, shipped ready-to-install nationwide. Trade only.",
+    "Wholesale sign manufacturer for sign companies: ultra-slim cast block acrylic letters, classic trimless stainless steel channel letters, flat cutout letters and custom sign fabrication, UL 48 listed and shipped ready-to-install nationwide. Trade only.",
   email: "hello@sunlitesigns.com",
   telephone: "+1-689-294-0912",
   address: {
@@ -35,11 +35,11 @@ const jsonLd = {
     addressCountry: "US",
   },
   areaServed: "United States",
-  knowsAbout: ["Channel letters", "Ultra-slim trimless channel letters", "Illuminated signage", "Cast acrylic letters", "UL 48 certification"],
+  knowsAbout: ["Channel letters", "Ultra-slim channel letters", "Cast block acrylic letters", "Trimless stainless steel letters", "Illuminated signage", "UL 48 certification"],
 };
 
 /**
- * Homepage (brief section 17): hero, capability strip, products, ultra-slim differentiator, why outsource,
+ * Homepage (brief section 17, ultra-slim first per the owner taxonomy): hero, capability strip, products, ultra-slim LP 11 series, why outsource,
  * manufacturing, projects, EdgeLuxe letter systems (+ configurator link), process, trade-only statement, FAQ, final CTA.
  */
 export default function HomePage() {
@@ -53,7 +53,7 @@ export default function HomePage() {
     <>
       <Seo
         title="Wholesale Channel Letters for Sign Companies"
-        description="Wholesale channel letter manufacturer for sign companies. Ultra-slim trimless and cast acrylic letters built to your drawings, UL 48 listed, shipped nationwide. Trade only."
+        description="Wholesale channel letter manufacturer for sign companies. Ultra-slim cast acrylic letters and classic trimless channel letters built to your drawings, UL 48 listed, shipped nationwide. Trade only."
         path="/"
         jsonLd={jsonLd}
       />

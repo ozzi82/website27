@@ -67,10 +67,10 @@ export default function ProjectsPage() {
       </section>
       <RelatedLinks
         items={[
-          { to: CTA_LINKS.viewChannelLetters.to, title: "Channel letters", text: "Front, halo and front + back lit, trimmed or trimless." },
-          { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim trimless", text: "A specialized option at 25–30 mm total depth." },
+          { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim letters", text: "EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep." },
+          { to: CTA_LINKS.viewChannelLetters.to, title: "Classic trimless letters", text: "Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2." },
+          { to: CTA_LINKS.customFabrication.to, title: "Custom fabrication", text: "Blade signs, push-through cabinet signs and custom projects." },
           { to: CTA_LINKS.viewManufacturing.to, title: "Manufacturing", text: "How drawings become finished signs." },
-          { to: CTA_LINKS.viewCastAcrylic.to, title: "Cast acrylic", text: "Solid cast acrylic letters with homogeneous illumination." },
         ]}
       />
       <FinalCTA />

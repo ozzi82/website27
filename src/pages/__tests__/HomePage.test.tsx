@@ -6,6 +6,7 @@ import HomePage from "../HomePage";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import { CTA_PRIMARY } from "../../lib/cta";
+import { CUSTOM_ONLY_TERMS, spacedText, textOutsideCustomFabrication, trimClaimViolations } from "./helpers/renderPage";
 
 function renderHome() {
   return render(
@@ -36,7 +37,7 @@ describe("HomePage", () => {
 
   it("hero body keeps the UL 48, drawings and nationwide wording and offers both CTAs", () => {
     renderHome();
-    expect(screen.getByText(/manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide/i)).toBeInTheDocument();
+    expect(screen.getByText(/ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide/i)).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /explore products/i })[0]).toHaveAttribute("href", "/#products");
   });
 
@@ -90,27 +91,53 @@ describe("HomePage", () => {
     expect(section.textContent).toContain("pre-wire");
   });
 
-  it("product section has the four categories with the brief's CTA labels and no cabinet signs", () => {
+  it("product section has the four owner categories, ultra-slim first and largest, with cabinet and blade signs only in the custom card", () => {
     renderHome();
     const section = document.getElementById("products")!;
     expect(within(section).getByRole("heading", { level: 2, name: "Built for the jobs your shop wins." })).toBeInTheDocument();
     expect(within(section).getAllByRole("heading", { level: 3 }).map((h) => h.textContent)).toEqual([
-      "Standard Channel Letters",
-      "Ultra-Slim Trimless",
-      "Cast Acrylic Letters",
+      "Ultra-Slim Letters",
+      "Classic Trimless Letters",
+      "Non-Illuminated Flat Cutout Letters",
       "Custom Sign Fabrication",
     ]);
-    expect(within(section).getByRole("link", { name: /view channel letters/i })).toHaveAttribute("href", "/services/channel-letters");
     expect(within(section).getByRole("link", { name: /explore ultra-slim/i })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
-    expect(section.textContent!.toLowerCase()).not.toMatch(/cabinet|light ?box/);
+    expect(within(section).getByRole("link", { name: /view classic letters/i })).toHaveAttribute("href", "/services/channel-letters");
+    expect(within(section).getByRole("link", { name: /view flat cutouts/i })).toHaveAttribute("href", "/light-effects/lp-1-flat-cutout");
+    expect(within(section).getByRole("link", { name: /see custom fabrication/i })).toHaveAttribute("href", "/services/custom-sign-fabrication");
+    // the featured card is the first one and carries the signature label
+    const cards = [...section.querySelectorAll("article[data-product]")];
+    expect(cards.map((c) => c.getAttribute("data-product"))).toEqual(["ultra-slim", "classic-trimless", "flat-cutout", "custom-fabrication"]);
+    expect(cards[0].className).toContain("lg:col-span-7");
+    expect(cards[0].textContent).toMatch(/signature product/i);
+    expect(cards[0].textContent).toMatch(/LP 11/);
+    expect(textOutsideCustomFabrication(section)).not.toMatch(CUSTOM_ONLY_TERMS);
+    expect(cards[3].textContent).toMatch(/blade signs/i);
+    expect(trimClaimViolations(spacedText(section))).toEqual([]);
+    expect(section.textContent).not.toMatch(/trimmed/i);
   });
 
-  it("ultra-slim section shows the 25-30 mm story as a specialized option, with the depth drawing", () => {
+  it("ultra-slim section represents the LP 11 series: depth drawing, eight variants with real renders, links to the page and the configurator", () => {
     renderHome();
     const section = document.getElementById("ultra-slim")!;
-    expect(within(section).getByRole("img", { name: /conventional channel letter versus sunlite ultra-slim/i })).toBeInTheDocument();
-    expect(section.textContent).toMatch(/specialized option, not the standard depth/i);
-    for (const a of ["25–30 mm depth", "Trimless construction", "Face / halo / dual lit"]) expect(section.textContent).toContain(a);
+    expect(within(section).getByRole("img", { name: /conventional trim-cap channel letter.*versus Sunlite Ultra-Slim LP 11/i })).toBeInTheDocument();
+    for (const a of ["25–30 mm depth", "Cast block acrylic", "Eight lighting variants"]) expect(section.textContent).toContain(a);
+    expect(section.textContent).toMatch(/cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67/i);
+    const variants = [...section.querySelectorAll('a[href^="/light-effects/lp-11-"]')];
+    expect(variants).toHaveLength(8);
+    expect(variants.map((a) => spacedText(a).trim())).toEqual([
+      "F Face-lit",
+      "B Halo",
+      "FB Face + halo",
+      "BS Back side",
+      "FS Face + front side",
+      "S Full side",
+      "N Faux neon",
+      "C Conical",
+    ]);
+    for (const a of variants) expect(a.querySelector("img")!.getAttribute("src")).toMatch(/^\/images\/edgeluxe\/lp-11-/);
+    expect(within(section).getByRole("link", { name: /explore ultra-slim/i })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
+    expect(within(section).getByRole("link", { name: /build your sign/i })).toHaveAttribute("href", "/configurator?config=lp-11-f-face-lit");
   });
 
   it("manufacturing section lists the six stages and process has six steps", () => {
@@ -140,10 +167,11 @@ describe("Header and footer", () => {
     renderHome();
     const nav = screen.getByRole("navigation", { name: "Main" });
     for (const [name, href] of [
-      ["Channel Letters", "/services/channel-letters"],
-      ["Ultra-Slim Trimless", "/services/ultra-slim-trimless-channel-letters"],
-      ["Cast Acrylic", "/services/cast-block-acrylic"],
-      ["Custom Fabrication", "/services/channel-letters#custom-fabrication"],
+      ["Ultra-Slim Letters (LP 11)", "/services/ultra-slim-trimless-channel-letters"],
+      ["Classic Trimless Letters", "/services/channel-letters"],
+      ["Flat Cutout Letters (LP 1)", "/light-effects/lp-1-flat-cutout"],
+      ["Custom Fabrication", "/services/custom-sign-fabrication"],
+      ["All 12 letter systems", "/#light-effects"],
       ["Projects", "/projects"],
       ["Manufacturing", "/manufacturing"],
       ["About", "/about"],
@@ -151,7 +179,7 @@ describe("Header and footer", () => {
     ] as const) {
       expect(within(nav).getByRole("link", { name })).toHaveAttribute("href", href);
     }
-    expect(within(nav).queryByText(/cabinet/i)).toBeNull();
+    expect(within(nav).queryByText(/cabinet|blade|cast acrylic/i)).toBeNull();
   });
 
   it("footer states the location without claiming Tampa production", () => {

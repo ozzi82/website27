@@ -25,9 +25,8 @@ describe("Build Your Sign (the configurator as a sales tool)", () => {
   });
 
   const pages: [string, string | undefined][] = [
-    ["/services/channel-letters", undefined],
-    ["/services/ultra-slim-trimless-channel-letters", "lp-5-trimless-face-lit"],
-    ["/services/cast-block-acrylic", "lp-11-f-face-lit"],
+    ["/services/channel-letters", "lp-5-trimless-face-lit"],
+    ["/services/ultra-slim-trimless-channel-letters", "lp-11-f-face-lit"],
     ["/light-effects/lp-5-trimless-face-lit", "lp-5-trimless-face-lit"],
   ];
   for (const [path, config] of pages) {
@@ -53,26 +52,26 @@ describe("Build Your Sign (the configurator as a sales tool)", () => {
 });
 
 describe("/services/channel-letters depth (construction, depth options, files, what arrives)", () => {
-  it("has a Construction block with Face / Return / Back / LED system / Power supply", () => {
+  it("has a Construction block built from the brochure (stainless steel returns and back, face, LEDs, power supply)", () => {
     const { main } = renderAt("/services/channel-letters");
     const section = main.querySelector("#construction") as HTMLElement;
     expect(section).not.toBeNull();
-    expect(constructionRows.map((r) => r.label)).toEqual(["Face", "Return", "Back", "LED system", "Power supply"]);
+    expect(constructionRows.map((r) => r.label)).toEqual(["Returns and back", "Face", "LED system", "Power supply"]);
     for (const r of constructionRows) {
       expect(within(section).getByText(r.label)).toBeInTheDocument();
       expect(within(section).getByText(r.value)).toBeInTheDocument();
     }
     // no gauges, brands or invented specifics
-    expect(section.textContent).not.toMatch(/gauge|\bga\b|osram|samsung|philips|mean well|\d+\s?(mil|in\b|inch|")/i);
+    expect(section.textContent).not.toMatch(/(?<!thick )gauge|\bga\b|osram|samsung|philips|mean well|\d+\s?(mil|in\b|inch|")/i);
   });
 
-  it("has the three depth options and links the ultra-slim one to its page", () => {
+  it("has the three depth options (brochure depths, custom, ultra-slim) and links the ultra-slim one to its page", () => {
     const { main } = renderAt("/services/channel-letters");
     const section = main.querySelector("#depth-options") as HTMLElement;
-    expect(depthOptions.map((d) => d.title)).toEqual(["Standard returns", "Ultra-slim 25–30 mm", "Custom to project"]);
+    expect(depthOptions.map((d) => d.title)).toEqual(["30 / 50 / 75 / 100 mm", "Custom depth", "Need it slimmer?"]);
     expect(within(section).getAllByRole("heading", { level: 3 }).map((h) => h.textContent)).toEqual(depthOptions.map((d) => d.title));
     expect(within(section).getByRole("link", { name: /explore ultra-slim/i })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
-    expect(section.textContent).toMatch(/not the standard depth/i);
+    expect(section.textContent).toMatch(/signature product/i);
   });
 
   it("files we accept: only what the FAQ says (AI, EPS, PDF vector), no SVG/DXF for quotes; the preview note is separate", () => {
@@ -97,21 +96,19 @@ describe("/services/channel-letters depth (construction, depth options, files, w
     expect(main.textContent).not.toMatch(/backer panel/i);
   });
 
-  it("keeps links valid, no forbidden claims, mounting as Phase 2 built it, and the new anchors in the on-this-page nav", () => {
+  it("keeps links valid, no forbidden claims, the two brochure mountings, and the anchors in the on-this-page nav", () => {
     const { main } = renderAt("/services/channel-letters");
     for (const h of internalHrefs(main)) {
       const [p] = h.split("#");
-      expect(validRoutes.has(p || "/"), h).toBe(true);
+      expect(validRoutes.has(p.split("?")[0] || "/"), h).toBe(true);
     }
     for (const f of FORBIDDEN) expect(main.textContent).not.toMatch(f);
     const nav = within(main.querySelector('nav[aria-label="On this page"]') as HTMLElement);
     expect(nav.getByRole("link", { name: "Construction" })).toHaveAttribute("href", "#construction");
     expect(nav.getByRole("link", { name: "Files" })).toHaveAttribute("href", "#files");
     expect(within(main.querySelector("#mounting") as HTMLElement).getAllByRole("heading", { level: 3 }).map((h) => h.textContent)).toEqual([
-      "Flush mount",
       "Standoff mount",
-      "Raceway mount",
-      "Remote mount",
+      "Flush mount",
     ]);
   });
 });

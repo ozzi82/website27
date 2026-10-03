@@ -76,7 +76,7 @@ export default function Hero() {
         </h1>
         <div className="mt-8 md:mt-10 grid md:grid-cols-[1fr_auto] gap-8 items-end animate-in fade-in slide-in-from-bottom-4 duration-1000">
           <p className="text-base md:text-lg text-foreground/80 max-w-xl">
-            Precision-built channel letters and illuminated signage manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
+            Ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
           </p>
           <div className="flex flex-col sm:flex-row gap-3">
             <PrimaryCta />

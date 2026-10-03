@@ -52,7 +52,7 @@ export default function AboutPage() {
                 <span className="text-primary">for sign companies.</span>
               </>
             }
-            intro="Sunlite Signs LLC is a wholesale manufacturing partner for sign companies, agencies and trade professionals. We fabricate illuminated channel letters and signage to your drawings and ship them ready to install."
+            intro="Sunlite Signs LLC is a wholesale manufacturing partner for sign companies, agencies and trade professionals. We fabricate ultra-slim and classic channel letters and illuminated signage to your drawings and ship them ready to install."
             action={<PrimaryCta />}
             className="mb-0 border-b-0 pb-0"
           />
@@ -85,8 +85,8 @@ export default function AboutPage() {
 
       <RelatedLinks
         items={[
-          { to: CTA_LINKS.viewChannelLetters.to, title: "Channel letters", text: "Our main product line." },
-          { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim trimless", text: "A specialized option at 25–30 mm total depth." },
+          { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim letters", text: "Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep." },
+          { to: CTA_LINKS.viewChannelLetters.to, title: "Classic trimless letters", text: "Fabricated stainless steel channel letters." },
           { to: CTA_LINKS.viewManufacturing.to, title: "Manufacturing", text: "How drawings become finished signs." },
           { to: CTA_LINKS.viewProjects.to, title: "Projects", text: "See recent production." },
         ]}

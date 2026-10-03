@@ -16,14 +16,15 @@ export const CTA_SECONDARY = {
 
 /** Context-specific informational links. */
 export const CTA_LINKS = {
-  viewChannelLetters: { label: "View Channel Letters", to: "/services/channel-letters" },
+  /** The classic trimless letters page (URL kept for SEO: it is the "channel letters" landing page). */
+  viewChannelLetters: { label: "View Classic Letters", to: "/services/channel-letters" },
   exploreUltraSlim: { label: "Explore Ultra-Slim", to: "/services/ultra-slim-trimless-channel-letters" },
-  viewCastAcrylic: { label: "View Cast Acrylic", to: "/services/cast-block-acrylic" },
+  viewFlatCutout: { label: "View Flat Cutouts", to: "/light-effects/lp-1-flat-cutout" },
   viewProjects: { label: "View Projects", to: "/projects" },
   viewAllProjects: { label: "View All Projects", to: "/projects" },
   viewManufacturing: { label: "View Manufacturing", to: "/manufacturing" },
   viewSpecs: { label: "View Specs", to: "/services/channel-letters#specifications" },
-  customFabrication: { label: "See Custom Fabrication", to: "/services/channel-letters#custom-fabrication" },
+  customFabrication: { label: "See Custom Fabrication", to: "/services/custom-sign-fabrication" },
   tryConfigurator: { label: "Build Your Sign", to: "/configurator" },
 } as const;
 

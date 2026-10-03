@@ -1,72 +1,78 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { productCategories, LEGACY_SERVICE_REDIRECTS } from "../products";
-import { services } from "../services";
+import { productCategories } from "../products";
 import { projects, featuredProjects, projectMeta, projectsForProduct, type Project } from "../projects";
 import { productionStages } from "../production";
 import { processSteps } from "../process";
 import { primaryNav, productNav, productNavExtras } from "../nav";
-import { getPrerenderRoutes } from "../../lib/routes";
+import { LEGACY_PAGE_REDIRECTS, getPrerenderRoutes } from "../../lib/routes";
+import { trimClaimViolations } from "../../pages/__tests__/helpers/renderPage";
 
 const publicDir = path.resolve(__dirname, "../../../public");
 const exists = (p: string) => fs.existsSync(path.join(publicDir, p.replace(/^\//, "")));
 
 describe("product categories", () => {
-  it("lists the four brief categories in order, numbered 01-04", () => {
-    expect(productCategories.map((p) => p.id)).toEqual(["channel-letters", "ultra-slim", "cast-acrylic", "custom-fabrication"]);
+  it("lists the four owner categories in order, numbered 01-04, ultra-slim first", () => {
+    expect(productCategories.map((p) => p.id)).toEqual(["ultra-slim", "classic-trimless", "flat-cutout", "custom-fabrication"]);
     expect(productCategories.map((p) => p.number)).toEqual(["01", "02", "03", "04"]);
+    expect(productCategories.map((p) => p.title)).toEqual([
+      "Ultra-Slim Letters",
+      "Classic Trimless Letters",
+      "Non-Illuminated Flat Cutout Letters",
+      "Custom Sign Fabrication",
+    ]);
   });
 
-  it("uses the brief's copy for the first two categories", () => {
-    const [channel, slim] = productCategories;
-    expect(channel.description).toBe("Front lit, halo lit and dual illuminated channel letters built to project specifications.");
-    expect(channel.cta.label.toUpperCase()).toBe("VIEW CHANNEL LETTERS");
-    expect(slim.description).toBe("Premium illuminated letters available at just 25–30 mm total depth.");
-    expect(slim.cta.label.toUpperCase()).toBe("EXPLORE ULTRA-SLIM");
+  it("describes each category with brochure facts: LP 11 cast block acrylic, LP 5 / 3.1 / 3.2 stainless, LP 1 unlit", () => {
+    const [slim, classic, flat, custom] = productCategories;
+    expect(slim.systems).toMatch(/LP 11/);
+    expect(slim.description).toMatch(/cast block acrylic/i);
+    expect(slim.description).toMatch(/25–30 mm/);
+    expect(slim.description).toMatch(/IP67/);
+    expect(classic.systems).toMatch(/LP 5, LP 3\.1, LP 3\.2/);
+    expect(classic.description).toMatch(/stainless steel/i);
+    expect(classic.description).toMatch(/no trim cap/i);
+    expect(flat.systems).toMatch(/LP 1/);
+    expect(flat.description).toMatch(/non-illuminated/i);
+    expect(custom.description).toMatch(/blade signs/i);
+    expect(custom.description).toMatch(/cabinet signs/i);
   });
 
-  it("points at routes that exist (prerendered pages; custom fabrication is a section of the channel-letters page)", () => {
-    const routes = new Set(getPrerenderRoutes());
+  it("points ultra-slim, classic, flat cutout and custom at the right pages, all of which exist", () => {
+    const routes = new Set([...getPrerenderRoutes()]);
+    expect(productCategories.map((p) => p.cta.to)).toEqual([
+      "/services/ultra-slim-trimless-channel-letters",
+      "/services/channel-letters",
+      "/light-effects/lp-1-flat-cutout",
+      "/services/custom-sign-fabrication",
+    ]);
     for (const p of productCategories) expect(routes.has(p.cta.to.split("#")[0]), `${p.id} -> ${p.cta.to}`).toBe(true);
+    expect(productCategories[0].cta.label.toUpperCase()).toBe("EXPLORE ULTRA-SLIM");
   });
 
   it("uses images that exist", () => {
     for (const p of productCategories) expect(exists(p.image.src), p.image.src).toBe(true);
   });
 
-  it("never offers cabinet signs or light boxes", () => {
-    const blob = JSON.stringify([productCategories, services, productNav, primaryNav, productNavExtras]).toLowerCase();
-    expect(blob).not.toMatch(/cabinet|light ?box/);
+  it("offers no trimmed letters, and only custom fabrication names cabinet or blade signs", () => {
+    const blob = JSON.stringify(productCategories.filter((p) => p.id !== "custom-fabrication"));
+    expect(blob).not.toMatch(/cabinet|blade|light ?box/i);
+    expect(JSON.stringify([productCategories, productNav, primaryNav, productNavExtras])).not.toMatch(/light ?box|trimmed/i);
+    // "no trim cap" is the only trim-cap wording a category may use
+    expect(trimClaimViolations(productCategories.map((p) => `${p.title}. ${p.description}`).join(" "))).toEqual([]);
   });
 });
 
-describe("services and redirects", () => {
-  it("has channel letters, ultra-slim and cast acrylic; no cabinet signs", () => {
-    expect(services.map((s) => s.id)).toEqual(["channel-letters", "ultra-slim-trimless-channel-letters", "cast-block-acrylic"]);
-  });
-
-  it("redirects retired service URLs to pages that exist", () => {
-    expect(LEGACY_SERVICE_REDIRECTS["cabinet-signs"]).toBe("/services/channel-letters");
-    for (const target of Object.values(LEGACY_SERVICE_REDIRECTS)) expect(getPrerenderRoutes()).toContain(target);
-    for (const id of Object.keys(LEGACY_SERVICE_REDIRECTS)) expect(services.find((s) => s.id === id)).toBeUndefined();
-  });
-
-  it("describes ultra-slim as 25-30 mm and a specialized option, never the 'under 1 1/4' only story", () => {
-    const slim = services.find((s) => s.id === "ultra-slim-trimless-channel-letters")!;
-    const text = JSON.stringify(slim.details.specs.map((s) => s.value)) + slim.details.description + slim.desc;
-    expect(text).toContain("25–30 mm");
-    expect(text).toMatch(/specialized/i);
-    expect(text).not.toContain("1 1/4");
-  });
-
-  it("has no placeholder values left in specs", () => {
-    for (const s of services) for (const spec of s.details.specs) expect(spec.value).not.toMatch(/placeholder/i);
-  });
-
-  it("service images exist", () => {
-    for (const s of services) {
-      for (const img of [s.img, s.details.dayImg, s.details.nightImg, ...s.details.gallery]) expect(exists(img), img).toBe(true);
+describe("retired URLs", () => {
+  it("redirect to pages that exist, and none of them is still prerendered", () => {
+    expect(LEGACY_PAGE_REDIRECTS["/services/cast-block-acrylic"]).toBe("/services/ultra-slim-trimless-channel-letters");
+    expect(LEGACY_PAGE_REDIRECTS["/services/cabinet-signs"]).toBe("/services/custom-sign-fabrication");
+    expect(LEGACY_PAGE_REDIRECTS["/services/trimless-letters"]).toBe("/services/ultra-slim-trimless-channel-letters");
+    const routes = getPrerenderRoutes();
+    for (const [from, to] of Object.entries(LEGACY_PAGE_REDIRECTS)) {
+      expect(routes, to).toContain(to);
+      expect(routes, from).not.toContain(from);
     }
   });
 });
@@ -136,7 +142,8 @@ describe("production + process data", () => {
 describe("navigation", () => {
   it("has Projects, Manufacturing, About and the four products", () => {
     expect(primaryNav.map((n) => n.label)).toEqual(["Projects", "Manufacturing", "About"]);
-    expect(productNav.map((n) => n.label)).toEqual(["Channel Letters", "Ultra-Slim Trimless", "Cast Acrylic", "Custom Fabrication"]);
+    expect(productNav.map((n) => n.label)).toEqual(["Ultra-Slim Letters (LP 11)", "Classic Trimless Letters", "Flat Cutout Letters (LP 1)", "Custom Fabrication"]);
+    expect(productNavExtras.map((n) => n.label)).toEqual(["All 12 letter systems", "Build Your Sign"]);
   });
   it("keeps the configurator reachable", () => {
     expect(productNavExtras.some((n) => n.to === "/configurator")).toBe(true);

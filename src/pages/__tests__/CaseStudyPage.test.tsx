@@ -85,7 +85,7 @@ describe("CaseStudyView with a fixture entry", () => {
   it("links back to the product page, projects and manufacturing", () => {
     renderView();
     const related = within(screen.getByRole("region", { name: "Related pages" }));
-    expect(related.getByRole("link", { name: /ultra-slim trimless/i })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
+    expect(related.getByRole("link", { name: /ultra-slim letters/i })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
     expect(related.getByRole("link", { name: /all projects/i })).toHaveAttribute("href", "/projects");
     expect(related.getByRole("link", { name: /manufacturing/i })).toHaveAttribute("href", "/manufacturing");
   });

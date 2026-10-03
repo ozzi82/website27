@@ -9,6 +9,7 @@ import RelatedLinks from "../components/RelatedLinks";
 import BuildYourSign from "../components/BuildYourSign";
 import FAQSection from "../components/FAQSection";
 import FinalCTA from "../components/FinalCTA";
+import SystemCard from "../components/SystemCard";
 import TrustStrip from "../components/home/TrustStrip";
 import ProcessSteps from "../components/home/ProcessSteps";
 import { ArrowLink, PrimaryCta, SecondaryCta } from "../components/CtaButton";
@@ -21,22 +22,27 @@ import {
   channelLetterReferenceIds,
   channelLetterSpecs,
   channelLettersIntro,
-  constructionRows,
-  depthOptions,
-  filesWeAccept,
-  previewFilesNote,
-  whatArrives,
   channelLettersMeta,
   channelLettersWho,
-  customFabrication,
+  classicSummary,
+  classicSystems,
+  constructionRows,
+  customFabricationPointer,
+  depthOptions,
+  filesWeAccept,
   finishOptions,
   illuminationPhotos,
   illuminationTypes,
   lightingOptions,
   mountingNote,
   mountingOptions,
-  trimOptions,
+  previewFilesNote,
+  trimBenefits,
+  trimCapsIntro,
+  trimComparison,
+  whatArrives,
 } from "../data/channelLetters";
+import { productCategories } from "../data/products";
 import { projectsByIds, projectsForProduct } from "../data/projects";
 import { CTA_LINKS, CTA_SECONDARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl, breadcrumbJsonLd, type Crumb } from "../lib/seo";
@@ -44,14 +50,15 @@ import { SITE_URL, absoluteUrl, breadcrumbJsonLd, type Crumb } from "../lib/seo"
 const crumbs: Crumb[] = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/#products" },
-  { label: "Channel Letters", to: CHANNEL_LETTERS_PATH },
+  { label: "Classic Trimless Letters", to: CHANNEL_LETTERS_PATH },
 ];
 
 const sectionTitle = "text-3xl sm:text-4xl md:text-5xl lg:text-6xl";
 
 const onThisPage = [
+  ["Systems", "#systems"],
   ["Illumination", "#illumination"],
-  ["Trim", "#trim"],
+  ["No trim caps", "#trim-caps"],
   ["Construction", "#construction"],
   ["Mounting", "#mounting"],
   ["Finish", "#finish"],
@@ -68,7 +75,7 @@ const jsonLd = [
     "@type": "Service",
     name: "Wholesale channel letter manufacturing",
     serviceType: "Channel letter fabrication",
-    description: `${channelLettersIntro} ${channelLettersWho}`,
+    description: `${channelLettersIntro} ${classicSummary} ${channelLettersWho}`,
     url: absoluteUrl(CHANNEL_LETTERS_PATH),
     image: absoluteUrl(channelLettersMeta.heroImage.src),
     provider: { "@type": "LocalBusiness", "@id": `${SITE_URL}/#organization`, name: "Sunlite Signs" },
@@ -100,9 +107,12 @@ function SpecList({ rows }: { rows: { label: string; value: string }[] }) {
   );
 }
 
+const ultraSlimCard = productCategories[0];
+
 /**
- * Dedicated, standalone landing page for wholesale channel letters (brief sections 11 and 14): usable as a Google Ads
+ * Dedicated, standalone landing page for wholesale channel letters (the classic trimless letters): usable as a Google Ads
  * destination, so it introduces Sunlite, shows the primary CTA above the fold and ends in a request for pricing.
+ * Ultra-slim LP 11 is positioned as the signature option; trim caps appear only in the clearly labelled comparison.
  */
 export default function ChannelLettersPage() {
   const { hash } = useLocation();
@@ -139,6 +149,7 @@ export default function ChannelLettersPage() {
               <span className="text-primary">for Sign Companies.</span>
             </h1>
             <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-xl">{channelLettersIntro}</p>
+            <p className="mt-3 text-sm text-muted-foreground max-w-xl">{classicSummary}</p>
             <p className="mt-3 text-sm text-muted-foreground max-w-xl">{channelLettersWho}</p>
             <div className="mt-7 md:mt-9 flex flex-col sm:flex-row gap-3">
               <PrimaryCta />
@@ -154,6 +165,37 @@ export default function ChannelLettersPage() {
 
       <TrustStrip />
 
+      <section id="signature" aria-label="Ultra-slim letters" className="border-b border-border scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6 py-10 md:py-14 grid md:grid-cols-[0.8fr_1.2fr] gap-6 md:gap-12 items-center">
+          <div className="relative overflow-hidden aspect-[16/10] border border-border bg-card">
+            <img
+              src={ultraSlimCard.image.src}
+              alt={ultraSlimCard.image.alt}
+              width={ultraSlimCard.image.width}
+              height={ultraSlimCard.image.height}
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </div>
+          <div>
+            <p className="mono-label text-primary mb-3">Our signature option</p>
+            <h2 className="text-3xl md:text-5xl uppercase leading-[1.05]">
+              Ultra-slim LP 11.
+              <br />
+              <span className="text-primary">Cast block acrylic, 25–30 mm.</span>
+            </h2>
+            <p className="text-sm md:text-base text-foreground/85 mt-4 max-w-xl">
+              When the letter has to be as shallow as possible, our ultra-slim letters are the answer: solid cast block acrylic with embedded LEDs, in eight lighting variants.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
+              <ArrowLink label={CTA_LINKS.exploreUltraSlim.label} to={ULTRA_SLIM_PATH} />
+              <ArrowLink label="Preview in 3D" to="/configurator?config=lp-11-f-face-lit" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <nav aria-label="On this page" className="border-b border-border">
         <ul className="max-w-7xl mx-auto px-6 py-3.5 flex gap-x-6 gap-y-2 overflow-x-auto scrollbar-hide whitespace-nowrap">
           {onThisPage.map(([label, href]) => (
@@ -164,10 +206,43 @@ export default function ChannelLettersPage() {
         </ul>
       </nav>
 
-      <section id="illumination" className="py-14 md:py-24 scroll-mt-20">
+      <section id="systems" className="py-14 md:py-24 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6">
-          <SectionHeader eyebrow="Illumination" title="Three ways to light a letter." titleClassName={sectionTitle} />
-          <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+          <SectionHeader
+            eyebrow="Classic trimless letters"
+            title="Three classic systems."
+            titleClassName={sectionTitle}
+            intro="Fabricated stainless steel channel letters with no trim cap. Each system is listed with its own depths, materials and limits."
+          />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+            {classicSystems.map((s) => (
+              <SystemCard
+                key={s.id}
+                code={s.code}
+                title={s.subtitle}
+                img={s.img}
+                alt={`${s.code} ${s.subtitle}: sample letter`}
+                text={s.text}
+                rows={[
+                  { label: "Light", value: s.lights },
+                  { label: "Mounting", value: s.mounting },
+                  { label: "Depth", value: s.depths },
+                  { label: "Min. height", value: s.minHeight },
+                ]}
+                links={[
+                  { label: "View system", to: s.page },
+                  { label: "Preview in 3D", to: s.configurator },
+                ]}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="illumination" className="py-14 md:py-24 border-t border-border steel-plate scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionHeader eyebrow="Illumination" title="Face lit or halo lit." titleClassName={sectionTitle} />
+          <div className="grid md:grid-cols-2 gap-5 md:gap-6">
             {illuminationTypes.map((t, i) => (
               <DiagramCard
                 key={t.id}
@@ -180,7 +255,7 @@ export default function ChannelLettersPage() {
               </DiagramCard>
             ))}
           </div>
-          <p className="mono-label text-muted-foreground mt-4">Concept section diagrams, not to scale.</p>
+          <p className="mono-label text-muted-foreground mt-4">Concept section diagrams, not to scale. LP 3.2 adds a partial side-lit halo from an exposed acrylic band.</p>
 
           {photos.length > 0 && (
             <div className="mt-12 md:mt-16">
@@ -200,29 +275,40 @@ export default function ChannelLettersPage() {
         </div>
       </section>
 
-      <section id="trim" className="py-14 md:py-24 border-t border-border steel-plate scroll-mt-20">
+      <section id="trim-caps" data-comparison="trim-cap" className="py-14 md:py-24 border-t border-border scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeader
-            eyebrow="Trimmed / trimless"
+            eyebrow="Trimless by design"
             title={
               <>
-                Trimmed <span className="text-primary">or trimless.</span>
+                Why we don't <span className="text-primary">use trim caps.</span>
               </>
             }
             titleClassName={sectionTitle}
+            intro={trimCapsIntro}
           />
           <div className="grid md:grid-cols-2 gap-5 md:gap-6">
-            {trimOptions.map((t, i) => (
-              <DiagramCard key={t.id} index={`0${i + 1}`} title={t.title} diagram={<TrimDiagram kind={t.kind} />}>
+            {trimComparison.map((t, i) => (
+              <DiagramCard key={t.id} index={`0${i + 1}`} title={t.title} diagram={<TrimDiagram kind={t.kind} />} meta={t.status}>
                 {t.text}
               </DiagramCard>
             ))}
           </div>
+          <p className="mono-label text-muted-foreground mt-4">Concept section diagrams, not to scale. The trim-cap letter is shown for comparison only.</p>
+          <ol className="grid md:grid-cols-3 mt-10 md:mt-12 border-t-2 border-primary/50">
+            {trimBenefits.map((b, i) => (
+              <li key={b.title} className="pt-5 pb-6 md:pr-8 md:pl-8 md:first:pl-0 md:border-l md:first:border-l-0 border-border">
+                <span className="mono-label text-primary">0{i + 1}</span>
+                <h3 className="text-2xl uppercase mt-1">{b.title}</h3>
+                <p className="text-sm text-muted-foreground mt-2 max-w-xs">{b.text}</p>
+              </li>
+            ))}
+          </ol>
           <ArrowLink label={CTA_LINKS.exploreUltraSlim.label} to={ULTRA_SLIM_PATH} className="mt-8 text-sm" />
         </div>
       </section>
 
-      <section id="construction" className="py-14 md:py-24 border-t border-border scroll-mt-20">
+      <section id="construction" className="py-14 md:py-24 border-t border-border steel-plate scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16">
           <div>
             <p className="mono-label text-primary mb-4">Construction</p>
@@ -248,10 +334,10 @@ export default function ChannelLettersPage() {
 
       <section id="mounting" className="py-14 md:py-24 border-t border-border scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6">
-          <SectionHeader eyebrow="Mounting options" title="How the letters are carried." titleClassName={sectionTitle} intro={mountingNote} />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          <SectionHeader eyebrow="Mounting options" title="Standoff or flush." titleClassName={sectionTitle} intro={mountingNote} />
+          <div className="grid sm:grid-cols-2 gap-5 md:gap-6">
             {mountingOptions.map((m, i) => (
-              <DiagramCard key={m.id} index={`0${i + 1}`} title={m.title} diagram={<MountingDiagram kind={m.kind} />}>
+              <DiagramCard key={m.id} index={`0${i + 1}`} title={m.title} diagram={<MountingDiagram kind={m.kind} />} meta={{ label: "System", value: m.systems }}>
                 {m.text}
               </DiagramCard>
             ))}
@@ -259,7 +345,7 @@ export default function ChannelLettersPage() {
         </div>
       </section>
 
-      <BuildYourSign />
+      <BuildYourSign configId="lp-5-trimless-face-lit" />
 
       <section id="finish" className="py-14 md:py-24 border-t border-border steel-plate scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16">
@@ -270,9 +356,9 @@ export default function ChannelLettersPage() {
           </div>
           <div id="color-finish" className="scroll-mt-20">
             <p className="mono-label text-primary mb-4">Color / finish options</p>
-            <h2 className="text-3xl md:text-4xl mb-6">Finishes set on your drawings.</h2>
+            <h2 className="text-3xl md:text-4xl mb-6">Any PMS color.</h2>
             <SpecList rows={finishOptions} />
-            <ArrowLink label="EdgeLuxe letter systems" to="/#light-effects" className="mt-6" />
+            <ArrowLink label="All 12 EdgeLuxe letter systems" to="/#light-effects" className="mt-6" />
           </div>
         </div>
       </section>
@@ -281,12 +367,13 @@ export default function ChannelLettersPage() {
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-16 items-end">
           <div>
             <p className="mono-label text-primary mb-4">Custom fabrication</p>
-            <h2 className="text-3xl md:text-5xl">{customFabrication.title}</h2>
+            <h2 className="text-3xl md:text-5xl">{customFabricationPointer.title}</h2>
           </div>
           <div>
-            <p className="text-foreground/85 max-w-xl">{customFabrication.text}</p>
-            <div className="mt-6">
+            <p className="text-foreground/85 max-w-xl">{customFabricationPointer.text}</p>
+            <div className="mt-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8">
               <PrimaryCta />
+              <ArrowLink label={customFabricationPointer.link.label} to={customFabricationPointer.link.to} />
             </div>
           </div>
         </div>
@@ -356,8 +443,8 @@ export default function ChannelLettersPage() {
 
       <RelatedLinks
         items={[
-          { to: ULTRA_SLIM_PATH, title: "Ultra-slim trimless", text: "A specialized option at 25–30 mm total depth." },
-          { to: "/#light-effects", title: "EdgeLuxe letter systems", text: "12 configurations, each with depths, materials and limits." },
+          { to: ULTRA_SLIM_PATH, title: "Ultra-slim letters", text: "Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep." },
+          { to: CTA_LINKS.customFabrication.to, title: "Custom fabrication", text: "Blade signs, push-through cabinet signs and custom projects to your drawings." },
           { to: CTA_LINKS.viewProjects.to, title: "Projects", text: "See recent production." },
           { to: CTA_LINKS.viewManufacturing.to, title: "Manufacturing", text: "How drawings become finished signs." },
         ]}

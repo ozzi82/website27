@@ -19,9 +19,9 @@ const SECTIONS = [
 ] as const;
 
 const PRODUCT_LINKS: Record<string, RelatedItem> = {
-  "channel-letters": { to: CTA_LINKS.viewChannelLetters.to, title: "Channel letters", text: "Front, halo and front + back lit, trimmed or trimless." },
-  "ultra-slim-trimless-channel-letters": { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim trimless", text: "A specialized option at 25–30 mm total depth." },
-  "cast-block-acrylic": { to: CTA_LINKS.viewCastAcrylic.to, title: "Cast acrylic", text: "Solid cast acrylic letters with homogeneous illumination." },
+  "channel-letters": { to: CTA_LINKS.viewChannelLetters.to, title: "Classic trimless letters", text: "Fabricated stainless steel: face-lit LP 5, halo-lit LP 3.1 and flush-mount LP 3.2." },
+  "ultra-slim-trimless-channel-letters": { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim letters", text: "EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep." },
+  "custom-sign-fabrication": { to: CTA_LINKS.customFabrication.to, title: "Custom fabrication", text: "Blade signs, push-through cabinet signs and custom projects to your drawings." },
 };
 
 /** The page body for one case study. Separate from the route wrapper so it can be rendered with any entry. */

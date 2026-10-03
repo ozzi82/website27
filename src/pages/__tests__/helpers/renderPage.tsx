@@ -31,7 +31,7 @@ export function mmClaims(text: string): string[] {
   return [...text.matchAll(/\d+(?:[–.]\d+)?\s?mm/g)].map((m) => m[0]);
 }
 
-export const FORBIDDEN = [/cabinet/i, /light ?box/i, /testimonial/i, /\b(built|made|manufactured|fabricated|produced) in tampa/i, /\d+\s?%/, /\d+\+\s/];
+export const FORBIDDEN = [/light ?box/i, /testimonial/i, /\b(built|made|manufactured|fabricated|produced) in tampa/i, /\d+\s?%/, /\d+\+\s/];
 
 /** Text of an element with a space between adjacent text nodes (textContent glues "01" and "25-30 mm" together). */
 export function spacedText(el: Element): string {
@@ -39,4 +39,33 @@ export function spacedText(el: Element): string {
   const parts: string[] = [];
   for (let n = walker.nextNode(); n; n = walker.nextNode()) parts.push(n.textContent ?? "");
   return parts.join(" ").replace(/\s+/g, " ");
+}
+
+/** The custom-fabrication page path: the only place blade and cabinet signs are described. */
+export const CUSTOM_PATH = "/services/custom-sign-fabrication";
+
+/**
+ * Text of `root` without the places where cabinet / blade signs may legitimately be named: the custom-fabrication product
+ * card, links pointing at the custom page (nav, related copy), and the custom-fabrication pointer section.
+ */
+export function textOutsideCustomFabrication(root: Element): string {
+  const clone = root.cloneNode(true) as Element;
+  clone.querySelectorAll(`[data-product="custom-fabrication"], a[href="${CUSTOM_PATH}"], #custom-fabrication`).forEach((n) => n.remove());
+  return spacedText(clone);
+}
+
+/** Cabinet, blade and light box signs: only custom fabrication may mention them. */
+export const CUSTOM_ONLY_TERMS = /cabinet|\bblade\b|light ?box/i;
+
+/**
+ * Sentences that name a trim cap (or a "trimmed" letter) without saying Sunlite does not offer it. Sunlite builds no
+ * trim-capped letters, so the only legitimate mentions are negations ("no trim cap", "we do not use trim caps") and the
+ * labelled comparison with a conventional letter.
+ */
+export function trimClaimViolations(text: string): string[] {
+  return text
+    .split(/(?<=[.!?;])\s+/)
+    .filter((sentence) => !sentence.includes("?")) // a question ("Do you build letters with a trim cap?") offers nothing
+    .filter((sentence) => /trim(med|-capped| cap)/i.test(sentence))
+    .filter((sentence) => !/\b(no|not|never|without|conventional)\b|n't/i.test(sentence));
 }

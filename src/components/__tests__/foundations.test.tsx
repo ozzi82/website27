@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { describe, expect, it } from "vitest";
 import DepthComparison from "../DepthComparison";
@@ -8,26 +8,27 @@ import ProjectCard from "../ProjectCard";
 import MediaFrame from "../MediaFrame";
 import ProductionStageCard from "../ProductionStageCard";
 import { PrimaryCta, ArrowLink } from "../CtaButton";
-import ServicePage from "../../pages/ServicePage";
 import type { Project } from "../../data/projects";
 import { productionStages } from "../../data/production";
 
 const wrap = (ui: React.ReactElement, path = "/") => render(<MemoryRouter initialEntries={[path]}>{ui}</MemoryRouter>);
 
 describe("DepthComparison", () => {
-  it("is an image with an accessible title and description naming both letters and 25-30 mm", () => {
+  it("is an image with an accessible title and description naming both letters, saying the conventional one is not built by Sunlite, and 25-30 mm", () => {
     render(<DepthComparison />);
     const svg = screen.getByRole("img");
-    expect(svg).toHaveAccessibleName(/conventional channel letter versus Sunlite ultra-slim/i);
+    expect(svg).toHaveAccessibleName(/conventional trim-cap channel letter, a type Sunlite does not build, versus Sunlite Ultra-Slim LP 11/i);
     expect(svg).toHaveAccessibleDescription(/25 to 30 millimetres/i);
     expect(svg).toHaveAccessibleDescription(/not to scale/i);
+    expect(svg).toHaveAccessibleDescription(/does not build/i);
   });
 
   it("labels both profiles and the ultra-slim depth, with no depth number for the conventional letter", () => {
     const { container } = render(<DepthComparison />);
     const text = container.querySelector("svg")!.textContent!;
-    expect(text).toContain("CONVENTIONAL CHANNEL LETTER");
-    expect(text).toContain("SUNLITE ULTRA-SLIM");
+    expect(text).toContain("CONVENTIONAL TRIM-CAP LETTER");
+    expect(text).toContain("A TYPE SUNLITE DOES NOT BUILD");
+    expect(text).toContain("SUNLITE ULTRA-SLIM (LP 11)");
     expect(text).toContain("25–30 mm");
     // The only millimetre figure in the drawing is the ultra-slim one: nothing is claimed for the conventional return.
     expect(text.match(/\d+\s?mm/g)).toEqual(["30 mm"]);
@@ -37,6 +38,7 @@ describe("DepthComparison", () => {
   it("shows the illustrative note by default and can hide it", () => {
     const { rerender } = render(<DepthComparison />);
     expect(screen.getByText(/illustrative side profiles, not to scale/i)).toBeInTheDocument();
+    expect(screen.getByText(/trim-cap channel letter, a type sunlite does not build/i)).toBeInTheDocument();
     rerender(<DepthComparison hideNote />);
     expect(screen.queryByText(/illustrative side profiles/i)).not.toBeInTheDocument();
   });
@@ -149,37 +151,5 @@ describe("CTA components", () => {
   it("ArrowLink renders an internal link", () => {
     wrap(<ArrowLink label="Explore Ultra-Slim" to="/services/ultra-slim-trimless-channel-letters" />);
     expect(screen.getByRole("link", { name: "Explore Ultra-Slim" })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
-  });
-});
-
-describe("retired service URLs", () => {
-  const renderAt = (path: string) =>
-    render(
-      <HelmetProvider>
-        <MemoryRouter initialEntries={[path]}>
-          <Routes>
-            <Route path="/services/:id" element={<ServicePage />} />
-            <Route path="/" element={<p>home</p>} />
-          </Routes>
-        </MemoryRouter>
-      </HelmetProvider>,
-    );
-
-  it("/services/cabinet-signs lands on the channel letters page", () => {
-    window.scrollTo = () => undefined;
-    renderAt("/services/cabinet-signs");
-    expect(screen.getByRole("heading", { level: 1, name: /channel letters/i })).toBeInTheDocument();
-  });
-
-  it("/services/trimless-letters lands on the ultra-slim page", () => {
-    window.scrollTo = () => undefined;
-    renderAt("/services/trimless-letters");
-    expect(screen.getByRole("heading", { level: 1, name: /ultra-slim trimless/i })).toBeInTheDocument();
-  });
-
-  it("an unknown service id goes home", () => {
-    window.scrollTo = () => undefined;
-    renderAt("/services/nope");
-    expect(screen.getByText("home")).toBeInTheDocument();
   });
 });

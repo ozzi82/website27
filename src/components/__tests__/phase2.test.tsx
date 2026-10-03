@@ -7,8 +7,11 @@ import RelatedLinks from "../RelatedLinks";
 import Seo from "../Seo";
 import { LightingDiagram, MountingDiagram, TrimDiagram } from "../diagrams/LetterDiagrams";
 import { SITE_URL, breadcrumbJsonLd } from "../../lib/seo";
-import { channelLetterFaqs, channelLetterSpecs, illuminationTypes, mountingOptions, trimOptions } from "../../data/channelLetters";
-import { relatedSystems, ultraSlimSpecs } from "../../data/ultraSlim";
+import { channelLetterFaqs, channelLetterSpecs, classicSystems, illuminationTypes, mountingOptions, trimComparison } from "../../data/channelLetters";
+import { customFaqs, customSpecs } from "../../data/customFabrication";
+import { lp11Variants, ultraSlimSpecs } from "../../data/ultraSlim";
+import { configurations } from "../../data/configurations";
+import { trimClaimViolations } from "../../pages/__tests__/helpers/renderPage";
 
 const wrap = (ui: React.ReactElement) => render(<HelmetProvider><MemoryRouter>{ui}</MemoryRouter></HelmetProvider>);
 
@@ -91,26 +94,48 @@ describe("letter diagrams", () => {
 });
 
 describe("page data", () => {
-  it("covers the brief's configurations", () => {
-    expect(illuminationTypes.map((t) => t.title)).toEqual(["Front lit", "Reverse / halo lit", "Front + back lit"]);
-    expect(trimOptions.map((t) => t.title)).toEqual(["Trimmed", "Trimless"]);
-    expect(mountingOptions.map((m) => m.title)).toEqual(["Flush mount", "Standoff mount", "Raceway mount", "Remote mount"]);
+  it("covers the classic trimless systems and the trim-cap comparison", () => {
+    expect(classicSystems.map((s) => s.code)).toEqual(["LP 5", "LP 3.1", "LP 3.2"]);
+    expect(illuminationTypes.map((t) => t.title)).toEqual(["Face lit", "Halo lit"]);
+    expect(trimComparison.map((t) => [t.title, t.status.value])).toEqual([
+      ["Conventional trim-cap letter", "Not offered"],
+      ["Sunlite trimless letter", "What we build"],
+    ]);
+    // only the two brochure mountings: no raceway, no remote mount
+    expect(mountingOptions.map((m) => m.title)).toEqual(["Standoff mount", "Flush mount"]);
   });
 
-  it("FAQ and spec text only restate supported claims (no invented numbers, no cabinets)", () => {
-    const blob = JSON.stringify([channelLetterFaqs, channelLetterSpecs, ultraSlimSpecs]);
-    expect(blob).not.toMatch(/cabinet|light ?box/i);
-    // the only numeric facts: 48 hours, 3-4 weeks, 3 years, UL 48, 25-30 mm (and the 1"-1.2" depth conversion)
-    const numbers = (blob.match(/\d+(?:[–.]\d+)?/g) ?? []).filter((n) => !["48", "3", "4", "3–4", "25–30", "25", "30", "1", "1.2"].includes(n));
+  it("FAQ and spec text only restate supported claims (no invented numbers, no raceway or remote mounts)", () => {
+    const blob = JSON.stringify([channelLetterFaqs, channelLetterSpecs, ultraSlimSpecs, customFaqs, customSpecs]);
+    expect(blob).not.toMatch(/light ?box|raceway|remote/i);
+    // numeric facts: 48 hours, 3-4 weeks, 3 years, UL 48, and brochure sizes (depths, heights, strokes, system codes)
+    const allowed = new Set(["48", "3", "4", "3–4", "25–30", "25", "30", "1", "1.2", "2", "50", "75", "100", "0.5", "15", "10", "12", "20", "0.47", "0.79", "0.12", "11", "5", "3.1", "3.2", "67"]);
+    const numbers = (blob.match(/\d+(?:[–.]\d+)?/g) ?? []).filter((n) => !allowed.has(n));
     expect(numbers).toEqual([]);
-    for (const f of channelLetterFaqs) {
+    for (const f of [...channelLetterFaqs, ...customFaqs]) {
       expect(f.q.length).toBeGreaterThan(10);
       expect(f.a.length).toBeGreaterThan(10);
     }
   });
 
-  it("related systems never claim more than the brochure data says", () => {
-    expect(relatedSystems.find((s) => s.code === "LP 5")!.depthText).toBe("Standard depths start at 30 mm");
-    expect(relatedSystems.find((s) => s.code === "LP 11-F")!.depthText).toBe("30 mm standard, 25 mm for small letters");
+  it("no spec or FAQ text offers a trim-capped letter", () => {
+    const text = [...channelLetterFaqs.map((f) => `${f.q}. ${f.a}`), ...channelLetterSpecs.map((s) => `${s.label}: ${s.value}.`), ...customFaqs.map((f) => `${f.a}`)].join(" ");
+    expect(trimClaimViolations(text)).toEqual([]);
+    expect(trimClaimViolations("We offer trimmed and trimless letters.")).toHaveLength(1);
+    expect(trimClaimViolations("Every letter is trimless, with no trim cap.")).toEqual([]);
+  });
+
+  it("the LP 11 variants and classic systems state the brochure depths, never more", () => {
+    const depth = (code: string) => lp11Variants.find((v) => v.code === code)!.depth;
+    expect(depth("LP 11-F")).toBe("25 or 30 mm");
+    expect(depth("LP 11-B")).toBe("10, 15, 20 or 30 mm");
+    expect(depth("LP 11-FS")).toBe("30 mm");
+    expect(lp11Variants.map((v) => v.suffix)).toEqual(["F", "B", "FB", "BS", "FS", "S", "N", "C"]);
+    const lp5 = classicSystems.find((s) => s.code === "LP 5")!;
+    expect(lp5.depths).toBe("30, 50, 75 or 100 mm, or custom");
+    for (const s of classicSystems) {
+      const c = configurations.find((x) => x.id === s.id)!;
+      expect(c.depthOptionsMm).toEqual([30, 50, 75, 100]);
+    }
   });
 });

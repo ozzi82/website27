@@ -18,7 +18,7 @@ function ProductCta({ product }: { product: ProductCategory }) {
 
 function FeaturedProduct({ product }: { product: ProductCategory }) {
   return (
-    <article className="group relative flex flex-col border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-7 lg:row-span-3">
+    <article data-product={product.id} className="group relative flex flex-col border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-7 lg:row-span-3">
       <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:flex-1 lg:min-h-[22rem]">
         <img
           src={product.image.src}
@@ -32,8 +32,9 @@ function FeaturedProduct({ product }: { product: ProductCategory }) {
         <span className="absolute top-4 left-4 mono-label bg-background/90 px-2.5 py-1.5">{product.number}</span>
       </div>
       <div className="p-6 md:p-8 flex flex-col border-t border-border">
-        <h3 className="text-3xl md:text-5xl">{product.title}</h3>
-        <p className="text-muted-foreground mt-3 max-w-lg">{product.description}</p>
+        <p className="mono-label text-primary">Signature product · {product.systems}</p>
+        <h3 className="text-4xl md:text-6xl mt-3">{product.title}</h3>
+        <p className="text-muted-foreground mt-4 max-w-xl">{product.description}</p>
         <ProductCta product={product} />
       </div>
     </article>
@@ -42,7 +43,7 @@ function FeaturedProduct({ product }: { product: ProductCategory }) {
 
 function ProductRow({ product }: { product: ProductCategory }) {
   return (
-    <article className="group relative grid grid-cols-[7.5rem_1fr] sm:grid-cols-[11rem_1fr] border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-5">
+    <article data-product={product.id} className="group relative grid grid-cols-[7.5rem_1fr] sm:grid-cols-[11rem_1fr] border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-5">
       <div className="relative overflow-hidden min-h-[8.5rem]">
         <img
           src={product.image.src}
@@ -55,7 +56,7 @@ function ProductRow({ product }: { product: ProductCategory }) {
         />
       </div>
       <div className="p-5 flex flex-col border-l border-border">
-        <p className="mono-label text-muted-foreground">{product.number}</p>
+        <p className="mono-label text-muted-foreground">{product.number} · {product.systems}</p>
         <h3 className="text-2xl md:text-3xl mt-1">{product.title}</h3>
         <p className="text-sm text-muted-foreground mt-2">{product.description}</p>
         <ProductCta product={product} />

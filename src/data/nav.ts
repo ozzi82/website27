@@ -8,7 +8,7 @@ export interface NavItem {
 
 /**
  * Header / footer navigation (brief section 13). Final targets:
- * PRODUCTS (channel letters, ultra-slim, cast acrylic, custom fabrication), PROJECTS -> /projects,
+ * PRODUCTS (ultra-slim LP 11, classic trimless, flat cutout LP 1, custom fabrication), PROJECTS -> /projects,
  * MANUFACTURING -> /manufacturing, ABOUT -> /about. Product targets come from data/products.ts.
  */
 export const productNav: NavItem[] = productCategories.map((p) => ({ label: p.navLabel, to: productHref(p) }));

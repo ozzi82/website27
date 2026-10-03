@@ -60,7 +60,7 @@ describe("/projects (canonical; /gallery redirects)", () => {
   });
 
   it("the hosts send a real 301 for /gallery, ahead of the SPA fallback", () => {
-    expect(LEGACY_PAGE_REDIRECTS).toEqual({ "/gallery": "/projects" });
+    expect(LEGACY_PAGE_REDIRECTS["/gallery"]).toBe("/projects");
     const redirects = read("public/_redirects");
     expect(redirects).toMatch(/^\/gallery\s+\/projects\s+301$/m);
     expect(redirects.indexOf("/gallery")).toBeLessThan(redirects.indexOf("/* "));
@@ -135,14 +135,17 @@ describe("site navigation and the custom-fabrication target", () => {
     expect(href("Projects")).toBe("/projects");
     expect(href("Manufacturing")).toBe("/manufacturing");
     expect(href("About")).toBe("/about");
-    expect(href("Custom Fabrication")).toBe("/services/channel-letters#custom-fabrication");
+    expect(href("Custom Fabrication")).toBe("/services/custom-sign-fabrication");
+    expect(href("Ultra-Slim Letters (LP 11)")).toBe("/services/ultra-slim-trimless-channel-letters");
+    expect(href("Classic Trimless Letters")).toBe("/services/channel-letters");
+    expect(href("Flat Cutout Letters (LP 1)")).toBe("/light-effects/lp-1-flat-cutout");
   });
 
-  it("custom fabrication points at a section that exists on the channel-letters page", () => {
+  it("custom fabrication is its own page, and the classic page only points at it", () => {
     const { main } = renderAt("/services/channel-letters");
     const section = main.querySelector("#custom-fabrication")!;
-    expect(section.textContent).toMatch(/custom logos/i);
-    expect(section.textContent).toMatch(/fabricated to your drawings/i);
+    expect(within(section as HTMLElement).getByRole("link", { name: /see custom fabrication/i })).toHaveAttribute("href", "/services/custom-sign-fabrication");
+    expect(section.textContent).toMatch(/blade signs and push-through cabinet signs/i);
   });
 
   it("the footer and homepage manufacturing section link to /manufacturing and /projects", () => {
@@ -151,7 +154,9 @@ describe("site navigation and the custom-fabrication target", () => {
     expect(hrefs).toContain("/manufacturing");
     expect(hrefs).toContain("/projects");
     expect(hrefs).not.toContain("/gallery");
-    expect(hrefs.some((h) => h.includes("cabinet"))).toBe(false);
+    expect(hrefs.some((h) => h.includes("cabinet") || h.includes("cast-block-acrylic"))).toBe(false);
+    expect(hrefs).toContain("/services/custom-sign-fabrication");
+    expect(hrefs).toContain("/light-effects/lp-1-flat-cutout");
   });
 
   it("sitemap and llms.txt list the new pages and neither lists /gallery", () => {
@@ -168,15 +173,19 @@ describe("site navigation and the custom-fabrication target", () => {
   });
 });
 
-describe("/services/cast-block-acrylic (generic page, polished to match)", () => {
-  it("keeps the shared CTA and links to the LP 11 systems and channel letters", () => {
-    const { main, container } = renderAt("/services/cast-block-acrylic");
-    expect(within(main).getAllByRole("link", { name: new RegExp(CTA_PRIMARY.label, "i") })[0]).toHaveAttribute("href", "/contact");
-    const hrefs = internalHrefs(main);
-    for (const id of ["lp-11-f-face-lit", "lp-11-b-back-lit", "lp-11-fb-face-halo"]) expect(hrefs).toContain(`/light-effects/${id}`);
-    expect(hrefs).toContain("/services/channel-letters");
-    expect(main.querySelector('section[aria-label="Related pages"]')).not.toBeNull();
-    expectLinksResolve(container, "/services/cast-block-acrylic");
-    expect(main.textContent).not.toMatch(/cabinet|light ?box/i);
+describe("retired /services URLs redirect on the client", () => {
+  const h1 = (path: string) => within(renderAt(path).main).getByRole("heading", { level: 1 }).textContent;
+
+  it("/services/cast-block-acrylic and /services/trimless-letters land on the ultra-slim page", () => {
+    expect(h1("/services/cast-block-acrylic")).toBe("Ultra-Slim Channel Letters.Just 25–30 mm Deep.");
+    expect(h1("/services/trimless-letters")).toBe("Ultra-Slim Channel Letters.Just 25–30 mm Deep.");
+  });
+
+  it("/services/cabinet-signs lands on the custom fabrication page", () => {
+    expect(h1("/services/cabinet-signs")).toBe("Custom Sign Fabrication.Made to Your Drawings.");
+  });
+
+  it("an unknown /services path goes home", () => {
+    expect(h1("/services/nope")).toBe("Wholesale Channel Letters.Built for Sign Companies.");
   });
 });

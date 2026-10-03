@@ -1,5 +1,6 @@
-# Retired URLs (cabinet signs are no longer offered; trimless became the ultra-slim page; gallery became projects)
-/services/cabinet-signs    /services/channel-letters                          301
-/services/trimless-letters /services/ultra-slim-trimless-channel-letters      301
-/gallery                   /projects                                          301
+# Retired URLs (cabinet signs became part of custom fabrication; trimless and cast block acrylic became the ultra-slim page; gallery became projects)
+/services/cabinet-signs       /services/custom-sign-fabrication                  301
+/services/trimless-letters    /services/ultra-slim-trimless-channel-letters      301
+/services/cast-block-acrylic  /services/ultra-slim-trimless-channel-letters      301
+/gallery                      /projects                                          301
 /* /index.html 200
