@@ -11,6 +11,7 @@ import { GlowMaterial, PaintedMaterial, SideLitMaterial } from "./SceneMaterials
 import { depthRatioFor, sideBandThickness, wallGapFor } from "./renderMath";
 import { brightnessFactor } from "./brightness";
 import { emitsLight, type ConfiguratorState } from "./types";
+import { glowParts } from "./glowParts";
 
 interface ConfigSceneProps {
   shapes: THREE.Shape[];
@@ -46,37 +47,38 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
   const lit = emitsLight(config);
   const level = brightnessFactor(state.brightness);
   const glowColor = useMemo(() => new THREE.Color(state.glowColor), [state.glowColor]);
-  const spill = light.halo === "standoff" ? STANDOFF_HALO : FLUSH_HALO;
+  const parts = glowParts(light, profile);
+  const spill = parts.wallSpill === "standoff" ? STANDOFF_HALO : FLUSH_HALO;
   const haloColor = useMemo(() => glowColor.clone().multiplyScalar(spill.scale), [glowColor, spill]);
 
   // material-0 = front/back caps = the face; material-1 = extruded sides —
   // ExtrudeGeometry's own default group convention (see useSignGeometry.ts).
   const isTube = profile === "tube";
   const face =
-    light.face === "glow" ? (
+    parts.face ? (
       <GlowMaterial attach="material-0" glow={state.glowColor} rounded={isTube} level={level} />
     ) : (
       <PaintedMaterial attach="material-0" color={state.color} />
     );
   const sides =
-    light.side !== "none" ? (
+    parts.side !== "none" ? (
       <SideLitMaterial
         attach="material-1"
         color={state.color}
         glow={state.glowColor}
-        mode={light.side}
+        mode={parts.side}
         band={band}
         depth={depth}
         level={level}
       />
-    ) : isTube ? (
+    ) : parts.tubeSides ? (
       // The whole tube glows, not just its front.
       <GlowMaterial attach="material-1" glow={state.glowColor} rounded level={level} />
     ) : (
       <PaintedMaterial attach="material-1" color={state.color} />
     );
 
-  const wallSpill = (light.halo === "standoff" || light.side === "partial-back");
+  const wallSpill = parts.wallSpill !== "none";
 
   return (
     <>

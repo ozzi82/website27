@@ -2,6 +2,9 @@
 // "European Wholesale Signage Spec Guide" brochure (2026-27). Used by the
 // product pages, the nav, and the 3D configurator, so keep them in sync here.
 // Dimensions are US-first with metric in parentheses.
+//
+// Lighting codes in the brochure names: F = face, B = back (halo), S = side, N = neon, C = conical.
+// So LP 11-FS lights the face AND a partial band on the front side edge (owner clarification, 2026-10-03).
 
 /** How the face of the letter behaves when lit. */
 export type FaceLight = "none" | "glow";
@@ -286,14 +289,14 @@ export const configurations: LightConfig[] = [
     id: "lp-11-fs-front-side-lit",
     code: "LP 11-FS",
     title: "EdgeLuxe LP 11-FS",
-    subtitle: "Block Acrylic Partial Front Side-lit",
+    subtitle: "Block Acrylic Face-lit + Partial Front Side-lit",
     family: "Block acrylic",
-    summary: "Flush-mount letters with light glowing from the front edge of the side wall.",
+    summary: "Flush-mount letters with a glowing face and a thin band of light along the front edge of the side wall.",
     description:
-      "Cast block acrylic letters mounted flush to the wall, with embedded LEDs for a uniform partial front side-lit effect: a band of light glows around the front edge of each letter, outlining the face.",
+      "Cast block acrylic letters mounted flush to the wall, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
-      { label: "Illumination", value: "Embedded LEDs for uniform partial front side-lit, flush-mount" },
+      { label: "Illumination", value: "Embedded LEDs for uniform face lighting plus partial front side lighting, flush-mount" },
       { label: "Depth", value: 'Standard 1.2" (30 mm) for durability and optimal light diffusion' },
       { label: "Customization", value: PMS_FACE_LIT },
       { label: "Min. stroke width", value: '0.47" (12 mm) for stability and even illumination' },
@@ -304,7 +307,7 @@ export const configurations: LightConfig[] = [
     ],
     img: IMG + "lp-11-fs-front-side-lit.jpg",
     profile: "standard",
-    light: { face: "none", halo: "none", side: "partial-front" },
+    light: { face: "glow", halo: "none", side: "partial-front" },
     mount: "flush",
     depthOptionsMm: [30],
     customDepth: false,
