@@ -221,7 +221,7 @@ export default function ChannelLettersPage() {
                 code={s.code}
                 title={s.subtitle}
                 img={s.img}
-                alt={`${s.code} ${s.subtitle}: sample letter`}
+                alt={`${s.code} ${s.subtitle}: sample letter, lit at night`}
                 text={s.text}
                 rows={[
                   { label: "Light", value: s.lights },

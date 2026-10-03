@@ -155,14 +155,14 @@ The LP 11 series · eight lighting variants
 
 F face · B back · S side · N neon · C conical
 
-- *[Image: LP 11-F Block Acrylic Face-lit: sample letter]* — F — Face-lit — (Links to: /light-effects/lp-11-f-face-lit)
-- *[Image: LP 11-B Block Acrylic Back-lit: sample letter]* — B — Halo — (Links to: /light-effects/lp-11-b-back-lit)
-- *[Image: LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter]* — FB — Face + halo — (Links to: /light-effects/lp-11-fb-face-halo)
-- *[Image: LP 11-BS Block Acrylic Partial Back Side-lit: sample letter]* — BS — Back side — (Links to: /light-effects/lp-11-bs-back-side-lit)
-- *[Image: LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter]* — FS — Face + front side — (Links to: /light-effects/lp-11-fs-front-side-lit)
-- *[Image: LP 11-S Block Acrylic Full Side-lit: sample letter]* — S — Full side — (Links to: /light-effects/lp-11-s-side-lit)
-- *[Image: LP 11-N Block Acrylic Faux Neon: sample letter]* — N — Faux neon — (Links to: /light-effects/lp-11-n-faux-neon)
-- *[Image: LP 11-C Block Acrylic Conical Profile: sample letter]* — C — Conical — (Links to: /light-effects/lp-11-c-conical)
+- *[Image: LP 11-F Block Acrylic Face-lit: sample letter, lit at night]* — F — Face-lit — (Links to: /light-effects/lp-11-f-face-lit)
+- *[Image: LP 11-B Block Acrylic Back-lit: sample letter, lit at night]* — B — Halo — (Links to: /light-effects/lp-11-b-back-lit)
+- *[Image: LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter, lit at night]* — FB — Face + halo — (Links to: /light-effects/lp-11-fb-face-halo)
+- *[Image: LP 11-BS Block Acrylic Partial Back Side-lit: sample letter, lit at night]* — BS — Back side — (Links to: /light-effects/lp-11-bs-back-side-lit)
+- *[Image: LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter, lit at night]* — FS — Face + front side — (Links to: /light-effects/lp-11-fs-front-side-lit)
+- *[Image: LP 11-S Block Acrylic Full Side-lit: sample letter, lit at night]* — S — Full side — (Links to: /light-effects/lp-11-s-side-lit)
+- *[Image: LP 11-N Block Acrylic Faux Neon: sample letter, lit at night]* — N — Faux neon — (Links to: /light-effects/lp-11-n-faux-neon)
+- *[Image: LP 11-C Block Acrylic Conical Profile: sample letter, lit at night]* — C — Conical — (Links to: /light-effects/lp-11-c-conical)
 
 Build Your Sign · A 3D sign configurator built for sign companies
 
@@ -946,7 +946,7 @@ Every LP 11 letter is cast block acrylic with LEDs embedded in the body, epoxy-s
 - **N:** NeonRouted to look like a neon tube.
 - **C:** ConicalTapered profile for fine strokes.
 
-*[Image: LP 11-F Block Acrylic Face-lit: sample letter]*
+*[Image: LP 11-F Block Acrylic Face-lit: sample letter, lit at night]*
 
 LP 11-F
 
@@ -959,7 +959,7 @@ The face glows evenly toward the viewer.
 
 [View system](/light-effects/lp-11-f-face-lit) · [Preview in 3D](/configurator?config=lp-11-f-face-lit)
 
-*[Image: LP 11-B Block Acrylic Back-lit: sample letter]*
+*[Image: LP 11-B Block Acrylic Back-lit: sample letter, lit at night]*
 
 LP 11-B
 
@@ -972,7 +972,7 @@ A uniform halo washes the wall behind the letter.
 
 [View system](/light-effects/lp-11-b-back-lit) · [Preview in 3D](/configurator?config=lp-11-b-back-lit)
 
-*[Image: LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter]*
+*[Image: LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter, lit at night]*
 
 LP 11-FB
 
@@ -985,7 +985,7 @@ A glowing face plus a halo on the wall behind.
 
 [View system](/light-effects/lp-11-fb-face-halo) · [Preview in 3D](/configurator?config=lp-11-fb-face-halo)
 
-*[Image: LP 11-BS Block Acrylic Partial Back Side-lit: sample letter]*
+*[Image: LP 11-BS Block Acrylic Partial Back Side-lit: sample letter, lit at night]*
 
 LP 11-BS
 
@@ -998,7 +998,7 @@ A band of light glows along the back edge of the side wall.
 
 [View system](/light-effects/lp-11-bs-back-side-lit) · [Preview in 3D](/configurator?config=lp-11-bs-back-side-lit)
 
-*[Image: LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter]*
+*[Image: LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter, lit at night]*
 
 LP 11-FS
 
@@ -1011,7 +1011,7 @@ The face glows and a thin band lights the front edge of the side wall.
 
 [View system](/light-effects/lp-11-fs-front-side-lit) · [Preview in 3D](/configurator?config=lp-11-fs-front-side-lit)
 
-*[Image: LP 11-S Block Acrylic Full Side-lit: sample letter]*
+*[Image: LP 11-S Block Acrylic Full Side-lit: sample letter, lit at night]*
 
 LP 11-S
 
@@ -1024,7 +1024,7 @@ The whole side wall glows; the painted face stays solid.
 
 [View system](/light-effects/lp-11-s-side-lit) · [Preview in 3D](/configurator?config=lp-11-s-side-lit)
 
-*[Image: LP 11-N Block Acrylic Faux Neon: sample letter]*
+*[Image: LP 11-N Block Acrylic Faux Neon: sample letter, lit at night]*
 
 LP 11-N
 
@@ -1037,7 +1037,7 @@ Front edge routed round to simulate a neon glass tube; the face and the front ha
 
 [View system](/light-effects/lp-11-n-faux-neon) · [Preview in 3D](/configurator?config=lp-11-n-faux-neon)
 
-*[Image: LP 11-C Block Acrylic Conical Profile: sample letter]*
+*[Image: LP 11-C Block Acrylic Conical Profile: sample letter, lit at night]*
 
 LP 11-C
 
@@ -1192,9 +1192,9 @@ Our classic channel letters are trimless fabricated stainless steel in depths fr
 
 [View Classic Letters](/services/channel-letters)
 
-- *[Image: LP 5 Trimless Fabricated Stainless Steel Letters]* — LP 5 — Trimless Fabricated Stainless Steel Letters — Face lit. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-5-trimless-face-lit)
-- *[Image: LP 3.1 Fabricated Stainless Steel with Standoffs]* — LP 3.1 — Fabricated Stainless Steel with Standoffs — Halo lit from the back. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-3-1-standoff-halo)
-- *[Image: LP 3.2 Fabricated Stainless Steel Flush-mount]* — LP 3.2 — Fabricated Stainless Steel Flush-mount — Partial side-lit halo. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-3-2-flush-mount)
+- *[Image: LP 5 Trimless Fabricated Stainless Steel Letters: sample letter, lit at night]* — LP 5 — Trimless Fabricated Stainless Steel Letters — Face lit. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-5-trimless-face-lit)
+- *[Image: LP 3.1 Fabricated Stainless Steel with Standoffs: sample letter, lit at night]* — LP 3.1 — Fabricated Stainless Steel with Standoffs — Halo lit from the back. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-3-1-standoff-halo)
+- *[Image: LP 3.2 Fabricated Stainless Steel Flush-mount: sample letter, lit at night]* — LP 3.2 — Fabricated Stainless Steel Flush-mount — Partial side-lit halo. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-3-2-flush-mount)
 
 Related
 
@@ -1273,7 +1273,7 @@ Classic trimless letters
 
 Fabricated stainless steel channel letters with no trim cap. Each system is listed with its own depths, materials and limits.
 
-*[Image: LP 5 Trimless Fabricated Stainless Steel Letters: sample letter]*
+*[Image: LP 5 Trimless Fabricated Stainless Steel Letters: sample letter, lit at night]*
 
 LP 5
 
@@ -1288,7 +1288,7 @@ Thick gauge stainless steel returns and back, welded together, with a step-route
 
 [View system](/light-effects/lp-5-trimless-face-lit) · [Preview in 3D](/configurator?config=lp-5-trimless-face-lit)
 
-*[Image: LP 3.1 Fabricated Stainless Steel with Standoffs: sample letter]*
+*[Image: LP 3.1 Fabricated Stainless Steel with Standoffs: sample letter, lit at night]*
 
 LP 3.1
 
@@ -1303,7 +1303,7 @@ Fabricated stainless steel letters that float off the wall on standoff spacers, 
 
 [View system](/light-effects/lp-3-1-standoff-halo) · [Preview in 3D](/configurator?config=lp-3-1-standoff-halo)
 
-*[Image: LP 3.2 Fabricated Stainless Steel Flush-mount: sample letter]*
+*[Image: LP 3.2 Fabricated Stainless Steel Flush-mount: sample letter, lit at night]*
 
 LP 3.2
 
@@ -1763,7 +1763,7 @@ Precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 1 Flat Cutout Letters (FCO) — sample letter]*
+*[Image: EdgeLuxe LP 1 Flat Cutout Letters (FCO): sample letter]*
 
 #### About this system
 
@@ -1823,7 +1823,9 @@ Halo-illuminated fabricated stainless steel letters floating off the wall on sta
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 3.1 Fabricated Stainless Steel with Standoffs — sample letter]*
+*[Image: EdgeLuxe LP 3.1 Fabricated Stainless Steel with Standoffs: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -1898,7 +1900,9 @@ Flush-mounted stainless steel letters with a partial side-lit halo effect.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 3.2 Fabricated Stainless Steel Flush-mount — sample letter]*
+*[Image: EdgeLuxe LP 3.2 Fabricated Stainless Steel Flush-mount: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -1974,7 +1978,9 @@ Face-lit, trimless stainless steel channel letters for façades and canopies.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 5 Trimless Fabricated Stainless Steel Letters — sample letter]*
+*[Image: EdgeLuxe LP 5 Trimless Fabricated Stainless Steel Letters: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -2036,7 +2042,9 @@ Solid cast block acrylic letters with embedded LEDs for uniform face lighting.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-F Block Acrylic Face-lit — sample letter]*
+*[Image: EdgeLuxe LP 11-F Block Acrylic Face-lit: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -2099,7 +2107,9 @@ Block acrylic letters with a uniform halo on the wall behind, on standoff spacer
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-B Block Acrylic Back-lit — sample letter]*
+*[Image: EdgeLuxe LP 11-B Block Acrylic Back-lit: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -2176,7 +2186,9 @@ Face-lit and halo-lit in one letter: a glowing face plus a wall halo.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-FB Block Acrylic Face- and Halo-lit Combo — sample letter]*
+*[Image: EdgeLuxe LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -2253,7 +2265,9 @@ Flush-mount letters with light glowing from the back edge of the side wall.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-BS Block Acrylic Partial Back Side-lit — sample letter]*
+*[Image: EdgeLuxe LP 11-BS Block Acrylic Partial Back Side-lit: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -2330,7 +2344,9 @@ Flush-mount letters with a glowing face and a thin band of light along the front
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit — sample letter]*
+*[Image: EdgeLuxe LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -2407,7 +2423,9 @@ Letters whose entire side wall glows, with an opaque painted face.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-S Block Acrylic Full Side-lit — sample letter]*
+*[Image: EdgeLuxe LP 11-S Block Acrylic Full Side-lit: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -2470,7 +2488,9 @@ Block acrylic with a routed, rounded front edge that simulates a neon glass tube
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-N Block Acrylic Faux Neon — sample letter]*
+*[Image: EdgeLuxe LP 11-N Block Acrylic Faux Neon: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 
@@ -2534,7 +2554,9 @@ Face-lit letters with a tapered conical profile for narrow strokes and serifs.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-C Block Acrylic Conical Profile — sample letter]*
+*[Image: EdgeLuxe LP 11-C Block Acrylic Conical Profile: sample letter, lit at night]*
+
+NightDay
 
 #### About this system
 

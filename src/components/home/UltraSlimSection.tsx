@@ -57,15 +57,15 @@ export default function UltraSlimSection() {
             {lp11Variants.map((v) => (
               <li key={v.id}>
                 <Link to={v.page} className="group block border border-border bg-card/50 hover:border-primary/60 transition-colors h-full">
-                  <div className="relative overflow-hidden aspect-[3/4] border-b border-border bg-card">
+                  <div className="relative overflow-hidden aspect-[4/3] border-b border-border bg-card">
                     <img
                       src={v.img}
-                      alt={`${v.code} ${v.subtitle}: sample letter`}
-                      width={852}
-                      height={1331}
+                      alt={`${v.code} ${v.subtitle}: sample letter, lit at night`}
+                      width={1200}
+                      height={900}
                       loading="lazy"
                       decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover object-[50%_35%] transition-transform duration-700 group-hover:scale-[1.04]"
+                      className="absolute inset-0 w-full h-full object-cover object-[50%_50%] transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                   </div>
                   <div className="p-2 sm:p-3">

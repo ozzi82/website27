@@ -149,3 +149,16 @@ describe("navigation", () => {
     expect(productNavExtras.some((n) => n.to === "/configurator")).toBe(true);
   });
 });
+
+describe("EdgeLuxe render files", () => {
+  it("every system's night image exists, and every day image exists; only the unlit LP 1 lacks a day render", async () => {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const { configurations } = await import("../configurations");
+    for (const c of configurations) {
+      expect(fs.existsSync(path.resolve(__dirname, "../../../public" + c.img)), c.img).toBe(true);
+      if (c.imgDay) expect(fs.existsSync(path.resolve(__dirname, "../../../public" + c.imgDay)), c.imgDay).toBe(true);
+      else expect(c.id).toBe("lp-1-flat-cutout");
+    }
+  });
+});

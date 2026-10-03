@@ -6,6 +6,7 @@ import { configurations } from "../data/configurations";
 import Seo from "../components/Seo";
 import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
+import SystemImage from "../components/SystemImage";
 import BuildYourSign from "../components/BuildYourSign";
 import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
 import { emitsLight } from "../components/configurator/types";
@@ -69,16 +70,7 @@ export default function ConfigurationPage() {
         </div>
 
         <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12">
-          <figure className="rounded-xl overflow-hidden border border-border bg-card">
-            <img
-              src={c.img}
-              alt={`${c.title} ${c.subtitle} — sample letter`}
-              width={852}
-              height={1331}
-              className="w-full h-auto object-cover"
-              loading="eager"
-            />
-          </figure>
+          <SystemImage config={c} />
 
           <div>
             <h2 className="text-3xl mb-4">About this system</h2>

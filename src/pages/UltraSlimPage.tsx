@@ -168,7 +168,7 @@ export default function UltraSlimPage() {
                 code={v.code}
                 title={v.subtitle.replace(/^Block Acrylic /, "")}
                 img={v.img}
-                alt={`${v.code} ${v.subtitle}: sample letter`}
+                alt={`${v.code} ${v.subtitle}: sample letter, lit at night`}
                 text={v.lights}
                 rows={[
                   { label: "Depth", value: v.depth },
@@ -324,7 +324,7 @@ export default function UltraSlimPage() {
             {classicSystems.map((s) => (
               <li key={s.id}>
                 <Link to={s.page} className="group grid grid-cols-[7.5rem_minmax(0,1fr)] h-full border border-border bg-card/50 hover:border-primary/60 transition-colors">
-                  <img src={s.img} alt={`${s.code} ${s.subtitle}`} width={852} height={1331} loading="lazy" decoding="async" className="w-full h-full min-h-[8.5rem] object-cover" />
+                  <img src={s.img} alt={`${s.code} ${s.subtitle}: sample letter, lit at night`} width={1200} height={900} loading="lazy" decoding="async" className="w-full h-full min-h-[8.5rem] object-cover" />
                   <div className="p-5 border-l border-border flex flex-col min-w-0">
                     <p className="mono-label text-primary">{s.code}</p>
                     <h3 className="text-xl mt-1 leading-tight">{s.subtitle}</h3>
