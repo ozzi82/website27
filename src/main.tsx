@@ -61,6 +61,7 @@ if (container.hasChildNodes() && container.dataset.prerenderPath === normalizePa
   // (the SPA fallback serves index.html, which is the prerendered homepage): render from scratch.
   if (container.hasChildNodes()) {
     container.replaceChildren();
+    delete container.dataset.prerenderPath;
     document.querySelectorAll('[data-rh]:not(title)').forEach((el) => el.remove());
   }
   createRoot(container).render(tree);

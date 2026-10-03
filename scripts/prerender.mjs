@@ -25,6 +25,9 @@ const serverEntry = path.join(ssrDir, "entry-server.js");
 if (!fs.existsSync(serverEntry)) throw new Error("dist-ssr/entry-server.js not found: run the SSR build first.");
 const { render, getPrerenderRoutes } = await import(pathToFileURL(serverEntry).href);
 
+// Without JavaScript the entrance animations (framer-motion starts at opacity 0) would leave the hero invisible.
+const NOSCRIPT_STYLE = '<noscript><style>[style*="opacity:0"]{opacity:1!important;transform:none!important}</style></noscript>';
+
 const escapeAttr = (s) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
 /** The template minus everything a prerendered page must not carry twice (default SEO tags, title, noscript). */
@@ -54,7 +57,7 @@ const written = [];
 for (const route of routes) {
   const { html, head } = render(route);
   const page = stripped
-    .replace("</head>", () => `    ${head}\n  </head>`)
+    .replace("</head>", () => `    ${head}\n    ${NOSCRIPT_STYLE}\n  </head>`)
     // data-prerender-path lets main.tsx hydrate only when this HTML belongs to the URL being viewed.
     .replace('<div id="root"></div>', () => `<div id="root" data-prerender-path="${route}">${html}</div>`);
   write(outFile(route), page);

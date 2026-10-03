@@ -35,10 +35,16 @@ npm run build
 
 This creates a `dist/` folder. That folder is your whole website.
 
+The build also **prerenders** every content page to real HTML (`dist/about/index.html`, `dist/services/<id>/index.html`, `dist/light-effects/<id>/index.html`, and so on), so search engines, AI crawlers and link previews that don't run JavaScript see the full page and its title, description and structured data. In the browser the page then loads as normal. The prerender runs in plain Node (no headless browser, no server), so the build command stays `npm run build` and the output directory stays `dist`. The WebGL `/configurator` stays a normal client-side page.
+
+Useful afterwards:
+
+- `npm run verify:prerender` checks every prerendered page (one h1, real text, one canonical, one description, valid JSON-LD). `npm test` runs the same check when `dist/` exists.
+- `npm run export:content` rewrites `docs/site-content.md`, a readable Markdown copy of all page text. Hand that file to another AI or a copywriter for content review, then re-run it after copy changes and commit it.
+
 ## 4. Deploy (pick one)
 
-All of these need "single-page app" routing so that links like `/about` work after a refresh.
-The `public/_redirects` file already handles this for Netlify and Cloudflare Pages.
+Every page above is a real file, so these hosts serve it directly and `/about` works after a refresh. Unknown URLs (and `/configurator`) fall back to the single-page app: `public/_redirects` does this for Netlify and Cloudflare Pages (real files always win over the `/*` rule), and the nginx/Caddy snippets below do it with `try_files`.
 
 ### Option A: Cloudflare Pages (free)
 1. Put the project on GitHub (see below).
@@ -72,7 +78,7 @@ Then add HTTPS with `certbot --nginx`.
 ```
 yourdomain.com {
   root * /var/www/sunlite
-  try_files {path} /index.html
+  try_files {path} {path}/index.html /index.html
   file_server
 }
 ```
