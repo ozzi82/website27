@@ -91,7 +91,7 @@ Then create an empty repository on github.com and follow the "push an existing r
 
 - **HubSpot allowed domains.** If you restrict where your form can load, add your new domain in HubSpot. Then submit a test inquiry and confirm it reaches HubSpot and your email.
 - **Your old Zite URL.** Once the new site works, point your domain's DNS at the new host. Keep the old site up until DNS has switched.
-- **Placeholder text on the public site.** All 12 "Configuration NN" pages (`/light-effects/config-01` ...) still say "Placeholder" / "TBD", and the Cast Block Acrylic page has "Letter Height: Placeholder". Edit `src/data/configurations.ts` and `src/data/services.ts`, or remove the Light Effects section from `src/pages/HomePage.tsx` until the real content is ready.
+- **Remaining placeholders.** The 12 EdgeLuxe configuration pages now carry the real brochure content. Check `src/data/services.ts` against the brochure (Trimless depth, the "Placeholder" Letter Height on Cast Block Acrylic, Clear/Opal colors).
 - **Privacy policy.** It mentions file uploads and email forwarding. Your live form is HubSpot. Review the text in `src/components/LegalDialogs.tsx` so it matches what actually happens.
 
 ## What changed from the Zite version
@@ -101,3 +101,22 @@ Then create an empty repository on github.com and follow the "push an existing r
 - Fixed the "Services" links in the header, footer, and service pages. They pointed at a section that doesn't exist, and now go to the product grid.
 - Fixed buttons that scrolled to a contact form that isn't on the page (Gallery page, "Our Process"). They now open `/contact`.
 - Added the shadcn UI components (`button`, `accordion`, `dialog`) and the Tailwind/Vite config that Zite kept internally.
+
+## Deploy from GitHub to your own domain (recommended: Cloudflare Pages)
+
+Repo: https://github.com/ozzi82/website27 (branch `master`).
+
+1. Cloudflare dashboard > Workers & Pages > Create > Pages > Connect to Git > pick `ozzi82/website27`.
+2. Build command `npm run build`, output directory `dist`, Node 20 or newer (set `NODE_VERSION=20` under Environment variables).
+3. Deploy. You get a `*.pages.dev` address to test on first.
+4. Custom domain: Pages project > Custom domains > Set up a domain > `sunlitesigns.com` (and `www`). If the domain's DNS is already on Cloudflare this is one click; otherwise add the CNAME records Cloudflare shows at your registrar (or move nameservers to Cloudflare). HTTPS is automatic.
+5. Redirect `www` to the bare domain (or the reverse) so there is one canonical address; the site's canonical tags and sitemap use `https://sunlitesigns.com`.
+6. HubSpot: add `sunlitesigns.com` and `www.sunlitesigns.com` to the form's allowed domains, then submit one test inquiry (with a file) and confirm it arrives.
+7. Search Console and Bing Webmaster Tools: verify the domain and submit `https://sunlitesigns.com/sitemap.xml`.
+
+Netlify works the same way (Add new site > Import from Git, same build settings).
+Every push to `master` redeploys automatically.
+
+## Running on your local network
+
+`npm run dev:lan` serves the dev build on all network interfaces (the terminal prints the `Network:` address, for example `http://192.168.4.235:5173`). Windows may ask to allow Node through the firewall: allow it on Private networks.
