@@ -6,6 +6,7 @@ import SectionHeader from "../components/SectionHeader";
 import MediaFrame from "../components/MediaFrame";
 import ProjectCard from "../components/ProjectCard";
 import RelatedLinks from "../components/RelatedLinks";
+import BuildYourSign from "../components/BuildYourSign";
 import FinalCTA from "../components/FinalCTA";
 import DepthComparison from "../components/DepthComparison";
 import DiagramCard from "../components/diagrams/DiagramCard";
@@ -184,6 +185,8 @@ export default function UltraSlimPage() {
         </div>
       </section>
 
+      <BuildYourSign configId="lp-5-trimless-face-lit" />
+
       <section id="installation" className="py-14 md:py-20 border-t border-border steel-plate scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1fr_1.4fr] gap-8 lg:gap-16 items-start">
           <div>
@@ -257,7 +260,7 @@ export default function UltraSlimPage() {
           { to: CHANNEL_LETTERS_PATH, title: "All channel letters", text: "Front, halo and front + back lit, trimmed or trimless." },
           { to: CTA_LINKS.viewProjects.to, title: "Projects", text: "See recent production." },
           { to: CTA_LINKS.viewManufacturing.to, title: "Manufacturing", text: "How drawings become finished signs." },
-          { to: CTA_LINKS.tryConfigurator.to, title: "3D configurator", text: "See your logo as a letter system before you request pricing." },
+          { to: CTA_LINKS.tryConfigurator.to, title: "Build Your Sign", text: "See your logo as a letter system before you request pricing." },
         ]}
       />
 

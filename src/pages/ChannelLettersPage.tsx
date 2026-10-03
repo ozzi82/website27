@@ -6,6 +6,7 @@ import SectionHeader from "../components/SectionHeader";
 import MediaFrame from "../components/MediaFrame";
 import ProjectCard from "../components/ProjectCard";
 import RelatedLinks from "../components/RelatedLinks";
+import BuildYourSign from "../components/BuildYourSign";
 import FAQSection from "../components/FAQSection";
 import FinalCTA from "../components/FinalCTA";
 import TrustStrip from "../components/home/TrustStrip";
@@ -20,6 +21,11 @@ import {
   channelLetterReferenceIds,
   channelLetterSpecs,
   channelLettersIntro,
+  constructionRows,
+  depthOptions,
+  filesWeAccept,
+  previewFilesNote,
+  whatArrives,
   channelLettersMeta,
   channelLettersWho,
   customFabrication,
@@ -46,9 +52,11 @@ const sectionTitle = "text-3xl sm:text-4xl md:text-5xl lg:text-6xl";
 const onThisPage = [
   ["Illumination", "#illumination"],
   ["Trim", "#trim"],
+  ["Construction", "#construction"],
   ["Mounting", "#mounting"],
   ["Finish", "#finish"],
   ["Specifications", "#specifications"],
+  ["Files", "#files"],
   ["Process", "#process"],
   ["Projects", "#projects"],
   ["FAQ", "#faq"],
@@ -214,6 +222,30 @@ export default function ChannelLettersPage() {
         </div>
       </section>
 
+      <section id="construction" className="py-14 md:py-24 border-t border-border scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16">
+          <div>
+            <p className="mono-label text-primary mb-4">Construction</p>
+            <h2 className="text-3xl md:text-4xl mb-6">What a letter is made of.</h2>
+            <SpecList rows={constructionRows} />
+          </div>
+          <div id="depth-options" className="scroll-mt-20">
+            <p className="mono-label text-primary mb-4">Depth options</p>
+            <h2 className="text-3xl md:text-4xl mb-6">Depth follows the job.</h2>
+            <ul className="border-t border-border">
+              {depthOptions.map((d, i) => (
+                <li key={d.id} className="py-4 border-b border-border">
+                  <p className="mono-label text-muted-foreground">0{i + 1}</p>
+                  <h3 className="text-xl md:text-2xl uppercase mt-1">{d.title}</h3>
+                  <p className="text-sm text-muted-foreground mt-2 max-w-md">{d.text}</p>
+                  {d.link && <ArrowLink label={d.link.label} to={d.link.to} className="mt-3" />}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       <section id="mounting" className="py-14 md:py-24 border-t border-border scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeader eyebrow="Mounting options" title="How the letters are carried." titleClassName={sectionTitle} intro={mountingNote} />
@@ -226,6 +258,8 @@ export default function ChannelLettersPage() {
           </div>
         </div>
       </section>
+
+      <BuildYourSign />
 
       <section id="finish" className="py-14 md:py-24 border-t border-border steel-plate scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16">
@@ -280,6 +314,22 @@ export default function ChannelLettersPage() {
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
             <PrimaryCta />
             <SecondaryCta label={CTA_SECONDARY.label} to={CTA_SECONDARY.to} />
+          </div>
+        </div>
+      </section>
+
+      <section id="files" className="py-14 md:py-24 border-t border-border scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 md:gap-16">
+          <div>
+            <p className="mono-label text-primary mb-4">Files we accept</p>
+            <h2 className="text-3xl md:text-4xl mb-6">Send vector artwork.</h2>
+            <SpecList rows={filesWeAccept} />
+            <p className="mono-label text-muted-foreground mt-4">{previewFilesNote}</p>
+          </div>
+          <div id="what-arrives" className="scroll-mt-20">
+            <p className="mono-label text-primary mb-4">What arrives</p>
+            <h2 className="text-3xl md:text-4xl mb-6">Ready to install.</h2>
+            <SpecList rows={whatArrives} />
           </div>
         </div>
       </section>

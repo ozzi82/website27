@@ -13,10 +13,10 @@ export interface NavItem {
  */
 export const productNav: NavItem[] = productCategories.map((p) => ({ label: p.navLabel, to: productHref(p) }));
 
-/** Extra entries under PRODUCTS: the 12 EdgeLuxe letter systems and the configurator stay discoverable. */
+/** Extra entries under PRODUCTS: the 12 EdgeLuxe letter systems and "Build Your Sign" (the configurator, a sales tool) stay discoverable. */
 export const productNavExtras: NavItem[] = [
   { label: "All 12 letter systems", to: "/#light-effects" },
-  { label: "3D Configurator", to: CTA_LINKS.tryConfigurator.to },
+  { label: CTA_LINKS.tryConfigurator.label, to: CTA_LINKS.tryConfigurator.to },
 ];
 
 export const primaryNav: NavItem[] = [

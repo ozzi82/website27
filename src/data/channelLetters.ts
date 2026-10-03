@@ -200,3 +200,56 @@ export const channelLettersMeta = {
     height: 1200,
   },
 };
+
+/**
+ * Construction block (second-opinion review item 9). Structure labels with facts the site already states: CNC-routed
+ * aluminum returns, faces and backs; LED modules and power supplies pre-wired, UL 48 labeled and under the 3-year warranty;
+ * trimmed or trimless faces; translucent faces for front-lit letters. No gauges, depths, brands or other specifics.
+ */
+export const constructionRows: SpecRow[] = [
+  { label: "Face", value: "CNC-routed aluminum, trimmed or trimless. In front-lit letters the light passes through the face." },
+  { label: "Return", value: "CNC-routed aluminum, built to your drawings." },
+  { label: "Back", value: "CNC-routed aluminum." },
+  { label: "LED system", value: "LED modules, pre-wired and UL 48 labeled. 3-year warranty." },
+  { label: "Power supply", value: "Power supplies, pre-wired and UL 48 labeled. 3-year warranty." },
+];
+
+export interface DepthOption {
+  id: string;
+  title: string;
+  text: string;
+  link?: { label: string; to: string };
+}
+
+/** Depth options: standard returns follow the drawings; ultra-slim is the specialized 25-30 mm option; custom is per project. */
+export const depthOptions: DepthOption[] = [
+  { id: "standard", title: "Standard returns", text: "Built to your drawings. Return depth is set by the project." },
+  {
+    id: "ultra-slim",
+    title: "Ultra-slim 25–30 mm",
+    text: "A specialized trimless option for projects where conventional returns are too bulky. Not the standard depth.",
+    link: { label: "Explore Ultra-Slim", to: ULTRA_SLIM_PATH },
+  },
+  { id: "custom", title: "Custom to project", text: "Tell us the depth the project calls for when you request pricing." },
+];
+
+/** What to send for a quote: restates the existing FAQ answer ("What files do you need for a quote?") and nothing more. */
+export const filesWeAccept: SpecRow[] = [
+  { label: "Artwork", value: "Logo as a vector file: AI, EPS or PDF" },
+  { label: "Size", value: "Dimensions or a dimension sketch" },
+  { label: "Site", value: "Photos of the facade or installation site" },
+  { label: "Brief", value: "Desired light effect, indoor or outdoor" },
+];
+
+/** The 3D preview (Build Your Sign) takes SVG or PDF; this is separate from the files we quote from. */
+export const previewFilesNote = "The Build Your Sign 3D preview accepts SVG or PDF artwork.";
+
+/** What ships with an order: the existing "ready to install" wording (pre-wired, drill template, wiring plan, crated). */
+export const whatArrives: SpecRow[] = [
+  { label: "Letters", value: "Fabricated to your drawings" },
+  { label: "Wiring", value: "LED modules and power supplies come pre-wired and UL 48 labeled" },
+  { label: "Drill template", value: "Ships with every sign" },
+  { label: "Wiring plan", value: "Ships with every sign" },
+  { label: "Packing", value: "Crated and protected, packed to arrive ready to install" },
+  { label: "Installation", value: "Not provided. Handled by you or your contractor." },
+];

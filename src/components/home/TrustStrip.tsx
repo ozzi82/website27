@@ -1,13 +1,14 @@
 /**
  * Capability strip directly under the hero (brief section 2). Only claims that already exist on the site:
- * UL 48 listed, 48 h quotes, 3-4 week production + delivery, 3-year LED & power-supply warranty, trade only.
+ * UL 48 listed, 48 h quotes, 3-4 week production + delivery, 3-year LED & power-supply warranty, trade only
+ * (the trade-only line is the site's existing "your customer stays your customer" promise).
  */
 const items = [
   { value: "UL 48 Listed", label: "Electrical sign certification" },
   { value: "48 H", label: "Tailored quotes" },
   { value: "3–4 WK", label: "Typical production + delivery" },
   { value: "3 YR", label: "LED & power supply warranty" },
-  { value: "Trade only", label: "Built for sign companies" },
+  { value: "Trade only", label: "Your customer stays your customer." },
 ];
 
 export default function TrustStrip() {

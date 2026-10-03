@@ -15,7 +15,7 @@ function sourceFiles(dir: string): string[] {
 
 // cta.ts defines the retired labels. The configurator folder is excluded by sourceFiles(): its hand-over buttons
 // ("Get a Quote" before Phase 3) belong to the configurator, not to the site-wide primary action.
-const exempt = new Set(["cta.ts", "ConfiguratorPage.tsx"]);
+const exempt = new Set(["cta.ts"]);
 
 describe("CTA consistency", () => {
   it("no retired primary-CTA wording remains in site source", () => {

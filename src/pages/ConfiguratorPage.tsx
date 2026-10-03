@@ -24,6 +24,8 @@ import { saveQuote, quoteFileId, type ArtworkFileMeta, type QuoteSnapshot } from
 import { clearArtworkFile, saveArtworkFile } from "../components/configurator/artworkFileStorage";
 import { lineStackFactor, strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
 import { configurations } from "../data/configurations";
+import { CTA_PRIMARY } from "../lib/cta";
+import { CONFIGURATOR_META, CONFIGURATOR_NAME } from "../lib/configuratorMeta";
 
 function findConfig(id: string | null) {
   return configurations.find((c) => c.id === id);
@@ -117,7 +119,8 @@ export default function ConfiguratorPage() {
     };
   }
 
-  // "Get a Quote" carries the configuration to /contact: router state for this visit, sessionStorage for a refresh.
+  // The quote button (the site's primary CTA) carries the configuration to /contact: router state for this visit,
+  // sessionStorage for a refresh.
   async function handleQuote(e: MouseEvent<HTMLAnchorElement>) {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
       const quote = buildQuote(null); // a new tab / window: no snapshot, but the summary still travels via sessionStorage
@@ -152,36 +155,26 @@ export default function ConfiguratorPage() {
   if (!webglSupported) {
     return (
       <div className="pt-28 pb-24 max-w-2xl mx-auto px-6 text-center">
-        <Seo
-          title="Sign Configurator"
-          description="Upload your logo or type your text and see it rendered as a 3D channel-letter sign before you request a quote."
-          path="/configurator"
-        />
+        <Seo title={CONFIGURATOR_META.title} description={CONFIGURATOR_META.description} path={CONFIGURATOR_META.path} />
         <h1 className="text-3xl font-bold mb-4">3D preview isn't supported in this browser</h1>
         <p className="text-muted-foreground mb-6">
           You can still send us your logo directly and we'll quote it by hand.
         </p>
-        <Button asChild size="lg">
-          <Link to="/contact">Get a Quote</Link>
+        <Button asChild size="lg" className="uppercase tracking-wider font-semibold">
+          <Link to={CTA_PRIMARY.to}>{CTA_PRIMARY.label}</Link>
         </Button>
       </div>
     );
   }
 
-  const seo = (
-    <Seo
-      title="Sign Configurator"
-      description="Upload your logo or type your text and see it rendered as a 3D channel-letter sign before you request a quote."
-      path="/configurator"
-    />
-  );
+  const seo = <Seo title={CONFIGURATOR_META.title} description={CONFIGURATOR_META.description} path={CONFIGURATOR_META.path} />;
 
   // Preview stage: the 3D preview and every option side by side, sized to the viewport so nothing needs scrolling.
   if (config && state && (source === "text" || uploadShapes)) {
     return (
       <div className="mx-auto max-w-[1700px] px-3 pb-10 pt-3 sm:px-5 lg:pb-3">
         {seo}
-        <h1 className="sr-only">Sign Configurator</h1>
+        <h1 className="sr-only">{CONFIGURATOR_NAME}</h1>
         <div className="flex flex-col gap-3 lg:h-[calc(100svh-117px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
           {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
           <div className="sticky top-[65px] z-10 -mx-3 h-[36svh] min-h-[230px] bg-background px-3 pb-2 sm:-mx-5 sm:px-5 lg:static lg:z-auto lg:m-0 lg:h-auto lg:min-w-0 lg:flex-1 lg:bg-transparent lg:p-0">
@@ -229,8 +222,8 @@ export default function ConfiguratorPage() {
             <ConfigControls config={config} state={state} onChange={handleChange} strokeRatio={strokeRatio} />
 
             <Button asChild size="lg" className="sticky bottom-2 z-20 mt-auto w-full shrink-0 shadow-lg lg:static lg:shadow-none">
-              <Link to="/contact" onClick={handleQuote} aria-busy={quoting || undefined}>
-                Get a Quote
+              <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="uppercase tracking-wider font-semibold">
+                {CTA_PRIMARY.label}
               </Link>
             </Button>
           </aside>
@@ -242,7 +235,7 @@ export default function ConfiguratorPage() {
   return (
     <div className="pt-12 pb-24 max-w-7xl mx-auto px-6">
       {seo}
-      <h1 className="text-5xl md:text-7xl mb-4">Sign Configurator</h1>
+      <h1 className="text-5xl md:text-7xl mb-4">{CONFIGURATOR_NAME}</h1>
 
       {!config && <ConfigChooser onSelect={handleSelectConfig} />}
 

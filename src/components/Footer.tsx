@@ -6,6 +6,7 @@ import { CTA_LINKS, CTA_PRIMARY } from '../lib/cta';
 const navLinks = [
   { label: "Channel Letters", href: "/services/channel-letters" },
   { label: "Ultra-Slim Trimless", href: "/services/ultra-slim-trimless-channel-letters" },
+  { label: CTA_LINKS.tryConfigurator.label, href: CTA_LINKS.tryConfigurator.to },
   { label: "Projects", href: CTA_LINKS.viewProjects.to },
   { label: "Manufacturing", href: CTA_LINKS.viewManufacturing.to },
   { label: "About", href: "/about" },

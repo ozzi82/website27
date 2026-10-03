@@ -1,10 +1,16 @@
 import SectionHeader from "../SectionHeader";
 
-const benefits = [
-  { title: "More production capacity", text: "Take on additional projects without expanding your own production floor." },
-  { title: "Ready to install", text: "Receive fabricated signage prepared for efficient installation." },
-  { title: "Trade-only", text: "We manufacture for sign companies and industry professionals." },
-  { title: "Your customer stays yours", text: "We don't compete with our partners." },
+/**
+ * Why a sign company should outsource to Sunlite: five short benefits. Every line restates something already on the
+ * site (ships ready to install, pre-wired, ultra-slim as a specialized option, trade-only) or is a plain statement of
+ * what outsourcing means for the shop; nothing here is a number or a claim about Sunlite's equipment.
+ */
+export const outsourcingBenefits = [
+  { title: "Win more jobs", text: "Quote projects without worrying about internal production capacity." },
+  { title: "Keep your crew installing", text: "We fabricate and pre-wire the signage and ship it ready to install." },
+  { title: "Handle overflow", text: "Use Sunlite when your own production floor is full." },
+  { title: "Add specialty capability", text: "Offer ultra-slim and specialty illuminated letters without developing the manufacturing process yourself." },
+  { title: "Your customer stays yours", text: "We're trade-only and don't compete with our partners." },
 ];
 
 export default function OutsourcingSection() {
@@ -22,11 +28,14 @@ export default function OutsourcingSection() {
           }
           intro="Take on more illuminated-sign projects without adding fabrication equipment, inventory or production staff."
         />
-        <ol className="grid sm:grid-cols-2 lg:grid-cols-4 border-t-2 border-primary/50">
-          {benefits.map((b, i) => (
-            <li key={b.title} className="pt-6 pb-8 pr-6 sm:pl-6 border-border sm:odd:pl-0 sm:even:border-l lg:odd:pl-6 lg:first:pl-0 lg:border-l lg:first:border-l-0">
+        <ol className="grid sm:grid-cols-2 lg:grid-cols-5 border-t-2 border-primary/50">
+          {outsourcingBenefits.map((b, i) => (
+            <li
+              key={b.title}
+              className="pt-6 pb-8 pr-6 border-border sm:odd:pl-0 sm:even:pl-6 sm:even:border-l lg:pl-6 lg:pr-5 lg:first:pl-0 lg:border-l lg:first:border-l-0"
+            >
               <span className="mono-label text-muted-foreground">0{i + 1}</span>
-              <h3 className="text-2xl md:text-3xl mt-2 uppercase">{b.title}</h3>
+              <h3 className="text-2xl lg:text-[1.65rem] xl:text-3xl mt-2 uppercase leading-[1.05]">{b.title}</h3>
               <p className="text-sm text-muted-foreground mt-3 max-w-xs">{b.text}</p>
             </li>
           ))}

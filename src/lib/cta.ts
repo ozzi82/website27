@@ -24,7 +24,7 @@ export const CTA_LINKS = {
   viewManufacturing: { label: "View Manufacturing", to: "/manufacturing" },
   viewSpecs: { label: "View Specs", to: "/services/channel-letters#specifications" },
   customFabrication: { label: "See Custom Fabrication", to: "/services/channel-letters#custom-fabrication" },
-  tryConfigurator: { label: "Try the 3D Configurator", to: "/configurator" },
+  tryConfigurator: { label: "Build Your Sign", to: "/configurator" },
 } as const;
 
 /** Wordings that used to name the primary action; they must not come back (see cta.test.ts). */

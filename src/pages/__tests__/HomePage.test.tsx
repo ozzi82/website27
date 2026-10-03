@@ -68,6 +68,26 @@ describe("HomePage", () => {
     const text = strip.textContent!;
     for (const claim of ["UL 48 Listed", "48 H", "3–4 WK", "3 YR", "Trade only"]) expect(text).toContain(claim);
     expect(text).not.toMatch(/\d+\s?\+|%|years in business|projects/i);
+    expect(within(strip).getByText("Your customer stays your customer.")).toBeInTheDocument();
+  });
+
+  it("why-Sunlite section: five short benefits under the brief's headline", () => {
+    renderHome();
+    const section = document.getElementById("trade")!;
+    expect(within(section).getByRole("heading", { level: 2 }).textContent).toContain("More capacity.");
+    expect(section.textContent).toContain("Without more overhead.");
+    expect(section.textContent).toMatch(/built for the trade/i);
+    expect(within(section).getAllByRole("heading", { level: 3 }).map((h) => h.textContent)).toEqual([
+      "Win more jobs",
+      "Keep your crew installing",
+      "Handle overflow",
+      "Add specialty capability",
+      "Your customer stays yours",
+    ]);
+    // nothing the site does not already say: no "test", no numbers
+    expect(section.textContent!.toLowerCase()).not.toMatch(/\btest(ed|ing)?\b/);
+    expect(section.textContent).not.toMatch(/\d\s?(%|\+|mm|weeks?|years?)/i);
+    expect(section.textContent).toContain("pre-wire");
   });
 
   it("product section has the four categories with the brief's CTA labels and no cabinet signs", () => {
@@ -111,7 +131,7 @@ describe("HomePage", () => {
     renderHome();
     const section = document.getElementById("light-effects")!;
     expect(within(section).getAllByRole("link", { name: /EdgeLuxe LP/i }).length).toBeGreaterThanOrEqual(12);
-    expect(within(section).getByRole("link", { name: /3d configurator/i })).toHaveAttribute("href", "/configurator");
+    expect(within(section).getByRole("link", { name: /build your sign/i })).toHaveAttribute("href", "/configurator");
   });
 });
 
@@ -127,7 +147,7 @@ describe("Header and footer", () => {
       ["Projects", "/projects"],
       ["Manufacturing", "/manufacturing"],
       ["About", "/about"],
-      ["3D Configurator", "/configurator"],
+      ["Build Your Sign", "/configurator"],
     ] as const) {
       expect(within(nav).getByRole("link", { name })).toHaveAttribute("href", href);
     }

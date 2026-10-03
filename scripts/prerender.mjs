@@ -26,7 +26,7 @@ if (!template.includes('<div id="root"></div>')) {
 
 const serverEntry = path.join(ssrDir, "entry-server.js");
 if (!fs.existsSync(serverEntry)) throw new Error("dist-ssr/entry-server.js not found: run the SSR build first.");
-const { render, getPrerenderRoutes, getSitemapEntries, getCaseStudyLinks, buildSitemap, buildRobotsTxt, buildLlmsTxt, nginxRobotsHeader } = await import(
+const { render, getPrerenderRoutes, CONFIGURATOR_META, getSitemapEntries, getCaseStudyLinks, buildSitemap, buildRobotsTxt, buildLlmsTxt, nginxRobotsHeader } = await import(
   pathToFileURL(serverEntry).href
 );
 
@@ -70,10 +70,11 @@ for (const route of routes) {
 }
 
 // /configurator is WebGL and stays a client-rendered page, but its served HTML gets its own tags and a noscript note.
+// Title, description and path come from src/lib/configuratorMeta.ts (the page's own <Seo> uses the same values).
 const CONFIGURATOR = {
-  title: `Sign Configurator | ${SITE_NAME}`,
-  description: "Upload your logo or type your text and see it rendered as a 3D channel-letter sign before you request a quote.",
-  path: "/configurator",
+  title: `${CONFIGURATOR_META.title} | ${SITE_NAME}`,
+  description: CONFIGURATOR_META.description,
+  path: CONFIGURATOR_META.path,
 };
 {
   const url = SITE_URL + CONFIGURATOR.path;
@@ -98,7 +99,7 @@ const CONFIGURATOR = {
   ].join("\n    ");
   const noscript = `<noscript>
       <main>
-        <h1>Sign Configurator</h1>
+        <h1>${CONFIGURATOR_META.title}</h1>
         <p>${CONFIGURATOR.description} The 3D configurator needs JavaScript. Without it, send your logo and dimensions on the <a href="/contact">contact page</a> and we will quote it by hand.</p>
         <p><a href="/">Sunlite Signs</a> · <a href="/contact">Request Wholesale Pricing</a></p>
       </main>

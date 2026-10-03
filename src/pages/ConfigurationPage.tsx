@@ -6,6 +6,7 @@ import { configurations } from "../data/configurations";
 import Seo from "../components/Seo";
 import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
+import BuildYourSign from "../components/BuildYourSign";
 
 export default function ConfigurationPage() {
   const { id } = useParams();
@@ -89,9 +90,9 @@ export default function ConfigurationPage() {
               ))}
             </dl>
 
-            <Button asChild variant="outline" size="lg" className="mt-8">
-              <Link to={`/configurator?config=${c.id}`}>See it with your logo</Link>
-            </Button>
+            <div className="mt-8">
+              <BuildYourSign variant="inline" configId={c.id} title="See this system with your logo." text="Upload your artwork or type your text and preview it in 3D." />
+            </div>
           </div>
         </div>
 

@@ -91,7 +91,14 @@ async function upload(user: ReturnType<typeof userEvent.setup>) {
 }
 
 describe("ConfiguratorPage end-to-end smoke tests", () => {
-  it("chooser path: pick a configuration, upload, change depth, toggle day/night, reach Get a Quote", async () => {
+  it("is called Build Your Sign: H1, document title and description", async () => {
+    renderPage("/configurator");
+    expect(screen.getByRole("heading", { level: 1, name: "Build Your Sign" })).toBeInTheDocument();
+    await waitFor(() => expect(document.title).toBe("Build Your Sign: 3D Channel Letter Preview | Sunlite Signs"));
+    expect(document.head.querySelector('meta[name="description"]')!.getAttribute("content")).toMatch(/wholesale pricing/i);
+  });
+
+  it("chooser path: pick a configuration, upload, change depth, toggle day/night, reach the quote button", async () => {
     const user = userEvent.setup();
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
 
@@ -108,7 +115,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     await user.click(screen.getByRole("radio", { name: "Night" }));
     expect(screen.getByRole("radio", { name: "Night" })).toBeChecked();
 
-    const quote = screen.getByRole("link", { name: /get a quote/i });
+    const quote = screen.getByRole("link", { name: /request wholesale pricing/i });
     expect(quote).toHaveAttribute("href", "/contact");
   });
 
@@ -249,7 +256,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
   });
 
-  describe("Get a Quote carries the configuration", () => {
+  describe("The quote button carries the configuration", () => {
     beforeEach(() => {
       sessionStorage.clear();
       globalThis.indexedDB = new IDBFactory();
@@ -265,7 +272,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /cyan/i }));
       fireEvent.change(screen.getByRole("slider", { name: "Brightness" }), { target: { value: "70" } });
 
-      await user.click(screen.getByRole("link", { name: /get a quote/i }));
+      await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
 
       expect(await screen.findByText("Contact Page")).toBeInTheDocument();
       const summary = screen.getByTestId("quote-summary").textContent!;
@@ -288,7 +295,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await user.click(screen.getByRole("radio", { name: "Pacifico" }));
       await screen.findByTestId("sign-preview-stub");
 
-      await user.click(screen.getByRole("link", { name: /get a quote/i }));
+      await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
       expect(await screen.findByTestId("quote-summary")).toHaveTextContent('Artwork: typed text "Open" in Pacifico');
     });
 
@@ -298,7 +305,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
         vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
         renderPage("/configurator?config=lp-5-trimless-face-lit");
         await upload(user);
-        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+        await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
 
         expect(await screen.findByText("Contact Page")).toBeInTheDocument();
         expect(JSON.parse(screen.getByTestId("quote-file").textContent!)).toEqual({
@@ -322,7 +329,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
         await user.type(screen.getByLabelText(/your text/i), "Open");
         await user.click(screen.getByRole("radio", { name: "Pacifico" }));
         await screen.findByTestId("sign-preview-stub");
-        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+        await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
 
         expect(await screen.findByText("Contact Page")).toBeInTheDocument();
         expect(generateTextArtworkFile).toHaveBeenCalledWith("Open", "pacifico");
@@ -341,7 +348,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
         await user.click(screen.getByRole("radio", { name: "Type text" }));
         await user.type(screen.getByLabelText(/your text/i), "Open");
         await screen.findByTestId("sign-preview-stub");
-        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+        await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
         expect(await screen.findByText("Contact Page")).toBeInTheDocument();
         expect(screen.getByTestId("quote-file")).toHaveTextContent("null");
         expect(screen.getByTestId("quote-summary")).toHaveTextContent('Artwork: typed text "Open"');
@@ -357,7 +364,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
         vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
         renderPage("/configurator?config=lp-5-trimless-face-lit");
         await upload(user);
-        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+        await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
         expect(await screen.findByText("Contact Page")).toBeInTheDocument();
         expect(screen.getByTestId("quote-file")).toHaveTextContent("null");
         expect(screen.getByTestId("quote-summary")).toHaveTextContent("Artwork: uploaded file logo.svg");
@@ -374,7 +381,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
           new File(["<svg>two</svg>"], "second.svg", { type: "image/svg+xml" })
         );
         await screen.findByTestId("sign-preview-stub");
-        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+        await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
         expect(await screen.findByText("Contact Page")).toBeInTheDocument();
         expect(JSON.parse(screen.getByTestId("quote-file").textContent!).name).toBe("second.svg");
       });
@@ -384,7 +391,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       const user = userEvent.setup();
       renderPage("/configurator?config=lp-5-trimless-face-lit");
       await user.click(screen.getByRole("radio", { name: "Type text" })); // the workspace, with an empty text
-      await user.click(screen.getByRole("link", { name: /get a quote/i }));
+      await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
       const summary = (await screen.findByTestId("quote-summary")).textContent!;
       expect(summary).toContain("LP 5");
       expect(summary).not.toMatch(/artwork:/i);
@@ -559,7 +566,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       expect(screen.getByRole("link", { name: /send it to us directly/i })).toHaveAttribute("href", "/contact");
       // The rest of the page keeps working.
       expect(screen.getByRole("radiogroup", { name: "Depth" })).toBeInTheDocument();
-      expect(screen.getByRole("link", { name: /get a quote/i })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: /request wholesale pricing/i })).toBeInTheDocument();
 
       // Retry re-renders the preview once the underlying problem is gone.
       previewState.shouldThrow = false;

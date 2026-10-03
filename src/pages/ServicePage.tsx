@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@project/components/ui/button";
 import { services } from "../data/services";
 import { LEGACY_SERVICE_REDIRECTS } from "../data/products";
 import { CTA_PRIMARY } from "../lib/cta";
 import { PrimaryCta } from "../components/CtaButton";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import BuildYourSign from "../components/BuildYourSign";
 import RelatedLinks, { type RelatedItem } from "../components/RelatedLinks";
 import { configurations } from "../data/configurations";
 import Seo from "../components/Seo";
@@ -133,15 +134,6 @@ export default function ServicePage() {
           <Button size="lg" asChild className="uppercase tracking-wider font-semibold"><Link to={CTA_PRIMARY.to}>{CTA_PRIMARY.label}</Link></Button>
         </section>
 
-        {service.id in CONFIGURATOR_CONFIG && (
-          <Link
-            to={`/configurator?config=${CONFIGURATOR_CONFIG[service.id]}`}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
-          >
-            See it on your sign <ArrowUpRight className="w-4 h-4" />
-          </Link>
-        )}
-
         <section>
           <h2 className="text-xl font-bold mb-5">Other Products</h2>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -157,6 +149,7 @@ export default function ServicePage() {
           </div>
         </section>
       </div>
+      <BuildYourSign configId={CONFIGURATOR_CONFIG[service.id]} />
       {related.length > 0 && <RelatedLinks items={related} eyebrow="Related systems" title="Letter systems behind this product." />}
     </>
   );
