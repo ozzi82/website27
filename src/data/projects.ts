@@ -38,6 +38,10 @@ export const projects: Project[] = [
   { id: "macs", title: "MACS", image: I + "pasted-image-1787166590805-pvuw1j0d.jpeg", width: 1600, height: 1200, alt: "MACS Innovative Companies lettering on a concrete wall" },
   { id: "jentower", title: "JenTower", image: I + "pasted-image-1787166590876-4gqe7y4j.jpeg", width: 900, height: 900, alt: "JenTower lettering with a warm halo above an entrance", featured: true },
   { id: "argo-hytos", title: "ARGO-HYTOS", image: I + "pasted-image-1787166590951-kao0m19c.jpeg", width: 1600, height: 1200, alt: "ARGO-HYTOS illuminated lettering on a blue building facade at dusk", featured: true },
+  // The next two were the imagery of the previous "Trimless Letters" service page, so they link to the ultra-slim page.
+  // No depth or finish is recorded for them (owner to confirm which jobs are 25-30 mm).
+  { id: "concourse-column", title: "Concourse column sign", image: I + "pasted-image-1787683170345-8s9whs6f.jpg", width: 1920, height: 1440, alt: "Illuminated vertical lettering on a blue column panel in a large interior concourse", productType: "Ultra-slim trimless letters", productSlug: "ultra-slim-trimless-channel-letters" },
+  { id: "event-stand", title: "Event stand lettering", image: I + "pasted-image-1787683165508-erx4nd1w.jpg", width: 1280, height: 1792, alt: "Large white illuminated lettering with a soft halo above an event stand", productType: "Ultra-slim trimless letters", productSlug: "ultra-slim-trimless-channel-letters" },
   { id: "itonics", title: "itonics", image: I + "pasted-image-1787166591040-2vakze8k.jpeg", width: 1080, height: 1079, alt: "itonics lettering on a white wall", },
 ];
 
@@ -46,6 +50,9 @@ export const featuredProjects = (): Project[] => projects.filter((p) => p.featur
 
 /** Projects tagged with a product page slug (empty until the owner supplies the mapping). */
 export const projectsForProduct = (slug: string): Project[] => projects.filter((p) => p.productSlug === slug);
+
+/** Projects by id, in the order given (unknown ids are skipped). */
+export const projectsByIds = (ids: string[]): Project[] => ids.flatMap((id) => projects.filter((p) => p.id === id));
 
 /** The metadata rows a card shows, in display order; blank/absent fields are skipped. */
 export function projectMeta(p: Project): { label: string; value: string }[] {

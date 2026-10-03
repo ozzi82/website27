@@ -2,8 +2,8 @@ import SectionHeader from "../SectionHeader";
 import DepthComparison from "../DepthComparison";
 import { ArrowLink } from "../CtaButton";
 import { CTA_LINKS } from "../../lib/cta";
+import { ultraSlimAttributes as attributes } from "../../data/ultraSlim";
 
-const attributes = ["25–30 mm depth", "Trimless construction", "Face / halo / dual lit"];
 
 export default function UltraSlimSection() {
   return (
