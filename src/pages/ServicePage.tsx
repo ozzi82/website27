@@ -5,7 +5,10 @@ import { Button } from "@project/components/ui/button";
 import { services } from "../data/services";
 import { LEGACY_SERVICE_REDIRECTS } from "../data/products";
 import { CTA_PRIMARY } from "../lib/cta";
+import { PrimaryCta } from "../components/CtaButton";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
+import RelatedLinks, { type RelatedItem } from "../components/RelatedLinks";
+import { configurations } from "../data/configurations";
 import Seo from "../components/Seo";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
 
@@ -15,6 +18,17 @@ const CONFIGURATOR_CONFIG: Record<string, string> = {
   "ultra-slim-trimless-channel-letters": "lp-5-trimless-face-lit",
   "cast-block-acrylic": "lp-11-f-face-lit",
 };
+
+/** Where to go next from a product page: the brochure systems behind the product, then the main product line. */
+function relatedFor(serviceId: string): RelatedItem[] {
+  const systems: Record<string, string[]> = { "cast-block-acrylic": ["lp-11-f-face-lit", "lp-11-b-back-lit", "lp-11-fb-face-halo"] };
+  const items: RelatedItem[] = (systems[serviceId] ?? []).flatMap((id) => {
+    const c = configurations.find((x) => x.id === id);
+    return c ? [{ to: `/light-effects/${c.id}`, title: `${c.code}: ${c.subtitle}`, text: c.summary }] : [];
+  });
+  if (items.length === 0) return [];
+  return [...items, { to: "/services/channel-letters", title: "Channel letters", text: "Our main product line: front, halo and front + back lit." }];
+}
 
 export default function ServicePage() {
   const { id } = useParams();
@@ -27,6 +41,7 @@ export default function ServicePage() {
   if (!service) return <Navigate to="/" replace />;
   const { details } = service;
   const others = services.filter((s) => s.id !== service.id);
+  const related = relatedFor(service.id);
 
   const jsonLd = [
     {
@@ -72,6 +87,7 @@ export default function ServicePage() {
           </Link>
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">{service.title}</h1>
           <p className="text-white/80 md:text-lg">{details.subtitle}</p>
+          <div className="mt-5"><PrimaryCta className="h-12 px-6" /></div>
         </div>
       </section>
 
@@ -141,6 +157,7 @@ export default function ServicePage() {
           </div>
         </section>
       </div>
+      {related.length > 0 && <RelatedLinks items={related} eyebrow="Related systems" title="Letter systems behind this product." />}
     </>
   );
 }
