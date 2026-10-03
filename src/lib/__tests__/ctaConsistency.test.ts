@@ -13,9 +13,9 @@ function sourceFiles(dir: string): string[] {
   });
 }
 
-// Phase 3 reworks the quote page (ContactForm submit label, ContactPage): remove those two from this list then.
-// The configurator folder and page are excluded too: their "Get a Quote" hands a configuration over, a different action.
-const exempt = new Set(["cta.ts", "ContactForm.tsx", "ContactPage.tsx", "ConfiguratorPage.tsx"]);
+// cta.ts defines the retired labels. The configurator folder is excluded by sourceFiles(): its hand-over buttons
+// ("Get a Quote" before Phase 3) belong to the configurator, not to the site-wide primary action.
+const exempt = new Set(["cta.ts", "ConfiguratorPage.tsx"]);
 
 describe("CTA consistency", () => {
   it("no retired primary-CTA wording remains in site source", () => {

@@ -22,6 +22,8 @@ const quote: QuoteSnapshot = {
 };
 
 interface HubSpotOptions {
+  /** Add a company_type field to the fake form: a dropdown with these options, or a plain text input. */
+  companyField?: { kind: "select"; options: string[]; value?: string } | { kind: "input"; value?: string };
   /** Render the form this long after create() (HubSpot builds it asynchronously). */
   delayMs?: number;
   /** A file the visitor already chose in the form's file field. */
@@ -31,9 +33,9 @@ interface HubSpotOptions {
 }
 
 /** Stands in for HubSpot's embed: a same-origin iframe holding a message textarea and a file input, like the real form. */
-function installHubSpot({ delayMs = 0, preselected, noDataTransfer = false }: HubSpotOptions = {}) {
+function installHubSpot({ delayMs = 0, preselected, noDataTransfer = false, companyField }: HubSpotOptions = {}) {
   let onFormSubmitted: (() => void) | undefined;
-  const create = vi.fn((opts: { target: string; onFormReady?: () => void; onFormSubmitted?: () => void }) => {
+  const create = vi.fn((opts: { target: string; submitText?: string; onFormReady?: () => void; onFormSubmitted?: () => void }) => {
     onFormSubmitted = opts.onFormSubmitted;
     const target = document.querySelector(opts.target)!;
     const frame = document.createElement("iframe");
@@ -49,6 +51,23 @@ function installHubSpot({ delayMs = 0, preselected, noDataTransfer = false }: Hu
       const captcha = doc.createElement("textarea");
       captcha.name = "g-recaptcha-response";
       doc.body.appendChild(captcha);
+      if (companyField?.kind === "select") {
+        const sel = doc.createElement("select");
+        sel.name = "company_type";
+        for (const o of ["", ...companyField.options]) {
+          const opt = doc.createElement("option");
+          opt.value = o;
+          opt.textContent = o || "Please Select";
+          sel.appendChild(opt);
+        }
+        sel.value = companyField.value ?? "";
+        doc.body.appendChild(sel);
+      } else if (companyField?.kind === "input") {
+        const inp = doc.createElement("input");
+        inp.name = "company_type";
+        inp.value = companyField.value ?? "";
+        doc.body.appendChild(inp);
+      }
       const input = makeFileInput(doc);
       if (preselected) input.files = [preselected] as unknown as FileList;
       opts.onFormReady?.();
@@ -267,5 +286,164 @@ describe("ContactPage artwork file", () => {
     await waitFor(() => expect(screen.queryByRole("heading", { name: "Your configuration" })).not.toBeInTheDocument());
     expect(sessionStorage.getItem("sls.quote.v1")).toBeNull();
     expect(await loadArtworkFile(quoteFileId(withFile))).toBeNull();
+  });
+});
+
+describe("ContactPage wholesale quote page (brief section 10)", () => {
+  const company = () => screen.getByRole("combobox", { name: /company type/i }) as HTMLSelectElement;
+
+  beforeEach(() => {
+    sessionStorage.clear();
+    window.scrollTo = vi.fn();
+  });
+  afterEach(() => {
+    delete window.hbspt;
+  });
+
+  it("has the wholesale H1, the 48-hour body copy and the visible trade-only line", () => {
+    installHubSpot();
+    renderContact();
+    const h1 = screen.getByRole("heading", { level: 1 });
+    expect(h1.textContent!.replace(/\s+/g, " ").trim()).toMatch(/^get your wholesale quote$/i);
+    expect(h1.className).toMatch(/uppercase/);
+    expect(screen.getByText("Send your artwork, dimensions and project details. We'll return a tailored quote within 48 hours.")).toBeInTheDocument();
+    expect(screen.getByText(/trade customers only · no retail sales/i)).toBeVisible();
+    expect(screen.queryByText(/get in touch|request a quote|get a quote|start your project/i)).not.toBeInTheDocument();
+  });
+
+  it("keeps phone, email and WhatsApp alternatives", () => {
+    installHubSpot();
+    renderContact();
+    expect(screen.getByRole("link", { name: /hello@sunlitesigns\.com/ })).toHaveAttribute("href", "mailto:hello@sunlitesigns.com");
+    expect(screen.getByRole("link", { name: /\(689\) 294-0912/ })).toHaveAttribute("href", "tel:+16892940912");
+    expect(screen.getByRole("link", { name: /whatsapp/i })).toHaveAttribute("href", expect.stringContaining("wa.me"));
+  });
+
+  it("asks HubSpot for the primary CTA label on the submit button", () => {
+    const hs = installHubSpot();
+    renderContact();
+    expect(hs.create).toHaveBeenCalledTimes(1);
+    expect(hs.create.mock.calls[0][0].submitText).toBe("Request Wholesale Pricing");
+  });
+
+  it("sets the title, description and JSON-LD (ContactPage, BreadcrumbList, FAQPage)", async () => {
+    installHubSpot();
+    renderContact();
+    await waitFor(() => expect(document.title).toBe("Get Your Wholesale Quote: Channel Letters | Sunlite Signs"));
+    const desc = document.head.querySelector('meta[name="description"]')!.getAttribute("content")!;
+    expect(desc).toMatch(/wholesale quote/i);
+    expect(desc).toMatch(/48 hours/);
+    expect(desc).toMatch(/trade customers only/i);
+    expect(desc.length).toBeLessThanOrEqual(180);
+    const ld = [...document.head.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent!));
+    expect(ld.map((x) => x["@type"]).sort()).toEqual(["BreadcrumbList", "ContactPage", "FAQPage"]);
+    expect(ld.find((x) => x["@type"] === "ContactPage").url).toMatch(/\/contact$/);
+  });
+
+  it("offers the five company types in an optional select that nothing requires", () => {
+    installHubSpot();
+    renderContact();
+    const options = Array.from(company().options).map((o) => o.textContent);
+    expect(options).toEqual(["Select your company type", "Sign Company", "Sign Installer", "Agency / Broker", "Architect / Contractor", "Other Trade Professional"]);
+    expect(company().required).toBe(false);
+    expect(company().value).toBe("");
+    expect(field().value).toBe(""); // nothing chosen: nothing added to the message
+  });
+
+  it("adds Company type to the message, ahead of the configurator summary", async () => {
+    const user = userEvent.setup();
+    installHubSpot();
+    renderContact({ quote });
+    await waitFor(() => expect(field().value).toBe(quote.summary));
+    await user.selectOptions(company(), "Sign Company");
+    await waitFor(() => expect(field().value).toBe(`Company type: Sign Company\n\n${quote.summary}`));
+    await user.selectOptions(company(), "Agency / Broker");
+    await waitFor(() => expect(field().value).toBe(`Company type: Agency / Broker\n\n${quote.summary}`));
+    await user.selectOptions(company(), "");
+    await waitFor(() => expect(field().value).toBe(quote.summary));
+  });
+
+  it("works without a configuration: the message is just the company type line", async () => {
+    const user = userEvent.setup();
+    installHubSpot();
+    renderContact();
+    await user.selectOptions(company(), "Sign Installer");
+    await waitFor(() => expect(field().value).toBe("Company type: Sign Installer"));
+  });
+
+  it("never overwrites text the visitor typed in the message", async () => {
+    const user = userEvent.setup();
+    installHubSpot();
+    renderContact({ quote });
+    await waitFor(() => expect(field().value).toBe(quote.summary));
+    field().value = "My own words";
+    await user.selectOptions(company(), "Sign Company");
+    expect(field().value).toBe("My own words");
+  });
+
+  it("remembers the choice for the tab (sessionStorage) and restores it on the next visit", async () => {
+    const user = userEvent.setup();
+    installHubSpot();
+    const first = renderContact();
+    await user.selectOptions(company(), "Architect / Contractor");
+    expect(sessionStorage.getItem("sls.companyType.v1")).toBe("Architect / Contractor");
+    first.unmount();
+    installHubSpot();
+    renderContact();
+    await waitFor(() => expect(company().value).toBe("Architect / Contractor"));
+    await waitFor(() => expect(field().value).toBe("Company type: Architect / Contractor"));
+    await user.selectOptions(company(), "");
+    expect(sessionStorage.getItem("sls.companyType.v1")).toBeNull();
+  });
+
+  it("ignores a junk value in storage", async () => {
+    sessionStorage.setItem("sls.companyType.v1", "Retail customer");
+    installHubSpot();
+    renderContact();
+    expect(company().value).toBe("");
+    expect(field().value).toBe("");
+  });
+
+  it("also fills a company_type dropdown when the HubSpot form has one (matching option only)", async () => {
+    const user = userEvent.setup();
+    installHubSpot({ companyField: { kind: "select", options: ["Sign Company", "Sign Installer"] } });
+    renderContact();
+    const hubspotSelect = () => document.querySelector("iframe")!.contentDocument!.querySelector<HTMLSelectElement>("select[name=company_type]")!;
+    expect(hubspotSelect().value).toBe("");
+    await user.selectOptions(company(), "Sign Installer");
+    await waitFor(() => expect(hubspotSelect().value).toBe("Sign Installer"));
+    await user.selectOptions(company(), "Agency / Broker"); // not an option in the HubSpot dropdown: left as it was
+    expect(hubspotSelect().value).toBe("Sign Installer");
+    await user.selectOptions(company(), "");
+    await waitFor(() => expect(hubspotSelect().value).toBe(""));
+  });
+
+  it("fills a company_type text input too, but never replaces a value the visitor set in the form", async () => {
+    const user = userEvent.setup();
+    installHubSpot({ companyField: { kind: "input" } });
+    renderContact();
+    const input = () => document.querySelector("iframe")!.contentDocument!.querySelector<HTMLInputElement>("input[name=company_type]")!;
+    await user.selectOptions(company(), "Sign Company");
+    await waitFor(() => expect(input().value).toBe("Sign Company"));
+    input().value = "My own entry";
+    await user.selectOptions(company(), "Sign Installer");
+    expect(input().value).toBe("My own entry");
+  });
+
+  it("sets the company_type field once the form is ready when a choice was already remembered", async () => {
+    sessionStorage.setItem("sls.companyType.v1", "Sign Company");
+    installHubSpot({ delayMs: 300, companyField: { kind: "select", options: ["Sign Company", "Other Trade Professional"] } });
+    renderContact();
+    const hubspotSelect = () => document.querySelector("iframe")!.contentDocument?.querySelector<HTMLSelectElement>("select[name=company_type]");
+    await waitFor(() => expect(hubspotSelect()?.value).toBe("Sign Company"), { timeout: 3000 });
+  });
+
+  it("does nothing special when the form has no company_type field (the message carries the answer)", async () => {
+    const user = userEvent.setup();
+    installHubSpot();
+    renderContact();
+    await user.selectOptions(company(), "Sign Company");
+    await waitFor(() => expect(field().value).toBe("Company type: Sign Company"));
+    expect(document.querySelector("iframe")!.contentDocument!.querySelector("[name=company_type]")).toBeNull();
   });
 });

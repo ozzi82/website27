@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import { attachFileToInput, clearFileInput, findFileInput, formDocuments, isSameFile } from "./hubspotFile";
+import { CTA_PRIMARY } from "../lib/cta";
+import { COMPANY_TYPE_FIELD_NAME } from "../lib/companyType";
 
 declare global {
   interface Window {
@@ -10,6 +12,8 @@ declare global {
           formId: string;
           region: string;
           target: string;
+          /** Overrides the submit button label set in the HubSpot portal (supported by the v2 embed). */
+          submitText?: string;
           onFormReady?: (...args: unknown[]) => void;
           onFormSubmitted?: (...args: unknown[]) => void;
         }) => void;
@@ -41,6 +45,68 @@ function setFieldValue(field: HTMLTextAreaElement, value: string) {
   field.dispatchEvent(new win.Event("change", { bubbles: true }));
 }
 
+type CompanyTypeField = HTMLInputElement | HTMLSelectElement;
+
+const isSelect = (f: CompanyTypeField): f is HTMLSelectElement => f.tagName === "SELECT";
+const isRadio = (f: CompanyTypeField): f is HTMLInputElement => f.tagName === "INPUT" && (f as HTMLInputElement).type === "radio";
+const norm = (s: string) => s.trim().toLowerCase().replace(/s+/g, " ");
+
+/** Fields named `company_type` (a dropdown, text or radio property the owner may add to the HubSpot form later). */
+function findCompanyTypeFields(root: HTMLElement): CompanyTypeField[] {
+  const found: CompanyTypeField[] = [];
+  for (const doc of formDocuments(root)) {
+    const scope: ParentNode = doc === root.ownerDocument ? root : doc;
+    found.push(...Array.from(scope.querySelectorAll<CompanyTypeField>(`select[name="${COMPANY_TYPE_FIELD_NAME}"], input[name="${COMPANY_TYPE_FIELD_NAME}"]`)));
+  }
+  return found;
+}
+
+/** Sets a select or input the way a visitor choosing it would. */
+function setChoiceValue(field: CompanyTypeField, value: string) {
+  const win = field.ownerDocument.defaultView ?? window;
+  const proto = isSelect(field) ? win.HTMLSelectElement.prototype : win.HTMLInputElement.prototype;
+  const setter = Object.getOwnPropertyDescriptor(proto, "value")?.set;
+  if (setter) setter.call(field, value);
+  else field.value = value;
+  field.dispatchEvent(new win.Event("input", { bubbles: true }));
+  field.dispatchEvent(new win.Event("change", { bubbles: true }));
+}
+
+/**
+ * Writes the company type into every `company_type` field the form has (none today: then this does nothing). Only a
+ * field that is empty or still holds what we wrote is touched, so a choice the visitor made in the form itself stays.
+ * A dropdown or radio group is only set when one of its options matches the value exactly (ignoring case).
+ */
+function writeCompanyType(root: HTMLElement, type: string | null, written: { current: string | null }) {
+  const fields = findCompanyTypeFields(root);
+  const radios = fields.filter(isRadio);
+  const others = fields.filter((f) => !isRadio(f));
+
+  for (const field of others) {
+    if (field.value !== "" && field.value !== written.current) continue; // the visitor's own answer
+    if (isSelect(field)) {
+      const wanted = type ? Array.from(field.options).find((o) => norm(o.value) === norm(type) || norm(o.text) === norm(type)) : undefined;
+      if (type && !wanted) continue; // no such option in the HubSpot dropdown: leave it alone
+      const next = wanted ? wanted.value : "";
+      if (field.value !== next) setChoiceValue(field, next);
+      written.current = wanted ? wanted.value : null;
+    } else {
+      const next = type ?? "";
+      if (field.value !== next) setChoiceValue(field, next);
+      written.current = type;
+    }
+  }
+
+  if (radios.length && type) {
+    const checked = radios.find((r) => r.checked);
+    const wanted = radios.find((r) => norm(r.value) === norm(type));
+    if (wanted && (!checked || checked.value === written.current) && !wanted.checked) {
+      wanted.click(); // a real click, so the form's own handlers run
+      written.current = wanted.value;
+    }
+  }
+}
+
 /**
  * Where the artwork file stands in the form's file field:
  * none (nothing to attach), waiting (form not ready), attached, detached (the visitor chose or removed a file
@@ -55,7 +121,9 @@ const ATTACH_POLL_MS = 500;
 interface HubSpotFormProps {
   /** Text to put in the form's message field (e.g. the sign configuration summary). Null/undefined leaves it alone. */
   prefill?: string | null;
-  /** Shown between the intro and the form (the configuration card). */
+  /** The visitor's company type (see lib/companyType.ts). It is part of `prefill` (the message); this also fills a `company_type` field when the form has one. */
+  companyType?: string | null;
+  /** Shown above the form (the configuration card, the company-type select). */
   aboveForm?: ReactNode;
   /** A file to attach to the form's file field once the form is up (never replaces a file the visitor chose). */
   attachment?: File | null;
@@ -64,11 +132,14 @@ interface HubSpotFormProps {
   onSubmitted?: () => void;
 }
 
-export default function HubSpotForm({ prefill = null, aboveForm, attachment = null, onAttachmentStatus, onSubmitted }: HubSpotFormProps) {
+export default function HubSpotForm({ prefill = null, companyType = null, aboveForm, attachment = null, onAttachmentStatus, onSubmitted }: HubSpotFormProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const loaded = useRef(false);
   const prefillRef = useRef(prefill);
   prefillRef.current = prefill;
+  const companyTypeRef = useRef(companyType);
+  companyTypeRef.current = companyType;
+  const companyWritten = useRef<string | null>(null);
   // What we last wrote into the field, so we only ever replace our own text and never something the visitor typed.
   const written = useRef<string | null>(null);
 
@@ -138,6 +209,11 @@ export default function HubSpotForm({ prefill = null, aboveForm, attachment = nu
     }
   }, []);
 
+  const applyCompanyType = useCallback(() => {
+    const root = containerRef.current;
+    if (root) writeCompanyType(root, companyTypeRef.current, companyWritten);
+  }, []);
+
   useEffect(() => {
     if (loaded.current) return;
     loaded.current = true;
@@ -150,8 +226,10 @@ export default function HubSpotForm({ prefill = null, aboveForm, attachment = nu
           formId: "02a5f813-b959-4141-bd1e-28edc296de68",
           region: "na1",
           target: "#hubspot-form-container",
+          submitText: CTA_PRIMARY.label, // the primary CTA wording, whatever the HubSpot portal says
           onFormReady: () => {
             applyPrefill();
+            applyCompanyType();
             applyAttachment();
           },
           onFormSubmitted: () => submittedCallback.current?.(),
@@ -173,7 +251,7 @@ export default function HubSpotForm({ prefill = null, aboveForm, attachment = nu
       setTimeout(createForm, 100);
     };
     document.head.appendChild(script);
-  }, [applyPrefill, applyAttachment]);
+  }, [applyPrefill, applyCompanyType, applyAttachment]);
 
   // The form renders asynchronously and may re-render: keep trying (poll, then watch for changes) until the file is on.
   useEffect(() => {
@@ -221,22 +299,19 @@ export default function HubSpotForm({ prefill = null, aboveForm, attachment = nu
     applyPrefill();
   }, [prefill, applyPrefill]);
 
+  // Same for the company type: update a `company_type` field if the form has one.
+  useEffect(() => {
+    applyCompanyType();
+  }, [companyType, applyCompanyType]);
+
   return (
-    <section id="contact" className="py-16 md:py-24 bg-background">
-      <div className="container mx-auto px-4 max-w-2xl">
-        <h2 className="text-2xl md:text-4xl font-bold text-center mb-3">
-          Request a Quote
-        </h2>
-        <p className="text-muted-foreground text-center mb-10 text-sm md:text-base">
-          Send your logo and dimensions — we'll get back to you within 48 hours.
-        </p>
-        {aboveForm}
-        <div
-          id="hubspot-form-container"
-          ref={containerRef}
-          className="hubspot-form-wrapper"
-        />
-      </div>
-    </section>
+    <div id="contact">
+      {aboveForm}
+      <div
+        id="hubspot-form-container"
+        ref={containerRef}
+        className="hubspot-form-wrapper"
+      />
+    </div>
   );
 }
