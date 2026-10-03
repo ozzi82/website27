@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ConfigControls from "../ConfigControls";
 import { defaultStateFor, type ConfiguratorState } from "../types";
@@ -28,7 +28,7 @@ describe("ConfigControls depth", () => {
       "3″ (75 mm)",
       "4″ (100 mm)",
     ]);
-    expect(within(depthGroup()).getByRole("radio", { name: "2″ (50 mm)" })).toBeChecked();
+    expect(within(depthGroup()).getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
   });
 
   it("shows different depths for different configurations", () => {
@@ -40,16 +40,16 @@ describe("ConfigControls depth", () => {
   it("reports the chosen depth as millimetres", async () => {
     const user = userEvent.setup();
     const { onChange } = setup("lp-5-trimless-face-lit");
-    await user.click(within(depthGroup()).getByRole("radio", { name: "3″ (75 mm)" }));
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 75 }));
+    await user.click(within(depthGroup()).getByRole("radio", { name: "2″ (50 mm)" }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 50 }));
   });
 
   it("is keyboard operable with the arrow keys", async () => {
     const user = userEvent.setup();
     const { onChange } = setup("lp-5-trimless-face-lit");
-    within(depthGroup()).getByRole("radio", { name: "2″ (50 mm)" }).focus();
+    within(depthGroup()).getByRole("radio", { name: "3″ (75 mm)" }).focus();
     await user.keyboard("{ArrowRight}");
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 75 }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 100 }));
   });
 
   it("says custom depths are available only for configurations that offer them", () => {
@@ -107,9 +107,9 @@ describe("ConfigControls colours", () => {
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ glowColor: "#19e0ff" }));
   });
 
-  it("hides the paint colour for the neon tube, which has no painted surface", () => {
+  it("keeps the paint colour for the neon letter: the back half of its side is painted", () => {
     setup("lp-11-n-faux-neon");
-    expect(screen.queryByRole("group", { name: "Paint color" })).not.toBeInTheDocument();
+    expect(screen.getByRole("group", { name: "Paint color" })).toBeInTheDocument();
     expect(screen.getByRole("group", { name: "Glow color" })).toBeInTheDocument();
   });
 });
@@ -298,5 +298,38 @@ describe("ConfigControls profile note and day/night", () => {
     within(dayNightGroup()).getByRole("radio", { name: "Day" }).focus();
     await user.keyboard("{ArrowRight}");
     expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ dayNight: "night" }));
+  });
+});
+
+describe("ConfigControls LP 1 finish and build", () => {
+  it("offers the seven finishes only on the flat cutout", () => {
+    setup("lp-1-flat-cutout");
+    expect(within(screen.getByRole("radiogroup", { name: "Finish" })).getAllByRole("radio")).toHaveLength(7);
+    cleanup();
+    setup("lp-5-trimless-face-lit");
+    expect(screen.queryByRole("radiogroup", { name: "Finish" })).not.toBeInTheDocument();
+    expect(screen.queryByRole("radiogroup", { name: "Build" })).not.toBeInTheDocument();
+  });
+
+  it("switching to a fabricated build moves to the thicker depths", async () => {
+    const user = userEvent.setup();
+    const { onChange } = setup("lp-1-flat-cutout");
+    await user.click(within(screen.getByRole("radiogroup", { name: "Build" })).getByRole("radio", { name: "Fabricated" }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ build: "fabricated", depthMm: 20 }));
+  });
+
+  it("wood and acrylic are solid-only, so the build choice is disabled with a note", () => {
+    const lp1 = byId("lp-1-flat-cutout");
+    render(<ConfigControls config={lp1} state={{ ...defaultStateFor(lp1), finish: "wood" }} onChange={vi.fn()} />);
+    for (const r of within(screen.getByRole("radiogroup", { name: "Build" })).getAllByRole("radio")) expect(r).toBeDisabled();
+    expect(screen.getByText(/solid material only/i)).toBeInTheDocument();
+  });
+
+  it("asks for a colour only for the finishes that take one", () => {
+    const lp1 = byId("lp-1-flat-cutout");
+    const { rerender } = render(<ConfigControls config={lp1} state={defaultStateFor(lp1)} onChange={vi.fn()} />);
+    expect(screen.queryByRole("group", { name: "Acrylic color" })).not.toBeInTheDocument();
+    rerender(<ConfigControls config={lp1} state={{ ...defaultStateFor(lp1), finish: "acrylic-colored" }} onChange={vi.fn()} />);
+    expect(screen.getByRole("group", { name: "Acrylic color" })).toBeInTheDocument();
   });
 });

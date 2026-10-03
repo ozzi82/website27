@@ -1,6 +1,7 @@
 import type { LightConfig } from "../../data/configurations";
 import { GLOW_SWATCHES, PAINT_SWATCHES, describeColor } from "./swatches";
 import type { SummaryRow } from "./quoteStorage";
+import { getLp1Finish, isLp1 } from "./lp1Materials";
 import { emitsLight, formatDepth, type ConfiguratorState } from "./types";
 
 /** Where the sign's shapes came from, for the quote summary. */
@@ -26,7 +27,7 @@ function describeArtwork(artwork: ArtworkInfo): string {
 /**
  * The choices that matter for a quote, as label/value rows (US units first). Background and
  * day/night are preview settings and are left out; so is whatever the configuration lacks
- * (no glow colour or brightness on the unlit LP 1, no paint on the neon tube, which is all light).
+ * (no glow colour or brightness on the unlit LP 1, no paint colour on an LP 1 finish that is not coloured).
  */
 export function configSummaryRows(
   state: ConfiguratorState,
@@ -39,8 +40,12 @@ export function configSummaryRows(
     { label: "Configuration", value: `${config.code} ${config.subtitle}` },
     { label: "Depth", value: formatDepth(state.depthMm) },
   ];
-  if (config.profile !== "tube") {
-    rows.push({ label: "Paint color", value: describeColor(state.color, PAINT_SWATCHES), swatch: state.color });
+  const finish = getLp1Finish(state.finish);
+  if (isLp1(config)) {
+    rows.splice(1, 0, { label: "Finish", value: finish.label }, { label: "Build", value: state.build === "fabricated" ? "Fabricated (hollow)" : "Solid material" });
+  }
+  if (isLp1(config) ? finish.usesPaint : true) {
+    rows.push({ label: isLp1(config) ? "Acrylic color" : "Paint color", value: describeColor(state.color, PAINT_SWATCHES), swatch: state.color });
   }
   if (lit) {
     rows.push({ label: "Glow color", value: describeColor(state.glowColor, GLOW_SWATCHES), swatch: state.glowColor });

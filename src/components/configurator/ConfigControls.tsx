@@ -6,7 +6,8 @@ import DayNightToggle from "./DayNightToggle";
 import SegmentedControl from "./SegmentedControl";
 import { GLOW_SWATCHES, PAINT_SWATCHES, type Swatch } from "./swatches";
 import { thinStrokeAdvice } from "./strokeGuard";
-import { emitsLight, formatDepth, type ConfiguratorState } from "./types";
+import { depthOptionsFor, emitsLight, formatDepth, withBuild, withFinish, type ConfiguratorState } from "./types";
+import { LP1_FINISHES, getLp1Finish, isLp1, type Lp1Build } from "./lp1Materials";
 
 interface ConfigControlsProps {
   config: LightConfig;
@@ -90,20 +91,66 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
 
   const brightnessId = useId();
   const lights = emitsLight(config);
-  const hasPaint = true; // even the neon profile has painted parts: the back half of its side
+  const flat = isLp1(config);
+  const finish = getLp1Finish(state.finish);
+  // LP 1 is painted only where the finish takes a colour; every lit letter has painted parts (even the neon one: the back half of its side).
+  const hasPaint = flat ? finish.usesPaint : true;
+  const depthOptions = depthOptionsFor(config, state);
   const illustrative = config.profile === "tube" || config.profile === "conical";
   const advice = thinStrokeAdvice(config, strokeRatio);
-  const singleDepth = config.depthOptionsMm.length === 1;
+  const singleDepth = depthOptions.length === 1;
 
   return (
     <div className="space-y-2 [@media(min-height:830px)]:space-y-4">
+      {flat && (
+        <>
+          <Row label="Finish" labelId="finish-label">
+            <div role="radiogroup" aria-label="Finish" className="flex flex-wrap items-center gap-1.5">
+              {LP1_FINISHES.map((f) => (
+                <label
+                  key={f.id}
+                  title={f.label}
+                  style={{ background: f.swatch }}
+                  className="relative h-6 w-6 cursor-pointer rounded-full border border-border has-[:checked]:ring-2 has-[:checked]:ring-primary has-[:checked]:ring-offset-2 has-[:checked]:ring-offset-background has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-primary"
+                >
+                  <input
+                    type="radio"
+                    name="configurator-finish"
+                    value={f.id}
+                    aria-label={f.label}
+                    checked={state.finish === f.id}
+                    onChange={() => onChange(withFinish(state, f.id))}
+                    className="sr-only"
+                  />
+                </label>
+              ))}
+              <span aria-hidden="true" className="ml-1 truncate text-[11px] text-muted-foreground">
+                {finish.short}
+              </span>
+            </div>
+          </Row>
+          <Row label="Build" labelId="build-label">
+            <SegmentedControl<Lp1Build>
+              label="Build"
+              value={state.build}
+              onChange={(build) => onChange(withBuild(state, build))}
+              disabled={finish.builds.length === 1}
+              options={[
+                { value: "solid", label: "Solid", title: "Cut from solid material: thinner" },
+                { value: "fabricated", label: "Fabricated", title: "Hollow fabricated body: thicker" },
+              ]}
+            />
+          </Row>
+        </>
+      )}
+
       <Row label="Depth" labelId="depth-label">
         <SegmentedControl
           label="Depth"
           value={state.depthMm}
           disabled={singleDepth}
           onChange={(depthMm) => set({ depthMm })}
-          options={config.depthOptionsMm.map((mm) => ({
+          options={depthOptions.map((mm) => ({
             value: mm,
             label: <DepthLabel mm={mm} />,
             ariaLabel: formatDepth(mm),
@@ -113,8 +160,8 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
 
       {hasPaint && (
         <ColorRow
-          label="Paint"
-          legend="Paint color"
+          label={flat ? "Colour" : "Paint"}
+          legend={flat ? "Acrylic color" : "Paint color"}
           value={state.color}
           swatches={PAINT_SWATCHES}
           onChange={(hex) => set({ color: hex })}
@@ -209,6 +256,13 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           {illustrative && <p>Illustrative preview — this profile is approximated.</p>}
           <p>Paint color applies to the sides and any face that isn’t lit; glow color is the pigmented acrylic or vinyl.</p>
           <p>The brightness slider dims the LEDs in the night view.</p>
+          {flat && (
+            <p>
+              {finish.builds.length === 1
+                ? `${finish.label}: solid material only.`
+                : `${finish.label}: solid (thinner) or fabricated (hollow inside, so it can be thicker).`}
+            </p>
+          )}
         </div>
       </details>
     </div>

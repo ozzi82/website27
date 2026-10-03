@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { configurations } from "../../../data/configurations";
-import { defaultStateFor, formatDepth, emitsLight, switchConfig } from "../types";
+import { defaultStateFor, formatDepth, emitsLight, switchConfig, depthOptionsFor, withBuild, withFinish } from "../types";
 
 const byId = (id: string) => configurations.find((c) => c.id === id)!;
 
@@ -11,9 +11,9 @@ describe("defaultStateFor", () => {
     }
   });
 
-  it("uses the family's customary depth: 50 mm stainless, 30 mm block acrylic, 5 mm flat cutout", () => {
-    expect(defaultStateFor(byId("lp-5-trimless-face-lit")).depthMm).toBe(50);
-    expect(defaultStateFor(byId("lp-3-1-standoff-halo")).depthMm).toBe(50);
+  it("uses the family's customary depth: 75 mm stainless (clearly thicker than LP 11), 30 mm block acrylic, 5 mm flat cutout", () => {
+    expect(defaultStateFor(byId("lp-5-trimless-face-lit")).depthMm).toBe(75);
+    expect(defaultStateFor(byId("lp-3-1-standoff-halo")).depthMm).toBe(75);
     expect(defaultStateFor(byId("lp-11-f-face-lit")).depthMm).toBe(30);
     expect(defaultStateFor(byId("lp-11-b-back-lit")).depthMm).toBe(30);
     expect(defaultStateFor(byId("lp-1-flat-cutout")).depthMm).toBe(5);
@@ -98,5 +98,41 @@ describe("switchConfig", () => {
         expect(to.depthOptionsMm).toContain(switchConfig(prev, to).depthMm);
       }
     }
+  });
+});
+
+describe("LP 1 finish and build", () => {
+  const lp1 = byId("lp-1-flat-cutout");
+
+  it("offers thinner depths for solid and thicker for fabricated", () => {
+    const solid = defaultStateFor(lp1);
+    expect(depthOptionsFor(lp1, solid)).toEqual([3, 5, 10, 20]);
+    expect(depthOptionsFor(lp1, { build: "fabricated" })).toEqual([20, 50, 100, 200]);
+  });
+
+  it("moves the depth to the nearest step of the new build", () => {
+    const fab = withBuild(defaultStateFor(lp1), "fabricated");
+    expect(fab.build).toBe("fabricated");
+    expect(fab.depthMm).toBe(20);
+  });
+
+  it("only metals can be fabricated: wood and acrylic fall back to solid", () => {
+    const fab = withBuild(defaultStateFor(lp1), "fabricated");
+    const wood = withFinish(fab, "wood");
+    expect(wood.build).toBe("solid");
+    expect(depthOptionsFor(lp1, wood)).toContain(wood.depthMm);
+    expect(withBuild(wood, "fabricated").build).toBe("solid");
+    expect(withFinish(fab, "corten").build).toBe("fabricated");
+  });
+
+  it("does not change the other configurations' depth lists", () => {
+    const lp5 = byId("lp-5-trimless-face-lit");
+    expect(depthOptionsFor(lp5, defaultStateFor(lp5))).toEqual(lp5.depthOptionsMm);
+  });
+
+  it("keeps the finish when switching away and back", () => {
+    const s = withFinish(defaultStateFor(lp1), "corten");
+    const there = switchConfig(s, byId("lp-11-f-face-lit"));
+    expect(switchConfig(there, lp1).finish).toBe("corten");
   });
 });

@@ -150,7 +150,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
   it("states only brochure or brief numbers, offers no trim caps, and keeps cabinet or blade signs off the page", () => {
     const { main } = renderAt(PATH);
     const text = main.textContent!;
-    const allowed = new Set(["25–30 mm", "30 mm", "25 mm", "10 mm", "15 mm", "20 mm", "12 mm", "50 mm", "3 mm", "75 mm", "100 mm"]);
+    const allowed = new Set(["25–30 mm", "30 mm", "25 mm", "10 mm", "15 mm", "20 mm", "12 mm", "50 mm", "3 mm", "75 mm", "100 mm", "12.7 mm"]);
     for (const m of mmClaims(spacedText(main))) expect(allowed.has(m), m).toBe(true);
     for (const f of FORBIDDEN) expect(text).not.toMatch(f);
     expect(textOutsideCustomFabrication(main)).not.toMatch(CUSTOM_ONLY_TERMS);

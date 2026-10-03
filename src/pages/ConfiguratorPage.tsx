@@ -16,13 +16,14 @@ import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
 import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
-import { defaultStateFor, switchConfig } from "../components/configurator/types";
+import { defaultStateFor, switchConfig, withBuild, withFinish } from "../components/configurator/types";
 import type { ConfiguratorState } from "../components/configurator/types";
 import { DEFAULT_BACKGROUND, type BackgroundId } from "../components/configurator/backgrounds";
 import { formatConfigSummary, configSummaryRows, type ArtworkInfo } from "../components/configurator/configSummary";
 import { saveQuote, quoteFileId, type ArtworkFileMeta, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 import { clearArtworkFile, saveArtworkFile } from "../components/configurator/artworkFileStorage";
 import { lineStackFactor, strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
+import { isLp1, isLp1FinishId } from "../components/configurator/lp1Materials";
 import { configurations } from "../data/configurations";
 import { CTA_PRIMARY } from "../lib/cta";
 import { CONFIGURATOR_META, CONFIGURATOR_NAME } from "../lib/configuratorMeta";
@@ -31,14 +32,24 @@ function findConfig(id: string | null) {
   return configurations.find((c) => c.id === id);
 }
 
+/** The starting state of a deep link: `?config=<id>`, plus `&finish=<LP 1 finish>&build=solid|fabricated` for LP 1. */
+function initialState(params: URLSearchParams): ConfiguratorState | null {
+  const config = findConfig(params.get("config")); // an unknown id falls back to the chooser
+  if (!config) return null;
+  let state = defaultStateFor(config);
+  if (isLp1(config)) {
+    const finish = params.get("finish");
+    if (isLp1FinishId(finish)) state = withFinish(state, finish);
+    const build = params.get("build");
+    if (build === "solid" || build === "fabricated") state = withBuild(state, build);
+  }
+  return state;
+}
+
 export default function ConfiguratorPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const preselected = findConfig(searchParams.get("config")); // an unknown id falls back to the chooser
-
-  const [state, setState] = useState<ConfiguratorState | null>(
-    preselected ? defaultStateFor(preselected) : null
-  );
+  const [state, setState] = useState<ConfiguratorState | null>(() => initialState(searchParams));
   // Each artwork source keeps its own result, so the sign shown always belongs to the source selected.
   const [source, setSource] = useState<ArtworkSource>("upload");
   const [uploadShapes, setUploadShapes] = useState<THREE.Shape[] | null>(null);

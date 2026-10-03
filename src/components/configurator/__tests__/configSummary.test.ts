@@ -33,17 +33,30 @@ describe("formatConfigSummary", () => {
     expect(text).toContain("Depth:");
   });
 
-  it("leaves out what the configuration does not have: no glow or brightness on the unlit LP 1, no paint on the neon tube", () => {
+  it("leaves out what the configuration does not have: no glow or brightness on the unlit LP 1", () => {
     const lp1 = byId("lp-1-flat-cutout");
     const flat = formatConfigSummary(defaultStateFor(lp1), lp1, null);
     expect(flat).not.toMatch(/glow|brightness/i);
-    expect(flat).toContain("Paint color:");
+  });
 
+  it("names the LP 1 finish and build, and the colour only where the finish takes one", () => {
+    const lp1 = byId("lp-1-flat-cutout");
+    const steel = formatConfigSummary({ ...defaultStateFor(lp1), finish: "brushed-steel", build: "fabricated", depthMm: 50 }, lp1, null);
+    expect(steel).toContain("Finish: Brushed stainless steel");
+    expect(steel).toContain("Build: Fabricated (hollow)");
+    expect(steel).not.toContain("color:");
+    const acrylic = formatConfigSummary({ ...defaultStateFor(lp1), finish: "acrylic-colored", color: "#b4332a" }, lp1, null);
+    expect(acrylic).toContain("Build: Solid material");
+    expect(acrylic).toContain("Acrylic color: Red (#b4332a)");
+  });
+
+  it("keeps the paint colour for the neon letter (the back half of its side is painted) alongside glow and brightness", () => {
     const neon = byId("lp-11-n-faux-neon");
-    const tube = formatConfigSummary(defaultStateFor(neon), neon, null);
-    expect(tube).not.toContain("Paint color");
-    expect(tube).toContain("Glow color: White (#ffffff)");
-    expect(tube).toContain("LED brightness: 100%");
+    const text = formatConfigSummary(defaultStateFor(neon), neon, null);
+    expect(text).toContain("Paint color:");
+    expect(text).toContain("Glow color: White (#ffffff)");
+    expect(text).toContain("LED brightness: 100%");
+    expect(text).not.toContain("Finish:");
   });
 
   it("falls back to the bare hex for a custom colour", () => {

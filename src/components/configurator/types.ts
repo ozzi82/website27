@@ -1,6 +1,17 @@
 import type { LightConfig } from "../../data/configurations";
 import { DEFAULT_BACKGROUND, type BackgroundId } from "./backgrounds";
 import { DEFAULT_BRIGHTNESS } from "./brightness";
+import {
+  DEFAULT_LP1_BUILD,
+  DEFAULT_LP1_FINISH,
+  buildFor,
+  isLp1,
+  lp1DefaultDepth,
+  lp1DepthOptions,
+  nearestLp1Depth,
+  type Lp1Build,
+  type Lp1FinishId,
+} from "./lp1Materials";
 
 export type DayNight = "day" | "night";
 
@@ -18,6 +29,15 @@ export interface ConfiguratorState {
   brightness: number;
   /** The wall the sign is mounted on. */
   background: BackgroundId;
+  /** LP 1 only: the material of the flat cutout letter. */
+  finish: Lp1FinishId;
+  /** LP 1 only: solid (thinner) or fabricated (hollow, thicker). */
+  build: Lp1Build;
+}
+
+/** The depths offered for this configuration and state: LP 1 follows its build, the rest their brochure list. */
+export function depthOptionsFor(config: LightConfig, state: Pick<ConfiguratorState, "build">): number[] {
+  return isLp1(config) ? lp1DepthOptions(state.build) : config.depthOptionsMm;
 }
 
 export const DEFAULT_PAINT_COLOR = "#4b5059";
@@ -25,13 +45,14 @@ export const DEFAULT_GLOW_COLOR = "#ffffff";
 
 const PREFERRED_DEPTH_MM: Record<LightConfig["family"], number> = {
   "Flat cutout": 5,
-  "Stainless steel": 50,
+  "Stainless steel": 75,
   "Block acrylic": 30,
 };
 
 export function defaultStateFor(config: LightConfig): ConfiguratorState {
-  const preferred = PREFERRED_DEPTH_MM[config.family];
-  const depthMm = config.depthOptionsMm.reduce((best, d) =>
+  const preferred = isLp1(config) ? lp1DefaultDepth(DEFAULT_LP1_BUILD) : PREFERRED_DEPTH_MM[config.family];
+  const options = isLp1(config) ? lp1DepthOptions(DEFAULT_LP1_BUILD) : config.depthOptionsMm;
+  const depthMm = options.reduce((best, d) =>
     Math.abs(d - preferred) < Math.abs(best - preferred) ? d : best
   );
   return {
@@ -42,7 +63,21 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
     dayNight: "day",
     brightness: DEFAULT_BRIGHTNESS,
     background: DEFAULT_BACKGROUND,
+    finish: DEFAULT_LP1_FINISH,
+    build: DEFAULT_LP1_BUILD,
   };
+}
+
+/** Changes the LP 1 finish; a build the new finish cannot have falls back to solid, and the depth to its nearest step. */
+export function withFinish(state: ConfiguratorState, finish: Lp1FinishId): ConfiguratorState {
+  const build = buildFor(finish, state.build);
+  return { ...state, finish, build, depthMm: nearestLp1Depth(build, state.depthMm) };
+}
+
+/** Changes the LP 1 build (solid or fabricated) and moves the depth to the nearest step of that build. */
+export function withBuild(state: ConfiguratorState, build: Lp1Build): ConfiguratorState {
+  const next = buildFor(state.finish, build);
+  return { ...state, build: next, depthMm: nearestLp1Depth(next, state.depthMm) };
 }
 
 /**
@@ -54,7 +89,9 @@ export function switchConfig(prev: ConfiguratorState, next: LightConfig): Config
   const fresh = defaultStateFor(next);
   return {
     ...fresh,
-    depthMm: next.depthOptionsMm.includes(prev.depthMm) ? prev.depthMm : fresh.depthMm,
+    depthMm: depthOptionsFor(next, prev).includes(prev.depthMm) ? prev.depthMm : fresh.depthMm,
+    finish: prev.finish,
+    build: prev.build,
     color: prev.color,
     glowColor: prev.glowColor,
     brightness: prev.brightness,

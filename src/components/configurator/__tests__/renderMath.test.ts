@@ -8,7 +8,8 @@ import {
   NOMINAL_LETTER_HEIGHT_MM,
   depthRatioFor,
   sideBandThickness,
-  tubeRadius,
+  neonRoundRadius,
+  litBandThickness,
   wallGapFor,
 } from "../renderMath";
 
@@ -73,15 +74,26 @@ describe("estimateHalfStroke", () => {
   });
 });
 
-describe("tubeRadius", () => {
-  it("is limited to half the depth so the rounded profile always fits", () => {
-    expect(tubeRadius(0.05, 10)).toBeCloseTo(0.025, 6);
+describe("neonRoundRadius", () => {
+  it("never exceeds half the thickness, so the rounding fits", () => {
+    expect(neonRoundRadius(0.05, 3, 10)).toBeCloseTo(0.025, 6);
+  });
+
+  it("is limited by the 0.5 in (12.7 mm) tool, scaled to the nominal 300 mm letter", () => {
+    expect(neonRoundRadius(10, 3, 10)).toBeCloseTo((12.7 / 300) * 3, 6);
   });
 
   it("stays below the half-stroke so the front cap never inverts", () => {
-    const r = tubeRadius(1, 0.3);
+    const r = neonRoundRadius(10, 30, 0.3);
     expect(r).toBeGreaterThan(0.2);
     expect(r).toBeLessThan(0.3);
+  });
+});
+
+describe("litBandThickness", () => {
+  it("is the stated share of the depth, else the nominal brochure band", () => {
+    expect(litBandThickness(0.4, 3, 0.5)).toBeCloseTo(0.2, 6);
+    expect(litBandThickness(0.4, 3)).toBeCloseTo(sideBandThickness(0.4, 3), 6);
   });
 });
 

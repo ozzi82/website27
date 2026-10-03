@@ -11,6 +11,8 @@ import { GlowMaterial, PaintedMaterial, SideLitMaterial } from "./SceneMaterials
 import { depthRatioFor, litBandThickness, wallGapFor } from "./renderMath";
 import { brightnessFactor } from "./brightness";
 import { emitsLight, type ConfiguratorState } from "./types";
+import Lp1Material from "./Lp1Material";
+import { isLp1 } from "./lp1Materials";
 import { glowParts, type WallSpill } from "./glowParts";
 
 interface ConfigSceneProps {
@@ -57,14 +59,17 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
 
   // material-0 = front/back caps = the face; material-1 = extruded sides —
   // ExtrudeGeometry's own default group convention (see useSignGeometry.ts).
-  const face =
-    parts.face ? (
+  const flat = isLp1(config);
+  const face = flat ? (
+    <Lp1Material attach="material-0" finish={state.finish} color={state.color} part="front" />
+  ) : parts.face ? (
       <GlowMaterial attach="material-0" glow={state.glowColor} level={level} />
     ) : (
       <PaintedMaterial attach="material-0" color={state.color} />
     );
-  const sides =
-    parts.side !== "none" ? (
+  const sides = flat ? (
+    <Lp1Material attach="material-1" finish={state.finish} color={state.color} part="side" />
+  ) : parts.side !== "none" ? (
       <SideLitMaterial
         attach="material-1"
         color={state.color}
