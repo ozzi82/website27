@@ -7,27 +7,27 @@ import { cn } from "@project/lib/utils";
  * no dimensions, no depths, not to scale. Inline SVG, theme-aware (currentColor / design tokens), scales with its container.
  */
 
-const W = 240;
-const H = 150;
-const WALL_X = 20;
-const CY = 75;
-const STROKE_H = 60;
-const TOP = CY - STROKE_H / 2;
-const BOTTOM = CY + STROKE_H / 2;
+export const W = 240;
+export const H = 150;
+export const WALL_X = 20;
+export const CY = 75;
+export const STROKE_H = 60;
+export const TOP = CY - STROKE_H / 2;
+export const BOTTOM = CY + STROKE_H / 2;
 
 /** A line with an arrowhead at (x2, y2). */
-function Ray({ x1, y1, x2, y2, faint = false }: { x1: number; y1: number; x2: number; y2: number; faint?: boolean }) {
+export function Ray({ x1, y1, x2, y2, faint = false }: { x1: number; y1: number; x2: number; y2: number; faint?: boolean }) {
   const a = Math.atan2(y2 - y1, x2 - x1);
   const head = (d: number) => `${x2 - 6.5 * Math.cos(a + d)},${y2 - 6.5 * Math.sin(a + d)}`;
   return (
     <g className="stroke-primary" strokeWidth={1.6} fill="none" strokeLinecap="round" strokeLinejoin="round" opacity={faint ? 0.45 : 1}>
-      <line x1={x1} y1={y1} x2={x2} y2={y2} />
+      <line x1={x1} y1={y1} x2={x2} y2={y2} className="ld-ray" />
       <polyline points={`${head(0.45)} ${x2},${y2} ${head(-0.45)}`} />
     </g>
   );
 }
 
-function Wall({ uid }: { uid: string }) {
+export function Wall({ uid }: { uid: string }) {
   return (
     <g>
       <rect x={8} y={6} width={WALL_X - 8} height={H - 12} fill={`url(#${uid}-hatch)`} />
@@ -36,7 +36,7 @@ function Wall({ uid }: { uid: string }) {
   );
 }
 
-function Defs({ uid }: { uid: string }) {
+export function Defs({ uid }: { uid: string }) {
   return (
     <defs>
       <pattern id={`${uid}-hatch`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -54,7 +54,7 @@ function Defs({ uid }: { uid: string }) {
   );
 }
 
-const label = "font-mono fill-muted-foreground";
+export const label = "font-mono fill-muted-foreground";
 
 export type LightingKind = "front" | "halo" | "front-back";
 
@@ -76,8 +76,8 @@ export function LightingDiagram({ kind, className }: { kind: LightingKind; class
     <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={LIGHTING_LABEL[kind]} className={cn("w-full h-auto block text-foreground", className)} data-diagram={`lighting-${kind}`}>
       <Defs uid={uid} />
       <Wall uid={uid} />
-      {litBack && <rect x={WALL_X} y={TOP - 22} width={back - WALL_X} height={STROKE_H + 44} fill={`url(#${uid}-glow-l)`} />}
-      {litFace && <rect x={face - 46} y={TOP} width={46} height={STROKE_H} fill={`url(#${uid}-glow-r)`} />}
+      {litBack && <rect x={WALL_X} y={TOP - 22} width={back - WALL_X} height={STROKE_H + 44} fill={`url(#${uid}-glow-l)`} className="ld-glow" />}
+      {litFace && <rect x={face - 46} y={TOP} width={46} height={STROKE_H} fill={`url(#${uid}-glow-r)`} className="ld-glow" />}
       {/* body */}
       <rect x={back} y={TOP} width={face - back} height={STROKE_H} className="fill-foreground/[0.04]" />
       <line x1={back} y1={TOP} x2={face} y2={TOP} className="stroke-foreground/80" strokeWidth={2.5} />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { PrimaryCta, SecondaryCta } from "../CtaButton";
-import { CTA_SECONDARY } from "../../lib/cta";
+import { ArrowLink, PrimaryCta, SecondaryCta } from "../CtaButton";
+import { CTA_LINKS, CTA_SECONDARY } from "../../lib/cta";
 
 const VIDEO_ID = "QsF9N8ym39k";
 const VIDEO_SRC = `https://www.youtube.com/embed/${VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&controls=0&disablekb=1&modestbranding=1&playsinline=1&rel=0`;
@@ -78,9 +78,12 @@ export default function Hero() {
           <p className="text-base md:text-lg text-foreground/80 max-w-xl">
             Ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3">
-            <PrimaryCta />
-            <SecondaryCta label={CTA_SECONDARY.label} to={CTA_SECONDARY.to} />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col sm:flex-row gap-3">
+              <PrimaryCta />
+              <SecondaryCta label={CTA_SECONDARY.label} to={CTA_SECONDARY.to} />
+            </div>
+            <ArrowLink label="Build your sign in 3D" to={CTA_LINKS.tryConfigurator.to} className="text-sm sm:justify-end" />
           </div>
         </div>
       </div>

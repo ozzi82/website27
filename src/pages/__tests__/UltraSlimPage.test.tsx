@@ -102,7 +102,19 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
   it("explains face, halo and face + halo with the section drawings, and the other variants in words", () => {
     const { main } = renderAt(PATH);
     const kinds = [...main.querySelectorAll("[data-diagram]")].map((d) => d.getAttribute("data-diagram"));
-    expect(kinds).toEqual(["lighting-front", "lighting-halo", "lighting-front-back"]);
+    // The three section drawings, then one animated, data-driven drawing per other variant, then stand-off versus flush.
+    expect(kinds).toEqual([
+      "lighting-front",
+      "lighting-halo",
+      "lighting-front-back",
+      "config-lp-11-bs-back-side-lit",
+      "config-lp-11-fs-front-side-lit",
+      "config-lp-11-s-side-lit",
+      "config-lp-11-n-faux-neon",
+      "config-lp-11-c-conical",
+      "mount-standoff",
+      "mount-flush",
+    ]);
     const section = main.querySelector("#illumination")!;
     for (const t of ["Face lit", "Halo (back) lit", "Face + halo", "Partial back side-lit", "Face-lit + partial front side-lit", "Full side-lit", "Faux neon", "Conical"]) {
       expect(section.textContent).toContain(t);

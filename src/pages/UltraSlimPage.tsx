@@ -13,6 +13,8 @@ import SystemCard from "../components/SystemCard";
 import DepthComparison from "../components/DepthComparison";
 import DiagramCard from "../components/diagrams/DiagramCard";
 import { LightingDiagram } from "../components/diagrams/LetterDiagrams";
+import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
+import { configurations } from "../data/configurations";
 import { ArrowLink, PrimaryCta, SecondaryCta } from "../components/CtaButton";
 import { CHANNEL_LETTERS_PATH, CUSTOM_FABRICATION_PATH, classicSystems } from "../data/channelLetters";
 import {
@@ -220,14 +222,29 @@ export default function UltraSlimPage() {
           <p className="mono-label text-muted-foreground mt-4">Concept section diagrams, not to scale.</p>
 
           <ul className="mt-10 md:mt-14 grid sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-border">
-            {ultraSlimOtherLighting.map((o) => (
+            {ultraSlimOtherLighting.map((o) => {
+              const config = configurations.find((c) => c.code === `LP 11-${o.code}`);
+              return (
               <li key={o.code} className="border-r border-b border-border p-5 md:p-6">
+                {config && (
+                  <div className="corner-marks border border-border bg-background/60 p-3 mb-4 max-w-xs">
+                    <ConfigLightDiagram config={config} />
+                  </div>
+                )}
                 <p className="font-heading text-4xl font-bold text-primary leading-none">{o.code}</p>
                 <h3 className="text-xl md:text-2xl uppercase mt-2">{o.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2 max-w-xs">{o.text}</p>
               </li>
-            ))}
+              );
+            })}
           </ul>
+
+          <div className="mt-10 md:mt-14">
+            <p className="mono-label text-primary mb-2">Mounting</p>
+            <h3 className="text-2xl md:text-4xl uppercase mb-6">Stand-off or flush mount.</h3>
+            <StandoffVsFlush />
+            <p className="mono-label text-muted-foreground mt-4">Concept section diagrams, not to scale.</p>
+          </div>
 
           <div className="mt-10 md:mt-14 max-w-3xl">
             <p className="mono-label text-primary mb-4">Illustrative rendering / day and night</p>
@@ -306,9 +323,9 @@ export default function UltraSlimPage() {
           <ul className="grid md:grid-cols-3 gap-5 md:gap-6">
             {classicSystems.map((s) => (
               <li key={s.id}>
-                <Link to={s.page} className="group grid grid-cols-[7.5rem_1fr] h-full border border-border bg-card/50 hover:border-primary/60 transition-colors">
+                <Link to={s.page} className="group grid grid-cols-[7.5rem_minmax(0,1fr)] h-full border border-border bg-card/50 hover:border-primary/60 transition-colors">
                   <img src={s.img} alt={`${s.code} ${s.subtitle}`} width={852} height={1331} loading="lazy" decoding="async" className="w-full h-full min-h-[8.5rem] object-cover" />
-                  <div className="p-5 border-l border-border flex flex-col">
+                  <div className="p-5 border-l border-border flex flex-col min-w-0">
                     <p className="mono-label text-primary">{s.code}</p>
                     <h3 className="text-xl mt-1 leading-tight">{s.subtitle}</h3>
                     <p className="text-sm text-muted-foreground mt-2">{s.lights}. Depths: {s.depths}.</p>

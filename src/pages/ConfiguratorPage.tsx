@@ -26,7 +26,10 @@ import { lineStackFactor, strokeHeightRatio, thinStrokeAdvice } from "../compone
 import { isLp1, isLp1FinishId } from "../components/configurator/lp1Materials";
 import { configurations } from "../data/configurations";
 import { CTA_PRIMARY } from "../lib/cta";
-import { CONFIGURATOR_META, CONFIGURATOR_NAME } from "../lib/configuratorMeta";
+import { SITE_URL } from "../lib/seo";
+import { CONFIGURATOR_META, CONFIGURATOR_NAME, configuratorJsonLd } from "../lib/configuratorMeta";
+
+const JSON_LD = configuratorJsonLd(SITE_URL);
 
 function findConfig(id: string | null) {
   return configurations.find((c) => c.id === id);
@@ -166,7 +169,7 @@ export default function ConfiguratorPage() {
   if (!webglSupported) {
     return (
       <div className="pt-28 pb-24 max-w-2xl mx-auto px-6 text-center">
-        <Seo title={CONFIGURATOR_META.title} description={CONFIGURATOR_META.description} path={CONFIGURATOR_META.path} />
+        <Seo title={CONFIGURATOR_META.title} description={CONFIGURATOR_META.description} path={CONFIGURATOR_META.path} jsonLd={JSON_LD} />
         <h1 className="text-3xl font-bold mb-4">3D preview isn't supported in this browser</h1>
         <p className="text-muted-foreground mb-6">
           You can still send us your logo directly and we'll quote it by hand.
@@ -178,7 +181,7 @@ export default function ConfiguratorPage() {
     );
   }
 
-  const seo = <Seo title={CONFIGURATOR_META.title} description={CONFIGURATOR_META.description} path={CONFIGURATOR_META.path} />;
+  const seo = <Seo title={CONFIGURATOR_META.title} description={CONFIGURATOR_META.description} path={CONFIGURATOR_META.path} jsonLd={JSON_LD} />;
 
   // Preview stage: the 3D preview and every option side by side, sized to the viewport so nothing needs scrolling.
   if (config && state && (source === "text" || uploadShapes)) {

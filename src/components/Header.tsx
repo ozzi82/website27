@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
-import { PrimaryCta } from "./CtaButton";
+import { BuildYourSignButton, PrimaryCta } from "./CtaButton";
 import { primaryNav, productNav, productNavExtras } from "../data/nav";
 import { EMAIL, PHONE_DISPLAY, PHONE_NUMBER, WHATSAPP_URL } from "../lib/contact";
 
@@ -68,6 +68,7 @@ export default function Header() {
               <Mail aria-hidden="true" className="w-4 h-4" />
             </a>
           </div>
+          <BuildYourSignButton className="hidden lg:inline-flex" />
           <PrimaryCta size="md" arrow={false} className="hidden sm:inline-flex shadow-sm" />
           <button
             type="button"
@@ -84,6 +85,7 @@ export default function Header() {
 
       {open && <nav id="mobile-nav" aria-label="Mobile" className="lg:hidden border-t border-border bg-background px-4 pb-5 pt-3 max-h-[calc(100vh-4rem)] overflow-y-auto">
         <PrimaryCta size="md" arrow={false} className="w-full h-12" onClick={close} />
+        <BuildYourSignButton className="w-full h-12 mt-2" onClick={close} />
         <p className="pt-5 pb-1 mono-label text-primary">Products</p>
         {productNav.map((item) => (
           <Link key={item.label} to={item.to} onClick={close} className="block py-2.5 text-base text-foreground/90 hover:text-foreground border-b border-border/60">

@@ -64,7 +64,7 @@ export default function UploadDropzone({ onParsed }: UploadDropzoneProps) {
       <label htmlFor="artwork-upload" className="block mb-3 font-medium">
         Upload your logo (SVG or PDF)
       </label>
-      <input id="artwork-upload" type="file" accept=".svg,.pdf" onChange={handleChange} className="mx-auto" />
+      <input id="artwork-upload" type="file" accept=".svg,.pdf" onChange={handleChange} className="mx-auto block w-full max-w-full min-w-0 text-sm" />
       {loading && <p className="text-sm text-muted-foreground mt-3">Reading file…</p>}
       {error && (
         <p className="text-sm text-destructive mt-3" role="alert">

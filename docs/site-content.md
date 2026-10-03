@@ -73,6 +73,8 @@ Ultra-slim cast acrylic letters and classic trimless channel letters, manufactur
 
 [Request Wholesale Pricing](/contact) · [Explore Products](/#products)
 
+[Build your sign in 3D](/configurator)
+
 - **UL 48 Listed:** Electrical sign certification
 - **48 H:** Tailored quotes
 - **3–4 WK:** Typical production + delivery
@@ -161,6 +163,21 @@ F face · B back · S side · N neon · C conical
 - *[Image: LP 11-S Block Acrylic Full Side-lit: sample letter]* — S — Full side — (Links to: /light-effects/lp-11-s-side-lit)
 - *[Image: LP 11-N Block Acrylic Faux Neon: sample letter]* — N — Faux neon — (Links to: /light-effects/lp-11-n-faux-neon)
 - *[Image: LP 11-C Block Acrylic Conical Profile: sample letter]* — C — Conical — (Links to: /light-effects/lp-11-c-conical)
+
+Build Your Sign · A 3D sign configurator built for sign companies
+
+#### Design it. See it lit. Send it for a quote.
+
+- Upload your artwork (SVG or PDF) or just type your text
+- Choose from the 12 EdgeLuxe letter systems
+- Switch between day and night, dim the LEDs, try different walls
+- Send the configuration with your wholesale pricing request
+
+[Open the configurator](/configurator)
+
+The preview is illustrative; your quote is based on the shop drawings.
+
+*[Image: The configurator preview: the letters Sunlite glowing cyan at night on a concrete wall]*
 
 Built for the trade
 
@@ -457,7 +474,7 @@ Please contact us directly to discuss white-label and neutral shipping options.
 
 Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
-[Request Wholesale Pricing](/contact)
+[Request Wholesale Pricing](/contact) · [Or build your sign in 3D first](/configurator)
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
@@ -572,7 +589,7 @@ Related
 
 Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
-[Request Wholesale Pricing](/contact)
+[Request Wholesale Pricing](/contact) · [Or build your sign in 3D first](/configurator)
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
@@ -683,7 +700,7 @@ Related
 
 Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
-[Request Wholesale Pricing](/contact)
+[Request Wholesale Pricing](/contact) · [Or build your sign in 3D first](/configurator)
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
@@ -819,7 +836,7 @@ Related
 
 Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
-[Request Wholesale Pricing](/contact)
+[Request Wholesale Pricing](/contact) · [Or build your sign in 3D first](/configurator)
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
@@ -839,6 +856,8 @@ Wholesale quote
 Send your artwork, dimensions and project details. We'll return a tailored quote within 48 hours.
 
 Trade customers only · No retail sales
+
+Want to see your logo first? [Build your sign in 3D](/configurator) and send the configuration with this form.
 
 Helps us quote fast
 
@@ -1011,7 +1030,7 @@ LP 11-N
 
 ##### Faux Neon
 
-Routed to simulate a neon glass tube, face-lit.
+Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.
 
 - **Depth:** 30 mm
 - **Mounting:** Mounts flat
@@ -1074,8 +1093,22 @@ Concept section diagrams, not to scale.
 - BS — Partial back side-lit — Flush-mount. A band of light glows along the back edge of the side wall.
 - FS — Face-lit + partial front side-lit — Flush-mount. The face glows and a thin band of light also glows along the front edge of the side wall.
 - S — Full side-lit — The whole side wall glows while the painted face stays solid.
-- N — Faux neon — Block acrylic routed to simulate a neon glass tube, face-lit.
+- N — Faux neon — Block acrylic with the front edge routed round (up to 0.5" / 12.7 mm, at most half the thickness) to simulate a neon glass tube. The face and the front half of the side wall glow.
 - C — Conical — A tapered profile so the lit face can be much narrower than the body, for fine strokes and serifs.
+
+Mounting
+
+##### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+
+Concept section diagrams, not to scale.
 
 Illustrative rendering / day and night
 
@@ -1176,7 +1209,7 @@ Related
 
 Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
-[Request Wholesale Pricing](/contact)
+[Request Wholesale Pricing](/contact) · [Or build your sign in 3D first](/configurator)
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
@@ -1563,7 +1596,7 @@ Related
 
 Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
-[Request Wholesale Pricing](/contact)
+[Request Wholesale Pricing](/contact) · [Or build your sign in 3D first](/configurator)
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
@@ -1708,7 +1741,7 @@ Letter systems
 
 Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
-[Request Wholesale Pricing](/contact)
+[Request Wholesale Pricing](/contact) · [Or build your sign in 3D first](/configurator)
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
@@ -1752,7 +1785,7 @@ Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.0
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in wood, gold mirror, brushed steel, corten and acrylic finishes.
 
 [Build Your Sign](/configurator?config=lp-1-flat-cutout)
 
@@ -1796,6 +1829,8 @@ Halo-illuminated fabricated stainless steel letters floating off the wall on sta
 
 Fabricated stainless steel letters, halo-illuminated from the back on standoff spacers so light washes the wall behind each letter. The LEDs are arranged to avoid reflection of the diodes on the mounting surface, for a soft, even halo.
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Illumination:** Halo illuminated from the back with standoff spacers; LEDs arranged to avoid reflection of diodes on the mounting surface
@@ -1811,9 +1846,23 @@ Fabricated stainless steel letters, halo-illuminated from the back on standoff s
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-3-1-standoff-halo)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+
+Concept section diagrams, not to scale. LP 3.1 is mounted on standoffs.
 
 Previous
 
@@ -1855,6 +1904,8 @@ Flush-mounted stainless steel letters with a partial side-lit halo effect.
 
 Fabricated stainless steel letters mounted flush to the wall, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39" / 10 mm) that glows around the edge of each letter.
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Illumination:** Partial side-lit flush-mounted halo effect
@@ -1871,9 +1922,23 @@ Fabricated stainless steel letters mounted flush to the wall, with a partially s
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-3-2-flush-mount)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+
+Concept section diagrams, not to scale. LP 3.2 is flush-mounted.
 
 Previous
 
@@ -1915,6 +1980,8 @@ Face-lit, trimless stainless steel channel letters for façades and canopies.
 
 Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter that suits building façade and canopy signage at larger scale.
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Materials:** Thick gauge stainless steel returns and back welded together; step-router acrylic face, trimless
@@ -1931,7 +1998,7 @@ Thick gauge stainless steel returns and back, welded together, with a step-route
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-5-trimless-face-lit)
 
@@ -1975,6 +2042,8 @@ Solid cast block acrylic letters with embedded LEDs for uniform face lighting.
 
 Cast block acrylic letters with LEDs embedded in the body for uniform face lighting, from letters as small as 2" tall. Epoxy-sealed to IP67, so they are waterproof, dust-proof and maintenance-free.
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
@@ -1992,7 +2061,7 @@ Cast block acrylic letters with LEDs embedded in the body for uniform face light
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-f-face-lit)
 
@@ -2036,6 +2105,8 @@ Block acrylic letters with a uniform halo on the wall behind, on standoff spacer
 
 Cast block acrylic letters with embedded LEDs that wash the wall behind each letter with a uniform halo, mounted on standoff spacers. Available in four depths from 0.39" to 1.2".
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Materials:** 0.39"-1.2" (10-30 mm) cast block acrylic
@@ -2053,9 +2124,23 @@ Cast block acrylic letters with embedded LEDs that wash the wall behind each let
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-b-back-lit)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+
+Concept section diagrams, not to scale. LP 11-B is mounted on standoffs.
 
 Previous
 
@@ -2097,6 +2182,8 @@ Face-lit and halo-lit in one letter: a glowing face plus a wall halo.
 
 Cast block acrylic letters that combine uniform face lighting with a halo on the wall behind, on standoff spacers. Epoxy-sealed to IP67 and maintenance-free.
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
@@ -2114,9 +2201,23 @@ Cast block acrylic letters that combine uniform face lighting with a halo on the
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-fb-face-halo)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+
+Concept section diagrams, not to scale. LP 11-FB is mounted on standoffs.
 
 Previous
 
@@ -2158,6 +2259,8 @@ Flush-mount letters with light glowing from the back edge of the side wall.
 
 Cast block acrylic letters mounted flush to the wall, with embedded LEDs for a uniform partial back side-lit effect: a band of light glows around the back edge of each letter.
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
@@ -2175,9 +2278,23 @@ Cast block acrylic letters mounted flush to the wall, with embedded LEDs for a u
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-bs-back-side-lit)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+
+Concept section diagrams, not to scale. LP 11-BS is flush-mounted.
 
 Previous
 
@@ -2219,6 +2336,8 @@ Flush-mount letters with a glowing face and a thin band of light along the front
 
 Cast block acrylic letters mounted flush to the wall, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
@@ -2236,9 +2355,23 @@ Cast block acrylic letters mounted flush to the wall, with embedded LEDs for uni
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-fs-front-side-lit)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+
+Concept section diagrams, not to scale. LP 11-FS is flush-mounted.
 
 Previous
 
@@ -2280,6 +2413,8 @@ Letters whose entire side wall glows, with an opaque painted face.
 
 Cast block acrylic letters with embedded LEDs for uniform full side lighting: the whole side wall of each letter glows while the painted face stays solid.
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
@@ -2297,7 +2432,7 @@ Cast block acrylic letters with embedded LEDs for uniform full side lighting: th
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-s-side-lit)
 
@@ -2321,7 +2456,7 @@ Block Acrylic Faux Neon
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-n-faux-neon
 - Title: EdgeLuxe LP 11-N — Block Acrylic Faux Neon | Sunlite Signs
-- Meta description: Routed block acrylic that simulates the look of a neon glass tube, face-lit. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Block acrylic with a routed, rounded front edge that simulates a neon glass tube, lit on the face and the front half of the side. UL Listed, 3-year warranty, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2331,7 +2466,7 @@ LP 11-N / Block acrylic
 
 Block Acrylic Faux Neon
 
-Routed block acrylic that simulates the look of a neon glass tube, face-lit.
+Block acrylic with a routed, rounded front edge that simulates a neon glass tube, lit on the face and the front half of the side.
 
 [Request Wholesale Pricing](/contact)
 
@@ -2339,12 +2474,15 @@ Routed block acrylic that simulates the look of a neon glass tube, face-lit.
 
 #### About this system
 
-Cast block acrylic routed into a rounded profile to simulate a neon glass tube, with embedded LEDs for uniform face lighting. The neon look without glass, with IP67 sealing and no maintenance.
+Cast block acrylic with the front edge routed round (up to 0.5" / 12.7 mm, never more than half the thickness) to simulate a neon glass tube. Embedded LEDs light the face and the front half of the side wall; the back half of the side stays unlit. The neon look without glass, with IP67 sealing and no maintenance.
+
+Where the light goes · concept section, not to scale
 
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
-- **Illumination:** Embedded LEDs for uniform face-lit, routed to simulate neon glass tube
+- **Illumination:** Embedded LEDs light the face and the front half of the side wall; the back half of the side is unlit
+- **Edge profile:** Front edge routed round to simulate a neon glass tube: up to 0.5" (12.7 mm), at most half the thickness
 - **Depth:** Standard 1.2" (30 mm) for durability and optimal light diffusion
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
@@ -2358,7 +2496,7 @@ Cast block acrylic routed into a rounded profile to simulate a neon glass tube, 
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-n-faux-neon)
 
@@ -2402,6 +2540,8 @@ Face-lit letters with a tapered conical profile for narrow strokes and serifs.
 
 Cast block acrylic letters with a conical profile that lets the lit face be much narrower than the body, for fine strokes and serif typefaces. The minimum body stroke width is 0.47" (12 mm), but the stroke width on the face can be as narrow as 0.12" (3 mm).
 
+Where the light goes · concept section, not to scale
+
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
@@ -2419,7 +2559,7 @@ Cast block acrylic letters with a conical profile that lets the lit face be much
 
 See this system with your logo.
 
-Upload your artwork or type your text and preview it in 3D.
+Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-c-conical)
 

@@ -203,3 +203,32 @@
   text-align: center !important;
   padding: 2rem 0 !important;
 }
+
+/* Animated light-direction diagrams (components/diagrams): rays flow and glows breathe, in CSS only. */
+@keyframes ld-flow {
+  to {
+    stroke-dashoffset: -14;
+  }
+}
+@keyframes ld-breathe {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.ld-ray {
+  stroke-dasharray: 5 4;
+  animation: ld-flow 1.1s linear infinite;
+}
+.ld-glow {
+  animation: ld-breathe 2.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ld-ray,
+  .ld-glow {
+    animation: none;
+  }
+}

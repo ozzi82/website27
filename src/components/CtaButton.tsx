@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Box } from "lucide-react";
 import { Button } from "@project/components/ui/button";
 import { cn } from "@project/lib/utils";
-import { CTA_PRIMARY } from "../lib/cta";
+import { CTA_LINKS, CTA_PRIMARY } from "../lib/cta";
 
 interface CtaButtonProps {
   /** Visual size: "lg" for page-level calls, "md" for the header. */
@@ -70,5 +70,26 @@ export function ArrowLink({ label, to, className }: { label: string; to: string;
       {label}
       <ArrowRight aria-hidden="true" className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
     </Link>
+  );
+}
+
+/** Highlighted entry to the 3D configurator ("Build Your Sign"): an outlined button that stands out from the quiet nav links. */
+export function BuildYourSignButton({ size = "md", className, onClick }: { size?: "md" | "lg"; className?: string; onClick?: () => void }) {
+  return (
+    <Button
+      asChild
+      size="lg"
+      variant="outline"
+      className={cn(
+        "uppercase tracking-wider font-semibold bg-primary/10 border-primary text-primary hover:bg-primary hover:text-primary-foreground",
+        size === "lg" ? "h-14 px-8" : "h-10 px-4 text-xs",
+        className,
+      )}
+    >
+      <Link to={CTA_LINKS.tryConfigurator.to} onClick={onClick}>
+        <Box aria-hidden="true" />
+        {CTA_LINKS.tryConfigurator.label}
+      </Link>
+    </Button>
   );
 }

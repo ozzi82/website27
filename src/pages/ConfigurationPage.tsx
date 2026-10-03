@@ -7,6 +7,8 @@ import Seo from "../components/Seo";
 import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
 import BuildYourSign from "../components/BuildYourSign";
+import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
+import { emitsLight } from "../components/configurator/types";
 
 export default function ConfigurationPage() {
   const { id } = useParams();
@@ -82,6 +84,15 @@ export default function ConfigurationPage() {
             <h2 className="text-3xl mb-4">About this system</h2>
             <p className="text-muted-foreground leading-relaxed">{c.description}</p>
 
+            {emitsLight(c) && (
+              <figure className="mt-8 border border-border bg-card/50 max-w-md">
+                <div className="corner-marks bg-background/60 p-4">
+                  <ConfigLightDiagram config={c} />
+                </div>
+                <figcaption className="px-4 py-2.5 border-t border-border mono-label text-muted-foreground">Where the light goes · concept section, not to scale</figcaption>
+              </figure>
+            )}
+
             <h2 className="text-3xl mt-10 mb-4">Specifications</h2>
             <dl className="divide-y divide-border border-y border-border">
               {c.specs.map((s) => (
@@ -93,10 +104,28 @@ export default function ConfigurationPage() {
             </dl>
 
             <div className="mt-8">
-              <BuildYourSign variant="inline" configId={c.id} title="See this system with your logo." text="Upload your artwork or type your text and preview it in 3D." />
+              <BuildYourSign
+                variant="inline"
+                configId={c.id}
+                title="See this system with your logo."
+                text={
+                  c.family === "Flat cutout"
+                    ? "Upload your artwork or type your text and preview it in wood, gold mirror, brushed steel, corten and acrylic finishes."
+                    : "Upload your artwork or type your text and preview it in 3D, day and night."
+                }
+              />
             </div>
           </div>
         </div>
+
+        {(c.mount === "standoff" || c.mount === "flush") && (
+          <section className="mt-16" aria-labelledby="mount-explainer">
+            <p className="mono-label text-primary mb-3">Mounting</p>
+            <h2 id="mount-explainer" className="text-3xl md:text-4xl mb-6">Stand-off or flush mount.</h2>
+            <StandoffVsFlush />
+            <p className="mono-label text-muted-foreground mt-4">Concept section diagrams, not to scale. {c.code} is {c.mount === "standoff" ? "mounted on standoffs" : "flush-mounted"}.</p>
+          </section>
+        )}
 
         <div className="grid grid-cols-2 border border-border mt-16 rounded-xl overflow-hidden">
           <Link to={`/light-effects/${prev.id}`} className="p-6 hover:bg-card transition-colors">

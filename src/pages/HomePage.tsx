@@ -5,6 +5,7 @@ import TrustStrip from "../components/home/TrustStrip";
 import ProductsSection from "../components/home/ProductsSection";
 import TrustBadgeSection from "../components/home/TrustBadgeSection";
 import UltraSlimSection from "../components/home/UltraSlimSection";
+import ConfiguratorShowcase from "../components/home/ConfiguratorShowcase";
 import OutsourcingSection from "../components/home/OutsourcingSection";
 import ManufacturingSection from "../components/home/ManufacturingSection";
 import ProjectsSection from "../components/home/ProjectsSection";
@@ -39,7 +40,7 @@ const jsonLd = {
 };
 
 /**
- * Homepage (brief section 17, ultra-slim first per the owner taxonomy): hero, capability strip, products, ultra-slim LP 11 series, why outsource,
+ * Homepage (brief section 17, ultra-slim first per the owner taxonomy): hero, capability strip, products, ultra-slim LP 11 series, "Build Your Sign" configurator showcase, why outsource,
  * manufacturing, projects, EdgeLuxe letter systems (+ configurator link), process, trade-only statement, FAQ, final CTA.
  */
 export default function HomePage() {
@@ -62,6 +63,7 @@ export default function HomePage() {
       <ProductsSection />
       <TrustBadgeSection />
       <UltraSlimSection />
+      <ConfiguratorShowcase />
       <OutsourcingSection />
       <ManufacturingSection />
       <ProjectsSection />

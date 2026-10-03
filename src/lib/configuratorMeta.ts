@@ -11,3 +11,24 @@ export const CONFIGURATOR_META = {
   description: "Upload your logo or type your text and see it rendered as a 3D channel-letter sign before you request wholesale pricing.",
   path: CONFIGURATOR_PATH,
 } as const;
+
+/** Short pitch used by the showcase, the promo modules and the quote hand-over. Modest by design: no comparative claims. */
+export const CONFIGURATOR_TAGLINE = "A 3D sign configurator built for sign companies";
+
+/** schema.org WebApplication for /configurator (rendered by the page's <Seo> and written into the prerendered shell). */
+export function configuratorJsonLd(siteUrl: string): object {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: CONFIGURATOR_NAME,
+    alternateName: "Sunlite 3D sign configurator",
+    url: `${siteUrl}${CONFIGURATOR_PATH}`,
+    description:
+      "Upload your artwork or type your text, choose one of the EdgeLuxe letter systems, switch between day and night, dim the LEDs, try different walls, and send the configuration with your wholesale pricing request.",
+    applicationCategory: "DesignApplication",
+    operatingSystem: "Any (runs in a web browser with WebGL)",
+    browserRequirements: "Requires JavaScript and WebGL",
+    isAccessibleForFree: true,
+    provider: { "@type": "Organization", "@id": `${siteUrl}/#organization`, name: "Sunlite Signs" },
+  };
+}

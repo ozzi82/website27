@@ -26,7 +26,7 @@ if (!template.includes('<div id="root"></div>')) {
 
 const serverEntry = path.join(ssrDir, "entry-server.js");
 if (!fs.existsSync(serverEntry)) throw new Error("dist-ssr/entry-server.js not found: run the SSR build first.");
-const { render, getPrerenderRoutes, CONFIGURATOR_META, getSitemapEntries, getCaseStudyLinks, buildSitemap, buildRobotsTxt, buildLlmsTxt, nginxRobotsHeader } = await import(
+const { render, getPrerenderRoutes, CONFIGURATOR_META, configuratorJsonLd, getSitemapEntries, getCaseStudyLinks, buildSitemap, buildRobotsTxt, buildLlmsTxt, nginxRobotsHeader } = await import(
   pathToFileURL(serverEntry).href
 );
 
@@ -96,6 +96,7 @@ const CONFIGURATOR = {
     `<meta data-static-seo name="twitter:title" content="${t}" />`,
     `<meta data-static-seo name="twitter:description" content="${d}" />`,
     `<meta data-static-seo name="twitter:image" content="${DEFAULT_OG_IMAGE}" />`,
+    `<script data-static-seo type="application/ld+json">${JSON.stringify(configuratorJsonLd(SITE_URL)).replace(/</g, "\\u003c")}</script>`,
   ].join("\n    ");
   const noscript = `<noscript>
       <main>

@@ -45,7 +45,9 @@ describe("static route lists", () => {
     expect(template).not.toMatch(/https?:\/\/(www\.)?sunlitesigns\.com/);
     const links = [...template.matchAll(/\]\(\{\{SITE_URL\}\}([^)]*)\)/g)].map((m) => m[1] || "/");
     expect(links.length).toBeGreaterThan(10);
-    for (const l of links) expect(routes, l).toContain(l);
+    // /configurator is a client-rendered page (WebGL), served by its own SPA shell, so it is not in the static route list.
+    for (const l of links) expect([...routes, "/configurator"], l).toContain(l);
+    expect(links).toContain("/configurator");
     expect(template).not.toContain("cast-block-acrylic");
     expect(template.toLowerCase()).not.toMatch(/light ?box|trimmed/);
     expect(template).toContain("/services/custom-sign-fabrication");

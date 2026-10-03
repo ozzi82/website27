@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Mail, MessageCircle, Phone } from "lucide-react";
 import ContactForm, { type AttachmentStatus } from "../components/ContactForm";
 import CompanyTypeSelect from "../components/CompanyTypeSelect";
@@ -11,7 +11,7 @@ import { clearQuote, isQuoteSnapshot, loadQuote, quoteFileId, type QuoteSnapshot
 import { clearArtworkFile, loadArtworkFile } from "../components/configurator/artworkFileStorage";
 import { composePrefill, loadCompanyType, saveCompanyType, type CompanyType } from "../lib/companyType";
 import { EMAIL, PHONE_DISPLAY, PHONE_NUMBER, WHATSAPP_URL } from "../lib/contact";
-import { CTA_PRIMARY } from "../lib/cta";
+import { CTA_LINKS, CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl, breadcrumbJsonLd, type Crumb } from "../lib/seo";
 
 const PATH = CTA_PRIMARY.to;
@@ -126,6 +126,14 @@ export default function ContactPage() {
               </h1>
               <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-md">{contactIntro}</p>
               <p className="mt-6 inline-flex border border-primary/60 px-3 py-2 mono-label text-foreground">Trade customers only · No retail sales</p>
+
+              <p className="mt-6 text-sm text-muted-foreground">
+                Want to see your logo first?{" "}
+                <Link to={CTA_LINKS.tryConfigurator.to} className="text-primary underline underline-offset-4 hover:text-foreground">
+                  Build your sign in 3D
+                </Link>{" "}
+                and send the configuration with this form.
+              </p>
 
               <div className="mt-8 md:mt-10 hidden lg:block">
                 <p className="mono-label text-muted-foreground mb-3">Helps us quote fast</p>

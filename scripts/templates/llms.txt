@@ -30,6 +30,10 @@ German-engineered, UL Listed illuminated letters with a 3-year warranty; minimum
 - [EdgeLuxe LP 11-N — Block Acrylic Faux Neon]({{SITE_URL}}/light-effects/lp-11-n-faux-neon): front edge routed round (up to 0.5 in, at most half the thickness) to simulate a neon glass tube; the face and the front half of the side wall glow.
 - [EdgeLuxe LP 11-C — Block Acrylic Conical Profile]({{SITE_URL}}/light-effects/lp-11-c-conical): narrow strokes and serifs (face stroke as narrow as 0.12").
 
+## Tools
+
+- [Build Your Sign]({{SITE_URL}}/configurator): a 3D sign configurator built for sign companies. Upload artwork (SVG or PDF) or type text, pick one of the 12 EdgeLuxe letter systems (deep link with ?config=<system id>, for example ?config=lp-11-f-face-lit), switch day and night, dim the LEDs, try different walls, and send the configuration with a wholesale pricing request. For the unlit LP 1 flat cutout it also previews wood, mirror gold stainless, brushed stainless, corten, clear and coloured acrylic finishes, solid or fabricated. The preview is illustrative; the quote is based on the shop drawings.
+
 ## Company
 
 - [Manufacturing]({{SITE_URL}}/manufacturing): The production stages from CNC fabrication and LED wiring to hand assembly, quality control, packaging and freight, plus what ships with every order.
