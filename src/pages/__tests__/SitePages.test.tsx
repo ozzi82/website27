@@ -141,6 +141,15 @@ describe("site navigation and the custom-fabrication target", () => {
     expect(href("Flat Cutout Letters (LP 1)")).toBe("/light-effects/lp-1-flat-cutout");
   });
 
+  it("the footer links the four product categories under their new names", () => {
+    const { container } = renderAt("/about");
+    const footer = within(container.querySelector("footer") as HTMLElement);
+    expect(footer.getByRole("link", { name: "Ultra-Slim Letters" })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
+    expect(footer.getByRole("link", { name: "Classic Trimless Letters" })).toHaveAttribute("href", "/services/channel-letters");
+    expect(footer.getByRole("link", { name: "Flat Cutout Letters" })).toHaveAttribute("href", "/light-effects/lp-1-flat-cutout");
+    expect(footer.getByRole("link", { name: "Custom Fabrication" })).toHaveAttribute("href", "/services/custom-sign-fabrication");
+  });
+
   it("custom fabrication is its own page, and the classic page only points at it", () => {
     const { main } = renderAt("/services/channel-letters");
     const section = main.querySelector("#custom-fabrication")!;

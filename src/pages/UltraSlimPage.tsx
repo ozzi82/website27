@@ -148,7 +148,7 @@ export default function UltraSlimPage() {
             titleClassName={sectionTitle}
             intro="Every LP 11 letter is cast block acrylic with LEDs embedded in the body, epoxy-sealed to IP67. The letters in the name say where the light goes."
           />
-          <dl className="grid grid-cols-2 sm:grid-cols-5 gap-x-4 gap-y-4 mb-10 md:mb-12 border-y border-border py-5" aria-label="Lighting codes">
+          <dl className="grid grid-cols-2 sm:grid-cols-5 gap-x-4 gap-y-5 mb-10 md:mb-12 border-b border-border pb-6" aria-label="Lighting codes">
             {lightingCodes.map((l) => (
               <div key={l.code} className="flex items-baseline gap-3">
                 <dt className="font-heading text-4xl font-bold text-primary leading-none">{l.code}</dt>

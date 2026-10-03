@@ -13,7 +13,7 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
 ## Next
 - Test one real HubSpot submission with an SVG attachment (SVG is not in the field's allowed-types text).
 - Live chat / messaging beyond WhatsApp (recommended: HubSpot chat + booking button + SMS link).
-- Reconcile `src/data/services.ts` with the brochure (Trimless depth, placeholder letter height, colors).
+- Reconcile the product pages (`src/data/ultraSlim.ts`, `channelLetters.ts`, `customFabrication.ts`) with the brochure data in `src/data/configurations.ts`.
 - Replace the placeholder gallery with the brochure's project photos.
 - Prerender pages for non-JS crawlers; deploy to the domain; Search Console and Bing.
 - Real-device testing of the configurator (only software WebGL tested so far).

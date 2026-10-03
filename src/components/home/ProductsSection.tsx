@@ -18,8 +18,8 @@ function ProductCta({ product }: { product: ProductCategory }) {
 
 function FeaturedProduct({ product }: { product: ProductCategory }) {
   return (
-    <article data-product={product.id} className="group relative flex flex-col border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-7 lg:row-span-3">
-      <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:flex-1 lg:min-h-[22rem]">
+    <article data-product={product.id} className="group relative flex flex-col lg:grid lg:grid-cols-[2fr_3fr] border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-7 lg:row-span-3">
+      <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:min-h-[28rem]">
         <img
           src={product.image.src}
           alt={product.image.alt}
@@ -27,13 +27,13 @@ function FeaturedProduct({ product }: { product: ProductCategory }) {
           height={product.image.height}
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+          className="absolute inset-0 w-full h-full object-cover object-[52%_50%] transition-transform duration-700 group-hover:scale-[1.03]"
         />
         <span className="absolute top-4 left-4 mono-label bg-background/90 px-2.5 py-1.5">{product.number}</span>
       </div>
-      <div className="p-6 md:p-8 flex flex-col border-t border-border">
-        <p className="mono-label text-primary">Signature product · {product.systems}</p>
-        <h3 className="text-4xl md:text-6xl mt-3">{product.title}</h3>
+      <div className="p-6 md:p-8 flex flex-col border-t lg:border-t-0 lg:border-l border-border lg:justify-end">
+        <p className="mono-label text-primary leading-relaxed">Signature product · {product.systems}</p>
+        <h3 className="text-4xl md:text-6xl lg:text-5xl xl:text-6xl mt-3">{product.title}</h3>
         <p className="text-muted-foreground mt-4 max-w-xl">{product.description}</p>
         <ProductCta product={product} />
       </div>

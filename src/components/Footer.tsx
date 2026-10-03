@@ -4,8 +4,10 @@ import { COMPANY_LINE, COMPANY_POSITIONING, EMAIL, PHONE_DISPLAY } from '../lib/
 import { CTA_LINKS, CTA_PRIMARY } from '../lib/cta';
 
 const navLinks = [
-  { label: "Channel Letters", href: "/services/channel-letters" },
-  { label: "Ultra-Slim Trimless", href: "/services/ultra-slim-trimless-channel-letters" },
+  { label: "Ultra-Slim Letters", href: CTA_LINKS.exploreUltraSlim.to },
+  { label: "Classic Trimless Letters", href: CTA_LINKS.viewChannelLetters.to },
+  { label: "Flat Cutout Letters", href: CTA_LINKS.viewFlatCutout.to },
+  { label: "Custom Fabrication", href: CTA_LINKS.customFabrication.to },
   { label: CTA_LINKS.tryConfigurator.label, href: CTA_LINKS.tryConfigurator.to },
   { label: "Projects", href: CTA_LINKS.viewProjects.to },
   { label: "Manufacturing", href: CTA_LINKS.viewManufacturing.to },

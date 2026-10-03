@@ -158,7 +158,7 @@ export const trimBenefits = [
 ];
 
 export const trimCapsIntro =
-  "A conventional channel letter wraps a trim cap around the edge of its face. Sunlite does not build that letter: every letter we make is trimless. The drawing on the left is shown for comparison only.";
+  "A conventional channel letter wraps a trim cap around the edge of its face. Sunlite does not build that letter: every letter we make is trimless. The trim-cap drawing is shown for comparison only.";
 
 export interface MountingOption {
   id: string;

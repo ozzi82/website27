@@ -17,9 +17,9 @@ Every content page of https://sunlitesigns.com, as plain Markdown, for content r
 - /manufacturing
 - /projects
 - /contact
-- /services/channel-letters
 - /services/ultra-slim-trimless-channel-letters
-- /services/cast-block-acrylic
+- /services/channel-letters
+- /services/custom-sign-fabrication
 - /light-effects/lp-1-flat-cutout
 - /light-effects/lp-3-1-standoff-halo
 - /light-effects/lp-3-2-flush-mount
@@ -37,7 +37,7 @@ Every content page of https://sunlitesigns.com, as plain Markdown, for content r
 
 Top bar: Wholesale manufacturing partner for sign companies · Trade only
 
-Header navigation (Products dropdown, then Projects, Manufacturing, About): Products (/#products), Channel Letters (/services/channel-letters), Ultra-Slim Trimless (/services/ultra-slim-trimless-channel-letters), Cast Acrylic (/services/cast-block-acrylic), Custom Fabrication (/services/channel-letters#custom-fabrication), All 12 letter systems (/#light-effects), Build Your Sign (/configurator), Projects (/projects), Manufacturing (/manufacturing), About (/about). Plus the primary button (Request Wholesale Pricing, /contact).
+Header navigation (Products dropdown, then Projects, Manufacturing, About): Products (/#products), Ultra-Slim Letters (LP 11) (/services/ultra-slim-trimless-channel-letters), Classic Trimless Letters (/services/channel-letters), Flat Cutout Letters (LP 1) (/light-effects/lp-1-flat-cutout), Custom Fabrication (/services/custom-sign-fabrication), All 12 letter systems (/#light-effects), Build Your Sign (/configurator), Projects (/projects), Manufacturing (/manufacturing), About (/about). Plus the primary button (Request Wholesale Pricing, /contact).
 
 Header contact links: tel:+16892940912, https://wa.me/16892940912, mailto:hello@sunlitesigns.com
 
@@ -49,7 +49,7 @@ Sunlite Signs LLC · Tampa, Florida Wholesale manufacturing partner for sign com
 
 5005 W Laurel · Tampa, FL 33607 · (689) 294-0912 · hello@sunlitesigns.com
 
-[Channel Letters](/services/channel-letters) · [Ultra-Slim Trimless](/services/ultra-slim-trimless-channel-letters) · [Build Your Sign](/configurator) · [Projects](/projects) · [Manufacturing](/manufacturing) · [About](/about) · [Request Wholesale Pricing](/contact)
+[Ultra-Slim Letters](/services/ultra-slim-trimless-channel-letters) · [Classic Trimless Letters](/services/channel-letters) · [Flat Cutout Letters](/light-effects/lp-1-flat-cutout) · [Custom Fabrication](/services/custom-sign-fabrication) · [Build Your Sign](/configurator) · [Projects](/projects) · [Manufacturing](/manufacturing) · [About](/about) · [Request Wholesale Pricing](/contact)
 
 [Button: Terms]
 
@@ -63,13 +63,13 @@ Trade customers only. No retail sales. No installation services.
 
 - URL: https://sunlitesigns.com/
 - Title: Wholesale Channel Letters for Sign Companies | Sunlite Signs
-- Meta description: Wholesale channel letter manufacturer for sign companies. Ultra-slim trimless and cast acrylic letters built to your drawings, UL 48 listed, shipped nationwide. Trade only.
+- Meta description: Wholesale channel letter manufacturer for sign companies. Ultra-slim cast acrylic letters and classic trimless channel letters built to your drawings, UL 48 listed, shipped nationwide. Trade only.
 
 Wholesale sign manufacturer · Trade only
 
 ### Wholesale Channel Letters. Built for Sign Companies.
 
-Precision-built channel letters and illuminated signage manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
+Ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
 
 [Request Wholesale Pricing](/contact) · [Explore Products](/#products)
 
@@ -83,45 +83,47 @@ What we build
 
 #### Built for the jobs your shop wins.
 
-*[Image: Illuminated letters on a building facade at dusk]*
+*[Image: Vertical lettering with glowing white outlines mounted on a blue panel in a concrete concourse]*
 
 01
 
-##### Standard Channel Letters
+Signature product · EdgeLuxe LP 11 series · cast block acrylic · 25–30 mm
 
-Front lit, halo lit and dual illuminated channel letters built to project specifications.
+##### Ultra-Slim Letters
 
-[View Channel Letters](/services/channel-letters)
-
-*[Image: Illuminated vertical lettering in a large interior concourse]*
-
-02
-
-##### Ultra-Slim Trimless
-
-Premium illuminated letters available at just 25–30 mm total depth.
+Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 25–30 mm deep. Eight lighting variants: face, halo, face + halo, side, faux neon and conical.
 
 [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
 
-*[Image: Vertical illuminated lettering mounted on a concrete structure]*
+*[Image: Illuminated letters on a building facade at dusk]*
 
-03
+02 · EdgeLuxe LP 5, LP 3.1, LP 3.2 · fabricated stainless steel
 
-##### Cast Acrylic Letters
+##### Classic Trimless Letters
 
-Solid cast acrylic letters with homogeneous illumination for a refined, premium brand presence.
+Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2, in depths from 30 to 100 mm.
 
-[View Cast Acrylic](/services/cast-block-acrylic)
+[View Classic Letters](/services/channel-letters)
+
+*[Image: EdgeLuxe LP 1 flat cutout letter S on a concrete wall]*
+
+03 · EdgeLuxe LP 1 · unlit
+
+##### Non-Illuminated Flat Cutout Letters
+
+Everything non-illuminated: precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.
+
+[View Flat Cutouts](/light-effects/lp-1-flat-cutout)
 
 *[Image: Illuminated crest logo on a wood-slat wall]*
 
-04
+04 · Made to your drawings
 
 ##### Custom Sign Fabrication
 
-Custom logos and illuminated letter projects fabricated to your drawings.
+Custom work to your drawings, including blade signs, push-through cabinet signs, illuminated logos and custom letter projects.
 
-[See Custom Fabrication](/services/channel-letters#custom-fabrication)
+[See Custom Fabrication](/services/custom-sign-fabrication)
 
 Proven production partner
 
@@ -133,21 +135,32 @@ We are a wholesale manufacturer of channel letters and illuminated signage for s
 
 *[Image: Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German engineered, nationwide sign company partner]*
 
-Sunlite Ultra-Slim
+Sunlite Ultra-Slim · EdgeLuxe LP 11
 
 #### 25–30 mm. Less depth. More design freedom.
 
-Ultra-slim trimless channel letters engineered for projects where conventional channel-letter returns are simply too bulky.
-
-A specialized option, not the standard depth of our channel letters.
+Cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and engineered for projects where conventional channel-letter returns are simply too bulky.
 
 - 01 — 25–30 mm depth
-- 02 — Trimless construction
-- 03 — Face / halo / dual lit
+- 02 — Cast block acrylic
+- 03 — Eight lighting variants
 
-[Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
+[Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters) · [Build Your Sign](/configurator?config=lp-11-f-face-lit)
 
-Illustrative side profiles, not to scale. Conventional return depth varies by project.
+Illustrative side profiles, not to scale. The conventional letter is a trim-cap channel letter, a type Sunlite does not build; its return depth varies by project.
+
+The LP 11 series · eight lighting variants
+
+F face · B back · S side · N neon · C conical
+
+- *[Image: LP 11-F Block Acrylic Face-lit: sample letter]* — F — Face-lit — (Links to: /light-effects/lp-11-f-face-lit)
+- *[Image: LP 11-B Block Acrylic Back-lit: sample letter]* — B — Halo — (Links to: /light-effects/lp-11-b-back-lit)
+- *[Image: LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter]* — FB — Face + halo — (Links to: /light-effects/lp-11-fb-face-halo)
+- *[Image: LP 11-BS Block Acrylic Partial Back Side-lit: sample letter]* — BS — Back side — (Links to: /light-effects/lp-11-bs-back-side-lit)
+- *[Image: LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter]* — FS — Face + front side — (Links to: /light-effects/lp-11-fs-front-side-lit)
+- *[Image: LP 11-S Block Acrylic Full Side-lit: sample letter]* — S — Full side — (Links to: /light-effects/lp-11-s-side-lit)
+- *[Image: LP 11-N Block Acrylic Faux Neon: sample letter]* — N — Faux neon — (Links to: /light-effects/lp-11-n-faux-neon)
+- *[Image: LP 11-C Block Acrylic Conical Profile: sample letter]* — C — Conical — (Links to: /light-effects/lp-11-c-conical)
 
 Built for the trade
 
@@ -345,13 +358,13 @@ Block Acrylic Partial Back Side-lit
 
 (Links to: /light-effects/lp-11-bs-back-side-lit)
 
-*[Image: EdgeLuxe LP 11-FS — Block Acrylic Partial Front Side-lit]*
+*[Image: EdgeLuxe LP 11-FS — Block Acrylic Face-lit + Partial Front Side-lit]*
 
 LP 11-FS
 
 ##### EdgeLuxe LP 11-FS
 
-Block Acrylic Partial Front Side-lit
+Block Acrylic Face-lit + Partial Front Side-lit
 
 (Links to: /light-effects/lp-11-fs-front-side-lit)
 
@@ -461,7 +474,7 @@ About Sunlite Signs
 
 ### A production partner for sign companies.
 
-Sunlite Signs LLC is a wholesale manufacturing partner for sign companies, agencies and trade professionals. We fabricate illuminated channel letters and signage to your drawings and ship them ready to install.
+Sunlite Signs LLC is a wholesale manufacturing partner for sign companies, agencies and trade professionals. We fabricate ultra-slim and classic channel letters and illuminated signage to your drawings and ship them ready to install.
 
 [Request Wholesale Pricing](/contact)
 
@@ -550,8 +563,8 @@ Related
 
 #### Keep exploring.
 
-- Channel letters — Our main product line. — Open — (Links to: /services/channel-letters)
-- Ultra-slim trimless — A specialized option at 25–30 mm total depth. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Classic trimless letters — Fabricated stainless steel channel letters. — Open — (Links to: /services/channel-letters)
 - Manufacturing — How drawings become finished signs. — Open — (Links to: /manufacturing)
 - Projects — See recent production. — Open — (Links to: /projects)
 
@@ -661,8 +674,8 @@ Related
 
 #### Keep exploring.
 
-- Channel letters — The configurations we fabricate to your drawings. — Open — (Links to: /services/channel-letters)
-- Ultra-slim trimless — A specialized option at 25–30 mm total depth. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Classic trimless letters — Fabricated stainless steel channel letters. — Open — (Links to: /services/channel-letters)
 - Projects — See recent production. — Open — (Links to: /projects)
 - About — Who we build for, and why the trade outsources to us. — Open — (Links to: /about)
 
@@ -757,29 +770,39 @@ Fig. 11
 
 ##### ARGO-HYTOS
 
-*[Image: Illuminated vertical lettering on a blue column panel in a large interior concourse]*
+*[Image: Vertical lettering with glowing white outlines on a blue panel beside a concrete column]*
 
 Fig. 12
 
-##### Concourse column sign
+##### Concourse lettering
 
-- **Product:** Ultra-slim trimless letters
+- **Product:** Ultra-slim letters
 
-[View Ultra-slim trimless letters](/services/ultra-slim-trimless-channel-letters)
+[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
 
-*[Image: Large white illuminated lettering with a soft halo above an event stand]*
+*[Image: Illuminated vertical lettering on a blue column panel in a large interior concourse]*
 
 Fig. 13
 
+##### Concourse column sign
+
+- **Product:** Ultra-slim letters
+
+[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
+
+*[Image: Large white illuminated lettering with a soft halo above an event stand]*
+
+Fig. 14
+
 ##### Event stand lettering
 
-- **Product:** Ultra-slim trimless letters
+- **Product:** Ultra-slim letters
 
-[View Ultra-slim trimless letters](/services/ultra-slim-trimless-channel-letters)
+[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
 
 *[Image: itonics lettering on a white wall]*
 
-Fig. 14
+Fig. 15
 
 ##### itonics
 
@@ -787,10 +810,10 @@ Related
 
 #### Keep exploring.
 
-- Channel letters — Front, halo and front + back lit, trimmed or trimless. — Open — (Links to: /services/channel-letters)
-- Ultra-slim trimless — A specialized option at 25–30 mm total depth. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Ultra-slim letters — EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Classic trimless letters — Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2. — Open — (Links to: /services/channel-letters)
+- Custom fabrication — Blade signs, push-through cabinet signs and custom projects. — Open — (Links to: /services/custom-sign-fabrication)
 - Manufacturing — How drawings become finished signs. — Open — (Links to: /manufacturing)
-- Cast acrylic — Solid cast acrylic letters with homogeneous illumination. — Open — (Links to: /services/cast-block-acrylic)
 
 #### Have drawings ready? Let's price the job.
 
@@ -864,21 +887,316 @@ Yes. We manufacture both one-off projects and production runs – always to your
 
 Please contact us directly to discuss white-label and neutral shipping options.
 
+## /services/ultra-slim-trimless-channel-letters
+
+- URL: https://sunlitesigns.com/services/ultra-slim-trimless-channel-letters
+- Title: Ultra-Slim Trimless Channel Letters | 25–30 mm Depth
+- Meta description: Ultra-slim trimless channel letters: EdgeLuxe LP 11 cast block acrylic with embedded LEDs, IP67 sealed, 25–30 mm deep. Eight lighting variants. Wholesale to sign companies.
+
+- [Home](/)
+- /[Products](/#products)
+- /Ultra-Slim Letters
+
+Sunlite Ultra-Slim · EdgeLuxe LP 11
+
+### Ultra-Slim Channel Letters. Just 25–30 mm Deep.
+
+A cleaner alternative to conventional deep-return channel letters — engineered for premium retail, architectural and interior signage applications.
+
+Sunlite's signature product: the EdgeLuxe LP 11 series of cast block acrylic letters, with LEDs embedded in the body and epoxy-sealed to IP67.
+
+[Request Wholesale Pricing](/contact) · [See the 8 variants](/services/ultra-slim-trimless-channel-letters#variants)
+
+*[Image: Illuminated vertical lettering in a large interior concourse]*
+
+Fig. 01 / Project photography
+
+- 01 — 25–30 mm depth
+- 02 — Cast block acrylic
+- 03 — Eight lighting variants
+
+The LP 11 series
+
+#### Eight ways to light a block.
+
+Every LP 11 letter is cast block acrylic with LEDs embedded in the body, epoxy-sealed to IP67. The letters in the name say where the light goes.
+
+- **F:** FaceLight through the face.
+- **B:** Back (halo)Light onto the wall behind.
+- **S:** SideLight along the side wall.
+- **N:** NeonRouted to look like a neon tube.
+- **C:** ConicalTapered profile for fine strokes.
+
+*[Image: LP 11-F Block Acrylic Face-lit: sample letter]*
+
+LP 11-F
+
+##### Face-lit
+
+The face glows evenly toward the viewer.
+
+- **Depth:** 25 or 30 mm
+- **Mounting:** Mounts flat
+
+[View system](/light-effects/lp-11-f-face-lit) · [Preview in 3D](/configurator?config=lp-11-f-face-lit)
+
+*[Image: LP 11-B Block Acrylic Back-lit: sample letter]*
+
+LP 11-B
+
+##### Back-lit
+
+A uniform halo washes the wall behind the letter.
+
+- **Depth:** 10, 15, 20 or 30 mm
+- **Mounting:** Standoff spacers
+
+[View system](/light-effects/lp-11-b-back-lit) · [Preview in 3D](/configurator?config=lp-11-b-back-lit)
+
+*[Image: LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter]*
+
+LP 11-FB
+
+##### Face- and Halo-lit Combo
+
+A glowing face plus a halo on the wall behind.
+
+- **Depth:** 30 mm
+- **Mounting:** Standoff spacers
+
+[View system](/light-effects/lp-11-fb-face-halo) · [Preview in 3D](/configurator?config=lp-11-fb-face-halo)
+
+*[Image: LP 11-BS Block Acrylic Partial Back Side-lit: sample letter]*
+
+LP 11-BS
+
+##### Partial Back Side-lit
+
+A band of light glows along the back edge of the side wall.
+
+- **Depth:** 30 mm
+- **Mounting:** Flush-mount
+
+[View system](/light-effects/lp-11-bs-back-side-lit) · [Preview in 3D](/configurator?config=lp-11-bs-back-side-lit)
+
+*[Image: LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter]*
+
+LP 11-FS
+
+##### Face-lit + Partial Front Side-lit
+
+The face glows and a thin band lights the front edge of the side wall.
+
+- **Depth:** 30 mm
+- **Mounting:** Flush-mount
+
+[View system](/light-effects/lp-11-fs-front-side-lit) · [Preview in 3D](/configurator?config=lp-11-fs-front-side-lit)
+
+*[Image: LP 11-S Block Acrylic Full Side-lit: sample letter]*
+
+LP 11-S
+
+##### Full Side-lit
+
+The whole side wall glows; the painted face stays solid.
+
+- **Depth:** 30 mm
+- **Mounting:** Mounts flat
+
+[View system](/light-effects/lp-11-s-side-lit) · [Preview in 3D](/configurator?config=lp-11-s-side-lit)
+
+*[Image: LP 11-N Block Acrylic Faux Neon: sample letter]*
+
+LP 11-N
+
+##### Faux Neon
+
+Routed to simulate a neon glass tube, face-lit.
+
+- **Depth:** 30 mm
+- **Mounting:** Mounts flat
+
+[View system](/light-effects/lp-11-n-faux-neon) · [Preview in 3D](/configurator?config=lp-11-n-faux-neon)
+
+*[Image: LP 11-C Block Acrylic Conical Profile: sample letter]*
+
+LP 11-C
+
+##### Conical Profile
+
+Tapered conical profile for narrow strokes and serifs, face-lit.
+
+- **Depth:** 30 mm
+- **Mounting:** Mounts flat
+
+[View system](/light-effects/lp-11-c-conical) · [Preview in 3D](/configurator?config=lp-11-c-conical)
+
+Side profile
+
+#### Why 25–30 mm matters.
+
+Illustrative side profiles, not to scale. The conventional letter is a trim-cap channel letter, a type Sunlite does not build; its return depth varies by project.
+
+- 01 — A cleaner profile — A solid block with no trim cap at the edge: the face and the sides read as one body.
+- 02 — Less visual bulk — A slim side profile keeps the letter close to the surface, which suits architectural and interior settings.
+- 03 — Where deep returns do not fit — When conventional channel-letter returns are impractical, ultra-slim keeps the illuminated effect without the depth.
+
+Illumination options
+
+#### Face, halo or both.
+
+01 / F
+
+##### Face lit
+
+- **Light goes:** Through the face
+
+LP 11-F. Embedded LEDs light the whole face evenly toward the viewer.
+
+02 / B
+
+##### Halo (back) lit
+
+- **Light goes:** To the wall behind
+
+LP 11-B. The face stays solid; light washes the wall, so the letter stands off on spacers.
+
+03 / FB
+
+##### Face + halo
+
+- **Light goes:** Face and wall
+
+LP 11-FB. A glowing face combined with a halo on the wall, from one letter.
+
+Concept section diagrams, not to scale.
+
+- BS — Partial back side-lit — Flush-mount. A band of light glows along the back edge of the side wall.
+- FS — Face-lit + partial front side-lit — Flush-mount. The face glows and a thin band of light also glows along the front edge of the side wall.
+- S — Full side-lit — The whole side wall glows while the painted face stays solid.
+- N — Faux neon — Block acrylic routed to simulate a neon glass tube, face-lit.
+- C — Conical — A tapered profile so the lit face can be much narrower than the body, for fine strokes and serifs.
+
+Illustrative rendering / day and night
+
+*[Image: Night]*
+
+*[Image: Day]*
+
+DayNight
+
+Technical details
+
+#### The spec sheet.
+
+- **Product:** EdgeLuxe LP 11 series: cast block acrylic letters
+- **Depth:** 30 mm (1.2″) standard for durability and optimal light diffusion; 25 mm (1″) for small letters and signs (LP 11-F). LP 11-B is also offered at 10, 15 and 20 mm.
+- **Illumination:** Embedded LEDs for uniform lighting: face, halo, face + halo, partial side, full side, faux neon or conical
+- **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
+- **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Min. letter height:** 2″ (50 mm)
+- **Min. stroke width:** 0.47″ (12 mm) for stability and even illumination. LP 11-S: 0.79″ (20 mm) recommended. LP 11-C: face as narrow as 0.12″ (3 mm).
+- **Colors:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
+- **Mounting:** Standoff spacers: LP 11-B and LP 11-FB. Flush-mount: LP 11-BS and LP 11-FS. The other variants mount flat to the surface.
+- **Certification:** UL 48 listed
+- **Warranty:** 3 years, LED modules and power supplies
+- **Quote:** Tailored quote within 48 hours
+
+3D preview
+
+Not sure which configuration you need?
+
+Upload your logo or type your text and preview it as a 3D sign.
+
+[Build Your Sign](/configurator?config=lp-11-f-face-lit)
+
+Installation / mounting
+
+#### Ready to install.
+
+- **Ships ready to install:** Every sign ships with a drill template and wiring plan.
+- **Pre-wired:** LED modules and power supplies come pre-wired and UL 48 labeled.
+- **Standoff or flush:** LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; LP 11-BS and LP 11-FS mount flush to the surface. Mounting explained
+- **Installation:** Not provided. Handled by you, your crew or a local contractor.
+
+Project photography
+
+#### On the wall.
+
+[View All Projects](/projects)
+
+*[Image: Vertical lettering with glowing white outlines on a blue panel beside a concrete column]*
+
+Fig. 01
+
+##### Concourse lettering
+
+- **Product:** Ultra-slim letters
+
+[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
+
+*[Image: Large white illuminated lettering with a soft halo above an event stand]*
+
+Fig. 02
+
+##### Event stand lettering
+
+- **Product:** Ultra-slim letters
+
+[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
+
+25–30Side-profile photography — coming soon
+
+Fig. 03
+
+##### Side profile
+
+Classic trimless letters
+
+#### Need a deeper, fabricated letter?
+
+Our classic channel letters are trimless fabricated stainless steel in depths from 30 to 100 mm. Ultra-slim LP 11 is the only 25–30 mm line.
+
+[View Classic Letters](/services/channel-letters)
+
+- *[Image: LP 5 Trimless Fabricated Stainless Steel Letters]* — LP 5 — Trimless Fabricated Stainless Steel Letters — Face lit. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-5-trimless-face-lit)
+- *[Image: LP 3.1 Fabricated Stainless Steel with Standoffs]* — LP 3.1 — Fabricated Stainless Steel with Standoffs — Halo lit from the back. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-3-1-standoff-halo)
+- *[Image: LP 3.2 Fabricated Stainless Steel Flush-mount]* — LP 3.2 — Fabricated Stainless Steel Flush-mount — Partial side-lit halo. Depths: 30, 50, 75 or 100 mm, or custom. — View system — (Links to: /light-effects/lp-3-2-flush-mount)
+
+Related
+
+#### Keep exploring.
+
+- Classic trimless letters — Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2, 30 to 100 mm. — Open — (Links to: /services/channel-letters)
+- Flat cutout letters — Non-illuminated LP 1 letters in wood, metal, acrylic and more. — Open — (Links to: /light-effects/lp-1-flat-cutout)
+- Custom fabrication — Blade signs, push-through cabinet signs and custom projects. — Open — (Links to: /services/custom-sign-fabrication)
+- Build Your Sign — See your logo as an LP 11 letter before you request pricing. — Open — (Links to: /configurator)
+
+#### Have drawings ready? Let's price the job.
+
+Upload your artwork and dimensions and we'll prepare your wholesale quote.
+
+[Request Wholesale Pricing](/contact)
+
+[hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
+
 ## /services/channel-letters
 
 - URL: https://sunlitesigns.com/services/channel-letters
 - Title: Wholesale Channel Letter Manufacturer | Sunlite Signs
-- Meta description: Wholesale channel letter manufacturer for sign companies. Front, halo and front + back lit letters built to your drawings, UL 48 listed, shipped nationwide. Trade only.
+- Meta description: Wholesale channel letter manufacturer for sign companies. Classic trimless stainless steel letters and ultra-slim LP 11, built to your drawings, UL 48 listed, shipped nationwide.
 
 - [Home](/)
 - /[Products](/#products)
-- /Channel Letters
+- /Classic Trimless Letters
 
 Wholesale sign manufacturer · Trade only
 
 ### Wholesale Channel Letters for Sign Companies.
 
 UL 48 listed channel letters fabricated to your drawings and shipped ready to install nationwide.
+
+Our classic channel letters are trimless fabricated stainless steel: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2.
 
 Sunlite Signs is a trade-only wholesale manufacturer. We build for sign companies and never compete for their customers.
 
@@ -894,8 +1212,19 @@ Fig. 01 / Illuminated letters on a building facade
 - **3 YR:** LED & power supply warranty
 - **Trade only:** Your customer stays your customer.
 
+*[Image: Vertical lettering with glowing white outlines mounted on a blue panel in a concrete concourse]*
+
+Our signature option
+
+#### Ultra-slim LP 11. Cast block acrylic, 25–30 mm.
+
+When the letter has to be as shallow as possible, our ultra-slim letters are the answer: solid cast block acrylic with embedded LEDs, in eight lighting variants.
+
+[Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters) · [Preview in 3D](/configurator?config=lp-11-f-face-lit)
+
+- [Systems](#systems)
 - [Illumination](#illumination)
-- [Trim](#trim)
+- [No trim caps](#trim-caps)
 - [Construction](#construction)
 - [Mounting](#mounting)
 - [Finish](#finish)
@@ -905,35 +1234,78 @@ Fig. 01 / Illuminated letters on a building facade
 - [Projects](#projects)
 - [FAQ](#faq)
 
+Classic trimless letters
+
+#### Three classic systems.
+
+Fabricated stainless steel channel letters with no trim cap. Each system is listed with its own depths, materials and limits.
+
+*[Image: LP 5 Trimless Fabricated Stainless Steel Letters: sample letter]*
+
+LP 5
+
+##### Trimless Fabricated Stainless Steel Letters
+
+Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies.
+
+- **Light:** Face lit
+- **Mounting:** Mounts flat to the surface
+- **Depth:** 30, 50, 75 or 100 mm, or custom
+- **Min. height:** 2″ (50 mm)
+
+[View system](/light-effects/lp-5-trimless-face-lit) · [Preview in 3D](/configurator?config=lp-5-trimless-face-lit)
+
+*[Image: LP 3.1 Fabricated Stainless Steel with Standoffs: sample letter]*
+
+LP 3.1
+
+##### Fabricated Stainless Steel with Standoffs
+
+Fabricated stainless steel letters that float off the wall on standoff spacers, so the light washes the wall behind each letter. LEDs are arranged to avoid reflection of the diodes on the mounting surface.
+
+- **Light:** Halo lit from the back
+- **Mounting:** Standoff spacers
+- **Depth:** 30, 50, 75 or 100 mm, or custom
+- **Min. height:** 2″ (50 mm)
+
+[View system](/light-effects/lp-3-1-standoff-halo) · [Preview in 3D](/configurator?config=lp-3-1-standoff-halo)
+
+*[Image: LP 3.2 Fabricated Stainless Steel Flush-mount: sample letter]*
+
+LP 3.2
+
+##### Fabricated Stainless Steel Flush-mount
+
+Fabricated stainless steel letters mounted flush to the wall, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.
+
+- **Light:** Partial side-lit halo
+- **Mounting:** Flush-mount
+- **Depth:** 30, 50, 75 or 100 mm, or custom
+- **Min. height:** 2″ (50 mm)
+
+[View system](/light-effects/lp-3-2-flush-mount) · [Preview in 3D](/configurator?config=lp-3-2-flush-mount)
+
 Illumination
 
-#### Three ways to light a letter.
+#### Face lit or halo lit.
 
 01
 
-##### Front lit
+##### Face lit
 
 - **Light goes:** Through the face
 
-Light passes through the translucent face, so the whole face of the letter glows toward the viewer.
+LP 5. Light passes through the translucent face, so the whole face of the letter glows toward the viewer.
 
 02
 
-##### Reverse / halo lit
+##### Halo lit
 
 - **Light goes:** To the wall behind
 
-The face stays solid. Light is directed backward and washes the wall, outlining each letter with a soft halo. Letters stand off the surface so the glow can reach it.
+LP 3.1. The face stays solid. Light is directed backward and washes the wall, outlining each letter with a soft halo. Letters stand off the surface so the glow can reach it.
 
-03
-
-##### Front + back lit
-
-- **Light goes:** Face and wall
-
-A glowing face combined with a halo on the wall behind it: both effects from one letter.
-
-Concept section diagrams, not to scale.
+Concept section diagrams, not to scale. LP 3.2 adds a partial side-lit halo from an exposed acrylic band.
 
 From recent production
 
@@ -941,21 +1313,33 @@ From recent production
 - *[Image: Tradebyte lettering with a halo glow on a grey wall]* — Halo glow on the wall behind the letters
 - *[Image: Inspire logo lettering with a glowing halo on an interior wall]* — Halo glow around a logo on an interior wall
 
-Trimmed / trimless
+Trimless by design
 
-#### Trimmed or trimless.
+#### Why we don't use trim caps.
+
+A conventional channel letter wraps a trim cap around the edge of its face. Sunlite does not build that letter: every letter we make is trimless. The trim-cap drawing is shown for comparison only.
 
 01
 
-##### Trimmed
+##### Conventional trim-cap letter
 
-A trim cap frames the edge of the face: a visible rim around the lit face.
+- **Sunlite:** Not offered
+
+A separate trim cap wraps the edge of the face, leaving a visible rim around the lit face.
 
 02
 
-##### Trimless
+##### Sunlite trimless letter
 
-No trim cap. The face meets the return directly for a cleaner edge. Where the return itself has to be as shallow as possible, see our specialized ultra-slim option.
+- **Sunlite:** What we build
+
+No trim cap. The face meets the return directly, so the lit face runs cleanly to the edge of the letter.
+
+Concept section diagrams, not to scale. The trim-cap letter is shown for comparison only.
+
+- 01 — A clean face edge — With no trim cap there is no rim line around the lit face.
+- 02 — Face flush with the return — The face meets the return directly instead of being framed by a cap.
+- 03 — Nothing extra at the edge — No separate cap to fit and finish, so no cap seam to see.
 
 [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
 
@@ -963,49 +1347,40 @@ Construction
 
 #### What a letter is made of.
 
-- **Face:** CNC-routed aluminum, trimmed or trimless. In front-lit letters the light passes through the face.
-- **Return:** CNC-routed aluminum, built to your drawings.
-- **Back:** CNC-routed aluminum.
-- **LED system:** LED modules, pre-wired and UL 48 labeled. 3-year warranty.
-- **Power supply:** Power supplies, pre-wired and UL 48 labeled. 3-year warranty.
+- **Returns and back:** Fabricated stainless steel; on LP 5, thick gauge stainless steel returns and back welded together.
+- **Face:** LP 5: step-routed acrylic face, trimless. The light passes through the face.
+- **LED system:** Serviceable LEDs. On LP 3.1 they are arranged to avoid reflection of the diodes on the mounting surface.
+- **Power supply:** Power supplies, pre-wired and UL 48 labeled. 3-year warranty on LED modules and power supplies.
 
 Depth options
 
 #### Depth follows the job.
 
-- 01 — Standard returns — Built to your drawings. Return depth is set by the project.
-- 02 — Ultra-slim 25–30 mm — A specialized trimless option for projects where conventional returns are too bulky. Not the standard depth. — [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
-- 03 — Custom to project — Tell us the depth the project calls for when you request pricing.
+- 01 — 30 / 50 / 75 / 100 mm — The standard depths of the classic stainless steel systems: 1.2″, 2″, 3″ and 4″.
+- 02 — Custom depth — Tell us the depth the project calls for when you request pricing.
+- 03 — Need it slimmer? — Ultra-slim LP 11 cast block acrylic letters are 25–30 mm deep: our signature product. — [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
 
 Mounting options
 
-#### How the letters are carried.
+#### Standoff or flush.
 
-Mounting configurations are offered where applicable to the project. State your surface and preference when you request pricing.
+State your surface and preference when you request pricing.
 
 01
 
-##### Flush mount
+##### Standoff mount
 
-The letter sits directly against the surface.
+- **System:** LP 3.1
+
+The letter is held off the surface on standoff spacers, leaving a gap: the halo needs it so the light can reach the wall.
 
 02
 
-##### Standoff mount
+##### Flush mount
 
-The letter is held off the surface on standoffs, leaving a gap: the usual choice for halo effects.
+- **System:** LP 3.2
 
-03
-
-##### Raceway mount
-
-Letters are carried on a raceway fixed to the surface.
-
-04
-
-##### Remote mount
-
-Letters mount directly to the surface, with the power supply located remotely.
+The letter sits directly against the surface, with the glow around its edge from an exposed acrylic band.
 
 3D preview
 
@@ -1013,46 +1388,50 @@ Not sure which configuration you need?
 
 Upload your logo or type your text and preview it as a 3D sign.
 
-[Build Your Sign](/configurator)
+[Build Your Sign](/configurator?config=lp-5-trimless-face-lit)
 
 Lighting options
 
 #### LED, power and certification.
 
-- **Illumination styles:** Front lit, reverse / halo lit, or front + back lit
-- **LED & electrical:** LED modules and power supplies, pre-wired and UL 48 labeled
-- **Certification:** UL 48 listed
+- **LP 5:** Face lit, trimless
+- **LP 3.1:** Halo lit from the back, standoff spacers
+- **LP 3.2:** Partial side-lit halo, flush-mount
+- **LED & electrical:** Serviceable LEDs; LED modules and power supplies pre-wired and UL 48 labeled
 - **Warranty:** 3 years on LED modules and power supplies
 
 Color / finish options
 
-#### Finishes set on your drawings.
+#### Any PMS color.
 
-- **Finishes:** Custom paint or vinyl
-- **Colors:** Colors and finishes are set on your drawings
-- **EdgeLuxe systems:** Painted in any PMS color, with vinyl or pigmented translucent acrylic options
+- **Colors:** Painted in any PMS color
+- **Face-lit effects:** Options for vinyls or pigmented translucent acrylics for colored face-lit effects (LP 5)
+- **Halo effects:** Options for vinyls or pigmented translucent acrylics for colorful halo effects (LP 3.1, LP 3.2)
 
-[EdgeLuxe letter systems](/#light-effects)
+[All 12 EdgeLuxe letter systems](/#light-effects)
 
 Custom fabrication
 
-#### Custom logos & illuminated letter projects
+#### Something that is not a letter system?
 
-Logos, custom letterforms and other illuminated letter projects, fabricated to your drawings. Send your artwork as a vector file and we advise on materials, light effects, sizing and technical feasibility.
+Custom sign fabrication covers work made to your drawings: illuminated logos, custom letter projects, blade signs and push-through cabinet signs.
 
-[Request Wholesale Pricing](/contact)
+[Request Wholesale Pricing](/contact) · [See Custom Fabrication](/services/custom-sign-fabrication)
 
 Technical specifications
 
 #### The spec sheet.
 
-- **Product:** Illuminated channel letters, fabricated to your drawings
-- **Illumination:** Front lit / reverse (halo) lit / front + back lit
-- **Face:** Trimmed or trimless
-- **Construction:** CNC-routed aluminum returns, faces and backs
-- **Depth & returns:** Built to your drawings. A specialized 25–30 mm ultra-slim option is also available. Ultra-slim page
-- **Mounting:** Flush, standoff, raceway or remote, where applicable
-- **Finishes:** Custom paint or vinyl
+- **Product:** Classic trimless channel letters, fabricated to your drawings
+- **Systems:** EdgeLuxe LP 5 (face lit), LP 3.1 (halo lit, standoffs), LP 3.2 (partial side-lit halo, flush-mount)
+- **Material:** Fabricated stainless steel; LP 5 has thick gauge returns and back welded together and a step-routed acrylic face
+- **Trim:** Trimless: no trim cap
+- **Depth:** 1.2″ (30 mm), 2″ (50 mm), 3″ (75 mm), 4″ (100 mm) and custom depth
+- **Min. letter height:** 2″ (50 mm)
+- **Min. stroke width:** 0.5″ (15 mm) for stability and even illumination
+- **Mounting:** Standoff spacers (LP 3.1) or flush-mount (LP 3.2); LP 5 mounts flat
+- **Colors:** Painted in any PMS color; vinyl or pigmented translucent acrylic options
+- **Maintenance:** Serviceable LEDs
 - **Certification:** UL 48 listed
 - **Electrical:** LED modules and power supplies, pre-wired and UL 48 labeled
 - **Warranty:** 3 years, LED modules and power supplies
@@ -1062,6 +1441,7 @@ Technical specifications
 - **Installation:** Not provided. Installation is handled by you or your contractor.
 - **Files for a quote:** Vector artwork (AI, EPS, PDF), dimensions or a sketch, site photos
 - **Sold to:** Trade only: sign companies and industry professionals
+- **Slimmer option:** Ultra-slim LP 11 cast block acrylic letters, 25–30 mm deep: our signature product. Ultra-slim page
 
 [Request Wholesale Pricing](/contact) · [Explore Products](/#products)
 
@@ -1130,17 +1510,25 @@ Channel letter FAQ
 
 No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, shopfitters and other trade professionals.
 
-##### Which channel letter lighting types do you build?
+##### Which classic channel letter systems do you build?
 
-Front lit, reverse / halo lit and front + back lit channel letters, trimmed or trimless, fabricated to your drawings.
+Trimless fabricated stainless steel letters: EdgeLuxe LP 5 (face lit), LP 3.1 (halo lit on standoffs) and LP 3.2 (flush-mount with a partial side-lit halo), fabricated to your drawings.
+
+##### Do you build letters with a trim cap?
+
+No. Every Sunlite letter is trimless: the face meets the return directly, with no trim cap around the edge.
+
+##### What depths are available?
+
+The classic stainless steel systems come in 30, 50, 75 and 100 mm (1.2, 2, 3 and 4 inches) and custom depths.
 
 ##### Are your channel letters UL listed?
 
 Our illuminated signage is UL 48 listed, and LED modules and power supplies are pre-wired and UL 48 labeled.
 
-##### Do you offer ultra-slim channel letters?
+##### Do you offer ultra-slim letters?
 
-Yes, as a specialized option: ultra-slim trimless channel letters at 25–30 mm total depth. It is not the standard depth of our channel letters.
+Yes, they are our signature product: the EdgeLuxe LP 11 series of cast block acrylic letters, 25–30 mm deep (30 mm standard, 25 mm for small letters).
 
 ##### What files do you need to quote channel letters?
 
@@ -1166,8 +1554,8 @@ Related
 
 #### Keep exploring.
 
-- Ultra-slim trimless — A specialized option at 25–30 mm total depth. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
-- EdgeLuxe letter systems — 12 configurations, each with depths, materials and limits. — Open — (Links to: /#light-effects)
+- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Custom fabrication — Blade signs, push-through cabinet signs and custom projects to your drawings. — Open — (Links to: /services/custom-sign-fabrication)
 - Projects — See recent production. — Open — (Links to: /projects)
 - Manufacturing — How drawings become finished signs. — Open — (Links to: /manufacturing)
 
@@ -1179,144 +1567,142 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
-## /services/ultra-slim-trimless-channel-letters
+## /services/custom-sign-fabrication
 
-- URL: https://sunlitesigns.com/services/ultra-slim-trimless-channel-letters
-- Title: Ultra-Slim Trimless Channel Letters | 25–30 mm Depth
-- Meta description: Ultra-slim trimless channel letters at 25–30 mm total depth: a cleaner alternative to deep returns for premium retail, architectural and interior signage. Wholesale to sign companies.
+- URL: https://sunlitesigns.com/services/custom-sign-fabrication
+- Title: Custom Sign Fabrication: Blade and Cabinet Signs | Sunlite Signs
+- Meta description: Custom sign fabrication to your drawings: illuminated blade signs, push-through cabinet signs, custom logos and letter projects. Wholesale to sign companies, trade only.
 
 - [Home](/)
 - /[Products](/#products)
-- /Ultra-Slim Trimless
+- /Custom Fabrication
 
-Sunlite Ultra-Slim
+Wholesale sign manufacturer · Trade only
 
-### Ultra-Slim Channel Letters. Just 25–30 mm Deep.
+### Custom Sign Fabrication. Made to Your Drawings.
 
-A cleaner alternative to conventional deep-return channel letters — engineered for premium retail, architectural and interior signage applications.
+When the job is not a standard letter system, send us the drawing. We fabricate custom signs to your drawings and ship them ready to install: blade signs, push-through cabinet signs and custom illuminated letters and logos.
 
-A specialized premium option, not the standard depth of our channel letters.
+[Request Wholesale Pricing](/contact) · [View Specs](/services/custom-sign-fabrication#specifications)
 
-[Request Wholesale Pricing](/contact) · [View Specs](/services/ultra-slim-trimless-channel-letters#specifications)
+*[Image: Illuminated MUSTANG lettering on a dark sign panel above a storefront at night]*
 
-*[Image: Illuminated vertical lettering in a large interior concourse]*
+Fig. 01 / Illuminated sign panel
 
-Fig. 01 / Project photography
+What we make to order
 
-- 01 — 25–30 mm depth
-- 02 — Trimless construction
-- 03 — Face / halo / dual lit
+#### Your drawing. Our fabrication.
 
-Side profile
+- 01 — Push-through cabinet signs — Single or double-sided — Illuminated cabinets with CNC-routed aluminum faces and push-through acrylic graphics that glow evenly. Made as wall-mounted single-sided cabinets or double-sided signs.
+- 02 — Blade signs — Double-sided — Double-sided illuminated blade signs, fabricated to your drawing.
+- 03 — Illuminated logos & letter projects — Custom letterforms — Logos, custom letterforms and other illuminated letter projects, fabricated to your drawings. Send your artwork as a vector file and we advise on materials, light effects, sizing and technical feasibility.
 
-#### Why 25–30 mm matters.
+#### Bring us your drawing. We make it to size.
 
-Illustrative side profiles, not to scale. Conventional return depth varies by project.
+Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a tailored quote within 48 hours.
 
-- 01 — A cleaner profile — Trimless construction lets the face and return read as one body, with no trim cap at the edge.
-- 02 — Less visual bulk — A slim side profile keeps the letter close to the surface, which suits architectural and interior settings.
-- 03 — Where deep returns do not fit — When conventional channel-letter returns are impractical, ultra-slim keeps the illuminated effect without the depth.
-
-Illumination options
-
-#### Face, halo or dual lit.
-
-01
-
-##### Face lit
-
-- **Light goes:** Through the face
-
-Light passes through the translucent face, so the whole face of the letter glows toward the viewer.
-
-02
-
-##### Halo lit
-
-- **Light goes:** To the wall behind
-
-The face stays solid. Light is directed backward and washes the wall, outlining each letter with a soft halo. Letters stand off the surface so the glow can reach it.
-
-03
-
-##### Dual lit
-
-- **Light goes:** Face and wall
-
-A glowing face combined with a halo on the wall behind it: both effects from one letter.
-
-Concept section diagrams, not to scale.
+[Request Wholesale Pricing](/contact)
 
 Technical details
 
 #### The spec sheet.
 
-- **Total depth:** 25–30 mm (about 1" to 1.2")
-- **Construction:** Trimless, seamless face
-- **Lighting:** Face lit / halo / dual lit
-- **Finishes:** Custom paint / vinyl
-- **Materials:** Specified per project. The related letter systems below list their own materials.
-- **Intended for:** Premium retail, architectural and interior signage
-- **Positioning:** A specialized option. Not the standard depth of our channel letters.
-- **Certification:** UL 48 Listed
-- **Warranty:** 3 yrs LED + power supply
+- **Product:** Custom signs made to your drawings
+- **Includes:** Blade signs, push-through cabinet signs, illuminated logos and custom letter projects
+- **Size:** Custom to project: set by your drawing
+- **Cabinet material:** CNC-routed aluminum face with push-through acrylic graphics
+- **Lighting:** Internal LED
+- **Configuration:** Single-sided, double-sided or blade
+- **Certification:** UL 48 listed
+- **Warranty:** 3 years, LED modules and power supplies
 - **Quote:** Tailored quote within 48 hours
+- **Delivery:** Crated and shipped nationwide, ready to install, with drill template and wiring plan
+- **Installation:** Not provided. Installation is handled by you or your contractor.
+- **Sold to:** Trade only: sign companies and industry professionals
 
-3D preview
+Process
 
-Not sure which configuration you need?
+#### From Artwork to Your Dock.
 
-Upload your logo or type your text and preview it as a 3D sign.
+- 01 — Send your files
+- 02 — Receive your quote
+- 03 — Approve drawings
+- 04 — We fabricate
+- 05 — Quality control
+- 06 — Crated & shipped
 
-[Build Your Sign](/configurator?config=lp-5-trimless-face-lit)
+Reference projects
 
-Installation / mounting
-
-#### Ready to install.
-
-- **Ships ready to install:** Every sign ships with a drill template and wiring plan.
-- **Pre-wired:** LED modules and power supplies come pre-wired and UL 48 labeled.
-- **Mounting:** Specified per project. Mounting options for our channel letters are shown on the channel letters page. Mounting options
-
-Project photography
-
-#### On the wall.
+#### Recent production.
 
 [View All Projects](/projects)
 
-*[Image: Large white illuminated lettering with a soft halo above an event stand]*
+*[Image: Illuminated acorn and laurel crest on a wood-slat wall]*
 
 Fig. 01
 
-##### Event stand lettering
+##### Acorn crest
 
-- **Product:** Ultra-slim trimless letters
-
-[View Ultra-slim trimless letters](/services/ultra-slim-trimless-channel-letters)
-
-25–30Side-profile photography — coming soon
+*[Image: Panther Dome entrance with an illuminated panther emblem at dusk]*
 
 Fig. 02
 
-##### Side profile
+##### Panther Dome
 
-Related letter systems
+*[Image: Mustang sign with illuminated lettering on a dark panel]*
 
-#### Depths differ by system.
+Fig. 03
 
-These EdgeLuxe systems are listed with their own depths, materials and limits.
+##### Mustang
 
-- *[Image: LP 5 Trimless Fabricated Stainless Steel Letters]* — LP 5 — Trimless Fabricated Stainless Steel Letters — Standard depths start at 30 mm. — View system — (Links to: /light-effects/lp-5-trimless-face-lit)
-- *[Image: LP 11-F Block Acrylic Face-lit]* — LP 11-F — Block Acrylic Face-lit — 30 mm standard, 25 mm for small letters. — View system — (Links to: /light-effects/lp-11-f-face-lit)
+Custom fabrication FAQ
 
-Related
+#### Before you send the drawing.
 
-#### Keep exploring.
+##### What custom signs can you make?
 
-- All channel letters — Front, halo and front + back lit, trimmed or trimless. — Open — (Links to: /services/channel-letters)
-- Projects — See recent production. — Open — (Links to: /projects)
-- Manufacturing — How drawings become finished signs. — Open — (Links to: /manufacturing)
-- Build Your Sign — See your logo as a letter system before you request pricing. — Open — (Links to: /configurator)
+Blade signs, push-through cabinet signs, and custom illuminated letters and logos, all fabricated to your drawings.
+
+##### Do you make double-sided blade signs?
+
+Yes. Our illuminated cabinets are made single-sided, double-sided or as blade signs.
+
+##### What sizes are possible?
+
+Custom to your drawing. Send the dimensions with your artwork and we advise on feasibility.
+
+##### What files do you need for a quote?
+
+Logo as a vector file (AI, EPS, PDF), dimensions or dimension sketch, photos of the facade or installation site, desired light effect, and indoor/outdoor specification.
+
+##### Do you consult on technical feasibility?
+
+Yes. We advise on materials, light effects, sizing, and technical feasibility, and create visualizations on request.
+
+##### Are one-off projects possible?
+
+Yes. We manufacture both one-off projects and production runs, always to your project specifications.
+
+##### Are custom signs UL listed?
+
+Our illuminated signage is UL 48 listed. LED modules and power supplies carry a 3-year warranty.
+
+##### Do you handle installation?
+
+No. Signs ship ready to install, with a drill template and wiring plan. Installation is handled by you, your crew, your electrician or a local contractor.
+
+##### Do you sell custom signs to retail customers?
+
+No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, shopfitters and other trade professionals.
+
+Letter systems
+
+#### Standard systems, too.
+
+- Ultra-slim letters — EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Classic trimless letters — Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2. — Open — (Links to: /services/channel-letters)
+- Flat cutout letters — Non-illuminated LP 1 letters in wood, metal, acrylic and more. — Open — (Links to: /light-effects/lp-1-flat-cutout)
+- Build Your Sign — Preview your logo as a letter system in 3D before you request pricing. — Open — (Links to: /configurator)
 
 #### Have drawings ready? Let's price the job.
 
@@ -1325,105 +1711,6 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 [Request Wholesale Pricing](/contact)
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
-
-## /services/cast-block-acrylic
-
-- URL: https://sunlitesigns.com/services/cast-block-acrylic
-- Title: Cast Block Acrylic Letters | Sunlite Signs
-- Meta description: Premium illumination from a solid block Solid cast acrylic letters with homogeneous illumination – refined, premium brand presence.
-
-*[Image: Cast Block Acrylic Letters]*
-
-[All products](/#products)
-
-### Cast Block Acrylic Letters
-
-Premium illumination from a solid block
-
-[Request Wholesale Pricing](/contact)
-
-Cast block acrylic letters are made from solid high-grade acrylic and glow evenly throughout. The result is a refined, homogeneous light effect, popular with luxury brands, hotels and flagship stores.
-
-#### Technical Overview
-
-Min. Letter Height
-
-2" (50 mm)
-
-Material
-
-Cast acrylic (PMMA), 1.2" (30 mm) standard; 1" (25 mm) for small letters
-
-Lighting
-
-Embedded LEDs, uniform face lighting
-
-Colors
-
-Any PMS color; vinyl or pigmented translucent acrylic options
-
-Certification
-
-UL 48 Listed
-
-Warranty
-
-3 yrs LED + power supply
-
-#### Day & Night Effect
-
-*[Image: Night]*
-
-*[Image: Day]*
-
-DayNight
-
-#### Reference Projects
-
-*[Image: Cast Block Acrylic Letters reference 1]*
-
-*[Image: Cast Block Acrylic Letters reference 2]*
-
-Interested in Cast Block Acrylic Letters?
-
-Send us your project files – we'll quote within 48 hours.
-
-[Request Wholesale Pricing](/contact)
-
-#### Other Products
-
-*[Image: Standard Channel Letters]*
-
-Standard Channel Letters
-
-Front lit, halo lit and dual illuminated channel letters built to project specifications.
-
-(Links to: /services/channel-letters)
-
-*[Image: Ultra-Slim Trimless Channel Letters]*
-
-Ultra-Slim Trimless Channel Letters
-
-Premium illuminated letters available at just 25–30 mm total depth.
-
-(Links to: /services/ultra-slim-trimless-channel-letters)
-
-3D preview
-
-Not sure which configuration you need?
-
-Upload your logo or type your text and preview it as a 3D sign.
-
-[Build Your Sign](/configurator?config=lp-11-f-face-lit)
-
-Related systems
-
-#### Letter systems behind this product.
-
-- LP 11-F: Block Acrylic Face-lit — Solid cast block acrylic letters with embedded LEDs for uniform face lighting. — Open — (Links to: /light-effects/lp-11-f-face-lit)
-- LP 11-B: Block Acrylic Back-lit — Block acrylic letters with a uniform halo on the wall behind, on standoff spacers. — Open — (Links to: /light-effects/lp-11-b-back-lit)
-- LP 11-FB: Block Acrylic Face- and Halo-lit Combo — Face-lit and halo-lit in one letter: a glowing face plus a wall halo. — Open — (Links to: /light-effects/lp-11-fb-face-halo)
-- Channel letters — Our main product line: front, halo and front + back lit. — Open — (Links to: /services/channel-letters)
 
 ## /light-effects/lp-1-flat-cutout
 
@@ -1904,15 +2191,15 @@ Next
 
 EdgeLuxe LP 11-FS
 
-Block Acrylic Partial Front Side-lit
+Block Acrylic Face-lit + Partial Front Side-lit
 
 (Links to: /light-effects/lp-11-fs-front-side-lit)
 
 ## /light-effects/lp-11-fs-front-side-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-fs-front-side-lit
-- Title: EdgeLuxe LP 11-FS — Block Acrylic Partial Front Side-lit | Sunlite Signs
-- Meta description: Flush-mount letters with light glowing from the front edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
+- Title: EdgeLuxe LP 11-FS — Block Acrylic Face-lit + Partial Front Side-lit | Sunlite Signs
+- Meta description: Flush-mount letters with a glowing face and a thin band of light along the front edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -1920,22 +2207,22 @@ LP 11-FS / Block acrylic
 
 ### EdgeLuxe LP 11-FS
 
-Block Acrylic Partial Front Side-lit
+Block Acrylic Face-lit + Partial Front Side-lit
 
-Flush-mount letters with light glowing from the front edge of the side wall.
+Flush-mount letters with a glowing face and a thin band of light along the front edge of the side wall.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: EdgeLuxe LP 11-FS Block Acrylic Partial Front Side-lit — sample letter]*
+*[Image: EdgeLuxe LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit — sample letter]*
 
 #### About this system
 
-Cast block acrylic letters mounted flush to the wall, with embedded LEDs for a uniform partial front side-lit effect: a band of light glows around the front edge of each letter, outlining the face.
+Cast block acrylic letters mounted flush to the wall, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.
 
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
-- **Illumination:** Embedded LEDs for uniform partial front side-lit, flush-mount
+- **Illumination:** Embedded LEDs for uniform face lighting plus partial front side lighting, flush-mount
 - **Depth:** Standard 1.2" (30 mm) for durability and optimal light diffusion
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
@@ -2018,7 +2305,7 @@ Previous
 
 EdgeLuxe LP 11-FS
 
-Block Acrylic Partial Front Side-lit
+Block Acrylic Face-lit + Partial Front Side-lit
 
 (Links to: /light-effects/lp-11-fs-front-side-lit)
 

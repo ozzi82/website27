@@ -167,7 +167,7 @@ export default function ChannelLettersPage() {
 
       <section id="signature" aria-label="Ultra-slim letters" className="border-b border-border scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 py-10 md:py-14 grid md:grid-cols-[0.8fr_1.2fr] gap-6 md:gap-12 items-center">
-          <div className="relative overflow-hidden aspect-[16/10] border border-border bg-card">
+          <div className="relative overflow-hidden aspect-[5/4] md:aspect-square border border-border bg-card">
             <img
               src={ultraSlimCard.image.src}
               alt={ultraSlimCard.image.alt}

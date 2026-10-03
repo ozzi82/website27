@@ -57,7 +57,7 @@ export default function UltraSlimSection() {
             {lp11Variants.map((v) => (
               <li key={v.id}>
                 <Link to={v.page} className="group block border border-border bg-card/50 hover:border-primary/60 transition-colors h-full">
-                  <div className="relative overflow-hidden aspect-[4/5] border-b border-border bg-card">
+                  <div className="relative overflow-hidden aspect-[3/4] border-b border-border bg-card">
                     <img
                       src={v.img}
                       alt={`${v.code} ${v.subtitle}: sample letter`}
@@ -65,7 +65,7 @@ export default function UltraSlimSection() {
                       height={1331}
                       loading="lazy"
                       decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      className="absolute inset-0 w-full h-full object-cover object-[50%_35%] transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                   </div>
                   <div className="p-2 sm:p-3">

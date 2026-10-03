@@ -97,7 +97,7 @@ Then create an empty repository on github.com and follow the "push an existing r
 
 - **HubSpot allowed domains.** If you restrict where your form can load, add your new domain in HubSpot. Then submit a test inquiry and confirm it reaches HubSpot and your email.
 - **Your old Zite URL.** Once the new site works, point your domain's DNS at the new host. Keep the old site up until DNS has switched.
-- **Remaining placeholders.** The 12 EdgeLuxe configuration pages now carry the real brochure content. Check `src/data/services.ts` against the brochure (Trimless depth, the "Placeholder" Letter Height on Cast Block Acrylic, Clear/Opal colors).
+- **Remaining placeholders.** The 12 EdgeLuxe configuration pages now carry the real brochure content. The product pages (`src/data/ultraSlim.ts`, `channelLetters.ts`, `customFabrication.ts`) take their specs from `src/data/configurations.ts`; check that file against the brochure.
 - **Privacy policy.** It mentions file uploads and email forwarding. Your live form is HubSpot. Review the text in `src/components/LegalDialogs.tsx` so it matches what actually happens.
 
 ## What changed from the Zite version
