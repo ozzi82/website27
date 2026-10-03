@@ -39,6 +39,7 @@ export function configSummaryRows(
   const rows: SummaryRow[] = [
     { label: "Configuration", value: `${config.code} ${config.subtitle}` },
     { label: "Depth", value: formatDepth(state.depthMm) },
+    { label: "Mounting", value: state.mounting === "standoff" ? "Stand-off spacers" : "Flush to the wall" },
   ];
   const finish = getLp1Finish(state.finish);
   if (isLp1(config)) {

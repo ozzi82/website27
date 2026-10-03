@@ -1,4 +1,4 @@
-import type { LightConfig } from "../../data/configurations";
+import { defaultMount, type LightConfig, type Mount } from "../../data/configurations";
 import { DEFAULT_BACKGROUND, type BackgroundId } from "./backgrounds";
 import { DEFAULT_BRIGHTNESS } from "./brightness";
 import {
@@ -29,6 +29,8 @@ export interface ConfiguratorState {
   brightness: number;
   /** The wall the sign is mounted on. */
   background: BackgroundId;
+  /** How the letter is carried; always one of the configuration's `mounts`. */
+  mounting: Mount;
   /** LP 1 only: the material of the flat cutout letter. */
   finish: Lp1FinishId;
   /** LP 1 only: solid (thinner) or fabricated (hollow, thicker). */
@@ -63,6 +65,7 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
     dayNight: "day",
     brightness: DEFAULT_BRIGHTNESS,
     background: DEFAULT_BACKGROUND,
+    mounting: defaultMount(config),
     finish: DEFAULT_LP1_FINISH,
     build: DEFAULT_LP1_BUILD,
   };
@@ -90,6 +93,7 @@ export function switchConfig(prev: ConfiguratorState, next: LightConfig): Config
   return {
     ...fresh,
     depthMm: depthOptionsFor(next, prev).includes(prev.depthMm) ? prev.depthMm : fresh.depthMm,
+    mounting: next.mounts.includes(prev.mounting) ? prev.mounting : fresh.mounting,
     finish: prev.finish,
     build: prev.build,
     color: prev.color,

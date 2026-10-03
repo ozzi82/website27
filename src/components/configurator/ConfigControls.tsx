@@ -7,6 +7,7 @@ import SegmentedControl from "./SegmentedControl";
 import { GLOW_SWATCHES, PAINT_SWATCHES, type Swatch } from "./swatches";
 import { thinStrokeAdvice } from "./strokeGuard";
 import { depthOptionsFor, emitsLight, formatDepth, withBuild, withFinish, type ConfiguratorState } from "./types";
+import { MOUNT_LABEL } from "../../data/configurations";
 import { LP1_FINISHES, getLp1Finish, isLp1, type Lp1Build } from "./lp1Materials";
 
 interface ConfigControlsProps {
@@ -144,6 +145,21 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         </>
       )}
 
+      {config.mounts.length > 1 && (
+        <Row label="Mounting" labelId="mounting-label">
+          <SegmentedControl
+            label="Mounting"
+            value={state.mounting}
+            onChange={(mounting) => set({ mounting })}
+            options={config.mounts.map((m) => ({
+              value: m,
+              label: MOUNT_LABEL[m],
+              title: m === "flush" ? "Against the wall" : "Held off the wall on spacers",
+            }))}
+          />
+        </Row>
+      )}
+
       <Row label="Depth" labelId="depth-label">
         <SegmentedControl
           label="Depth"
@@ -256,6 +272,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           {illustrative && <p>Illustrative preview — this profile is approximated.</p>}
           <p>Paint color applies to the sides and any face that isn’t lit; glow color is the pigmented acrylic or vinyl.</p>
           <p>The brightness slider dims the LEDs in the night view.</p>
+          {config.mounts.length === 1 && <p>This system is mounted on stand-off spacers only: the halo needs the gap to reach the wall.</p>}
           {flat && (
             <p>
               {finish.builds.length === 1

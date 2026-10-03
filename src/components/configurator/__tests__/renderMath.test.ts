@@ -108,7 +108,7 @@ describe("wallGapFor", () => {
   it("floats standoff mounts off the wall and keeps flat/flush mounts tight", () => {
     expect(wallGapFor("standoff")).toBeGreaterThan(wallGapFor("flush"));
     expect(wallGapFor("flush")).toBeGreaterThan(0);
-    expect(wallGapFor("flat")).toBeGreaterThan(0);
+    expect(wallGapFor("flush")).toBeGreaterThan(0);
     expect(wallGapFor("standoff")).toBeCloseTo(0.12, 6);
   });
 });

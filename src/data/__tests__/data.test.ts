@@ -162,3 +162,15 @@ describe("EdgeLuxe render files", () => {
     }
   });
 });
+
+describe("mounting (owner list, 2026-10-03)", () => {
+  it("only LP 3.1, LP 11-B and LP 11-FB are stand-off only; every other system can be flush or stand-off", async () => {
+    const { configurations, defaultMount } = await import("../configurations");
+    const standoffOnly = configurations.filter((c) => c.mounts.length === 1).map((c) => c.id);
+    expect(standoffOnly).toEqual(["lp-3-1-standoff-halo", "lp-11-b-back-lit", "lp-11-fb-face-halo"]);
+    for (const c of configurations) {
+      expect(c.specs.find((r) => r.label === "Mounting"), c.id).toBeTruthy();
+      expect(c.mounts).toContain(defaultMount(c));
+    }
+  });
+});

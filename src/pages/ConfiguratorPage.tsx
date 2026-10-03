@@ -35,11 +35,13 @@ function findConfig(id: string | null) {
   return configurations.find((c) => c.id === id);
 }
 
-/** The starting state of a deep link: `?config=<id>`, plus `&finish=<LP 1 finish>&build=solid|fabricated` for LP 1. */
+/** The starting state of a deep link: `?config=<id>`, optionally `&mount=flush|standoff`, plus `&finish=<LP 1 finish>&build=solid|fabricated` for LP 1. */
 function initialState(params: URLSearchParams): ConfiguratorState | null {
   const config = findConfig(params.get("config")); // an unknown id falls back to the chooser
   if (!config) return null;
   let state = defaultStateFor(config);
+  const mount = params.get("mount");
+  if ((mount === "flush" || mount === "standoff") && config.mounts.includes(mount)) state = { ...state, mounting: mount };
   if (isLp1(config)) {
     const finish = params.get("finish");
     if (isLp1FinishId(finish)) state = withFinish(state, finish);

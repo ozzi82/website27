@@ -36,7 +36,7 @@ const WALL_SPILL: Record<Exclude<WallSpill, "none">, { scale: number; spread: nu
  * `mount`; the state supplies colours, depth and size.
  */
 export default function ConfigScene({ shapes, config, state }: ConfigSceneProps) {
-  const { light, profile, mount } = config;
+  const { light, profile } = config;
   const geometry = useSignGeometry(shapes, depthRatioFor(state.depthMm), profile);
 
   // Real extents of the built geometry (the visible letter spans z in [0, depth]).
@@ -48,11 +48,11 @@ export default function ConfigScene({ shapes, config, state }: ConfigSceneProps)
 
   const background = getBackground(state.background);
   const wall = useWallTexture(background.id);
-  const gap = wallGapFor(mount);
+  const gap = wallGapFor(state.mounting);
   const lit = emitsLight(config);
   const level = brightnessFactor(state.brightness);
   const glowColor = useMemo(() => new THREE.Color(state.glowColor), [state.glowColor]);
-  const parts = glowParts(light, profile);
+  const parts = glowParts(light, profile, state.mounting);
   const band = litBandThickness(depth, height, parts.sideBand ?? undefined);
   const spill = WALL_SPILL[parts.wallSpill === "none" ? "glare" : parts.wallSpill];
   const haloColor = useMemo(() => glowColor.clone().multiplyScalar(spill.scale), [glowColor, spill]);

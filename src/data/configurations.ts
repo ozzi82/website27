@@ -14,7 +14,8 @@ export type HaloLight = "none" | "standoff";
 export type SideLight = "none" | "partial-back" | "partial-front" | "full";
 /** Cross-section of the letter. */
 export type Profile = "flat" | "standard" | "tube" | "conical";
-export type Mount = "flat" | "standoff" | "flush";
+/** How a letter is carried: flush against the wall, or held off it on stand-off spacers. */
+export type Mount = "standoff" | "flush";
 
 export interface LightBehavior {
   face: FaceLight;
@@ -42,7 +43,8 @@ export interface LightConfig {
   imgDay?: string;
   profile: Profile;
   light: LightBehavior;
-  mount: Mount;
+  /** The mountings the letter is offered with (owner list, 2026-10-03). Halo letters need the gap, so they are stand-off only. */
+  mounts: Mount[];
   /** Selectable depths in millimetres (the brochure's standard sizes). */
   depthOptionsMm: number[];
   /** True if the brochure offers custom depths beyond the standard list. */
@@ -65,7 +67,7 @@ const STEEL_DEPTH_TEXT = '1.2" (30 mm), 2" (50 mm), 3" (75 mm), 4" (100 mm) and 
 const ACRYLIC_SEALING = 'Epoxy-sealed for IP67 waterproofing and heat dissipation.';
 const ACRYLIC_MAINT = "IP67 water- and dust-proof, no maintenance";
 
-export const configurations: LightConfig[] = [
+const baseConfigurations: LightConfig[] = [
   {
     id: "lp-1-flat-cutout",
     code: "LP 1",
@@ -88,7 +90,7 @@ export const configurations: LightConfig[] = [
     img: IMG + "lp-1-flat-cutout.jpg",
     profile: "flat",
     light: { face: "none", halo: "none", side: "none" },
-    mount: "flat",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: [1, 5, 10, 20, 50, 100, 200],
     customDepth: false,
     minHeightMm: 10,
@@ -116,7 +118,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-3-1-standoff-halo-day.jpg",
     profile: "standard",
     light: { face: "none", halo: "standoff", side: "none" },
-    mount: "standoff",
+    mounts: ["standoff"],
     depthOptionsMm: STEEL_DEPTHS,
     customDepth: true,
     minHeightMm: 50,
@@ -128,11 +130,11 @@ export const configurations: LightConfig[] = [
     title: "EdgeLuxe LP 3.2",
     subtitle: "Fabricated Stainless Steel Flush-mount",
     family: "Stainless steel",
-    summary: "Flush-mounted stainless steel letters with a partial side-lit halo effect.",
+    summary: "Stainless steel letters, flush or stand-off mounted, with a partial side-lit halo effect.",
     description:
-      "Fabricated stainless steel letters mounted flush to the wall, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39\" / 10 mm) that glows around the edge of each letter.",
+      "Fabricated stainless steel letters that mount flush to the wall or on standoffs, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39\" / 10 mm) that glows around the edge of each letter.",
     specs: [
-      { label: "Illumination", value: "Partial side-lit flush-mounted halo effect" },
+      { label: "Illumination", value: "Partial side-lit halo effect" },
       { label: "Depth", value: STEEL_DEPTH_TEXT },
       { label: "Exposed acrylic", value: 'Standard thickness of exposed acrylic is 0.39" (10 mm)' },
       { label: "Customization", value: PMS_HALO },
@@ -145,7 +147,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-3-2-flush-mount-day.jpg",
     profile: "standard",
     light: { face: "none", halo: "none", side: "partial-back" },
-    mount: "flush",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: STEEL_DEPTHS,
     customDepth: true,
     minHeightMm: 50,
@@ -174,7 +176,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-5-trimless-face-lit-day.jpg",
     profile: "standard",
     light: { face: "glow", halo: "none", side: "none" },
-    mount: "flat",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: STEEL_DEPTHS,
     customDepth: true,
     minHeightMm: 50,
@@ -204,7 +206,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-11-f-face-lit-day.jpg",
     profile: "standard",
     light: { face: "glow", halo: "none", side: "none" },
-    mount: "flat",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: [25, 30],
     customDepth: false,
     minHeightMm: 50,
@@ -234,7 +236,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-11-b-back-lit-day.jpg",
     profile: "standard",
     light: { face: "none", halo: "standoff", side: "none" },
-    mount: "standoff",
+    mounts: ["standoff"],
     depthOptionsMm: [10, 15, 20, 30],
     customDepth: false,
     minHeightMm: 50,
@@ -264,7 +266,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-11-fb-face-halo-day.jpg",
     profile: "standard",
     light: { face: "glow", halo: "standoff", side: "none" },
-    mount: "standoff",
+    mounts: ["standoff"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
@@ -276,12 +278,12 @@ export const configurations: LightConfig[] = [
     title: "EdgeLuxe LP 11-BS",
     subtitle: "Block Acrylic Partial Back Side-lit",
     family: "Block acrylic",
-    summary: "Flush-mount letters with light glowing from the back edge of the side wall.",
+    summary: "Letters, flush or stand-off mounted, with light glowing from the back edge of the side wall.",
     description:
-      "Cast block acrylic letters mounted flush to the wall, with embedded LEDs for a uniform partial back side-lit effect: a band of light glows around the back edge of each letter.",
+      "Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for a uniform partial back side-lit effect: a band of light glows around the back edge of each letter.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
-      { label: "Illumination", value: "Embedded LEDs for uniform partial back side-lit, flush-mount" },
+      { label: "Illumination", value: "Embedded LEDs for uniform partial back side-lit" },
       { label: "Depth", value: 'Standard 1.2" (30 mm) for durability and optimal light diffusion' },
       { label: "Customization", value: PMS_FACE_LIT },
       { label: "Min. stroke width", value: '0.47" (12 mm) for stability and even illumination' },
@@ -294,7 +296,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-11-bs-back-side-lit-day.jpg",
     profile: "standard",
     light: { face: "none", halo: "none", side: "partial-back" },
-    mount: "flush",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
@@ -306,12 +308,12 @@ export const configurations: LightConfig[] = [
     title: "EdgeLuxe LP 11-FS",
     subtitle: "Block Acrylic Face-lit + Partial Front Side-lit",
     family: "Block acrylic",
-    summary: "Flush-mount letters with a glowing face and a thin band of light along the front edge of the side wall.",
+    summary: "Letters, flush or stand-off mounted, with a glowing face and a thin band of light along the front edge of the side wall.",
     description:
-      "Cast block acrylic letters mounted flush to the wall, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.",
+      "Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
-      { label: "Illumination", value: "Embedded LEDs for uniform face lighting plus partial front side lighting, flush-mount" },
+      { label: "Illumination", value: "Embedded LEDs for uniform face lighting plus partial front side lighting" },
       { label: "Depth", value: 'Standard 1.2" (30 mm) for durability and optimal light diffusion' },
       { label: "Customization", value: PMS_FACE_LIT },
       { label: "Min. stroke width", value: '0.47" (12 mm) for stability and even illumination' },
@@ -324,7 +326,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-11-fs-front-side-lit-day.jpg",
     profile: "standard",
     light: { face: "glow", halo: "none", side: "partial-front" },
-    mount: "flush",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
@@ -354,7 +356,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-11-s-side-lit-day.jpg",
     profile: "standard",
     light: { face: "none", halo: "none", side: "full" },
-    mount: "flat",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
@@ -385,7 +387,7 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-11-n-faux-neon-day.jpg",
     profile: "tube",
     light: { face: "glow", halo: "none", side: "partial-front", sideBand: 0.5 },
-    mount: "flat",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
@@ -415,10 +417,32 @@ export const configurations: LightConfig[] = [
     imgDay: IMG + "lp-11-c-conical-day.jpg",
     profile: "conical",
     light: { face: "glow", halo: "none", side: "none" },
-    mount: "flat",
+    mounts: ["standoff", "flush"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
     minStrokeMm: 12,
   },
 ];
+
+/** The mounting a letter starts on: flush where it is offered, otherwise stand-off. */
+export function defaultMount(c: Pick<LightConfig, "mounts">): Mount {
+  return c.mounts.includes("flush") ? "flush" : "standoff";
+}
+
+export const MOUNT_LABEL: Record<Mount, string> = { flush: "Flush", standoff: "Stand-off" };
+
+/** The brochure-style mounting line for a configuration's spec list. */
+export function mountingText(c: Pick<LightConfig, "mounts">): string {
+  return c.mounts.length > 1
+    ? "Flush to the wall or on stand-off spacers"
+    : "Stand-off spacers only: the halo needs the gap to reach the wall";
+}
+
+/** Every configuration, with its mounting line added to the specs (before the closing warranty and certification rows). */
+export const configurations: LightConfig[] = baseConfigurations.map((c) => {
+  const row = { label: "Mounting", value: mountingText(c) };
+  const at = c.specs.findIndex((r) => r.label === "Warranty");
+  const specs = at === -1 ? [...c.specs, row] : [...c.specs.slice(0, at), row, ...c.specs.slice(at)];
+  return { ...c, specs };
+});

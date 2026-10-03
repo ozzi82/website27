@@ -15,7 +15,7 @@ export default function SystemImage({ config }: { config: LightConfig }) {
   const src = hasDay && time === "day" ? config.imgDay! : config.img;
   const dims = hasDay ? { width: 1200, height: 900 } : { width: 852, height: 1331 };
   return (
-    <figure className="rounded-xl overflow-hidden border border-border bg-card">
+    <figure className="rounded-xl overflow-hidden border border-border bg-card self-start">
       <img
         src={src}
         alt={`${config.title} ${config.subtitle}: sample letter${hasDay ? `, ${time === "night" ? "lit at night" : "by day"}` : ""}`}

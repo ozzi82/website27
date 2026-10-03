@@ -31,7 +31,7 @@ const depthList = (c: LightConfig) => `${c.depthOptionsMm.map(String).slice(0, -
 const SYSTEM_TEXT: Record<string, { lights: string; mounting: string; text: string }> = {
   "lp-5-trimless-face-lit": {
     lights: "Face lit",
-    mounting: "Mounts flat to the surface",
+    mounting: "Flush or stand-off",
     text: "Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies.",
   },
   "lp-3-1-standoff-halo": {
@@ -41,8 +41,8 @@ const SYSTEM_TEXT: Record<string, { lights: string; mounting: string; text: stri
   },
   "lp-3-2-flush-mount": {
     lights: "Partial side-lit halo",
-    mounting: "Flush-mount",
-    text: "Fabricated stainless steel letters mounted flush to the wall, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.",
+    mounting: "Flush or stand-off",
+    text: "Fabricated stainless steel letters that mount flush to the wall or on standoffs, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.",
   },
 };
 
@@ -168,20 +168,20 @@ export interface MountingOption {
   systems: string;
 }
 
-/** Only the two brochure mountings: standoff (LP 3.1) and flush (LP 3.2). */
+/** The two mountings (owner list, 2026-10-03): LP 3.1 is stand-off only; LP 5 and LP 3.2 can be flush or stand-off. */
 export const mountingOptions: MountingOption[] = [
   {
     id: "standoff",
     kind: "standoff",
     title: "Standoff mount",
-    systems: "LP 3.1",
+    systems: "LP 3.1, LP 5 and LP 3.2",
     text: "The letter is held off the surface on standoff spacers, leaving a gap: the halo needs it so the light can reach the wall.",
   },
   {
     id: "flush",
     kind: "flush",
     title: "Flush mount",
-    systems: "LP 3.2",
+    systems: "LP 5 and LP 3.2 (LP 3.1 is stand-off only)",
     text: "The letter sits directly against the surface, with the glow around its edge from an exposed acrylic band.",
   },
 ];
@@ -224,7 +224,7 @@ export const channelLetterSpecs: SpecRow[] = [
   { label: "Depth", value: "1.2″ (30 mm), 2″ (50 mm), 3″ (75 mm), 4″ (100 mm) and custom depth" },
   { label: "Min. letter height", value: "2″ (50 mm)" },
   { label: "Min. stroke width", value: "0.5″ (15 mm) for stability and even illumination" },
-  { label: "Mounting", value: "Standoff spacers (LP 3.1) or flush-mount (LP 3.2); LP 5 mounts flat" },
+  { label: "Mounting", value: "Flush or on standoff spacers (LP 5 and LP 3.2); LP 3.1 is stand-off only" },
   { label: "Colors", value: "Painted in any PMS color; vinyl or pigmented translucent acrylic options" },
   { label: "Maintenance", value: "Serviceable LEDs" },
   { label: "Certification", value: "UL 48 listed" },

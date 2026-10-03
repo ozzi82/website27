@@ -93,7 +93,7 @@ export function conicalInset(heightWorld: number, halfStroke: number): number {
   return Math.min(heightWorld * 0.035, halfStroke * 0.5);
 }
 
-/** Distance between the back of the letter and the wall behind it, in world units. */
+/** Distance between the back of the letter and the wall behind it, in world units: flush sits against the wall. */
 export function wallGapFor(mount: Mount): number {
   return mount === "standoff" ? 0.12 : 0.012;
 }

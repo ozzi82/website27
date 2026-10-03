@@ -1,4 +1,4 @@
-import type { LightBehavior, Profile, SideLight } from "../../data/configurations";
+import type { LightBehavior, Mount, Profile, SideLight } from "../../data/configurations";
 
 /**
  * How light reaches the wall behind the letter:
@@ -27,13 +27,15 @@ export interface GlowParts {
  * `profile` is accepted for symmetry with the geometry; the rounded neon profile glows exactly like any other
  * letter with the same light behaviour (face + front half of the side).
  */
-export function glowParts(light: LightBehavior, _profile?: Profile): GlowParts {
+export function glowParts(light: LightBehavior, _profile?: Profile, mount?: Mount): GlowParts {
   const face = light.face === "glow";
   const wallSpill: WallSpill =
     light.halo === "standoff"
       ? "standoff"
       : light.side === "partial-back"
-        ? "flush"
+        ? mount === "standoff"
+          ? "standoff" // the same back band, but with a gap behind the letter it washes the wall instead of leaking at the edge
+          : "flush"
         : light.side === "full"
           ? "edge"
           : face

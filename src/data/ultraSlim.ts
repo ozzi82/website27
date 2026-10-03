@@ -62,14 +62,14 @@ export function depthLabel(c: LightConfig): string {
 
 /** One line per variant: how it lights, in words that follow the brochure (keyed by configuration id). */
 const HOW_IT_LIGHTS: Record<string, { lights: string; mounting: string; short: string }> = {
-  "lp-11-f-face-lit": { short: "Face-lit", lights: "The face glows evenly toward the viewer.", mounting: "Mounts flat" },
+  "lp-11-f-face-lit": { short: "Face-lit", lights: "The face glows evenly toward the viewer.", mounting: "Flush or stand-off" },
   "lp-11-b-back-lit": { short: "Halo", lights: "A uniform halo washes the wall behind the letter.", mounting: "Standoff spacers" },
   "lp-11-fb-face-halo": { short: "Face + halo", lights: "A glowing face plus a halo on the wall behind.", mounting: "Standoff spacers" },
-  "lp-11-bs-back-side-lit": { short: "Back side", lights: "A band of light glows along the back edge of the side wall.", mounting: "Flush-mount" },
-  "lp-11-fs-front-side-lit": { short: "Face + front side", lights: "The face glows and a thin band lights the front edge of the side wall.", mounting: "Flush-mount" },
-  "lp-11-s-side-lit": { short: "Full side", lights: "The whole side wall glows; the painted face stays solid.", mounting: "Mounts flat" },
-  "lp-11-n-faux-neon": { short: "Faux neon", lights: "Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.", mounting: "Mounts flat" },
-  "lp-11-c-conical": { short: "Conical", lights: "Tapered conical profile for narrow strokes and serifs, face-lit.", mounting: "Mounts flat" },
+  "lp-11-bs-back-side-lit": { short: "Back side", lights: "A band of light glows along the back edge of the side wall.", mounting: "Flush or stand-off" },
+  "lp-11-fs-front-side-lit": { short: "Face + front side", lights: "The face glows and a thin band lights the front edge of the side wall.", mounting: "Flush or stand-off" },
+  "lp-11-s-side-lit": { short: "Full side", lights: "The whole side wall glows; the painted face stays solid.", mounting: "Flush or stand-off" },
+  "lp-11-n-faux-neon": { short: "Faux neon", lights: "Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.", mounting: "Flush or stand-off" },
+  "lp-11-c-conical": { short: "Conical", lights: "Tapered conical profile for narrow strokes and serifs, face-lit.", mounting: "Flush or stand-off" },
 };
 
 export interface Lp11Variant {
@@ -112,8 +112,8 @@ export const ultraSlimLightingDiagrams = [
 
 /** The other lighting variants, described in words. */
 export const ultraSlimOtherLighting = [
-  { code: "BS", title: "Partial back side-lit", text: "Flush-mount. A band of light glows along the back edge of the side wall." },
-  { code: "FS", title: "Face-lit + partial front side-lit", text: "Flush-mount. The face glows and a thin band of light also glows along the front edge of the side wall." },
+  { code: "BS", title: "Partial back side-lit", text: "Flush or stand-off. A band of light glows along the back edge of the side wall." },
+  { code: "FS", title: "Face-lit + partial front side-lit", text: "Flush or stand-off. The face glows and a thin band of light also glows along the front edge of the side wall." },
   { code: "S", title: "Full side-lit", text: "The whole side wall glows while the painted face stays solid." },
   { code: "N", title: "Faux neon", text: "Block acrylic with the front edge routed round (up to 0.5\" / 12.7 mm, at most half the thickness) to simulate a neon glass tube. The face and the front half of the side wall glow." },
   { code: "C", title: "Conical", text: "A tapered profile so the lit face can be much narrower than the body, for fine strokes and serifs." },
@@ -122,7 +122,7 @@ export const ultraSlimOtherLighting = [
 const first = lp11[0]; // LP 11-F carries the series-wide wording
 const spec = (c: LightConfig, label: string) => c.specs.find((r) => r.label === label)?.value ?? "";
 const ids = (...codes: string[]) => codes.map((x) => `LP 11-${x}`).join(" and ");
-const mountedBy = (mount: LightConfig["mount"]) => lp11.filter((c) => c.mount === mount).map((c) => c.code.replace("LP 11-", ""));
+const standoffOnly = () => lp11.filter((c) => !c.mounts.includes("flush")).map((c) => c.code.replace("LP 11-", ""));
 
 export const ultraSlimSpecs: SpecRow[] = [
   { label: "Product", value: "EdgeLuxe LP 11 series: cast block acrylic letters" },
@@ -135,7 +135,7 @@ export const ultraSlimSpecs: SpecRow[] = [
   { label: "Colors", value: spec(first, "Customization") },
   {
     label: "Mounting",
-    value: `Standoff spacers: ${ids(...mountedBy("standoff"))}. Flush-mount: ${ids(...mountedBy("flush"))}. The other variants mount flat to the surface.`,
+    value: `Flush to the wall or on stand-off spacers. ${ids(...standoffOnly())} are stand-off only, because the halo needs the gap to reach the wall.`,
   },
   { label: "Certification", value: "UL 48 listed" },
   { label: "Warranty", value: "3 years, LED modules and power supplies" },
@@ -147,7 +147,7 @@ export const installationPoints: SpecRow[] = [
   { label: "Pre-wired", value: "LED modules and power supplies come pre-wired and UL 48 labeled." },
   {
     label: "Standoff or flush",
-    value: "LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; LP 11-BS and LP 11-FS mount flush to the surface.",
+    value: "LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; the other LP 11 variants can be mounted flush to the surface or on standoffs.",
     link: { label: "Mounting explained", to: `${CHANNEL_LETTERS_PATH}#mounting` },
   },
   { label: "Installation", value: "Not provided. Handled by you, your crew or a local contractor." },

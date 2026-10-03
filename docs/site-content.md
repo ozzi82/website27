@@ -955,7 +955,7 @@ LP 11-F
 The face glows evenly toward the viewer.
 
 - **Depth:** 25 or 30 mm
-- **Mounting:** Mounts flat
+- **Mounting:** Flush or stand-off
 
 [View system](/light-effects/lp-11-f-face-lit) · [Preview in 3D](/configurator?config=lp-11-f-face-lit)
 
@@ -994,7 +994,7 @@ LP 11-BS
 A band of light glows along the back edge of the side wall.
 
 - **Depth:** 30 mm
-- **Mounting:** Flush-mount
+- **Mounting:** Flush or stand-off
 
 [View system](/light-effects/lp-11-bs-back-side-lit) · [Preview in 3D](/configurator?config=lp-11-bs-back-side-lit)
 
@@ -1007,7 +1007,7 @@ LP 11-FS
 The face glows and a thin band lights the front edge of the side wall.
 
 - **Depth:** 30 mm
-- **Mounting:** Flush-mount
+- **Mounting:** Flush or stand-off
 
 [View system](/light-effects/lp-11-fs-front-side-lit) · [Preview in 3D](/configurator?config=lp-11-fs-front-side-lit)
 
@@ -1020,7 +1020,7 @@ LP 11-S
 The whole side wall glows; the painted face stays solid.
 
 - **Depth:** 30 mm
-- **Mounting:** Mounts flat
+- **Mounting:** Flush or stand-off
 
 [View system](/light-effects/lp-11-s-side-lit) · [Preview in 3D](/configurator?config=lp-11-s-side-lit)
 
@@ -1033,7 +1033,7 @@ LP 11-N
 Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.
 
 - **Depth:** 30 mm
-- **Mounting:** Mounts flat
+- **Mounting:** Flush or stand-off
 
 [View system](/light-effects/lp-11-n-faux-neon) · [Preview in 3D](/configurator?config=lp-11-n-faux-neon)
 
@@ -1046,7 +1046,7 @@ LP 11-C
 Tapered conical profile for narrow strokes and serifs, face-lit.
 
 - **Depth:** 30 mm
-- **Mounting:** Mounts flat
+- **Mounting:** Flush or stand-off
 
 [View system](/light-effects/lp-11-c-conical) · [Preview in 3D](/configurator?config=lp-11-c-conical)
 
@@ -1090,8 +1090,8 @@ LP 11-FB. A glowing face combined with a halo on the wall, from one letter.
 
 Concept section diagrams, not to scale.
 
-- BS — Partial back side-lit — Flush-mount. A band of light glows along the back edge of the side wall.
-- FS — Face-lit + partial front side-lit — Flush-mount. The face glows and a thin band of light also glows along the front edge of the side wall.
+- BS — Partial back side-lit — Flush or stand-off. A band of light glows along the back edge of the side wall.
+- FS — Face-lit + partial front side-lit — Flush or stand-off. The face glows and a thin band of light also glows along the front edge of the side wall.
 - S — Full side-lit — The whole side wall glows while the painted face stays solid.
 - N — Faux neon — Block acrylic with the front edge routed round (up to 0.5" / 12.7 mm, at most half the thickness) to simulate a neon glass tube. The face and the front half of the side wall glow.
 - C — Conical — A tapered profile so the lit face can be much narrower than the body, for fine strokes and serifs.
@@ -1102,11 +1102,11 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
 
 Concept section diagrams, not to scale.
 
@@ -1130,7 +1130,7 @@ Technical details
 - **Min. letter height:** 2″ (50 mm)
 - **Min. stroke width:** 0.47″ (12 mm) for stability and even illumination. LP 11-S: 0.79″ (20 mm) recommended. LP 11-C: face as narrow as 0.12″ (3 mm).
 - **Colors:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
-- **Mounting:** Standoff spacers: LP 11-B and LP 11-FB. Flush-mount: LP 11-BS and LP 11-FS. The other variants mount flat to the surface.
+- **Mounting:** Flush to the wall or on stand-off spacers. LP 11-B and LP 11-FB are stand-off only, because the halo needs the gap to reach the wall.
 - **Certification:** UL 48 listed
 - **Warranty:** 3 years, LED modules and power supplies
 - **Quote:** Tailored quote within 48 hours
@@ -1149,7 +1149,7 @@ Installation / mounting
 
 - **Ships ready to install:** Every sign ships with a drill template and wiring plan.
 - **Pre-wired:** LED modules and power supplies come pre-wired and UL 48 labeled.
-- **Standoff or flush:** LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; LP 11-BS and LP 11-FS mount flush to the surface. Mounting explained
+- **Standoff or flush:** LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; the other LP 11 variants can be mounted flush to the surface or on standoffs. Mounting explained
 - **Installation:** Not provided. Handled by you, your crew or a local contractor.
 
 Project photography
@@ -1282,7 +1282,7 @@ LP 5
 Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies.
 
 - **Light:** Face lit
-- **Mounting:** Mounts flat to the surface
+- **Mounting:** Flush or stand-off
 - **Depth:** 30, 50, 75 or 100 mm, or custom
 - **Min. height:** 2″ (50 mm)
 
@@ -1309,10 +1309,10 @@ LP 3.2
 
 ##### Fabricated Stainless Steel Flush-mount
 
-Fabricated stainless steel letters mounted flush to the wall, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.
+Fabricated stainless steel letters that mount flush to the wall or on standoffs, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.
 
 - **Light:** Partial side-lit halo
-- **Mounting:** Flush-mount
+- **Mounting:** Flush or stand-off
 - **Depth:** 30, 50, 75 or 100 mm, or custom
 - **Min. height:** 2″ (50 mm)
 
@@ -1403,7 +1403,7 @@ State your surface and preference when you request pricing.
 
 ##### Standoff mount
 
-- **System:** LP 3.1
+- **System:** LP 3.1, LP 5 and LP 3.2
 
 The letter is held off the surface on standoff spacers, leaving a gap: the halo needs it so the light can reach the wall.
 
@@ -1411,7 +1411,7 @@ The letter is held off the surface on standoff spacers, leaving a gap: the halo 
 
 ##### Flush mount
 
-- **System:** LP 3.2
+- **System:** LP 5 and LP 3.2 (LP 3.1 is stand-off only)
 
 The letter sits directly against the surface, with the glow around its edge from an exposed acrylic band.
 
@@ -1462,7 +1462,7 @@ Technical specifications
 - **Depth:** 1.2″ (30 mm), 2″ (50 mm), 3″ (75 mm), 4″ (100 mm) and custom depth
 - **Min. letter height:** 2″ (50 mm)
 - **Min. stroke width:** 0.5″ (15 mm) for stability and even illumination
-- **Mounting:** Standoff spacers (LP 3.1) or flush-mount (LP 3.2); LP 5 mounts flat
+- **Mounting:** Flush or on standoff spacers (LP 5 and LP 3.2); LP 3.1 is stand-off only
 - **Colors:** Painted in any PMS color; vinyl or pigmented translucent acrylic options
 - **Maintenance:** Serviceable LEDs
 - **Certification:** UL 48 listed
@@ -1778,6 +1778,7 @@ Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.0
 - **Min. stroke width:** 0.2" (5 mm)
 - **Min. height:** 0.4" (10 mm)
 - **Maintenance:** No maintenance
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -1841,6 +1842,7 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
+- **Mounting:** Stand-off spacers only: the halo needs the gap to reach the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -1858,13 +1860,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
 
-Concept section diagrams, not to scale. LP 3.1 is mounted on standoffs.
+Concept section diagrams, not to scale. LP 3.1 is mounted on standoffs only.
 
 Previous
 
@@ -1886,7 +1888,7 @@ Fabricated Stainless Steel Flush-mount
 
 - URL: https://sunlitesigns.com/light-effects/lp-3-2-flush-mount
 - Title: EdgeLuxe LP 3.2 — Fabricated Stainless Steel Flush-mount | Sunlite Signs
-- Meta description: Flush-mounted stainless steel letters with a partial side-lit halo effect. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Stainless steel letters, flush or stand-off mounted, with a partial side-lit halo effect. UL Listed, 3-year warranty, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -1896,7 +1898,7 @@ LP 3.2 / Stainless steel
 
 Fabricated Stainless Steel Flush-mount
 
-Flush-mounted stainless steel letters with a partial side-lit halo effect.
+Stainless steel letters, flush or stand-off mounted, with a partial side-lit halo effect.
 
 [Request Wholesale Pricing](/contact)
 
@@ -1906,19 +1908,20 @@ NightDay
 
 #### About this system
 
-Fabricated stainless steel letters mounted flush to the wall, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39" / 10 mm) that glows around the edge of each letter.
+Fabricated stainless steel letters that mount flush to the wall or on standoffs, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39" / 10 mm) that glows around the edge of each letter.
 
 Where the light goes · concept section, not to scale
 
 #### Specifications
 
-- **Illumination:** Partial side-lit flush-mounted halo effect
+- **Illumination:** Partial side-lit halo effect
 - **Depth:** 1.2" (30 mm), 2" (50 mm), 3" (75 mm), 4" (100 mm) and custom depth
 - **Exposed acrylic:** Standard thickness of exposed acrylic is 0.39" (10 mm)
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colorful halo effects.
 - **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -1936,13 +1939,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
 
-Concept section diagrams, not to scale. LP 3.2 is flush-mounted.
+Concept section diagrams, not to scale. LP 3.2 can be mounted flush or on standoffs.
 
 Previous
 
@@ -1997,6 +2000,7 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2007,6 +2011,20 @@ See this system with your logo.
 Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-5-trimless-face-lit)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+
+Concept section diagrams, not to scale. LP 5 can be mounted flush or on standoffs.
 
 Previous
 
@@ -2062,6 +2080,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2072,6 +2091,20 @@ See this system with your logo.
 Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-f-face-lit)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+
+Concept section diagrams, not to scale. LP 11-F can be mounted flush or on standoffs.
 
 Previous
 
@@ -2127,6 +2160,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Mounting:** Stand-off spacers only: the halo needs the gap to reach the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2144,13 +2178,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
 
-Concept section diagrams, not to scale. LP 11-B is mounted on standoffs.
+Concept section diagrams, not to scale. LP 11-B is mounted on standoffs only.
 
 Previous
 
@@ -2206,6 +2240,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Mounting:** Stand-off spacers only: the halo needs the gap to reach the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2223,13 +2258,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
 
-Concept section diagrams, not to scale. LP 11-FB is mounted on standoffs.
+Concept section diagrams, not to scale. LP 11-FB is mounted on standoffs only.
 
 Previous
 
@@ -2251,7 +2286,7 @@ Block Acrylic Partial Back Side-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-bs-back-side-lit
 - Title: EdgeLuxe LP 11-BS — Block Acrylic Partial Back Side-lit | Sunlite Signs
-- Meta description: Flush-mount letters with light glowing from the back edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Letters, flush or stand-off mounted, with light glowing from the back edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2261,7 +2296,7 @@ LP 11-BS / Block acrylic
 
 Block Acrylic Partial Back Side-lit
 
-Flush-mount letters with light glowing from the back edge of the side wall.
+Letters, flush or stand-off mounted, with light glowing from the back edge of the side wall.
 
 [Request Wholesale Pricing](/contact)
 
@@ -2271,20 +2306,21 @@ NightDay
 
 #### About this system
 
-Cast block acrylic letters mounted flush to the wall, with embedded LEDs for a uniform partial back side-lit effect: a band of light glows around the back edge of each letter.
+Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for a uniform partial back side-lit effect: a band of light glows around the back edge of each letter.
 
 Where the light goes · concept section, not to scale
 
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
-- **Illumination:** Embedded LEDs for uniform partial back side-lit, flush-mount
+- **Illumination:** Embedded LEDs for uniform partial back side-lit
 - **Depth:** Standard 1.2" (30 mm) for durability and optimal light diffusion
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2302,13 +2338,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
 
-Concept section diagrams, not to scale. LP 11-BS is flush-mounted.
+Concept section diagrams, not to scale. LP 11-BS can be mounted flush or on standoffs.
 
 Previous
 
@@ -2330,7 +2366,7 @@ Block Acrylic Face-lit + Partial Front Side-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-fs-front-side-lit
 - Title: EdgeLuxe LP 11-FS — Block Acrylic Face-lit + Partial Front Side-lit | Sunlite Signs
-- Meta description: Flush-mount letters with a glowing face and a thin band of light along the front edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Letters, flush or stand-off mounted, with a glowing face and a thin band of light along the front edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2340,7 +2376,7 @@ LP 11-FS / Block acrylic
 
 Block Acrylic Face-lit + Partial Front Side-lit
 
-Flush-mount letters with a glowing face and a thin band of light along the front edge of the side wall.
+Letters, flush or stand-off mounted, with a glowing face and a thin band of light along the front edge of the side wall.
 
 [Request Wholesale Pricing](/contact)
 
@@ -2350,20 +2386,21 @@ NightDay
 
 #### About this system
 
-Cast block acrylic letters mounted flush to the wall, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.
+Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.
 
 Where the light goes · concept section, not to scale
 
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
-- **Illumination:** Embedded LEDs for uniform face lighting plus partial front side lighting, flush-mount
+- **Illumination:** Embedded LEDs for uniform face lighting plus partial front side lighting
 - **Depth:** Standard 1.2" (30 mm) for durability and optimal light diffusion
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2381,13 +2418,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
 
-Concept section diagrams, not to scale. LP 11-FS is flush-mounted.
+Concept section diagrams, not to scale. LP 11-FS can be mounted flush or on standoffs.
 
 Previous
 
@@ -2443,6 +2480,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2453,6 +2491,20 @@ See this system with your logo.
 Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-s-side-lit)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+
+Concept section diagrams, not to scale. LP 11-S can be mounted flush or on standoffs.
 
 Previous
 
@@ -2509,6 +2561,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2519,6 +2572,20 @@ See this system with your logo.
 Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-n-faux-neon)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+
+Concept section diagrams, not to scale. LP 11-N can be mounted flush or on standoffs.
 
 Previous
 
@@ -2574,6 +2641,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Mounting:** Flush to the wall or on stand-off spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2584,6 +2652,20 @@ See this system with your logo.
 Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-c-conical)
+
+Mounting
+
+#### Stand-off or flush mount.
+
+Stand-off mount
+
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+
+Flush mount
+
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+
+Concept section diagrams, not to scale. LP 11-C can be mounted flush or on standoffs.
 
 Previous
 

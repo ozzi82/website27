@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { cn } from "@project/lib/utils";
-import type { LightConfig } from "../../data/configurations";
+import { configurations, defaultMount, type LightConfig, type Mount } from "../../data/configurations";
 import { glowParts } from "../configurator/glowParts";
 import { BOTTOM, CY, Defs, H, Ray, STROKE_H, TOP, W, WALL_X, Wall, label } from "./LetterDiagrams";
 
@@ -28,10 +28,10 @@ export function describeLight(config: LightConfig): string {
   return bits.join("; ");
 }
 
-export default function ConfigLightDiagram({ config, className }: { config: LightConfig; className?: string }) {
+export default function ConfigLightDiagram({ config, mount = defaultMount(config), className }: { config: LightConfig; mount?: Mount; className?: string }) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
-  const parts = glowParts(config.light, config.profile);
-  const standoff = config.mount === "standoff";
+  const parts = glowParts(config.light, config.profile, mount);
+  const standoff = mount === "standoff";
   const back = standoff ? 52 : WALL_X;
   const face = back + DEPTH;
   const bandW = DEPTH * (parts.sideBand ?? NOMINAL_BAND);
@@ -62,7 +62,7 @@ export default function ConfigLightDiagram({ config, className }: { config: Ligh
       <Defs uid={uid} />
       <Wall uid={uid} />
 
-      {config.light.halo === "standoff" && (
+      {parts.wallSpill === "standoff" && (
         <>
           <rect x={WALL_X} y={TOP - 22} width={back - WALL_X} height={STROKE_H + 44} fill={`url(#${uid}-glow-l)`} className="ld-glow" />
           <Ray x1={back - 2} y1={CY - 14} x2={WALL_X + 5} y2={CY - 14} />
@@ -181,6 +181,8 @@ export function MountCompareDiagram({ kind, className }: { kind: MountCompareKin
   );
 }
 
+const STANDOFF_ONLY = configurations.filter((c) => !c.mounts.includes("flush")).map((c) => c.code);
+
 /** Stand-off next to flush mount, each with a short factual caption; used where the mount decides how the halo looks. */
 export function StandoffVsFlush({ className }: { className?: string }) {
   return (
@@ -192,7 +194,7 @@ export function StandoffVsFlush({ className }: { className?: string }) {
         <figcaption className="p-5">
           <p className="mono-label text-primary">Stand-off mount</p>
           <p className="text-sm text-muted-foreground mt-2">
-            The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter (LP 3.1, LP 11-B, LP 11-FB).
+            The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; {STANDOFF_ONLY.join(", ")} can only be mounted this way, because the halo needs the gap.
           </p>
         </figcaption>
       </figure>
@@ -203,7 +205,7 @@ export function StandoffVsFlush({ className }: { className?: string }) {
         <figcaption className="p-5">
           <p className="mono-label text-primary">Flush mount</p>
           <p className="text-sm text-muted-foreground mt-2">
-            The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash (LP 3.2, LP 11-BS, LP 11-FS).
+            The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except {STANDOFF_ONLY.join(", ")}.
           </p>
         </figcaption>
       </figure>
