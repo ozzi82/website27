@@ -42,7 +42,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="border-t border-border pt-6 flex flex-col md:flex-row gap-4 justify-between text-xs text-muted-foreground">
-            <p>© {new Date().getFullYear()} Sunlite Signs LLC. All rights reserved.</p>
+            <p suppressHydrationWarning>© {new Date().getFullYear()} Sunlite Signs LLC. All rights reserved.</p>
             <p>B2B inquiries only. No installation services. No retail customers.</p>
           </div>
         </div>

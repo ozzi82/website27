@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from '@project/components/ui/button';
 import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
 import { services } from "../data/services";
@@ -27,13 +27,14 @@ const navLinks = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleNav = (href: string) => {
     setOpen(false);
     if (href.includes("#")) {
       const [path, hash] = href.split("#");
       const targetPath = path || "/";
-      if (window.location.pathname === targetPath) {
+      if (pathname === targetPath) {
         document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" });
       } else {
         navigate(targetPath);

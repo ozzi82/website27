@@ -5,3 +5,5 @@ dist
 .superpowers/
 
 .dev-lan.log
+
+dist-ssr

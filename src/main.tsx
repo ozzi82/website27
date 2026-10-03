@@ -1,12 +1,14 @@
 import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { ErrorBoundary } from 'react-error-boundary';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
+import { installBrowserPatches } from './lib/browserPatches';
+import { queryClient } from './lib/queryClient';
 
-const queryClient = new QueryClient();
+installBrowserPatches();
 
 function RuntimeErrorFallback({ error }: { error: Error }) {
   return (
@@ -32,9 +34,10 @@ function RuntimeErrorFallback({ error }: { error: Error }) {
 // index.html ships homepage-default SEO tags for crawlers that don't run JS.
 // Remove them before React mounts so the per-page tags from <Seo> are the only
 // ones (otherwise every page would carry two conflicting canonical URLs).
+// (Prerendered pages already have them stripped at build time.)
 document.querySelectorAll('[data-static-seo]').forEach((el) => el.remove());
 
-createRoot(document.getElementById('root')!).render(
+const tree = (
   <StrictMode>
     <ErrorBoundary fallbackRender={(p) => <RuntimeErrorFallback error={p.error} />}>
       <QueryClientProvider client={queryClient}>
@@ -43,5 +46,22 @@ createRoot(document.getElementById('root')!).render(
         </HelmetProvider>
       </QueryClientProvider>
     </ErrorBoundary>
-  </StrictMode>,
+  </StrictMode>
 );
+
+const container = document.getElementById('root')!;
+
+const normalizePath = (p: string) => (p.length > 1 ? p.replace(/\/+$/, '') : p);
+
+if (container.hasChildNodes() && container.dataset.prerenderPath === normalizePath(location.pathname)) {
+  // Prerendered page (see scripts/prerender.mjs): attach to the existing HTML.
+  hydrateRoot(container, tree);
+} else {
+  // SPA shell (/configurator, dev server) or an unknown URL that the host answered with a prerendered page
+  // (the SPA fallback serves index.html, which is the prerendered homepage): render from scratch.
+  if (container.hasChildNodes()) {
+    container.replaceChildren();
+    document.querySelectorAll('[data-rh]:not(title)').forEach((el) => el.remove());
+  }
+  createRoot(container).render(tree);
+}

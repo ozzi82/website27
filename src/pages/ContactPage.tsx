@@ -23,10 +23,15 @@ export default function ContactPage() {
   // The configurator hands its configuration over in router state (fresh navigation) and sessionStorage (a refresh).
   const location = useLocation();
   const navigate = useNavigate();
+  // sessionStorage is read after mount, not in the initial state: the page is prerendered (no storage on the server),
+  // and the first client render has to match that HTML.
   const [quote, setQuote] = useState<QuoteSnapshot | null>(() => {
     const fromState = (location.state as { quote?: unknown } | null)?.quote;
-    return isQuoteSnapshot(fromState) ? fromState : loadQuote();
+    return isQuoteSnapshot(fromState) ? fromState : null;
   });
+  useEffect(() => {
+    setQuote((current) => current ?? loadQuote());
+  }, []);
 
   // The artwork file that went with the quote (kept in IndexedDB); the form attaches it to its file field.
   const [artworkFile, setArtworkFile] = useState<File | null>(null);

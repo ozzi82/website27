@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "dev:lan": "vite --host",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
+    "verify:prerender": "node scripts/verify-prerender.mjs",
+    "export:content": "node scripts/export-content.mjs",
     "preview": "vite preview",
     "test": "vitest run",
     "images": "node scripts/download-images.mjs"
@@ -57,6 +59,7 @@
     "autoprefixer": "^10.4.20",
     "fake-indexeddb": "^6.2.5",
     "jsdom": "^29.1.1",
+    "node-html-parser": "^9.0.4",
     "postcss": "^8.5.1",
     "tailwindcss": "^3.4.17",
     "typescript": "~5.7.3",
