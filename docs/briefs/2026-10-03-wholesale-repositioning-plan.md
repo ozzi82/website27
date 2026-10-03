@@ -71,3 +71,47 @@ Phase 1 = inspection, shared foundations, header/footer, homepage. Phase 2 = pro
 - `/services/channel-letters` and `/services/ultra-slim-trimless-channel-letters` currently render through the generic `ServicePage` from `data/services.ts` (interim). The depth drawing is not on the ultra-slim page yet: Phase 2 should add `<DepthComparison size="lg" />`.
 - `framer-motion` is no longer imported anywhere in `src` (the hero was its only user). The dependency is left in `package.json`; remove it separately if wanted.
 - The configurator buttons and `ContactForm`/`ContactPage` still use "Get a Quote"/"Request a Quote"; `ctaConsistency.test.ts` exempts exactly those files until Phase 3.
+
+## Phase 2 outcome (as built)
+
+### Routes
+| Route | Page | Notes |
+| --- | --- | --- |
+| `/services/channel-letters` | `ChannelLettersPage` | Dedicated, routed before `/services/:id`, prerendered. Standalone Google Ads landing page. |
+| `/services/ultra-slim-trimless-channel-letters` | `UltraSlimPage` | Dedicated, routed before `/services/:id`, prerendered. |
+| `/projects` | `ProjectsPage` | The one canonical projects URL. `/gallery` redirects (client `Navigate` from `LEGACY_PAGE_REDIRECTS`, 301 in `public/_redirects` and `nginx.conf`); `/gallery` is no longer prerendered or in the sitemap. |
+| `/manufacturing` | `ManufacturingPage` | Production proof. |
+| `/about` | `AboutPage` | Kept, repurposed (see decisions). |
+| `/services/cast-block-acrylic` | `ServicePage` (generic) | Gets a hero CTA and a "Related systems" block (LP 11-F, 11-B, 11-FB + channel letters). |
+
+### Decisions
+- **gallery -> projects:** renamed to `/projects` (clean URL, matches the nav label and the brief), with 301s so the old URL does not 404.
+- **About vs Manufacturing:** both kept, with distinct jobs. `/manufacturing` = production proof (six stages from `data/production.ts` with real photos where they exist and typographic placeholders otherwise, "what ships with every order", process, the factual company line, trade-only note). `/about` = who Sunlite is and who it builds for (Built for the trade, Who we serve, trade-only statement, contact details, FAQ). No production stage grid on About, no company/FAQ block on Manufacturing.
+- **Custom Fabrication target:** a section (`#custom-fabrication`) of the channel-letters page ("Custom logos & illuminated letter projects", wording built from the brief and the existing "we advise on materials, light effects, sizing, feasibility" FAQ). The homepage card and the nav item both point to `/services/channel-letters#custom-fabrication`.
+- **Photos on product pages:** none is tagged `productSlug: "channel-letters"` (no site data supports it), so the channel-letters page shows lit-letter photos captioned only with what is visible (lit faces / halo glow) plus "Recent production" cards without category claims. The two photos that were the imagery of the old "Trimless Letters" service page (concourse column sign, event stand) are tagged `ultra-slim-trimless-channel-letters` on that basis and flagged below.
+- **Exact SEO titles:** `Seo` gained `exactTitle`. The ultra-slim title is the brief's verbatim "Ultra-Slim Trimless Channel Letters | 25-30 mm Depth" with no site-name suffix (the verify script allows exactly that exception); the channel-letters title already contains the site name, so it is not duplicated.
+- **Redirect plumbing:** `LEGACY_SERVICE_REDIRECTS` (services) and `LEGACY_PAGE_REDIRECTS` (pages) are the sources; `public/_redirects` and `nginx.conf` carry the matching 301s (tested).
+
+### Final navigation / internal-link map
+Header: PRODUCTS (Channel Letters `/services/channel-letters`, Ultra-Slim Trimless `/services/ultra-slim-trimless-channel-letters`, Cast Acrylic `/services/cast-block-acrylic`, Custom Fabrication `/services/channel-letters#custom-fabrication`, All 12 letter systems `/#light-effects`, 3D Configurator `/configurator`), Projects `/projects`, Manufacturing `/manufacturing`, About `/about`, CTA "Request Wholesale Pricing" -> `/contact`. Footer repeats the same targets.
+
+Funnel: Homepage (hero, products, ultra-slim section, manufacturing section "View manufacturing", projects "View all projects") -> Channel Letters (ultra-slim links in the trim section, spec sheet and FAQ; mounting; custom fabrication; reference projects -> `/projects`; Related: ultra-slim, EdgeLuxe, projects, manufacturing) -> Ultra-Slim (cross-link to channel letters and its mounting section; related EdgeLuxe LP 5 / LP 11-F; Related: channel letters, projects, manufacturing, configurator) -> Projects (cards link to their product page when `productSlug` is set; Related: channel letters, ultra-slim, manufacturing, cast acrylic) -> Manufacturing (Related: channel letters, ultra-slim, projects, about) -> Quote (`/contact`: every page's primary CTA and Final CTA). Visible breadcrumbs + BreadcrumbList JSON-LD on the five new/changed pages.
+
+### SEO
+- Channel letters: title "Wholesale Channel Letter Manufacturer | Sunlite Signs"; description "Wholesale channel letter manufacturer for sign companies. Front, halo and front + back lit letters built to your drawings, UL 48 listed, shipped nationwide. Trade only."; JSON-LD `Service` (provider = the homepage LocalBusiness `@id`, `BusinessAudience`, no offers/ratings/prices) + `BreadcrumbList` + `FAQPage` (nine Q&A, each restating an existing site fact).
+- Ultra-slim: title "Ultra-Slim Trimless Channel Letters | 25-30 mm Depth" (exact); description "Ultra-slim trimless channel letters at 25-30 mm total depth: a cleaner alternative to deep returns for premium retail, architectural and interior signage. Wholesale to sign companies."; JSON-LD `Product` (properties from the spec data, no offers) + `BreadcrumbList`.
+- /projects, /manufacturing, /about: new titles/descriptions + `BreadcrumbList`. `verify-prerender` now requires JSON-LD on every page and the exact titles above.
+
+### Owner confirmation (running list, Phase 1 + 2)
+1. **Ultra-slim 25-30 mm:** that fabricated trimless letters are offered at 25-30 mm with face, halo and dual lighting (brief + old site say yes; the brochure's LP 5 starts at 30 mm and is face-lit only; 25 mm exists only for small LP 11-F letters). The ultra-slim page surfaces this in a "Related letter systems" block ("Depths differ by system") described from `configurations.ts`.
+2. **Channel-letter configurations Sunlite actually builds:** trimmed and trimless; flush, standoff, raceway and remote mounting (flush/standoff are brochure options only for EdgeLuxe LP 3.2/3.1; raceway/remote come from the brief's "where applicable"). The "remote mount = power supply located remotely" wording is an assumption: confirm the meaning.
+3. **Construction/materials/finishes:** "CNC-routed aluminum returns, faces and backs" (existing wording; do faces use acrylic?); "Custom paint or vinyl" (from the old trimless page); PMS colors apply to EdgeLuxe systems only. No gauges, depths or LED brands are stated anywhere.
+4. **Photos:** (a) that the 12 gallery photos and their client names are Sunlite-built and may be named; (b) that "Concourse column sign" and "Event stand lettering" really are the trimless/ultra-slim work they illustrated on the old Trimless page (they are tagged to the ultra-slim page and show "Product: Ultra-slim trimless letters"); (c) the illumination captions on the channel-letters page (Mustang = lit faces; Tradebyte, Inspire = halo glow) describe what is visible, not specs, but confirm they are channel letters.
+5. **Claims reused:** UL 48 vs "UL Listed" for EdgeLuxe; 3-4 weeks (does it cover freight?); 3-year warranty scope; "German-engineered" in the EdgeLuxe grid copy; "installation not provided" wording; "ships nationwide, to project sites by arrangement".
+6. **Manufacturing page:** no claim is made about where any stage happens; confirm that stays true and which stages the real photos show (only CNC and hand assembly exist).
+
+### Assets that would materially improve the pages
+Side-profile photograph of a real 25-30 mm letter (slot is `sideProfileMedia` in `data/ultraSlim.ts`); real photos/video for LED & electrical, quality control, packaging, ready-for-freight (`data/production.ts`); one confirmed photo per configuration (front lit, halo, front + back, trimmed, trimless, raceway, remote) with depth/finish/mounting for `data/projects.ts`; a close-up of a trim cap vs a trimless edge.
+
+### Left for Phase 3
+Quote/contact page rewrite (H1, company-type field, retired-CTA allowlist for `ContactForm`/`ContactPage`), `SITE_URL` as a build setting + noindex handling, final SEO pass on `/contact`, `docs/site-content.md` regeneration, content export, full QA.

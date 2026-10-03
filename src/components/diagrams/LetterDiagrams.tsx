@@ -111,7 +111,7 @@ export function LightingDiagram({ kind, className }: { kind: LightingKind; class
           <Ray x1={back - 4} y1={BOTTOM + 2} x2={WALL_X + 7} y2={BOTTOM + 17} faint />
         </g>
       )}
-      <text x={9} y={17} className={label} fontSize={8.5} letterSpacing={1}>WALL</text>
+      <text x={WALL_X + 4} y={17} className={label} fontSize={8.5} letterSpacing={1}>WALL</text>
       <text x={face} y={TOP - 9} textAnchor="middle" className={label} fontSize={8.5} letterSpacing={1}>FACE</text>
       <text x={W - 6} y={H - 7} textAnchor="end" className={label} fontSize={8.5} letterSpacing={1}>VIEW</text>
       <polyline points={`${W - 44},${H - 10} ${W - 38},${H - 7} ${W - 44},${H - 4}`} className="stroke-muted-foreground" fill="none" strokeWidth={1} />
@@ -151,7 +151,7 @@ export function TrimDiagram({ kind, className }: { kind: TrimKind; className?: s
           <text x={faceX - 14} y={returnY - 11} textAnchor="end" className={label} fontSize={8.5} letterSpacing={1}>NO TRIM CAP</text>
         </g>
       )}
-      <text x={9} y={17} className={label} fontSize={8.5} letterSpacing={1}>WALL</text>
+      <text x={WALL_X + 4} y={17} className={label} fontSize={8.5} letterSpacing={1}>WALL</text>
       <text x={faceX - 4} y={H - 3} textAnchor="end" className={label} fontSize={8.5} letterSpacing={1}>FACE</text>
       <text x={faceX - 8} y={returnY + 17} textAnchor="end" className={label} fontSize={8.5} letterSpacing={1}>RETURN</text>
     </svg>
@@ -206,7 +206,7 @@ export function MountingDiagram({ kind, className }: { kind: MountingKind; class
           <text x={W - 47} y={H - 17} textAnchor="middle" className={label} fontSize={8} letterSpacing={0.8}>POWER SUPPLY</text>
         </g>
       )}
-      <text x={9} y={17} className={label} fontSize={8.5} letterSpacing={1}>WALL</text>
+      <text x={WALL_X + 4} y={17} className={label} fontSize={8.5} letterSpacing={1}>WALL</text>
       <text x={face} y={TOP - 9} textAnchor="middle" className={label} fontSize={8.5} letterSpacing={1}>FACE</text>
     </svg>
   );

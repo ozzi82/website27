@@ -132,22 +132,21 @@ export default function UltraSlimPage() {
       </section>
 
       <section id="depth" className="py-14 md:py-28 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[2fr_3fr] gap-12 lg:gap-16 items-start">
-          <div>
-            <SectionHeader eyebrow="Side profile" title="Why 25–30 mm matters." titleClassName={sectionTitle} className="mb-6 pb-0 border-b-0" />
-            <ol className="border-t border-border">
-              {whyDepthMatters.map((w, i) => (
-                <li key={w.title} className="py-5 border-b border-border">
-                  <span className="mono-label text-primary">0{i + 1}</span>
-                  <h3 className="text-2xl uppercase mt-1">{w.title}</h3>
-                  <p className="text-sm text-muted-foreground mt-2 max-w-md">{w.text}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
-          <div className="corner-marks border border-border bg-background/60 p-3 sm:p-8 lg:p-10">
+        {/* DOM order is heading, drawing, reasons (so the drawing comes before the list on phones); on lg the drawing sits beside both. */}
+        <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[2fr_3fr] lg:grid-rows-[auto_1fr] gap-x-16 gap-y-8 items-start">
+          <SectionHeader eyebrow="Side profile" title="Why 25–30 mm matters." titleClassName={sectionTitle} className="mb-0 pb-0 border-b-0 lg:col-start-1 lg:row-start-1" />
+          <div className="corner-marks border border-border bg-background/60 p-3 sm:p-8 lg:p-10 lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <DepthComparison size="lg" />
           </div>
+          <ol className="border-t border-border lg:col-start-1 lg:row-start-2">
+            {whyDepthMatters.map((w, i) => (
+              <li key={w.title} className="py-5 border-b border-border">
+                <span className="mono-label text-primary">0{i + 1}</span>
+                <h3 className="text-2xl uppercase mt-1">{w.title}</h3>
+                <p className="text-sm text-muted-foreground mt-2 max-w-md">{w.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
