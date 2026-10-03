@@ -103,6 +103,7 @@ describe("generateTextArtworkFile", () => {
   });
 
   it("is null, never a throw, when the font cannot load", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
     vi.mocked(loadFont).mockRejectedValue(new Error("offline"));
     expect(await generateTextArtworkFile("Open", "pacifico")).toBeNull();
   });

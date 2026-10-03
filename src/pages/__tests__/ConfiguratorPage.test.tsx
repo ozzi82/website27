@@ -6,7 +6,9 @@ import { HelmetProvider } from "react-helmet-async";
 import * as THREE from "three";
 import ConfiguratorPage from "../ConfiguratorPage";
 import { parseArtwork } from "../../components/configurator/parseArtwork";
-import { generateTextShapes } from "../../components/configurator/textArtwork";
+import { generateTextArtworkFile, generateTextShapes } from "../../components/configurator/textArtwork";
+import { loadArtworkFile } from "../../components/configurator/artworkFileStorage";
+import { IDBFactory } from "fake-indexeddb";
 import { TextRenderError } from "../../components/configurator/textToShapes";
 
 vi.mock("../../components/configurator/parseArtwork", () => ({
@@ -17,6 +19,7 @@ vi.mock("../../components/configurator/parseArtwork", () => ({
 // debounced text and chosen font are handed to it and what comes back is shown.
 vi.mock("../../components/configurator/textArtwork", () => ({
   generateTextShapes: vi.fn(),
+  generateTextArtworkFile: vi.fn(),
 }));
 vi.mock("../../components/configurator/fontFaces", () => ({
   ensureFontFaces: vi.fn().mockResolvedValue(undefined),
@@ -47,12 +50,16 @@ vi.mock("../../components/configurator/webglSupport", () => ({
 
 /** Stands in for /contact: shows the quote that arrived in router state. */
 function ContactProbe() {
-  const state = useLocation().state as { quote?: { summary: string; image: string | null } } | null;
+  const state = useLocation().state as {
+    quote?: { summary: string; image: string | null; savedAt: number; artworkFile?: unknown };
+  } | null;
   return (
     <div>
       <p>Contact Page</p>
       <pre data-testid="quote-summary">{state?.quote?.summary ?? "no quote"}</pre>
       <p data-testid="quote-image">{state?.quote?.image ?? "no image"}</p>
+      <p data-testid="quote-file">{JSON.stringify(state?.quote?.artworkFile ?? null)}</p>
+      <p data-testid="quote-id">{state?.quote?.savedAt}</p>
     </div>
   );
 }
@@ -145,24 +152,63 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
   });
 
-  it("switching configuration keeps the uploaded artwork and resets to the new defaults", async () => {
+  const switcher = () => screen.getByRole("combobox", { name: "Configuration" });
+
+  it("switching configuration keeps the artwork and the visitor's choices, and resets only what no longer applies", async () => {
     const user = userEvent.setup();
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
     renderPage("/configurator?config=lp-5-trimless-face-lit");
     await upload(user);
     await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
     await user.click(screen.getByRole("radio", { name: "Night" }));
+    await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /cyan/i }));
+    fireEvent.change(screen.getByRole("slider", { name: "Brightness" }), { target: { value: "60" } });
 
-    await user.click(screen.getByRole("button", { name: /change configuration/i }));
-    expect(screen.getAllByRole("button", { name: /EdgeLuxe LP/ })).toHaveLength(12);
-    await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
+    await user.selectOptions(switcher(), "lp-3-1-standoff-halo"); // also offers 75 mm
 
-    // Straight to the preview with the same artwork (no second upload) and LP 11-F's defaults.
+    // Straight away, same artwork (no second upload, no chooser).
     expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
     expect(screen.queryByLabelText(/upload your logo/i)).not.toBeInTheDocument();
-    expect(screen.getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked();
-    expect(screen.getByRole("radio", { name: "Day" })).toBeChecked();
+    expect(screen.queryByRole("button", { name: /EdgeLuxe LP/ })).not.toBeInTheDocument();
+    expect(switcher()).toHaveValue("lp-3-1-standoff-halo");
+    expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
+    expect(screen.getByRole("radio", { name: "Night" })).toBeChecked();
+    expect(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /cyan/i })).toHaveAttribute("aria-pressed", "true");
+    expect(screen.getByRole("slider", { name: "Brightness" })).toHaveValue("60");
     expect(parseArtwork).toHaveBeenCalledTimes(1);
+  });
+
+  it("falls back to the new configuration's default depth when it does not offer the chosen one", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+    renderPage("/configurator?config=lp-5-trimless-face-lit");
+    await upload(user);
+    await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
+
+    await user.selectOptions(switcher(), "lp-11-f-face-lit"); // acrylic: 10-30 mm
+    expect(screen.getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked();
+  });
+
+  it("steps through the configurations with the arrows", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+    renderPage("/configurator?config=lp-3-1-standoff-halo");
+    await upload(user);
+    await user.click(screen.getByRole("button", { name: "Next configuration" }));
+    expect(switcher()).toHaveValue("lp-3-2-flush-mount");
+    await user.click(screen.getByRole("button", { name: "Previous configuration" }));
+    await user.click(screen.getByRole("button", { name: "Previous configuration" }));
+    expect(switcher()).toHaveValue("lp-1-flat-cutout");
+  });
+
+  it("has no separate 'Change configuration' link once the switcher is there", async () => {
+    const user = userEvent.setup();
+    vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+    renderPage("/configurator?config=lp-5-trimless-face-lit");
+    expect(screen.getByRole("button", { name: /change configuration/i })).toBeInTheDocument(); // before artwork: back to the chooser
+    await upload(user);
+    expect(screen.queryByRole("button", { name: /change configuration/i })).not.toBeInTheDocument();
+    expect(switcher()).toBeInTheDocument();
   });
 
   it("has no letter height input; the minimum height is guidance text", async () => {
@@ -184,11 +230,18 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     await user.click(screen.getByRole("radio", { name: "Brick" }));
     expect(screen.getByRole("radio", { name: "Brick" })).toBeChecked();
 
-    await user.click(screen.getByRole("button", { name: /change configuration/i }));
-    await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
+    await user.selectOptions(switcher(), "lp-11-f-face-lit");
 
     expect(screen.getByRole("radio", { name: "Brick" })).toBeChecked();
-    expect(screen.getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked(); // everything else still resets
+  });
+
+  it("returning to the chooser before any artwork still works (it starts from the defaults)", async () => {
+    const user = userEvent.setup();
+    renderPage("/configurator?config=lp-5-trimless-face-lit");
+    await user.click(screen.getByRole("button", { name: /change configuration/i }));
+    expect(screen.getAllByRole("button", { name: /EdgeLuxe LP/ })).toHaveLength(12);
+    await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
+    expect(screen.getByText("LP 11-F")).toBeInTheDocument();
   });
 
   it("only offers 'Use a different file' once a logo has been uploaded", () => {
@@ -197,7 +250,11 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
   });
 
   describe("Get a Quote carries the configuration", () => {
-    beforeEach(() => sessionStorage.clear());
+    beforeEach(() => {
+      sessionStorage.clear();
+      globalThis.indexedDB = new IDBFactory();
+      vi.mocked(generateTextArtworkFile).mockReset();
+    });
 
     it("navigates to /contact with the configuration in router state and sessionStorage", async () => {
       const user = userEvent.setup();
@@ -233,6 +290,94 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
 
       await user.click(screen.getByRole("link", { name: /get a quote/i }));
       expect(await screen.findByTestId("quote-summary")).toHaveTextContent('Artwork: typed text "Open" in Pacifico');
+    });
+
+    describe("artwork file", () => {
+      it("stores the uploaded file and tells /contact about it", async () => {
+        const user = userEvent.setup();
+        vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+        renderPage("/configurator?config=lp-5-trimless-face-lit");
+        await upload(user);
+        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+
+        expect(await screen.findByText("Contact Page")).toBeInTheDocument();
+        expect(JSON.parse(screen.getByTestId("quote-file").textContent!)).toEqual({
+          name: "logo.svg",
+          size: file().size,
+          generated: false,
+        });
+        const stored = await loadArtworkFile(screen.getByTestId("quote-id").textContent!);
+        expect(stored?.name).toBe("logo.svg");
+        expect(await stored!.text()).toBe("<svg></svg>");
+      });
+
+      it("makes an SVG of typed text and sends that", async () => {
+        const user = userEvent.setup();
+        vi.mocked(generateTextShapes).mockResolvedValue({ shapes: [new THREE.Shape()], skipped: [] });
+        vi.mocked(generateTextArtworkFile).mockResolvedValue(
+          new File(["<svg>text</svg>"], "sunlite-text-open.svg", { type: "image/svg+xml" })
+        );
+        renderPage("/configurator?config=lp-5-trimless-face-lit");
+        await user.click(screen.getByRole("radio", { name: "Type text" }));
+        await user.type(screen.getByLabelText(/your text/i), "Open");
+        await user.click(screen.getByRole("radio", { name: "Pacifico" }));
+        await screen.findByTestId("sign-preview-stub");
+        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+
+        expect(await screen.findByText("Contact Page")).toBeInTheDocument();
+        expect(generateTextArtworkFile).toHaveBeenCalledWith("Open", "pacifico");
+        expect(JSON.parse(screen.getByTestId("quote-file").textContent!)).toMatchObject({
+          name: "sunlite-text-open.svg",
+          generated: true,
+        });
+        expect((await loadArtworkFile(screen.getByTestId("quote-id").textContent!))?.name).toBe("sunlite-text-open.svg");
+      });
+
+      it("still sends the quote, without a file, when the text file cannot be made", async () => {
+        const user = userEvent.setup();
+        vi.mocked(generateTextShapes).mockResolvedValue({ shapes: [new THREE.Shape()], skipped: [] });
+        vi.mocked(generateTextArtworkFile).mockResolvedValue(null);
+        renderPage("/configurator?config=lp-5-trimless-face-lit");
+        await user.click(screen.getByRole("radio", { name: "Type text" }));
+        await user.type(screen.getByLabelText(/your text/i), "Open");
+        await screen.findByTestId("sign-preview-stub");
+        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+        expect(await screen.findByText("Contact Page")).toBeInTheDocument();
+        expect(screen.getByTestId("quote-file")).toHaveTextContent("null");
+        expect(screen.getByTestId("quote-summary")).toHaveTextContent('Artwork: typed text "Open"');
+      });
+
+      it("still sends the quote, without a file, when IndexedDB is unavailable", async () => {
+        const user = userEvent.setup();
+        globalThis.indexedDB = {
+          open: () => {
+            throw new DOMException("denied", "SecurityError");
+          },
+        } as unknown as IDBFactory;
+        vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+        renderPage("/configurator?config=lp-5-trimless-face-lit");
+        await upload(user);
+        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+        expect(await screen.findByText("Contact Page")).toBeInTheDocument();
+        expect(screen.getByTestId("quote-file")).toHaveTextContent("null");
+        expect(screen.getByTestId("quote-summary")).toHaveTextContent("Artwork: uploaded file logo.svg");
+      });
+
+      it("sends the file of the artwork on show, not an earlier one", async () => {
+        const user = userEvent.setup();
+        vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
+        renderPage("/configurator?config=lp-5-trimless-face-lit");
+        await upload(user);
+        await user.click(screen.getByRole("button", { name: /use a different file/i }));
+        await user.upload(
+          screen.getByLabelText(/upload your logo/i),
+          new File(["<svg>two</svg>"], "second.svg", { type: "image/svg+xml" })
+        );
+        await screen.findByTestId("sign-preview-stub");
+        await user.click(screen.getByRole("link", { name: /get a quote/i }));
+        expect(await screen.findByText("Contact Page")).toBeInTheDocument();
+        expect(JSON.parse(screen.getByTestId("quote-file").textContent!).name).toBe("second.svg");
+      });
     });
 
     it("still works with no artwork yet (a summary without the artwork line)", async () => {
@@ -387,8 +532,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await user.type(screen.getByLabelText(/your text/i), "Hello");
       await screen.findByTestId("sign-preview-stub");
 
-      await user.click(screen.getByRole("button", { name: /change configuration/i }));
-      await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
+      await user.selectOptions(screen.getByRole("combobox", { name: "Configuration" }), "lp-11-f-face-lit");
       expect(screen.getByLabelText(/your text/i)).toHaveValue("Hello");
       expect(screen.getByTestId("sign-preview-stub")).toBeInTheDocument();
       expect(screen.getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked();

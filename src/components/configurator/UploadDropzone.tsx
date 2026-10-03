@@ -5,7 +5,7 @@ import { parseArtwork } from "./parseArtwork";
 import { CONTACT_PHRASE, userMessageFor } from "./errorMessages";
 
 interface UploadDropzoneProps {
-  onParsed: (shapes: THREE.Shape[], fileName: string) => void;
+  onParsed: (shapes: THREE.Shape[], file: File) => void;
 }
 
 export default function UploadDropzone({ onParsed }: UploadDropzoneProps) {
@@ -17,7 +17,7 @@ export default function UploadDropzone({ onParsed }: UploadDropzoneProps) {
     setLoading(true);
     try {
       const shapes = await parseArtwork(file);
-      onParsed(shapes, file.name);
+      onParsed(shapes, file);
     } catch (err) {
       console.error("Artwork upload failed:", err);
       setError(userMessageFor(err));

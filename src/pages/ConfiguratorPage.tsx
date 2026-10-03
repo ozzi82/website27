@@ -9,16 +9,19 @@ import UploadDropzone from "../components/configurator/UploadDropzone";
 import ArtworkSourceToggle, { type ArtworkSource } from "../components/configurator/ArtworkSourceToggle";
 import TextArtworkPanel from "../components/configurator/TextArtworkPanel";
 import { useTextArtwork } from "../components/configurator/useTextArtwork";
+import { generateTextArtworkFile } from "../components/configurator/textArtwork";
 import { DEFAULT_FONT_ID, TEXT_FONTS } from "../components/configurator/textFonts";
 import ConfigControls from "../components/configurator/ConfigControls";
+import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
 import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
-import { defaultStateFor } from "../components/configurator/types";
+import { defaultStateFor, switchConfig } from "../components/configurator/types";
 import type { ConfiguratorState } from "../components/configurator/types";
 import { DEFAULT_BACKGROUND, type BackgroundId } from "../components/configurator/backgrounds";
 import { formatConfigSummary, configSummaryRows, type ArtworkInfo } from "../components/configurator/configSummary";
-import { saveQuote, type QuoteSnapshot } from "../components/configurator/quoteStorage";
+import { saveQuote, quoteFileId, type ArtworkFileMeta, type QuoteSnapshot } from "../components/configurator/quoteStorage";
+import { clearArtworkFile, saveArtworkFile } from "../components/configurator/artworkFileStorage";
 import { lineStackFactor, strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
 import { configurations } from "../data/configurations";
 
@@ -37,7 +40,8 @@ export default function ConfiguratorPage() {
   // Each artwork source keeps its own result, so the sign shown always belongs to the source selected.
   const [source, setSource] = useState<ArtworkSource>("upload");
   const [uploadShapes, setUploadShapes] = useState<THREE.Shape[] | null>(null);
-  const [uploadName, setUploadName] = useState("");
+  // The original file is kept as well as the parsed shapes: it travels to the contact form with the quote.
+  const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [text, setText] = useState("");
   const [fontId, setFontId] = useState(DEFAULT_FONT_ID);
   const textArtwork = useTextArtwork(text, fontId, source === "text");
@@ -62,18 +66,37 @@ export default function ConfiguratorPage() {
     setState(next);
   }
 
+  // Picking a configuration from the chooser starts from its defaults; switching while configuring keeps the visitor's
+  // colours, brightness, day/night, background and (when still offered) depth. Artwork is untouched either way:
+  // parsing is configuration-agnostic.
   function handleSelectConfig(id: string) {
     const selected = findConfig(id);
-    if (selected) setState({ ...defaultStateFor(selected), background: background.current }); // shapes, if any, are intentionally left as-is — parsing is configuration-agnostic.
+    if (!selected) return;
+    setState((prev) => (prev ? switchConfig(prev, selected) : { ...defaultStateFor(selected), background: background.current }));
   }
 
-  function handleParsed(parsed: THREE.Shape[], fileName: string) {
-    setUploadName(fileName);
+  function handleParsed(parsed: THREE.Shape[], file: File) {
+    setUploadFile(file);
     setUploadShapes(parsed);
   }
 
-  /** The configuration as it will be quoted, with an optional snapshot of the 3D preview. */
-  function buildQuote(image: string | null): QuoteSnapshot | null {
+  function clearUpload() {
+    setUploadShapes(null);
+    setUploadFile(null);
+  }
+
+  /** The artwork as a file for the quote: the visitor's own upload, or an SVG of the typed text. */
+  async function artworkFileForQuote(): Promise<{ file: File; generated: boolean } | null> {
+    if (source === "text") {
+      if (!shapes || !text.trim()) return null;
+      const file = await generateTextArtworkFile(text, fontId);
+      return file ? { file, generated: true } : null;
+    }
+    return uploadShapes && uploadFile ? { file: uploadFile, generated: false } : null;
+  }
+
+  /** The configuration as it will be quoted, with an optional snapshot of the 3D preview and artwork file. */
+  function buildQuote(image: string | null, savedAt = Date.now(), artworkFile: ArtworkFileMeta | null = null): QuoteSnapshot | null {
     if (!config || !state) return null;
     const artwork: ArtworkInfo | null =
       source === "text"
@@ -81,7 +104,7 @@ export default function ConfiguratorPage() {
           ? { kind: "text", text, fontLabel: TEXT_FONTS.find((f) => f.id === fontId)?.label ?? fontId }
           : null
         : uploadShapes
-          ? { kind: "upload", fileName: uploadName || "uploaded artwork" }
+          ? { kind: "upload", fileName: uploadFile?.name || "uploaded artwork" }
           : null;
     const extras = { note: thinStrokeAdvice(config, strokeRatio)?.message };
     return {
@@ -89,7 +112,8 @@ export default function ConfiguratorPage() {
       summary: formatConfigSummary(state, config, artwork, extras),
       rows: configSummaryRows(state, config, artwork, extras),
       image,
-      savedAt: Date.now(),
+      savedAt,
+      ...(artworkFile ? { artworkFile } : {}),
     };
   }
 
@@ -103,13 +127,24 @@ export default function ConfiguratorPage() {
     e.preventDefault();
     if (quoting) return;
     setQuoting(true);
-    let image: string | null = null;
-    try {
-      image = (await capture.current?.()) ?? null;
-    } catch {
-      image = null; // a failed snapshot must never block the quote
+    const savedAt = Date.now();
+    const snapshot = async () => {
+      try {
+        return (await capture.current?.()) ?? null;
+      } catch {
+        return null; // a failed snapshot must never block the quote
+      }
+    };
+    const [image, artwork] = await Promise.all([snapshot(), artworkFileForQuote().catch(() => null)]);
+    // The file is stored (IndexedDB) before leaving, so /contact can attach it to the form. If that fails the quote
+    // simply goes without a file.
+    let artworkFile: ArtworkFileMeta | null = null;
+    if (artwork && (await saveArtworkFile(artwork.file, quoteFileId({ savedAt })))) {
+      artworkFile = { name: artwork.file.name, size: artwork.file.size, generated: artwork.generated };
+    } else {
+      void clearArtworkFile(); // do not leave an earlier quote's file behind
     }
-    const quote = buildQuote(image);
+    const quote = buildQuote(image, savedAt, artworkFile);
     if (quote) saveQuote(quote);
     navigate("/contact", { state: quote ? { quote } : null });
   }
@@ -162,29 +197,16 @@ export default function ConfiguratorPage() {
           </div>
 
           <aside aria-label="Sign options" className="flex min-w-0 flex-col gap-2 [&>*]:shrink-0 [@media(min-height:830px)]:gap-4 lg:w-[440px] lg:shrink-0 lg:overflow-y-auto lg:pr-1">
-            <div className="flex items-start justify-between gap-2">
-              <p className="min-w-0 leading-tight">
-                <span className="mono-label text-primary">{config.code}</span>{" "}
-                <span className="text-sm font-semibold">{config.subtitle}</span>
-              </p>
-              <button
-                type="button"
-                aria-label="Change configuration"
-                onClick={() => setState(null)}
-                className="shrink-0 text-xs text-muted-foreground hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-              >
-                ← Change
-              </button>
-            </div>
+            <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
 
             <ArtworkSourceToggle value={source} onChange={setSource} />
 
             {source === "upload" && uploadShapes && (
               <p className="flex items-center justify-between gap-2 text-[11px] text-muted-foreground">
-                <span className="min-w-0 truncate">{uploadName}</span>
+                <span className="min-w-0 truncate">{uploadFile?.name}</span>
                 <button
                   type="button"
-                  onClick={() => setUploadShapes(null)}
+                  onClick={clearUpload}
                   className="shrink-0 underline hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
                 >
                   Use a different file
