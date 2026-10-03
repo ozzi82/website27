@@ -13,6 +13,14 @@ export const outsourcingBenefits = [
   { title: "Your customer stays yours", text: "We're trade-only and don't compete with our partners." },
 ];
 
+/** Column rules without odd/even pseudo-classes (their specificity would beat the lg: rules): two columns from sm, five from lg. */
+const itemClass = (i: number) =>
+  [
+    "pt-6 pb-8 pr-6 border-border lg:pr-5",
+    i % 2 === 0 ? "sm:pl-0 sm:border-l-0" : "sm:pl-6 sm:border-l",
+    i === 0 ? "lg:pl-0 lg:border-l-0" : "lg:pl-6 lg:border-l",
+  ].join(" ");
+
 export default function OutsourcingSection() {
   return (
     <section id="trade" className="py-14 md:py-28 scroll-mt-20">
@@ -30,10 +38,7 @@ export default function OutsourcingSection() {
         />
         <ol className="grid sm:grid-cols-2 lg:grid-cols-5 border-t-2 border-primary/50">
           {outsourcingBenefits.map((b, i) => (
-            <li
-              key={b.title}
-              className="pt-6 pb-8 pr-6 border-border sm:odd:pl-0 sm:even:pl-6 sm:even:border-l lg:pl-6 lg:pr-5 lg:first:pl-0 lg:border-l lg:first:border-l-0"
-            >
+            <li key={b.title} className={itemClass(i)}>
               <span className="mono-label text-muted-foreground">0{i + 1}</span>
               <h3 className="text-2xl lg:text-[1.65rem] xl:text-3xl mt-2 uppercase leading-[1.05]">{b.title}</h3>
               <p className="text-sm text-muted-foreground mt-3 max-w-xs">{b.text}</p>

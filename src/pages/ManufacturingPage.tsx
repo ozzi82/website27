@@ -66,7 +66,7 @@ export default function ManufacturingPage() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
             {productionStages.map((stage, i) => (
-              <ProductionStageCard key={stage.id} stage={stage} priority={i < 3} />
+              <ProductionStageCard key={stage.id} stage={stage} priority={i === 0} />
             ))}
           </div>
         </div>

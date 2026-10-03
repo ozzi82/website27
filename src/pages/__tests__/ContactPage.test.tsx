@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { renderToString } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { IDBFactory } from "fake-indexeddb";
@@ -289,6 +290,25 @@ describe("ContactPage artwork file", () => {
   });
 });
 
+describe("ContactPage hydration safety", () => {
+  it("server-renders the same HTML whatever history state, storage or company type exist (no quote card, no company choice)", () => {
+    sessionStorage.setItem("sls.companyType.v1", "Sign Company");
+    saveQuote(quote);
+    const html = renderToString(
+      <HelmetProvider>
+        <MemoryRouter initialEntries={[{ pathname: "/contact", state: { quote } }]}>
+          <ContactPage />
+        </MemoryRouter>
+      </HelmetProvider>,
+    );
+    expect(html).not.toContain("Your configuration");
+    expect(html).not.toContain("LP 5 Trimless");
+    expect(html).not.toMatch(/value="Sign Company"[^>]*selected/);
+    expect(html).toContain("Get your");
+    sessionStorage.clear();
+  });
+});
+
 describe("ContactPage wholesale quote page (brief section 10)", () => {
   const company = () => screen.getByRole("combobox", { name: /company type/i }) as HTMLSelectElement;
 
@@ -329,7 +349,10 @@ describe("ContactPage wholesale quote page (brief section 10)", () => {
   it("sets the title, description and JSON-LD (ContactPage, BreadcrumbList, FAQPage)", async () => {
     installHubSpot();
     renderContact();
-    await waitFor(() => expect(document.title).toBe("Get Your Wholesale Quote: Channel Letters | Sunlite Signs"));
+    await waitFor(() => {
+      expect(document.title).toBe("Get Your Wholesale Quote: Channel Letters | Sunlite Signs");
+      expect(document.head.querySelectorAll("script[type=\"application/ld+json\"]")).toHaveLength(3); // Helmet flushes title and tags together, but a title left by an earlier test can win the race
+    });
     const desc = document.head.querySelector('meta[name="description"]')!.getAttribute("content")!;
     expect(desc).toMatch(/wholesale quote/i);
     expect(desc).toMatch(/48 hours/);

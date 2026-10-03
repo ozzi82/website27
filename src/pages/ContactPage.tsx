@@ -60,14 +60,15 @@ export default function ContactPage() {
   // The configurator hands its configuration over in router state (fresh navigation) and sessionStorage (a refresh).
   const location = useLocation();
   const navigate = useNavigate();
-  // sessionStorage is read after mount, not in the initial state: the page is prerendered (no storage on the server),
-  // and the first client render has to match that HTML.
-  const [quote, setQuote] = useState<QuoteSnapshot | null>(() => {
-    const fromState = (location.state as { quote?: unknown } | null)?.quote;
-    return isQuoteSnapshot(fromState) ? fromState : null;
-  });
+  // Neither source is read in the initial state: the page is prerendered (no quote on the server), and the first client
+  // render has to match that HTML. Router state is not safe either: a reload keeps the history entry's state, so a
+  // reload of /contact after a quote would otherwise hydrate with the card the server HTML does not have (React error
+  // #418). Both are read right after mount instead.
+  const [quote, setQuote] = useState<QuoteSnapshot | null>(null);
   useEffect(() => {
-    setQuote((current) => current ?? loadQuote());
+    const fromState = (location.state as { quote?: unknown } | null)?.quote;
+    setQuote(isQuoteSnapshot(fromState) ? fromState : loadQuote());
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- on mount only
   }, []);
 
   // The artwork file that went with the quote (kept in IndexedDB); the form attaches it to its file field.
@@ -126,7 +127,7 @@ export default function ContactPage() {
               <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-md">{contactIntro}</p>
               <p className="mt-6 inline-flex border border-primary/60 px-3 py-2 mono-label text-foreground">Trade customers only · No retail sales</p>
 
-              <div className="mt-8 md:mt-10 hidden md:block">
+              <div className="mt-8 md:mt-10 hidden lg:block">
                 <p className="mono-label text-muted-foreground mb-3">Helps us quote fast</p>
                 <ul className="border-t border-border max-w-md">
                   {whatToSend.map((item) => (
