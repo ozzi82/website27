@@ -123,9 +123,9 @@ describe("Header and footer", () => {
       ["Channel Letters", "/services/channel-letters"],
       ["Ultra-Slim Trimless", "/services/ultra-slim-trimless-channel-letters"],
       ["Cast Acrylic", "/services/cast-block-acrylic"],
-      ["Custom Fabrication", "/contact"],
-      ["Projects", "/gallery"],
-      ["Manufacturing", "/#manufacturing"],
+      ["Custom Fabrication", "/services/channel-letters#custom-fabrication"],
+      ["Projects", "/projects"],
+      ["Manufacturing", "/manufacturing"],
       ["About", "/about"],
       ["3D Configurator", "/configurator"],
     ] as const) {

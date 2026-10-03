@@ -8,7 +8,11 @@ import { parse } from "node-html-parser";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 export const SITE_URL = "https://sunlitesigns.com";
 const MIN_TEXT_CHARS = 500;
-const NO_JSON_LD_ROUTES = new Set(["/about", "/gallery"]);
+// Pages whose <title> the owner specified verbatim (brief sections 11-12), without the " | Sunlite Signs" suffix.
+const EXACT_TITLES = {
+  "/services/channel-letters": "Wholesale Channel Letter Manufacturer | Sunlite Signs",
+  "/services/ultra-slim-trimless-channel-letters": "Ultra-Slim Trimless Channel Letters | 25–30 mm Depth",
+};
 
 export function htmlPathFor(distDir, route) {
   return route === "/" ? path.join(distDir, "index.html") : path.join(distDir, ...route.split("/").filter(Boolean), "index.html");
@@ -47,7 +51,9 @@ export function checkPage(route, html) {
   const titles = doc.querySelectorAll("title");
   if (titles.length !== 1) fail(`expected 1 <title>, found ${titles.length}`);
   const title = titles[0]?.text.trim() ?? "";
-  if (!title || !title.includes("Sunlite Signs")) fail(`title missing or lacks the site name: "${title}"`);
+  if (EXACT_TITLES[route]) {
+    if (title !== EXACT_TITLES[route]) fail(`title is "${title}", expected exactly "${EXACT_TITLES[route]}"`);
+  } else if (!title || !title.includes("Sunlite Signs")) fail(`title missing or lacks the site name: "${title}"`);
 
   const canonicals = doc.querySelectorAll("link").filter((l) => l.getAttribute("rel") === "canonical");
   if (canonicals.length !== 1) fail(`expected 1 canonical link, found ${canonicals.length}`);
@@ -75,8 +81,7 @@ export function checkPage(route, html) {
 
   // JSON-LD: every block must parse; the homepage carries exactly one LocalBusiness.
   const ldBlocks = doc.querySelectorAll("script").filter((s) => s.getAttribute("type") === "application/ld+json");
-  // /about and /gallery have no structured data in their source today; every other page must.
-  if (ldBlocks.length === 0 && !NO_JSON_LD_ROUTES.has(route)) fail("no JSON-LD block");
+  if (ldBlocks.length === 0) fail("no JSON-LD block");
   const ldTypes = [];
   ldBlocks.forEach((s, i) => {
     try {

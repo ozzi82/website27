@@ -1,0 +1,176 @@
+import fs from "node:fs";
+import path from "node:path";
+import { waitFor, within } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { FORBIDDEN, internalHrefs, renderAt, validRoutes } from "./helpers/renderPage";
+import { CTA_PRIMARY, RETIRED_CTA_LABELS } from "../../lib/cta";
+import { LEGACY_PAGE_REDIRECTS, getPrerenderRoutes } from "../../lib/routes";
+import { projects } from "../../data/projects";
+import { productionStages } from "../../data/production";
+import { COMPANY_LINE, COMPANY_POSITIONING } from "../../lib/contact";
+
+const root = path.resolve(__dirname, "../../..");
+const read = (f: string) => fs.readFileSync(path.join(root, f), "utf8");
+
+function expectLinksResolve(container: HTMLElement, pagePath: string) {
+  for (const href of internalHrefs(container)) {
+    const [route, hash] = href.split("#");
+    expect(validRoutes.has(route === "" ? "/" : route.split("?")[0]), href).toBe(true);
+    if (hash && route === pagePath) expect(container.querySelector(`#${hash}`), `#${hash}`).not.toBeNull();
+  }
+}
+
+describe("/projects (canonical; /gallery redirects)", () => {
+  it("renders the brief's headline, one H1 and every project as a card", () => {
+    const { main } = renderAt("/projects");
+    const h1 = within(main).getByRole("heading", { level: 1 });
+    expect(h1.textContent).toBe("See what we've built.");
+    expect(main.textContent).toMatch(/recent production/i);
+    expect(main.querySelectorAll("article[data-project]")).toHaveLength(projects.length);
+    expect(within(main).getAllByRole("link", { name: new RegExp(CTA_PRIMARY.label, "i") })[0]).toHaveAttribute("href", "/contact");
+  });
+
+  it("cards that are mapped to a product link back to its page; unmapped cards carry no metadata", () => {
+    const { main } = renderAt("/projects");
+    const mapped = projects.filter((p) => p.productSlug);
+    expect(mapped.length).toBeGreaterThan(0);
+    for (const p of mapped) {
+      const card = main.querySelector(`[data-project="${p.id}"]`)!;
+      expect(within(card as HTMLElement).getByRole("link")).toHaveAttribute("href", `/services/${p.productSlug}`);
+    }
+    for (const p of projects.filter((x) => !x.productSlug && !x.productType)) {
+      expect(main.querySelector(`[data-project="${p.id}"] dl`)).toBeNull();
+    }
+  });
+
+  it("sets title, canonical and breadcrumb JSON-LD", async () => {
+    const { container, main } = renderAt("/projects");
+    await waitFor(() => expect(document.title).toMatch(/^Projects: .* \| Sunlite Signs$/));
+    expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe("https://sunlitesigns.com/projects");
+    expect(JSON.parse(document.head.querySelector('script[type="application/ld+json"]')!.textContent!)["@type"]).toBe("BreadcrumbList");
+    expectLinksResolve(container, "/projects");
+    for (const f of FORBIDDEN) expect(main.textContent).not.toMatch(f);
+  });
+
+  it("/gallery redirects to /projects on the client", () => {
+    const { main } = renderAt("/gallery");
+    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe("See what we've built.");
+  });
+
+  it("the hosts send a real 301 for /gallery, ahead of the SPA fallback", () => {
+    expect(LEGACY_PAGE_REDIRECTS).toEqual({ "/gallery": "/projects" });
+    const redirects = read("public/_redirects");
+    expect(redirects).toMatch(/^\/gallery\s+\/projects\s+301$/m);
+    expect(redirects.indexOf("/gallery")).toBeLessThan(redirects.indexOf("/* "));
+    expect(read("nginx.conf")).toContain("location = /gallery { return 301 /projects; }");
+    expect(getPrerenderRoutes()).not.toContain("/gallery");
+    expect(getPrerenderRoutes()).toContain("/projects");
+  });
+});
+
+describe("/manufacturing", () => {
+  it("shows the six stages with the brief's headline, process and the factual location line", () => {
+    const { main } = renderAt("/manufacturing");
+    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe("Your Drawings In.Finished Signs Out.");
+    expect(within(main).getAllByRole("heading", { level: 3 }).map((h) => h.textContent).slice(0, 6)).toEqual(productionStages.map((s) => s.title));
+    expect(main.querySelector("#process")).not.toBeNull();
+    expect(main.textContent).toContain(COMPANY_LINE);
+    expect(main.textContent).toContain(COMPANY_POSITIONING);
+    expect(main.textContent).toMatch(/trade customers only/i);
+  });
+
+  it("claims no factory, staff or capacity figures and not where processes happen", () => {
+    const { main } = renderAt("/manufacturing");
+    const text = main.textContent!;
+    for (const f of FORBIDDEN) expect(text).not.toMatch(f);
+    expect(text).not.toMatch(/square f|sq\.? ?ft|employees|machines|per month|capacity of|\d+ (staff|people|workers)/i);
+    expect(text).not.toMatch(/our (tampa )?(factory|plant|facility) in/i);
+  });
+
+  it("uses real media where a stage has it and a placeholder (no img) otherwise", () => {
+    const { main } = renderAt("/manufacturing");
+    for (const s of productionStages) {
+      const card = main.querySelector(`[data-stage="${s.id}"]`)!;
+      expect(card.querySelector("img") !== null, s.id).toBe(Boolean(s.image || s.video));
+    }
+  });
+
+  it("links on to channel letters and every link resolves; CTA matches the shared module", () => {
+    const { main, container } = renderAt("/manufacturing");
+    expect(within(main).getAllByRole("link", { name: new RegExp(CTA_PRIMARY.label, "i") })[0]).toHaveAttribute("href", CTA_PRIMARY.to);
+    expect(within(main).getAllByRole("link").some((a) => a.getAttribute("href") === "/services/channel-letters")).toBe(true);
+    expectLinksResolve(container, "/manufacturing");
+  });
+});
+
+describe("/about (company and trade-only positioning, distinct from manufacturing)", () => {
+  it("is not a duplicate of the manufacturing page", () => {
+    const about = renderAt("/about").main;
+    expect(within(about).getByRole("heading", { level: 1 }).textContent).toBe("A production partnerfor sign companies.");
+    expect(about.querySelector("#trade")).not.toBeNull();
+    expect(about.querySelector("#who-we-serve")).not.toBeNull();
+    expect(about.querySelector("#trade-only")).not.toBeNull();
+    expect(about.querySelector("[data-stage]")).toBeNull();
+    expect(about.querySelector("#faq")).not.toBeNull();
+    expect(about.textContent).toContain("We don't compete with our partners.");
+    expect(about.textContent).toContain(COMPANY_LINE);
+  });
+
+  it("uses the shared primary CTA, no retired wording, and valid links", () => {
+    const { main, container } = renderAt("/about");
+    for (const a of within(main).getAllByRole("link", { name: new RegExp(CTA_PRIMARY.label, "i") })) expect(a).toHaveAttribute("href", "/contact");
+    for (const r of RETIRED_CTA_LABELS) expect(main.textContent).not.toContain(r);
+    for (const f of FORBIDDEN) expect(main.textContent).not.toMatch(f);
+    expectLinksResolve(container, "/about");
+  });
+});
+
+describe("site navigation and the custom-fabrication target", () => {
+  it("the header links Projects, Manufacturing, About and the four products to final targets", () => {
+    const { container } = renderAt("/");
+    const nav = container.querySelector('nav[aria-label="Main"]') as HTMLElement;
+    const href = (name: string) => within(nav).getByRole("link", { name }).getAttribute("href");
+    expect(href("Projects")).toBe("/projects");
+    expect(href("Manufacturing")).toBe("/manufacturing");
+    expect(href("About")).toBe("/about");
+    expect(href("Custom Fabrication")).toBe("/services/channel-letters#custom-fabrication");
+  });
+
+  it("custom fabrication points at a section that exists on the channel-letters page", () => {
+    const { main } = renderAt("/services/channel-letters");
+    const section = main.querySelector("#custom-fabrication")!;
+    expect(section.textContent).toMatch(/custom logos/i);
+    expect(section.textContent).toMatch(/fabricated to your drawings/i);
+  });
+
+  it("the footer and homepage manufacturing section link to /manufacturing and /projects", () => {
+    const { container } = renderAt("/");
+    const hrefs = internalHrefs(container);
+    expect(hrefs).toContain("/manufacturing");
+    expect(hrefs).toContain("/projects");
+    expect(hrefs).not.toContain("/gallery");
+    expect(hrefs.some((h) => h.includes("cabinet"))).toBe(false);
+  });
+
+  it("sitemap and llms.txt list the new pages and neither lists /gallery", () => {
+    for (const f of ["public/sitemap.xml", "public/llms.txt", "index.html"]) {
+      const text = read(f);
+      expect(text, f).toContain("/projects");
+      expect(text, f).toContain("/manufacturing");
+      expect(text, f).not.toContain("/gallery");
+    }
+  });
+});
+
+describe("/services/cast-block-acrylic (generic page, polished to match)", () => {
+  it("keeps the shared CTA and links to the LP 11 systems and channel letters", () => {
+    const { main, container } = renderAt("/services/cast-block-acrylic");
+    expect(within(main).getAllByRole("link", { name: new RegExp(CTA_PRIMARY.label, "i") })[0]).toHaveAttribute("href", "/contact");
+    const hrefs = internalHrefs(main);
+    for (const id of ["lp-11-f-face-lit", "lp-11-b-back-lit", "lp-11-fb-face-halo"]) expect(hrefs).toContain(`/light-effects/${id}`);
+    expect(hrefs).toContain("/services/channel-letters");
+    expect(main.querySelector('section[aria-label="Related pages"]')).not.toBeNull();
+    expectLinksResolve(container, "/services/cast-block-acrylic");
+    expect(main.textContent).not.toMatch(/cabinet|light ?box/i);
+  });
+});

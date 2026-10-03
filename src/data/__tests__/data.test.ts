@@ -26,9 +26,9 @@ describe("product categories", () => {
     expect(slim.cta.label.toUpperCase()).toBe("EXPLORE ULTRA-SLIM");
   });
 
-  it("points at routes that exist (prerendered pages, /contact for custom work)", () => {
+  it("points at routes that exist (prerendered pages; custom fabrication is a section of the channel-letters page)", () => {
     const routes = new Set(getPrerenderRoutes());
-    for (const p of productCategories) expect(routes.has(p.cta.to), `${p.id} -> ${p.cta.to}`).toBe(true);
+    for (const p of productCategories) expect(routes.has(p.cta.to.split("#")[0]), `${p.id} -> ${p.cta.to}`).toBe(true);
   });
 
   it("uses images that exist", () => {
