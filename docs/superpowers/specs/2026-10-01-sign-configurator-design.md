@@ -539,3 +539,44 @@ multiplied by `lineStackFactor(lines)` so the ratio refers to one line's letters
 degrades with `bevelStrength(ratio)` (0 below 2%, 1 above 8%, smoothstep between): tube radius and cone inset are scaled by it and hairline art
 becomes a plain straight extrusion. Known limit: the estimate is the mean stroke, so a mixed-weight typeface (thin hairlines on thick stems)
 can still carry a thinner stroke than reported.
+
+## Revision 6 (artwork file travels to the contact form, in-place configuration switching)
+
+**1. The artwork file goes with the quote.** "Get a Quote" now also hands over the artwork *file*, not just the summary, and
+`/contact` attaches it to the HubSpot form's `upload_your_file_here` field so the visitor does not upload it again. No backend.
+- **Which file.** Upload mode keeps the original `File` next to the parsed shapes (`UploadDropzone.onParsed(shapes, file)`; the
+  10 MB cap is the uploader's). Text mode has no file, so one is generated: `textArtworkFile.ts` runs the same `layoutText` outlines
+  as the preview and writes a standalone SVG (`<title>`/`<desc>`, one `fill-rule="nonzero"` path, `viewBox` and `width`/`height`
+  fitted to the outlines) named `sunlite-text-<slug>.svg`. The viewBox comes from the path's coordinate pairs (control points
+  included), so it can be a hair larger than the ink, never smaller.
+- **Storage.** `artworkFileStorage.ts`: one IndexedDB record (`sls-quote-files`/`artwork`) holding name, type and an `ArrayBuffer`
+  (`File`/`Blob` do not survive every structured clone, an `ArrayBuffer` does), keyed by the quote's `savedAt`. 10 MB cap, 24 h
+  expiry, a 2.5 s give-up so a hung IndexedDB never holds the visitor up, and nothing ever throws: when storage is unavailable or
+  errors, or the file cannot be made, the quote goes without a file. `QuoteSnapshot.artworkFile` (`{name, size, generated}`) records
+  that a file was stored; `ContactPage` loads it only for the quote it belongs to. A quote with no file clears the previous one.
+  New-tab ("modified") clicks skip the file, like the snapshot image.
+- **Attaching.** `hubspotFile.ts` sets `input.files` through a `DataTransfer` of the *iframe's own window* (retrying with a File
+  rebuilt in that window if a browser rejects the foreign one), then dispatches `input` and `change`. `ContactForm` runs it from
+  `onFormReady`, then polls (500 ms, 20 s) and watches the form with a `MutationObserver`, because the form renders asynchronously
+  and may re-render. Each file field gets one attempt: a field that already holds a file is never overwritten (status `detached`),
+  and a file the visitor removes stays removed, while a re-rendered (new) field gets the file again. Clear takes the file back out
+  only if the field still holds ours; a successful HubSpot submission (`onFormSubmitted`) clears the quote and the file.
+- **What was verified against the real form (headless Chrome, form never submitted).** HubSpot's file field is a React input whose
+  `onChange` reads `target.files`; the submit builds a `FormData` from that state. The programmatic attach therefore registers
+  exactly like a visitor's choice: inspecting the React fibers shows the `File` in the field's value (also after a reload, and gone
+  after Clear), and the browser's own file-name label shows the name. HubSpot's "Allowed file types: CDR, EPS, AI, PDF, PNG, JPG"
+  is only the field's description text (it is plain text in the form definition, there is no client-side extension check), but
+  SVG is not in that list and whether HubSpot's upload service accepts it at submit time could not be tested without sending a
+  real submission.
+- **UI.** `QuoteCard` shows "Artwork attached: logo.svg (12 KB)" with "It will be sent with the form below." and a small "Download a
+  copy" link. If the browser or form would not take the file (`failed`, or no form after 20 s) or the visitor already chose
+  another (`detached`), the card shows a prominent "Download your artwork file" button instead, with a note to choose it in the form.
+
+**2. Switching configuration inside the configurator.** The options panel starts with a `ConfigSwitcher`: a labelled native select
+("LP 3.1 · Fabricated Stainless Steel with Standoffs", all 12) with previous/next arrows (wrapping). `switchConfig(prev, config)`
+applies the new configuration immediately and keeps the artwork (shapes, text and file), background, paint colour, glow colour,
+brightness and day/night, and the depth when the new configuration offers it (otherwise that configuration's default). The
+"← Change" link in the workspace is gone, since the select replaces it; before any artwork exists the page still offers
+"← Change configuration" to return to the 12-card chooser. The switcher replaces the code/subtitle header, so the options column
+is no taller than before: measured at 1366x768, 1440x900 and 1366x657 the column does not overflow (scrollHeight = clientHeight
+in upload and text mode) and the document scrolls only to reach the footer.

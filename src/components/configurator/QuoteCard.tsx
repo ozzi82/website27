@@ -39,7 +39,7 @@ function DownloadLink({ file, className, children }: { file: File; className: st
 function ArtworkFileNotice({ meta, file, status }: NonNullable<QuoteCardProps["artwork"]>) {
   const name = (
     <>
-      <strong className="break-all font-medium">{file.name}</strong> <span className="text-muted-foreground">({formatSize(file.size)})</span>
+      <strong className="break-words font-medium">{file.name}</strong> <span className="text-muted-foreground">({formatSize(file.size)})</span>
       {meta.generated && <span className="text-muted-foreground"> · made from your text</span>}
     </>
   );
