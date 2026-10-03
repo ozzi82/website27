@@ -31,3 +31,7 @@ export function render(url: string): RenderResult {
 }
 
 export { getPrerenderRoutes };
+
+// Build-time helpers for scripts/prerender.mjs: the files that carry the site origin are generated from route data.
+export { getSitemapEntries, getCaseStudyLinks } from './lib/routes';
+export { buildSitemap, buildRobotsTxt, buildLlmsTxt, nginxRobotsHeader } from './lib/siteFiles';

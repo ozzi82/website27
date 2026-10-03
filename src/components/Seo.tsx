@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { SITE_NAME, absoluteUrl, DEFAULT_OG_IMAGE } from "@project/lib/seo";
+import { SITE_NAME, NOINDEX, absoluteUrl, DEFAULT_OG_IMAGE } from "@project/lib/seo";
 
 interface SeoProps {
   title: string;
@@ -22,7 +22,8 @@ export default function Seo({ title, description, path, image = DEFAULT_OG_IMAGE
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
-      {noindex && <meta name="robots" content="noindex, follow" />}
+      {/* Demo builds (VITE_NOINDEX=1) are noindex everywhere; otherwise only pages that ask for it. */}
+      {NOINDEX ? <meta name="robots" content="noindex, nofollow" /> : noindex ? <meta name="robots" content="noindex, follow" /> : null}
 
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={SITE_NAME} />

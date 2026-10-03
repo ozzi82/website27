@@ -116,12 +116,56 @@ Repo: https://github.com/ozzi82/website27 (branch `master`).
 2. Build command `npm run build`, output directory `dist`, Node 20 or newer (set `NODE_VERSION=20` under Environment variables).
 3. Deploy. You get a `*.pages.dev` address to test on first.
 4. Custom domain: Pages project > Custom domains > Set up a domain > `sunlitesigns.com` (and `www`). If the domain's DNS is already on Cloudflare this is one click; otherwise add the CNAME records Cloudflare shows at your registrar (or move nameservers to Cloudflare). HTTPS is automatic.
-5. Redirect `www` to the bare domain (or the reverse) so there is one canonical address; the site's canonical tags and sitemap use `https://sunlitesigns.com`.
+5. Redirect `www` to the bare domain (or the reverse) so there is one canonical address; the site's canonical tags, sitemap, llms.txt and JSON-LD use the origin set by `VITE_SITE_URL` (default `https://sunlitesigns.com`, the bare domain; see "Site origin and noindex" below).
 6. HubSpot: add `sunlitesigns.com` and `www.sunlitesigns.com` to the form's allowed domains, then submit one test inquiry (with a file) and confirm it arrives.
 7. Search Console and Bing Webmaster Tools: verify the domain and submit `https://sunlitesigns.com/sitemap.xml`.
 
 Netlify works the same way (Add new site > Import from Git, same build settings).
 Every push to `master` redeploys automatically.
+
+## Site origin and noindex (VITE_SITE_URL, VITE_NOINDEX)
+
+Two build-time settings decide which domain the site announces and whether search engines may index it. Both are read at **build** time (they are baked into the HTML, sitemap and headers), so changing them means a new build/deploy.
+
+| Variable | Default | Effect |
+| --- | --- | --- |
+| `VITE_SITE_URL` | `https://sunlitesigns.com` | The origin used in canonical links, `og:url`, `og:image`, JSON-LD, `sitemap.xml`, `llms.txt` and `robots.txt`. Use the exact address visitors land on, with no trailing slash and no path. Apex vs www: the value is used as written (`https://t2wraps.com` gives apex canonicals, `https://www.t2wraps.com` gives www canonicals), so set it to your preferred address and redirect the other one to it. |
+| `VITE_NOINDEX` | unset (indexable) | `1` (or `true`) makes a demo build: `<meta name="robots" content="noindex, nofollow">` on every page, a `robots.txt` that is just `Disallow: /`, an `X-Robots-Tag: noindex, nofollow` header from nginx, and no `sitemap.xml` or `llms.txt`. |
+
+With neither variable set you get the production-ready, indexable site for `https://sunlitesigns.com`. `npm run verify:prerender` reads the same variables and fails if any canonical, sitemap URL or robots tag disagrees with them, so run it with the variables you deploy with.
+
+### Coolify (Docker build): the t2wraps.com demo
+
+The `Dockerfile` accepts both as build arguments and writes the nginx header from them at build time. In Coolify, open the application, then **Environment Variables** and add:
+
+| Name | Value | Build Variable |
+| --- | --- | --- |
+| `VITE_SITE_URL` | `https://t2wraps.com` | checked |
+| `VITE_NOINDEX` | `1` | checked |
+
+Tick **Build Variable** on each (Coolify only passes variables to the Docker build as build args when that box is ticked; without it the values never reach `npm run build` and the site silently builds as the production default). Save, then **Redeploy**. To confirm after the deploy: `curl -sI https://t2wraps.com/` shows `x-robots-tag: noindex, nofollow`; `https://t2wraps.com/robots.txt` shows `Disallow: /`; view-source of any page shows the noindex meta and a canonical on `https://t2wraps.com`.
+
+### Switching to production (sunlitesigns.com)
+
+1. Point the production domain at the application (or create a new application from the same repository).
+2. Set `VITE_SITE_URL` to `https://sunlitesigns.com` (or delete the variable: that is the default) and **delete `VITE_NOINDEX`** (an empty value also counts as off, but deleting it is clearer). Keep Build Variable ticked on whatever remains.
+3. Redeploy. Confirm: `curl -sI https://sunlitesigns.com/` has no `x-robots-tag` header, `/robots.txt` shows `Allow: /` and the sitemap line, `/sitemap.xml` lists `https://sunlitesigns.com/...` URLs, and view-source shows no robots meta.
+4. Submit `https://sunlitesigns.com/sitemap.xml` in Search Console (see above) and make sure the old demo domain stays noindex or redirects to production.
+
+### Cloudflare Pages / Netlify
+
+Add `VITE_SITE_URL` (and `VITE_NOINDEX` for a demo project) under the project's environment variables for the **Production** build, then redeploy. These hosts do not run nginx, so the `X-Robots-Tag` header is not sent there; the meta tag and `robots.txt` still apply. For a demo on these hosts you can also add a `_headers` file with `/*` and `  X-Robots-Tag: noindex, nofollow`.
+
+### Local checks
+
+```bash
+# demo build, verified
+VITE_SITE_URL=https://t2wraps.com VITE_NOINDEX=1 npm run build && VITE_SITE_URL=https://t2wraps.com VITE_NOINDEX=1 npm run verify:prerender
+# production build, verified (the default)
+npm run build && npm run verify:prerender
+```
+
+(On Windows PowerShell set the variables first: `$env:VITE_SITE_URL="https://t2wraps.com"; $env:VITE_NOINDEX="1"`, and remove them afterwards.)
 
 ## Running on your local network
 

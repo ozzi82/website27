@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import { FORBIDDEN, internalHrefs, mmClaims, renderAt, spacedText, validRoutes } from "./helpers/renderPage";
 import { CTA_PRIMARY, RETIRED_CTA_LABELS } from "../../lib/cta";
 import { channelLetterFaqs, channelLetterSpecs } from "../../data/channelLetters";
+import { SITE_URL } from "../../lib/seo";
 
 const PATH = "/services/channel-letters";
 
@@ -23,7 +24,7 @@ describe("/services/channel-letters", () => {
     const desc = document.head.querySelector('meta[name="description"]')!.getAttribute("content")!;
     expect(desc).toMatch(/wholesale channel letter manufacturer/i);
     expect(desc.length).toBeLessThanOrEqual(180);
-    expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe("https://sunlitesigns.com/services/channel-letters");
+    expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe(`${SITE_URL}/services/channel-letters`);
     const ld = [...document.head.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent!));
     expect(ld.map((x) => x["@type"]).sort()).toEqual(["BreadcrumbList", "FAQPage", "Service"]);
     const faq = ld.find((x) => x["@type"] === "FAQPage");

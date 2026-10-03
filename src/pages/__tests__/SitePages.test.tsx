@@ -4,10 +4,12 @@ import { waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { FORBIDDEN, internalHrefs, renderAt, validRoutes } from "./helpers/renderPage";
 import { CTA_PRIMARY, RETIRED_CTA_LABELS } from "../../lib/cta";
-import { LEGACY_PAGE_REDIRECTS, getPrerenderRoutes } from "../../lib/routes";
+import { LEGACY_PAGE_REDIRECTS, getCaseStudyLinks, getPrerenderRoutes, getSitemapEntries } from "../../lib/routes";
 import { projects } from "../../data/projects";
 import { productionStages } from "../../data/production";
 import { COMPANY_LINE, COMPANY_POSITIONING } from "../../lib/contact";
+import { SITE_URL } from "../../lib/seo";
+import { buildLlmsTxt, buildSitemap } from "../../lib/siteFiles";
 
 const root = path.resolve(__dirname, "../../..");
 const read = (f: string) => fs.readFileSync(path.join(root, f), "utf8");
@@ -46,7 +48,7 @@ describe("/projects (canonical; /gallery redirects)", () => {
   it("sets title, canonical and breadcrumb JSON-LD", async () => {
     const { container, main } = renderAt("/projects");
     await waitFor(() => expect(document.title).toMatch(/^Projects: .* \| Sunlite Signs$/));
-    expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe("https://sunlitesigns.com/projects");
+    expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe(`${SITE_URL}/projects`);
     expect(JSON.parse(document.head.querySelector('script[type="application/ld+json"]')!.textContent!)["@type"]).toBe("BreadcrumbList");
     expectLinksResolve(container, "/projects");
     for (const f of FORBIDDEN) expect(main.textContent).not.toMatch(f);
@@ -153,8 +155,12 @@ describe("site navigation and the custom-fabrication target", () => {
   });
 
   it("sitemap and llms.txt list the new pages and neither lists /gallery", () => {
-    for (const f of ["public/sitemap.xml", "public/llms.txt", "index.html"]) {
-      const text = read(f);
+    const generated: Record<string, string> = {
+      "sitemap.xml": buildSitemap(getSitemapEntries(), SITE_URL),
+      "llms.txt": buildLlmsTxt(read("scripts/templates/llms.txt"), SITE_URL, getCaseStudyLinks()),
+      "index.html": read("index.html"),
+    };
+    for (const [f, text] of Object.entries(generated)) {
       expect(text, f).toContain("/projects");
       expect(text, f).toContain("/manufacturing");
       expect(text, f).not.toContain("/gallery");

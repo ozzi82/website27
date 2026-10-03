@@ -6,7 +6,7 @@ import Breadcrumbs from "../Breadcrumbs";
 import RelatedLinks from "../RelatedLinks";
 import Seo from "../Seo";
 import { LightingDiagram, MountingDiagram, TrimDiagram } from "../diagrams/LetterDiagrams";
-import { breadcrumbJsonLd } from "../../lib/seo";
+import { SITE_URL, breadcrumbJsonLd } from "../../lib/seo";
 import { channelLetterFaqs, channelLetterSpecs, illuminationTypes, mountingOptions, trimOptions } from "../../data/channelLetters";
 import { relatedSystems, ultraSlimSpecs } from "../../data/ultraSlim";
 
@@ -30,9 +30,9 @@ describe("Breadcrumbs", () => {
     const ld = breadcrumbJsonLd(crumbs);
     expect(ld["@type"]).toBe("BreadcrumbList");
     expect(ld.itemListElement.map((i) => [i.position, i.name, i.item])).toEqual([
-      [1, "Home", "https://sunlitesigns.com"],
-      [2, "Products", "https://sunlitesigns.com/#products"],
-      [3, "Channel Letters", "https://sunlitesigns.com/services/channel-letters"],
+      [1, "Home", SITE_URL],
+      [2, "Products", `${SITE_URL}/#products`],
+      [3, "Channel Letters", `${SITE_URL}/services/channel-letters`],
     ]);
   });
 });

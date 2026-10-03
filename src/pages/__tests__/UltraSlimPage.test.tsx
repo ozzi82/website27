@@ -4,6 +4,7 @@ import { FORBIDDEN, internalHrefs, mmClaims, renderAt, spacedText, validRoutes }
 import { CTA_PRIMARY, RETIRED_CTA_LABELS } from "../../lib/cta";
 import { configurations } from "../../data/configurations";
 import { relatedSystems, ultraSlimSpecs } from "../../data/ultraSlim";
+import { SITE_URL } from "../../lib/seo";
 
 const PATH = "/services/ultra-slim-trimless-channel-letters";
 
@@ -29,7 +30,7 @@ describe("/services/ultra-slim-trimless-channel-letters", () => {
     await waitFor(() => expect(document.title).toBe("Ultra-Slim Trimless Channel Letters | 25–30 mm Depth"));
     expect(document.head.querySelector('meta[property="og:title"]')!.getAttribute("content")).toBe(document.title);
     expect(document.head.querySelector('meta[name="description"]')!.getAttribute("content")).toMatch(/25–30 mm/);
-    expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe(`https://sunlitesigns.com${PATH}`);
+    expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe(`${SITE_URL}${PATH}`);
     const ld = [...document.head.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent!));
     expect(ld.map((x) => x["@type"]).sort()).toEqual(["BreadcrumbList", "Product"]);
     expect(JSON.stringify(ld)).not.toMatch(/rating|review|"price|offers/i);

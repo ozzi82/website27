@@ -5,12 +5,15 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { loadSiteConfig, ROBOTS_NOINDEX_CONTENT } from "./siteConfig.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const distDir = path.join(root, "dist");
 const ssrDir = path.join(root, "dist-ssr");
 
-const SITE_URL = "https://sunlitesigns.com";
+// The origin and the noindex switch come from VITE_SITE_URL / VITE_NOINDEX (the same variables the client and SSR
+// bundles were built with), so canonical tags, the sitemap and the other generated files always agree.
+const { siteUrl: SITE_URL, noindex: NOINDEX } = loadSiteConfig();
 const SITE_NAME = "Sunlite Signs";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/images/pasted-image-1787755330414-fxpkbj9m.png`;
 
@@ -23,7 +26,9 @@ if (!template.includes('<div id="root"></div>')) {
 
 const serverEntry = path.join(ssrDir, "entry-server.js");
 if (!fs.existsSync(serverEntry)) throw new Error("dist-ssr/entry-server.js not found: run the SSR build first.");
-const { render, getPrerenderRoutes } = await import(pathToFileURL(serverEntry).href);
+const { render, getPrerenderRoutes, getSitemapEntries, getCaseStudyLinks, buildSitemap, buildRobotsTxt, buildLlmsTxt, nginxRobotsHeader } = await import(
+  pathToFileURL(serverEntry).href
+);
 
 // Without JavaScript the entrance animations (framer-motion starts at opacity 0) would leave the hero invisible.
 const NOSCRIPT_STYLE = '<noscript><style>[style*="opacity:0"]{opacity:1!important;transform:none!important}</style></noscript>';
@@ -76,6 +81,7 @@ const CONFIGURATOR = {
   const d = escapeAttr(CONFIGURATOR.description);
   // data-static-seo: main.tsx removes these at startup so the page's own <Seo> tags are the only ones once React runs.
   const tags = [
+    ...(NOINDEX ? [`<meta data-static-seo name="robots" content="${ROBOTS_NOINDEX_CONTENT}" />`] : []),
     `<title>${CONFIGURATOR.title}</title>`,
     `<meta data-static-seo name="description" content="${d}" />`,
     `<link data-static-seo rel="canonical" href="${url}" />`,
@@ -94,7 +100,7 @@ const CONFIGURATOR = {
       <main>
         <h1>Sign Configurator</h1>
         <p>${CONFIGURATOR.description} The 3D configurator needs JavaScript. Without it, send your logo and dimensions on the <a href="/contact">contact page</a> and we will quote it by hand.</p>
-        <p><a href="/">Sunlite Signs</a> · <a href="/contact">Get a Quote</a></p>
+        <p><a href="/">Sunlite Signs</a> · <a href="/contact">Request Wholesale Pricing</a></p>
       </main>
     </noscript>`;
   const page = stripped
@@ -104,5 +110,23 @@ const CONFIGURATOR = {
   written.push(CONFIGURATOR.path + " (SPA shell)");
 }
 
+
+// Files that carry the origin are generated here, never hand-edited: sitemap.xml, robots.txt, llms.txt (from the
+// scripts/templates/llms.txt template) and the nginx header snippet the Dockerfile copies next to nginx.conf.
+const generated = [];
+function emit(rel, text) {
+  fs.writeFileSync(path.join(distDir, rel), text);
+  generated.push(rel);
+}
+emit("robots.txt", buildRobotsTxt(SITE_URL, NOINDEX));
+if (!NOINDEX) {
+  emit("sitemap.xml", buildSitemap(getSitemapEntries(), SITE_URL));
+  const llmsTemplate = fs.readFileSync(path.join(root, "scripts", "templates", "llms.txt"), "utf8");
+  emit("llms.txt", buildLlmsTxt(llmsTemplate, SITE_URL, getCaseStudyLinks()));
+}
+fs.writeFileSync(path.join(ssrDir, "robots-header.conf"), nginxRobotsHeader(NOINDEX));
+
+console.log(`Site: ${SITE_URL}${NOINDEX ? " (noindex build)" : ""}`);
+console.log(`Generated ${generated.join(", ")}.`);
 console.log(`Prerendered ${written.length} pages in ${Date.now() - t0} ms:`);
 for (const r of written) console.log("  " + r);

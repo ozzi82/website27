@@ -4,9 +4,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { parse } from "node-html-parser";
+import { loadSiteConfig, DEFAULT_SITE_URL, ROBOTS_NOINDEX_CONTENT } from "./siteConfig.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-export const SITE_URL = "https://sunlitesigns.com";
+
+const site = loadSiteConfig();
+export const SITE_URL = site.siteUrl;
+export const NOINDEX = site.noindex;
 const MIN_TEXT_CHARS = 500;
 // Pages whose <title> the owner specified verbatim (brief sections 11-12), without the " | Sunlite Signs" suffix.
 const EXACT_TITLES = {
@@ -38,12 +42,12 @@ function metaAll(doc, attr, name) {
   return doc.querySelectorAll("meta").filter((m) => m.getAttribute(attr) === name);
 }
 
-/** Returns a list of problems for one page's HTML (empty list = fine). */
-export function checkPage(route, html) {
+/** Returns a list of problems for one page's HTML (empty list = fine). `siteUrl` / `noindex` default to the build settings. */
+export function checkPage(route, html, { siteUrl = SITE_URL, noindex = NOINDEX } = {}) {
   const errors = [];
   const fail = (msg) => errors.push(msg);
   const doc = parse(html);
-  const expectedUrl = SITE_URL + (route === "/" ? "/" : route);
+  const expectedUrl = siteUrl + (route === "/" ? "/" : route);
 
   if (/data-static-seo/.test(html)) fail("still contains data-static-seo template tags");
 
@@ -74,6 +78,12 @@ export function checkPage(route, html) {
   one("property", "og:type");
   one("name", "twitter:card");
   const twTitle = one("name", "twitter:title");
+  // Robots: demo (noindex) builds carry exactly one noindex, nofollow tag; indexable builds carry no noindex at all.
+  const robots = metaAll(doc, "name", "robots");
+  if (noindex) {
+    if (robots.length !== 1 || robots[0].getAttribute("content") !== ROBOTS_NOINDEX_CONTENT) fail(`noindex build: expected exactly one robots meta "${ROBOTS_NOINDEX_CONTENT}", found ${robots.length}`);
+  } else if (robots.some((m) => /noindex/i.test(m.getAttribute("content") ?? ""))) fail("indexable build carries a noindex robots meta");
+
   if (description && description.length < 50) fail(`meta description is very short (${description.length} chars)`);
   if (ogTitle && ogTitle !== title) fail(`og:title "${ogTitle}" differs from <title> "${title}"`);
   if (twTitle && twTitle !== title) fail(`twitter:title differs from <title>`);
@@ -111,15 +121,60 @@ export function checkPage(route, html) {
 }
 
 /** The /configurator SPA shell: its own head tags, an empty root (client-rendered), a noscript note. */
-export function checkShell(html) {
+export function checkShell(html, { siteUrl = SITE_URL, noindex = NOINDEX } = {}) {
   const errors = [];
   const doc = parse(html);
   const canon = doc.querySelectorAll("link").filter((l) => l.getAttribute("rel") === "canonical");
-  if (canon.length !== 1 || canon[0].getAttribute("href") !== `${SITE_URL}/configurator`) fail("configurator shell canonical wrong");
+  if (canon.length !== 1 || canon[0].getAttribute("href") !== `${siteUrl}/configurator`) fail("configurator shell canonical wrong");
+  const robots = metaAll(doc, "name", "robots");
+  if (noindex && robots.length !== 1) fail("noindex build: configurator shell needs one robots meta");
+  if (!noindex && robots.length) fail("indexable build: configurator shell carries a robots meta");
   function fail(m) { errors.push(m); }
   if (doc.querySelectorAll("title").length !== 1) fail("configurator shell needs exactly one <title>");
   if (metaAll(doc, "name", "description").length !== 1) fail("configurator shell needs exactly one meta description");
   if (doc.querySelector("#root")?.childNodes.length) fail("configurator shell root should be empty (client-rendered)");
+  return errors;
+}
+
+/** Every URL in the generated sitemap / llms.txt / robots.txt must use the configured origin and nothing else. */
+export function checkSiteFiles(distDir, routes, { siteUrl = SITE_URL, noindex = NOINDEX } = {}) {
+  const errors = [];
+  const read = (f) => (fs.existsSync(path.join(distDir, f)) ? fs.readFileSync(path.join(distDir, f), "utf8") : null);
+  const otherOrigins = (text) =>
+    [...new Set([...text.matchAll(/https?:\/\/[a-z0-9.-]+/gi)].map((m) => m[0]))].filter(
+      (o) => o !== siteUrl && !/^https?:\/\/(www\.)?(w3\.org|schema\.org|sitemaps\.org)/.test(o),
+    );
+
+  const robots = read("robots.txt");
+  if (robots === null) errors.push("robots.txt missing");
+  else if (noindex) {
+    if (!/^Disallow:\s*\/\s*$/m.test(robots) || /^Allow:/m.test(robots)) errors.push("noindex build: robots.txt must be a blanket Disallow: /");
+  } else {
+    if (/^Disallow:\s*\/\s*$/m.test(robots)) errors.push("indexable build: robots.txt disallows everything");
+    if (!robots.includes(`Sitemap: ${siteUrl}/sitemap.xml`)) errors.push(`robots.txt lacks "Sitemap: ${siteUrl}/sitemap.xml"`);
+  }
+  for (const f of ["sitemap.xml", "llms.txt"]) {
+    const text = read(f);
+    if (noindex) {
+      if (text !== null) errors.push(`noindex build should not ship ${f}`);
+      continue;
+    }
+    if (text === null) {
+      errors.push(`${f} missing`);
+      continue;
+    }
+    if (text.includes("{{") || text.includes("%SITE_URL%")) errors.push(`${f} has an unfilled placeholder`);
+    const foreign = otherOrigins(text);
+    if (foreign.length) errors.push(`${f} mentions other origins: ${foreign.join(", ")}`);
+  }
+  const sitemap = read("sitemap.xml");
+  if (sitemap) {
+    const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]).sort();
+    const expected = routes.map((r) => (r === "/" ? `${siteUrl}/` : siteUrl + r)).sort();
+    if (JSON.stringify(locs) !== JSON.stringify(expected)) errors.push("sitemap.xml does not list exactly the prerendered routes");
+  }
+  const html = read("index.html");
+  if (html && siteUrl !== DEFAULT_SITE_URL && html.includes(DEFAULT_SITE_URL)) errors.push(`index.html still mentions ${DEFAULT_SITE_URL}`);
   return errors;
 }
 
@@ -142,6 +197,9 @@ export async function verifyPrerender({ distDir = path.join(root, "dist"), route
   const shellErrors = fs.existsSync(shellFile) ? checkShell(fs.readFileSync(shellFile, "utf8")) : ["file missing"];
   results.push({ route: "/configurator (SPA shell)", file: shellFile, errors: shellErrors, title: "", textLength: 0 });
   if (shellErrors.length) failed++;
+  const fileErrors = checkSiteFiles(distDir, routes);
+  results.push({ route: "robots.txt, sitemap.xml, llms.txt", file: distDir, errors: fileErrors, title: "", textLength: 0 });
+  if (fileErrors.length) failed++;
   return { results, failed };
 }
 
@@ -152,6 +210,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     console.log(`${status} ${r.route.padEnd(48)} ${r.textLength ? `${String(r.textLength).padStart(5)} chars  ` : "             "}${r.title ?? ""}`);
     for (const e of r.errors) console.log(`       - ${e}`);
   }
-  console.log(failed ? `\n${failed} of ${results.length} pages have problems.` : `\nAll ${results.length} pages verified.`);
+  console.log(`\nOrigin: ${SITE_URL}${NOINDEX ? " (noindex build)" : ""}`);
+  console.log(failed ? `${failed} of ${results.length} checks have problems.` : `All ${results.length} checks passed.`);
   process.exit(failed ? 1 : 0);
 }

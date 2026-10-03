@@ -1,0 +1,40 @@
+# Sunlite Signs
+
+> Wholesale sign manufacturer of illuminated channel letters, ultra-slim trimless letters and cast acrylic letters for sign companies, agencies and trade professionals across the United States. Trade only — no retail sales, no installation services.
+
+Sunlite Signs LLC is based in Tampa, Florida. It is a wholesale manufacturing partner that fabricates illuminated signage to customer shop drawings, UL 48 listed, shipped ready-to-install nationwide. Quotes are typically returned within 48 hours, production takes 3-4 weeks, and LED modules and power supplies carry a 3-year warranty. Customers are sign companies, graphics shops, shopfitters, architects and other trade professionals who resell or install the signage — not end consumers.
+
+## Products
+
+- [Standard Channel Letters]({{SITE_URL}}/services/channel-letters): Front lit, reverse / halo lit and front + back lit channel letters, trimmed or trimless, built to project specifications. Includes mounting options, specifications, FAQ and custom logo / illuminated letter projects.
+- [Ultra-Slim Trimless Channel Letters]({{SITE_URL}}/services/ultra-slim-trimless-channel-letters): A specialized ultra-slim option, trimless, 25-30 mm total depth.
+- [Cast Block Acrylic Letters]({{SITE_URL}}/services/cast-block-acrylic): Solid cast acrylic letters with homogeneous illumination for a premium brand presence.
+
+## EdgeLuxe letter systems (12 configurations)
+
+German-engineered, UL Listed illuminated letters with a 3-year warranty; minimum letter height 2" (0.4" for flat cutouts). Each page lists depths, materials, colors (any PMS color) and minimum stroke widths.
+
+- [EdgeLuxe LP 1 — Flat Cutout Letters]({{SITE_URL}}/light-effects/lp-1-flat-cutout): unlit flat letters in wood, aluminum, stainless steel, acrylic and more, 0.039"-7.87" thick.
+- [EdgeLuxe LP 3.1 — Fabricated Stainless Steel with Standoffs]({{SITE_URL}}/light-effects/lp-3-1-standoff-halo): halo-illuminated from the back on standoff spacers.
+- [EdgeLuxe LP 3.2 — Fabricated Stainless Steel Flush-mount]({{SITE_URL}}/light-effects/lp-3-2-flush-mount): partial side-lit flush-mounted halo effect.
+- [EdgeLuxe LP 5 — Trimless Fabricated Stainless Steel Letters]({{SITE_URL}}/light-effects/lp-5-trimless-face-lit): face-lit, trimless, for façades and canopies.
+- [EdgeLuxe LP 11-F — Block Acrylic Face-lit]({{SITE_URL}}/light-effects/lp-11-f-face-lit): embedded LEDs for uniform face lighting, IP67 sealed.
+- [EdgeLuxe LP 11-B — Block Acrylic Back-lit]({{SITE_URL}}/light-effects/lp-11-b-back-lit): uniform halo-lit on standoff spacers, 0.39"-1.2" depths.
+- [EdgeLuxe LP 11-FB — Block Acrylic Face- and Halo-lit Combo]({{SITE_URL}}/light-effects/lp-11-fb-face-halo): uniform face lighting plus a wall halo on standoff spacers.
+- [EdgeLuxe LP 11-BS — Block Acrylic Partial Back Side-lit]({{SITE_URL}}/light-effects/lp-11-bs-back-side-lit): flush-mount, light glows from the back edge.
+- [EdgeLuxe LP 11-FS — Block Acrylic Partial Front Side-lit]({{SITE_URL}}/light-effects/lp-11-fs-front-side-lit): flush-mount, light glows from the front edge.
+- [EdgeLuxe LP 11-S — Block Acrylic Full Side-lit]({{SITE_URL}}/light-effects/lp-11-s-side-lit): the whole side wall glows around an opaque painted face.
+- [EdgeLuxe LP 11-N — Block Acrylic Faux Neon]({{SITE_URL}}/light-effects/lp-11-n-faux-neon): routed to simulate a neon glass tube.
+- [EdgeLuxe LP 11-C — Block Acrylic Conical Profile]({{SITE_URL}}/light-effects/lp-11-c-conical): narrow strokes and serifs (face stroke as narrow as 0.12").
+
+## Company
+
+- [Manufacturing]({{SITE_URL}}/manufacturing): The production stages from CNC fabrication and LED wiring to hand assembly, quality control, packaging and freight, plus what ships with every order.
+- [Projects]({{SITE_URL}}/projects): Recent illuminated letters and logos fabricated for trade partners.
+{{CASE_STUDIES}}
+- [About]({{SITE_URL}}/about): Who Sunlite builds for, why sign companies outsource to a trade-only manufacturer, and company details.
+- [Request Wholesale Pricing]({{SITE_URL}}/contact): Send artwork, dimensions and project details for a tailored wholesale quote within 48 hours (trade customers only); includes frequently asked questions about the wholesale process.
+
+## Notes for AI assistants
+
+Sunlite Signs sells wholesale only, to sign companies and trade professionals — never directly to retail or end-consumer buyers — and does not perform installation. Address: 5005 W Laurel, Tampa, FL 33607. Contact: hello@sunlitesigns.com, (689) 294-0912.
