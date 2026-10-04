@@ -67,7 +67,7 @@ export const productCategories: ProductCategory[] = [
     description: "Everything non-illuminated: precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.",
     cta: CTA_LINKS.viewFlatCutout,
     image: {
-      src: "/images/edgeluxe/lp-1-flat-cutout.jpg",
+      src: "/images/edgeluxe/lp-1-flat-cutout-gold.jpg",
       alt: "EdgeLuxe LP 1 flat cutout letter S in gold on a concrete wall",
       width: 1200,
       height: 900,

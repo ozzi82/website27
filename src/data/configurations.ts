@@ -87,7 +87,7 @@ const baseConfigurations: LightConfig[] = [
       { label: "Maintenance", value: "No maintenance" },
       ...COMMON_TAIL,
     ],
-    img: IMG + "lp-1-flat-cutout.jpg",
+    img: IMG + "lp-1-flat-cutout-gold.jpg",
     profile: "flat",
     light: { face: "none", halo: "none", side: "none" },
     mounts: ["standoff", "flush"],
