@@ -17,13 +17,13 @@ export default function ConfigChooser({ onSelect }: ConfigChooserProps) {
             key={c.id}
             type="button"
             onClick={() => onSelect(c.id)}
-            className="group text-left rounded-xl border border-border bg-card overflow-hidden hover:border-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary transition-colors"
+            className="group flex h-full flex-col justify-start text-left rounded-xl border border-border bg-card overflow-hidden hover:border-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary transition-colors"
           >
             <img
               src={c.img}
               alt=""
               loading="lazy"
-              className="w-full aspect-[16/10] object-cover object-center bg-background"
+              className="w-full shrink-0 aspect-[16/10] object-cover object-center bg-background"
             />
             <span className="block p-5">
               <span className="block mono-label text-primary mb-1">{c.code}</span>
