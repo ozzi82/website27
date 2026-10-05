@@ -67,7 +67,7 @@ describe("static route lists", () => {
     for (const [from, to] of Object.entries(LEGACY_PAGE_REDIRECTS)) {
       expect(redirects, from).toMatch(new RegExp(`^${from}\\s+${to}\\s+301$`, "m"));
       expect(redirects.indexOf(from), from).toBeLessThan(redirects.indexOf("/* "));
-      expect(nginx, from).toContain(`location = ${from} { return 301 ${to}; }`);
+      expect(nginx, from).toContain(`location = ${from} { return 301 ${to}$is_args$args; }`);
     }
     expect(redirects).toMatch(/\/services\/cast-block-acrylic\s+\/services\/ultra-slim-trimless-channel-letters\s+301/);
     expect(redirects).toMatch(/\/services\/cabinet-signs\s+\/services\/custom-sign-fabrication\s+301/);
