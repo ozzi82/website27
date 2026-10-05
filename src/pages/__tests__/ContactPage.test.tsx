@@ -8,7 +8,14 @@ import { IDBFactory } from "fake-indexeddb";
 import ContactPage from "../ContactPage";
 import { saveQuote, quoteFileId, type QuoteSnapshot } from "../../components/configurator/quoteStorage";
 import { saveArtworkFile, loadArtworkFile } from "../../components/configurator/artworkFileStorage";
+import { renderSummaryImage } from "../../components/configurator/summaryImage";
 import { FakeDataTransfer, makeFileInput } from "../../components/__tests__/helpers/fakeFileInput";
+
+// jsdom has no canvas: the real picture maker returns null there; tests that need a picture hand one back.
+vi.mock("../../components/configurator/summaryImage", () => ({
+  SUMMARY_IMAGE_NAME: "sign-configuration-summary.jpg",
+  renderSummaryImage: vi.fn(async () => null),
+}));
 
 const quote: QuoteSnapshot = {
   v: 1,
@@ -196,6 +203,27 @@ describe("ContactPage artwork file", () => {
     expect(screen.getByText(/it will be sent with the form/i)).toBeInTheDocument();
   });
 
+  it("attaches the configuration picture next to the artwork file (artwork first), and offers it for download", async () => {
+    const picture = new File(["jpg"], "sign-configuration-summary.jpg", { type: "image/jpeg", lastModified: 5 });
+    vi.mocked(renderSummaryImage).mockResolvedValue(picture);
+    installHubSpot();
+    renderContact({ quote: withFile });
+    await waitFor(() => expect(fileInput()!.files).toHaveLength(2));
+    expect(Array.from(fileInput()!.files as unknown as File[]).map((f) => f.name)).toEqual(["logo.svg", "sign-configuration-summary.jpg"]);
+    expect(await screen.findByText(/configuration picture attached/i)).toBeInTheDocument();
+    vi.mocked(renderSummaryImage).mockResolvedValue(null);
+  });
+
+  it("sends the configuration picture alone when the quote has no artwork file", async () => {
+    const picture = new File(["jpg"], "sign-configuration-summary.jpg", { type: "image/jpeg", lastModified: 5 });
+    vi.mocked(renderSummaryImage).mockResolvedValue(picture);
+    installHubSpot();
+    renderContact({ quote });
+    await waitFor(() => expect(fileInput()!.files).toHaveLength(1));
+    expect(fileInput()!.files![0].name).toBe("sign-configuration-summary.jpg");
+    vi.mocked(renderSummaryImage).mockResolvedValue(null);
+  });
+
   it("survives a reload of /contact (no router state, quote and file come from storage)", async () => {
     saveQuote(withFile);
     installHubSpot();
@@ -291,8 +319,7 @@ describe("ContactPage artwork file", () => {
 });
 
 describe("ContactPage hydration safety", () => {
-  it("server-renders the same HTML whatever history state, storage or company type exist (no quote card, no company choice)", () => {
-    sessionStorage.setItem("sls.companyType.v1", "Sign Company");
+  it("server-renders the same HTML whatever history state or storage exists (no quote card)", () => {
     saveQuote(quote);
     const html = renderToString(
       <HelmetProvider>
@@ -303,14 +330,12 @@ describe("ContactPage hydration safety", () => {
     );
     expect(html).not.toContain("Your configuration");
     expect(html).not.toContain("LP 5 Trimless");
-    expect(html).not.toMatch(/value="Sign Company"[^>]*selected/);
     expect(html).toContain("Get your");
     sessionStorage.clear();
   });
 });
 
 describe("ContactPage wholesale quote page (brief section 10)", () => {
-  const company = () => screen.getByRole("combobox", { name: /company type/i }) as HTMLSelectElement;
 
   beforeEach(() => {
     sessionStorage.clear();
@@ -363,110 +388,14 @@ describe("ContactPage wholesale quote page (brief section 10)", () => {
     expect(ld.find((x) => x["@type"] === "ContactPage").url).toMatch(/\/contact$/);
   });
 
-  it("offers the five company types in an optional select that nothing requires", () => {
-    installHubSpot();
-    renderContact();
-    const options = Array.from(company().options).map((o) => o.textContent);
-    expect(options).toEqual(["Select your company type", "Sign Company", "Sign Installer", "Agency / Broker", "Architect / Contractor", "Other Trade Professional"]);
-    expect(company().required).toBe(false);
-    expect(company().value).toBe("");
-    expect(field().value).toBe(""); // nothing chosen: nothing added to the message
-  });
-
-  it("adds Company type to the message, ahead of the configurator summary", async () => {
-    const user = userEvent.setup();
-    installHubSpot();
-    renderContact({ quote });
-    await waitFor(() => expect(field().value).toBe(quote.summary));
-    await user.selectOptions(company(), "Sign Company");
-    await waitFor(() => expect(field().value).toBe(`Company type: Sign Company\n\n${quote.summary}`));
-    await user.selectOptions(company(), "Agency / Broker");
-    await waitFor(() => expect(field().value).toBe(`Company type: Agency / Broker\n\n${quote.summary}`));
-    await user.selectOptions(company(), "");
-    await waitFor(() => expect(field().value).toBe(quote.summary));
-  });
-
-  it("works without a configuration: the message is just the company type line", async () => {
-    const user = userEvent.setup();
-    installHubSpot();
-    renderContact();
-    await user.selectOptions(company(), "Sign Installer");
-    await waitFor(() => expect(field().value).toBe("Company type: Sign Installer"));
-  });
-
   it("never overwrites text the visitor typed in the message", async () => {
     const user = userEvent.setup();
     installHubSpot();
     renderContact({ quote });
     await waitFor(() => expect(field().value).toBe(quote.summary));
     field().value = "My own words";
-    await user.selectOptions(company(), "Sign Company");
+    await new Promise((r) => setTimeout(r, 50));
     expect(field().value).toBe("My own words");
   });
 
-  it("remembers the choice for the tab (sessionStorage) and restores it on the next visit", async () => {
-    const user = userEvent.setup();
-    installHubSpot();
-    const first = renderContact();
-    await user.selectOptions(company(), "Architect / Contractor");
-    expect(sessionStorage.getItem("sls.companyType.v1")).toBe("Architect / Contractor");
-    first.unmount();
-    installHubSpot();
-    renderContact();
-    await waitFor(() => expect(company().value).toBe("Architect / Contractor"));
-    await waitFor(() => expect(field().value).toBe("Company type: Architect / Contractor"));
-    await user.selectOptions(company(), "");
-    expect(sessionStorage.getItem("sls.companyType.v1")).toBeNull();
-  });
-
-  it("ignores a junk value in storage", async () => {
-    sessionStorage.setItem("sls.companyType.v1", "Retail customer");
-    installHubSpot();
-    renderContact();
-    expect(company().value).toBe("");
-    expect(field().value).toBe("");
-  });
-
-  it("also fills a company_type dropdown when the HubSpot form has one (matching option only)", async () => {
-    const user = userEvent.setup();
-    installHubSpot({ companyField: { kind: "select", options: ["Sign Company", "Sign Installer"] } });
-    renderContact();
-    const hubspotSelect = () => document.querySelector("iframe")!.contentDocument!.querySelector<HTMLSelectElement>("select[name=company_type]")!;
-    expect(hubspotSelect().value).toBe("");
-    await user.selectOptions(company(), "Sign Installer");
-    await waitFor(() => expect(hubspotSelect().value).toBe("Sign Installer"));
-    await user.selectOptions(company(), "Agency / Broker"); // not an option in the HubSpot dropdown: left as it was
-    expect(hubspotSelect().value).toBe("Sign Installer");
-    await user.selectOptions(company(), "");
-    await waitFor(() => expect(hubspotSelect().value).toBe(""));
-  });
-
-  it("fills a company_type text input too, but never replaces a value the visitor set in the form", async () => {
-    const user = userEvent.setup();
-    installHubSpot({ companyField: { kind: "input" } });
-    renderContact();
-    const input = () => document.querySelector("iframe")!.contentDocument!.querySelector<HTMLInputElement>("input[name=company_type]")!;
-    await user.selectOptions(company(), "Sign Company");
-    await waitFor(() => expect(input().value).toBe("Sign Company"));
-    input().value = "My own entry";
-    await user.selectOptions(company(), "Sign Installer");
-    expect(input().value).toBe("My own entry");
-  });
-
-  it("sets the company_type field once the form is ready when a choice was already remembered", async () => {
-    sessionStorage.setItem("sls.companyType.v1", "Sign Company");
-    installHubSpot({ delayMs: 300, companyField: { kind: "select", options: ["Sign Company", "Other Trade Professional"] } });
-    renderContact();
-    const hubspotSelect = () => document.querySelector("iframe")!.contentDocument?.querySelector<HTMLSelectElement>("select[name=company_type]");
-    await waitFor(() => expect(hubspotSelect()?.value).toBe("Sign Company"), { timeout: 3000 });
-  });
-
-  it("does nothing special when the form has no company_type field (the message carries the answer)", async () => {
-    const user = userEvent.setup();
-    installHubSpot();
-    renderContact();
-    await user.selectOptions(company(), "Sign Company");
-    await waitFor(() => expect(field().value).toBe("Company type: Sign Company"));
-    expect(document.querySelector("iframe")!.contentDocument!.querySelector("[name=company_type]")).toBeNull();
-  });
 });

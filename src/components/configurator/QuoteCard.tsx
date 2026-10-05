@@ -11,6 +11,8 @@ interface QuoteCardProps {
   onClear: () => void;
   /** The artwork file that travels with the quote, once loaded, and what became of attaching it to the form. */
   artwork?: { meta: ArtworkFileMeta; file: File; status: ArtworkAttachStatus } | null;
+  /** The picture of the configuration made for the quote, and where attaching it stands (the same attach as the artwork). */
+  summaryFile?: { file: File; status: ArtworkAttachStatus } | null;
 }
 
 function formatSize(bytes: number): string {
@@ -33,6 +35,28 @@ function DownloadLink({ file, className, children }: { file: File; className: st
     <a href={href} download={file.name} className={className}>
       {children}
     </a>
+  );
+}
+
+/** The configuration picture that goes with the quote, next to the artwork file. */
+function SummaryImageNotice({ file, status }: { file: File; status: ArtworkAttachStatus }) {
+  const link = "inline-flex items-center gap-1.5 font-medium underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
+  return (
+    <div role="status" className="mt-2 text-sm">
+      <p className="flex items-start gap-2">
+        <Paperclip aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+        <span className="min-w-0">
+          Configuration picture {status === "attached" ? "attached" : "ready"}: <strong className="break-words font-medium">{file.name}</strong>{" "}
+          <span className="text-muted-foreground">({formatSize(file.size)})</span>
+        </span>
+      </p>
+      <p className="ml-6 text-xs text-muted-foreground">
+        {status === "attached" ? "It will be sent with the form below, next to your artwork. " : status === "failed" || status === "detached" ? "It could not be attached automatically. " : "Attaching it to the form below… "}
+        <DownloadLink file={file} className={`${link} text-muted-foreground hover:text-foreground`}>
+          Download a copy
+        </DownloadLink>
+      </p>
+    </div>
   );
 }
 
@@ -116,7 +140,7 @@ async function writeClipboard(text: string): Promise<boolean> {
 }
 
 /** "Your configuration" on the contact page: what the visitor built in the configurator, with a snapshot of it. */
-export default function QuoteCard({ quote, onClear, artwork = null }: QuoteCardProps) {
+export default function QuoteCard({ quote, onClear, artwork = null, summaryFile = null }: QuoteCardProps) {
   const [status, setStatus] = useState<"idle" | "copied" | "failed">("idle");
   const timer = useRef<ReturnType<typeof setTimeout>>();
   useEffect(() => () => clearTimeout(timer.current), []);
@@ -164,6 +188,7 @@ export default function QuoteCard({ quote, onClear, artwork = null }: QuoteCardP
       <p className="mt-3 text-[11px] leading-snug text-muted-foreground">{DISCLAIMER_TEXT}</p>
 
       {artwork && <ArtworkFileNotice {...artwork} />}
+      {summaryFile && <SummaryImageNotice {...summaryFile} />}
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <button

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { initChat } from "../lib/chat";
 import { initTracking, trackEvent, trackPageView } from "../lib/tracking";
 
 /**
@@ -11,6 +12,7 @@ export default function TrackingListener() {
 
   useEffect(() => {
     initTracking();
+    initChat();
     const onClick = (e: MouseEvent) => {
       const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
       if (!a) return;

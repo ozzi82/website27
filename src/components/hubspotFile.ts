@@ -44,34 +44,45 @@ function notify(input: HTMLInputElement) {
 }
 
 /**
- * Attaches `file` to a file input the way a visitor choosing it would: through a DataTransfer (the only way to set
- * `input.files`), then input and change events so the form's own state registers it. Uses the input's own window,
+ * Attaches `files` to a file input the way a visitor choosing them would: through a DataTransfer (the only way to set
+ * `input.files`), then input and change events so the form's own state registers them. Uses the input's own window,
  * whose DataTransfer the field belongs to. Returns false, never throws, if the browser cannot do it.
  */
-export function attachFileToInput(input: HTMLInputElement, file: File): boolean {
+export function attachFilesToInput(input: HTMLInputElement, files: File[]): boolean {
+  if (files.length === 0) return false;
   const win = (input.ownerDocument.defaultView ?? window) as Window & typeof globalThis;
   const DT = win.DataTransfer ?? (typeof DataTransfer !== "undefined" ? DataTransfer : undefined);
   if (!DT) return false;
 
-  const tryAdd = (f: File): boolean => {
+  const tryAdd = (list: File[]): boolean => {
     try {
       const dt = new DT();
-      dt.items.add(f);
+      for (const f of list) dt.items.add(f);
       input.files = dt.files;
-      return input.files?.length === 1;
+      return input.files?.length === list.length;
     } catch {
       return false;
     }
   };
 
-  const isForeign = (f: File): boolean => !(f instanceof win.File);
-  let ok = tryAdd(file);
-  if (!ok && win.File && isForeign(file)) {
-    // A File from another window can be refused by some browsers: rebuild it in the input's own window.
-    ok = tryAdd(new win.File([file], file.name, { type: file.type, lastModified: file.lastModified }));
+  let ok = tryAdd(files);
+  if (!ok && win.File && files.some((f) => !(f instanceof win.File))) {
+    // A File from another window can be refused by some browsers: rebuild them in the input's own window.
+    ok = tryAdd(files.map((f) => new win.File([f], f.name, { type: f.type, lastModified: f.lastModified })));
   }
   if (ok) notify(input);
   return ok;
+}
+
+/** One file: see attachFilesToInput. */
+export function attachFileToInput(input: HTMLInputElement, file: File): boolean {
+  return attachFilesToInput(input, [file]);
+}
+
+/** True when the field holds exactly these files, in this order. */
+export function holdsFiles(input: HTMLInputElement, files: File[]): boolean {
+  const held = input.files;
+  return !!held && held.length === files.length && files.every((f, i) => isSameFile(held[i], f));
 }
 
 /** Empties the file field and tells the form. */

@@ -26,7 +26,7 @@ export default function CookieBanner() {
 
   return (
     <div role="region" aria-label="Cookie notice" className="fixed inset-x-0 bottom-0 z-[60] border-t border-border bg-background/95 backdrop-blur p-4 shadow-2xl">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:gap-6 sm:pr-24">
         <p className="text-sm text-foreground/85 sm:flex-1">
           We use cookies to measure how the site is used and how our ads perform. They stay off unless you accept; the quote form and the
           configurator work either way.{" "}

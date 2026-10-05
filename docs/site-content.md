@@ -55,6 +55,8 @@ Sunlite Signs LLC Wholesale manufacturing partner for sign companies nationwide.
 
 [Button: Privacy Policy]
 
+[Button: Chat with us]
+
 [Button: Cookie settings]
 
 © 2026 Sunlite Signs LLC. All rights reserved.
@@ -869,8 +871,6 @@ Helps us quote fast
 - Desired light effect, indoor or outdoor
 
 [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912) · [WhatsApp](https://wa.me/16892940912)
-
-Company type (optional)
 
 FAQ
 

@@ -64,3 +64,19 @@ describe("tracking", () => {
     expect(getAttribution()).toEqual({});
   });
 });
+
+describe("live chat", () => {
+  it("loads HubSpot's script once, only for visitors who accepted cookies or asked for a chat", async () => {
+    document.getElementById("hs-script-loader")?.remove();
+    const { initChat, loadChat, HUBSPOT_PORTAL_ID } = await import("../chat");
+    initChat(); // nothing chosen yet: no script
+    expect(document.getElementById("hs-script-loader")).toBeNull();
+    setConsent("declined");
+    expect(document.getElementById("hs-script-loader")).toBeNull();
+    setConsent("accepted");
+    const script = document.getElementById("hs-script-loader") as HTMLScriptElement;
+    expect(script.src).toBe(`https://js-na1.hs-scripts.com/${HUBSPOT_PORTAL_ID}.js`);
+    loadChat();
+    expect(document.querySelectorAll("#hs-script-loader")).toHaveLength(1);
+  });
+});

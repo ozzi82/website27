@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { LegalDialogs, useLegalDialogs } from './LegalDialogs';
 import { clearConsent } from '../lib/consent';
+import { openChat } from '../lib/chat';
 import { COMPANY_LINE, COMPANY_POSITIONING, EMAIL, PHONE_DISPLAY } from '../lib/contact';
 import { CTA_LINKS, CTA_PRIMARY } from '../lib/cta';
 
@@ -48,6 +49,9 @@ export default function Footer() {
               </button>
               <button onClick={() => setOpen('privacy')} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Privacy Policy
+              </button>
+              <button onClick={openChat} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Chat with us
               </button>
               <button onClick={clearConsent} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Cookie settings

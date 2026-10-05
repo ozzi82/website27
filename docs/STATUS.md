@@ -23,7 +23,7 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
 - Animated light-direction diagrams (CSS only, stop under `prefers-reduced-motion`) driven by each configuration, plus a stand-off vs flush
   mount explanation on the ultra-slim page and the system pages (`src/components/diagrams/ConfigLightDiagram.tsx`).
 - EdgeLuxe renders: owner-supplied day and night images (11 lit systems, 1200x900 JPEG) with a Day | Night switch on each system page; LP 1 uses the owner-supplied gold "S" photo (single image, no day/night switch).
-- 657 tests pass; `npm run build`, `npm run verify:prerender` (22 checks) and `npm run export:content` are clean.
+- 654 tests pass; `npm run build`, `npm run verify:prerender` (22 checks) and `npm run export:content` are clean.
 
 - Mounting (owner list, 2026-10-03): LP 3.1, LP 11-B and LP 11-FB are stand-off only; every other system (LP 1, 3.2, 5, 11-F, 11-BS, 11-FS, 11-S, 11-N, 11-C)
   can be flush or stand-off. Data: `mounts` in `src/data/configurations.ts`; configurator has a Mounting control (and `&mount=flush|standoff` deep link);
@@ -45,6 +45,10 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
   block (depth, mounting, lighting, build) highlighted, bigger Upload logo / Type text toggle and text field; PDF reader now ships its worker inside its own chunk
   (no separate .mjs file from the host), unknown read errors show the error type and log the detail to the console. If a PDF still fails on the live site, open
   the browser console (F12) and send the "Artwork could not be read" line.
+
+- 2026-10-05 (4): company type removed from the quote page and form; a JPG picture of the configuration (preview + all choices + disclaimer) is attached to the
+  HubSpot form next to the artwork file or text SVG (artwork first; the HubSpot file field must allow several files, otherwise HubSpot may keep only the first);
+  HubSpot live chat wiring (docs/LIVE-CHAT.md); thin-stroke notice inside the preview.
 
 ## Owner confirmations still open
 - UL label: owner offered to share it for use as a badge (not yet received).

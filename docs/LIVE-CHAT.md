@@ -17,3 +17,27 @@ Implementation notes (when you choose): the chat script goes through the same co
 sets cookies; HubSpot chat sets cookies); the widget should sit above the cookie banner and away from the sticky quote
 button on mobile; "business hours" messages should say when you reply. Send chat events to the `dataLayer`
 (`chat_started`) so they can be a secondary conversion.
+
+## HubSpot live chat: set-up (done in code, finish in HubSpot)
+In the site: `src/lib/chat.ts` loads HubSpot's chat script (portal 47141522, region na1) only after a visitor accepts cookies, or
+when they click **Chat with us** in the footer (that click is their own request). Opening a chat sends a `chat_started` event
+to the dataLayer. Nothing else is needed in code.
+
+In HubSpot (about 15 minutes):
+1. **Conversations > Chatflows > the flow you created**. Under **Target**, pick "All pages" (or exclude `/configurator` if the
+   widget covers the preview controls on phones). Under **Options**, keep "Show the chat widget" on and leave the visitor's
+   identification to the contact form.
+2. **Install**: choose "Tracking code (already installed)" or the manual option; the site loads the same script itself, so do
+   **not** also paste the code into the site or into Google Tag Manager (it would load twice).
+3. **Inbox > Settings > Channels > Chat**: set the team member who answers, the away message and the working hours; add an
+   email fallback so after-hours chats become tickets/contacts.
+4. **Phone**: install the **HubSpot** app (iOS / Android), sign in, turn on push notifications for Inbox. Set yourself "Available"
+   in the app when you can answer; otherwise visitors see the away message and can leave an email.
+5. **Cookie banner**: in HubSpot > Settings > Privacy & Consent keep HubSpot's own banner OFF (the site's banner already controls
+   the script).
+6. Test: open the site in a private window, press Accept, wait a few seconds for the chat bubble, send a message and answer it
+   from the phone app. Check that the contact shows up in HubSpot Contacts.
+7. Optional: in the GA4/Ads setup (docs/ANALYTICS-PLAN.md) add `chat_started` as a secondary conversion.
+
+Visitors who declined cookies still reach you through **Chat with us** (it loads the chat on their click), the form, WhatsApp
+and the phone number.

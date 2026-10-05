@@ -2,14 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Mail, MessageCircle, Phone } from "lucide-react";
 import ContactForm, { type AttachmentStatus } from "../components/ContactForm";
-import CompanyTypeSelect from "../components/CompanyTypeSelect";
 import Breadcrumbs from "../components/Breadcrumbs";
 import FAQSection, { faqs } from "../components/FAQSection";
 import Seo from "../components/Seo";
 import QuoteCard from "../components/configurator/QuoteCard";
 import { clearQuote, isQuoteSnapshot, loadQuote, quoteFileId, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 import { clearArtworkFile, loadArtworkFile } from "../components/configurator/artworkFileStorage";
-import { composePrefill, loadCompanyType, saveCompanyType, type CompanyType } from "../lib/companyType";
+import { renderSummaryImage } from "../components/configurator/summaryImage";
 import { EMAIL, PHONE_DISPLAY, PHONE_NUMBER, WHATSAPP_URL } from "../lib/contact";
 import { CTA_LINKS, CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl, breadcrumbJsonLd, type Crumb } from "../lib/seo";
@@ -90,17 +89,24 @@ export default function ContactPage() {
     };
   }, [artworkMeta, quoteId]);
 
-  // Company type: remembered for this tab (sessionStorage, read after mount like the quote, for the same hydration reason).
-  const [companyType, setCompanyType] = useState<CompanyType | null>(null);
+  // A picture of the configuration (preview snapshot + every choice) travels with the quote beside the artwork file.
+  const [summaryFile, setSummaryFile] = useState<File | null>(null);
   useEffect(() => {
-    setCompanyType(loadCompanyType());
-  }, []);
-  function chooseCompanyType(next: CompanyType | null) {
-    setCompanyType(next);
-    saveCompanyType(next);
-  }
-  // The message starts with the company type, then the configurator summary (if any); typed text is never overwritten.
-  const prefill = useMemo(() => composePrefill(companyType, quote?.summary), [companyType, quote?.summary]);
+    if (!quote) {
+      setSummaryFile(null);
+      return;
+    }
+    let cancelled = false;
+    void renderSummaryImage(quote).then((file) => {
+      if (!cancelled) setSummaryFile(file);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [quote]);
+  // The message starts with the configurator summary (if any); typed text is never overwritten.
+  const prefill = useMemo(() => quote?.summary?.trim() || null, [quote?.summary]);
+  const attachments = useMemo(() => [artworkFile, summaryFile].filter((f): f is File => f !== null), [artworkFile, summaryFile]);
 
   function handleClear() {
     clearQuote();
@@ -164,8 +170,7 @@ export default function ContactPage() {
 
             <ContactForm
               prefill={prefill}
-              companyType={companyType}
-              attachment={artworkFile}
+              attachments={attachments}
               onAttachmentStatus={setAttachStatus}
               onSubmitted={handleClear} // sent: nothing of this quote should linger for the next visit
               aboveForm={
@@ -175,9 +180,9 @@ export default function ContactPage() {
                       quote={quote}
                       onClear={handleClear}
                       artwork={artworkMeta && artworkFile ? { meta: artworkMeta, file: artworkFile, status: attachStatus } : null}
+                      summaryFile={summaryFile ? { file: summaryFile, status: attachStatus } : null}
                     />
                   )}
-                  <CompanyTypeSelect value={companyType} onChange={chooseCompanyType} />
                 </>
               }
             />
