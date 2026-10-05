@@ -1,4 +1,5 @@
 import NotFoundPage from "./pages/NotFoundPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -46,6 +47,7 @@ export function AppRoutes() {
           {/* Any other /services/... URL (retired or mistyped) goes home. */}
           <Route path="/services/*" element={<NotFoundPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
           <Route
             path="/configurator"
             element={

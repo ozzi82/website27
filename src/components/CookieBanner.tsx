@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@project/components/ui/button";
 import { OPEN_COOKIE_SETTINGS_EVENT, getConsent, setConsent } from "../lib/consent";
-import { OPEN_LEGAL_EVENT } from "./LegalDialogs";
 
 /**
  * The cookie note: analytics and advertising measurement stay off until the visitor accepts. Rendered on the client
@@ -30,13 +29,9 @@ export default function CookieBanner() {
         <p className="text-sm text-foreground/85 sm:flex-1">
           We use cookies to measure how the site is used and how our ads perform. They stay off unless you accept; the quote form and the
           configurator work either way.{" "}
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new CustomEvent(OPEN_LEGAL_EVENT, { detail: "privacy" }))}
-            className="underline underline-offset-2 hover:text-primary"
-          >
+          <a href="/privacy-policy" className="underline underline-offset-2 hover:text-primary">
             Privacy policy
-          </button>
+          </a>
         </p>
         <div className="flex gap-2">
           <Button type="button" variant="outline" onClick={() => choose("declined")} className="h-10 px-5 text-xs uppercase tracking-wider font-semibold bg-transparent">

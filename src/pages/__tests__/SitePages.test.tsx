@@ -198,3 +198,15 @@ describe("retired /services URLs redirect on the client", () => {
     expect(h1("/services/nope")).toBe("Page not found.");
   });
 });
+
+describe("/privacy-policy", () => {
+  it("is a real, prerendered, indexable page in the sitemap, linked from the footer and the cookie banner copy, and covers the key topics", async () => {
+    const { main } = renderAt("/privacy-policy");
+    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe("Privacy Policy");
+    const text = main.textContent ?? "";
+    for (const topic of [/HubSpot/, /Google Analytics/, /Cloudflare/, /Your rights/, /do not sell your personal information/i, /Cookie settings/]) expect(text).toMatch(topic);
+    const { getPrerenderRoutes, LEGACY_PAGE_REDIRECTS } = await import("../../lib/routes");
+    expect(getPrerenderRoutes()).toContain("/privacy-policy");
+    expect(Object.keys(LEGACY_PAGE_REDIRECTS)).not.toContain("/privacy-policy");
+  });
+});

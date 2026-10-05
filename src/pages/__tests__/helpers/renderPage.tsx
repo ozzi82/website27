@@ -21,9 +21,9 @@ export function renderAt(path: string) {
 /** Every internal route a link may point at. */
 export const validRoutes = new Set<string>([...getPrerenderRoutes(), "/configurator"]);
 
-/** The href of every internal link inside `root`. */
+/** The href of every internal page link inside `root` (links to static files such as the PDF spec guide are not pages). */
 export function internalHrefs(root: Element): string[] {
-  return [...root.querySelectorAll("a[href]")].map((a) => a.getAttribute("href")!).filter((h) => h.startsWith("/"));
+  return [...root.querySelectorAll("a[href]")].map((a) => a.getAttribute("href")!).filter((h) => h.startsWith("/") && !/\.(pdf|svg|webp|jpg|png)$/i.test(h));
 }
 
 /** Millimetre figures and similar numeric claims in a text, for the "no invented numbers" checks. */

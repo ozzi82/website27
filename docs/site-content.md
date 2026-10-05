@@ -8,7 +8,7 @@ Every content page of https://sunlitesigns.com, as plain Markdown, for content r
 - FAQ answers (home, /about, /contact and the channel-letter page) are collapsed accordions on the live page; they are included here from each page's FAQ structured data.
 - Case studies (/projects/<name>) appear here once real ones are added to src/data/caseStudies.ts; none exist yet.
 - Not included: the Build Your Sign 3D configurator (https://sunlitesigns.com/configurator), which is an interactive tool with no static copy, and the embedded HubSpot quote form.
-- 20 pages.
+- 21 pages.
 
 ## Pages
 
@@ -17,6 +17,7 @@ Every content page of https://sunlitesigns.com, as plain Markdown, for content r
 - /manufacturing
 - /projects
 - /contact
+- /privacy-policy
 - /services/ultra-slim-trimless-channel-letters
 - /services/channel-letters
 - /services/custom-sign-fabrication
@@ -55,7 +56,7 @@ UL 48 listed signs
 
 [Button: Terms]
 
-[Button: Privacy Policy]
+[Privacy Policy](/privacy-policy) · [Spec guide (PDF)](/sunlite-signs-spec-guide.pdf)
 
 [Button: Chat with us]
 
@@ -1015,6 +1016,114 @@ Yes. We manufacture both one-off projects and production runs – always to your
 ##### Does Sunlite offer white-label or neutral shipping?
 
 Please contact us directly to discuss white-label and neutral shipping options.
+
+## /privacy-policy
+
+- URL: https://sunlitesigns.com/privacy-policy
+- Title: Privacy Policy | Sunlite Signs
+- Meta description: How Sunlite Signs LLC collects, uses and protects personal data on sunlitesigns.com: quote requests, uploaded artwork, live chat, cookies, analytics and advertising, and your rights.
+
+- [Home](/)
+- /Privacy Policy
+
+Legal
+
+### Privacy Policy
+
+Last updated October 5, 2026
+
+#### 1. Who we are
+
+Sunlite Signs LLC (“Sunlite Signs”, “we”, “us”) is a wholesale sign manufacturer in the United States. This website, sunlitesigns.com, is for trade customers: sign companies, agencies and other professionals. We do not sell to consumers and we do not knowingly collect information from children. This policy explains what personal data we collect through this website, why, who receives it, and the choices you have.
+
+Contact for anything in this policy: [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) or [(689) 294-0912](tel:+16892940912).
+
+#### 2. What we collect
+
+##### Information you give us
+
+- **Quote requests and the contact form:** your name, company, email address, phone number, and the message and project details you write.
+- **Files you upload:** artwork, logos, drawings and similar files. Artwork can contain personal or confidential information, so please send only what is needed for the quote.
+- **The 3D configurator:** the design is built in your browser. If you send it as a quote request, we receive a description of your configuration (system, size, depth, mounting, colors), your artwork or text, and a preview image of the design, together with your contact details.
+- **Live chat:** the messages you type and any name or email address you give. The chat is provided by HubSpot.
+- **Email and phone:** what you send us when you write or call.
+
+##### Information collected automatically
+
+- **Technical data:** IP address, browser and device type, pages requested and the time. Our hosting provider and our content delivery and security provider (Cloudflare) process this to deliver the site and keep it secure.
+- **Analytics and advertising data, only if you accept cookies:** which pages you view, how long, whether you use the configurator and send a quote request, the website you came from, and, if you arrived from an advertisement, its campaign tags and click ID.
+
+#### 3. Why we use it
+
+- To answer your inquiry, prepare a quote and, if you order, produce and ship your order (performing a contract or taking steps you ask for).
+- To operate, secure and fix the website (our legitimate interest in a working, safe site).
+- To understand how the site is used and whether our advertising leads to inquiries, and to improve both (with your consent: nothing in this category runs until you accept).
+- To meet legal obligations such as tax and accounting records.
+
+We do not use your information to make automated decisions that have legal or similarly significant effects on you.
+
+#### 4. Cookies, analytics and advertising
+
+When you first visit, a notice lets you accept or decline optional cookies. Your choice is stored in your browser only. You can change it at any time with
+
+[Button: Cookie settings]
+
+(also in the footer).
+
+- **Necessary:** remembering your cookie choice (browser storage) and the technical operation of the site. These do not track you across sites.
+- **Analytics (optional):** Google Tag Manager and Google Analytics measure page views, time on site and use of the configurator. They set cookies only if you accept.
+- **Advertising measurement (optional):** Google Ads measures which advertisements lead to a quote request. If you arrive from an advertisement we keep its campaign tags with your inquiry so we can tell which advertisement led to it; in your browser they are stored for up to 90 days, and only if you accepted.
+- **HubSpot (form and chat):** the quote form is provided by HubSpot, which may set cookies to operate the form and connect it to your inquiry. The chat widget loads only after you accept cookies or when you click “Chat with us”.
+
+Until you accept, the Google tags run in a restricted mode: they set no analytics or advertising cookies and receive no advertising identifiers. Like any server you connect to, Google still receives the technical data every web request carries, such as your IP address and browser type. If you decline, the quote form and the configurator work in the same way.
+
+#### 5. Who receives your data
+
+We share personal data only with service providers that process it for us, and where the law requires it:
+
+- **HubSpot**: stores quote requests, uploaded files and chat conversations, and sends them to us (our customer relationship management, forms and chat provider).
+- **Google**: Tag Manager, Analytics and Ads, only if you accept cookies.
+- **Cloudflare**: delivers the site and protects it against attacks.
+- **Our hosting provider**: runs the servers the site is served from.
+- **Our email and file-sharing providers**: to correspond with you and exchange artwork.
+- Professional advisers, authorities or a buyer of the business, where required by law or in a sale of the business.
+
+We do not sell your personal information. We do not share it for advertising, except that if you accept advertising cookies, Google processes the data described in section 4 as our service provider for measuring our advertisements; you can withdraw that at any time with Cookie settings.
+
+Some of these providers are in, or process data in, the United States and other countries. Where personal data of people in the European Economic Area, the United Kingdom or Switzerland is transferred outside those regions, we rely on the safeguards our providers offer, such as standard contractual clauses.
+
+#### 6. How long we keep it
+
+- Quote requests and the related correspondence: while we are dealing with you, and afterwards as long as needed for follow-up, warranty and legal or accounting reasons.
+- Uploaded artwork and configurator previews: as long as needed to quote and produce your order, then deleted unless we must keep them (for example, for a repeat order you ask us to prepare, or by law).
+- Chat conversations: as long as needed to answer you and keep the inquiry record.
+- Analytics data: for the period set in our Google Analytics account. Campaign tags in your browser: up to 90 days, only if you accepted.
+- Server logs: for a short period, for security and troubleshooting.
+
+#### 7. Your rights
+
+Depending on where you live (for example California and other US states, the European Economic Area, the United Kingdom), you may have the right to:
+
+- know what personal data we hold about you and get a copy of it;
+- have inaccurate data corrected and ask us to delete your data;
+- object to or restrict our processing, and withdraw consent at any time (with Cookie settings for cookies);
+- receive your data in a portable format;
+- not be treated worse for using these rights; and
+- complain to your data protection authority or state attorney general.
+
+To use these rights, email [hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) or call (689) 294-0912. We may need to confirm your identity first, and we answer within the period the law gives us (usually 30 to 45 days).
+
+#### 8. Security
+
+The site is served over an encrypted (HTTPS) connection. We limit access to quote requests and files to the people who need them, and we choose service providers that protect data. No online service is completely secure, so please do not send us information you do not want to share, such as payment card numbers or passwords.
+
+#### 9. Links to other websites
+
+This site may link to other websites. We are not responsible for their content or privacy practices.
+
+#### 10. Changes to this policy
+
+We update this policy when our practices or the law change, and show the date at the top. Material changes will be highlighted on this page.
 
 ## /services/ultra-slim-trimless-channel-letters
 

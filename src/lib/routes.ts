@@ -17,6 +17,7 @@ export function getPrerenderRoutes(): string[] {
     "/manufacturing",
     "/projects",
     "/contact",
+    "/privacy-policy",
     ...PRODUCT_PAGE_PATHS,
     ...configurations.map((c) => `/light-effects/${c.id}`),
     // Case studies are data-driven: no entries, no routes (nothing fake ships).
@@ -30,6 +31,7 @@ export function getSitemapEntries(): SitemapEntry[] {
     if (route === "/") return { changefreq: "monthly", priority: 1.0 };
     if (route === "/services/channel-letters" || route === "/services/ultra-slim-trimless-channel-letters") return { changefreq: "monthly", priority: 0.9 };
     if (route === "/services/custom-sign-fabrication") return { changefreq: "monthly", priority: 0.8 };
+    if (route === "/privacy-policy") return { changefreq: "yearly", priority: 0.3 };
     if (route === "/about") return { changefreq: "yearly", priority: 0.6 };
     if (route === "/contact") return { changefreq: "yearly", priority: 0.7 };
     if (route.startsWith("/projects/")) return { changefreq: "yearly", priority: 0.6 };
@@ -68,6 +70,4 @@ export const LEGACY_PAGE_REDIRECTS: Record<string, string> = {
   "/contact-sunlite-signs-llc/": "/contact",
   "/edgeluxe-lp-1": "/light-effects/lp-1-flat-cutout",
   "/edgeluxe-lp-1/": "/light-effects/lp-1-flat-cutout",
-  "/privacy-policy": "/",
-  "/privacy-policy/": "/",
 };

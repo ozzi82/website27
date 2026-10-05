@@ -52,9 +52,12 @@ export default function Footer() {
               <button onClick={() => setOpen('terms')} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Terms
               </button>
-              <button onClick={() => setOpen('privacy')} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Privacy Policy
-              </button>
+              </Link>
+              <a href="/sunlite-signs-spec-guide.pdf" target="_blank" rel="noopener" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+                Spec guide (PDF)
+              </a>
               <button onClick={openChat} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                 Chat with us
               </button>
