@@ -250,7 +250,7 @@ Stage 05
 
 Crated and protected, with a printed installation template and touch-up paint.
 
-06Ready for Freight
+*[Image: Closed plywood shipping crate with a shipping label and handling symbols, ready for freight]*
 
 Stage 06
 
@@ -666,7 +666,7 @@ Stage 05
 
 Crated and protected, with a printed installation template and touch-up paint.
 
-06Ready for Freight
+*[Image: Closed plywood shipping crate with a shipping label and handling symbols, ready for freight]*
 
 Stage 06
 

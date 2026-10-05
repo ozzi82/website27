@@ -135,7 +135,7 @@ describe("ProductionStageCard", () => {
   });
 
   it("renders a typographic placeholder (no img) where there is no asset yet", () => {
-    const { container } = wrap(<ProductionStageCard stage={productionStages[5]} />);
+    const { container } = wrap(<ProductionStageCard stage={{ ...productionStages[5], image: undefined }} />);
     expect(screen.getByRole("heading", { name: "Ready for Freight" })).toBeInTheDocument();
     expect(container.querySelector("img")).toBeNull();
     expect(screen.getByText("Stage 06")).toBeInTheDocument();

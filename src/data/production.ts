@@ -94,5 +94,11 @@ export const productionStages: ProductionStage[] = [
     number: "06",
     title: "Ready for Freight",
     description: "Labeled and shipped to your dock.",
+    image: {
+      src: "/images/production-ready-for-freight.jpg",
+      alt: "Closed plywood shipping crate with a shipping label and handling symbols, ready for freight",
+      width: 1600,
+      height: 900,
+    },
   },
 ];
