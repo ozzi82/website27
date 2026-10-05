@@ -36,7 +36,7 @@ describe("static route lists", () => {
   it("the generated sitemap lists exactly the prerendered routes, on the configured origin", () => {
     const xml = buildSitemap(getSitemapEntries(), SITE_URL);
     const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-    const expected = routes.map((r) => (r === "/" ? `${SITE_URL}/` : SITE_URL + r));
+    const expected = [...routes, "/configurator"].map((r) => (r === "/" ? `${SITE_URL}/` : SITE_URL + r));
     expect([...locs].sort()).toEqual([...expected].sort());
   });
 

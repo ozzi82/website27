@@ -69,6 +69,18 @@ for (const route of routes) {
   written.push(route);
 }
 
+// dist/404.html: the page the host serves, with a real 404 status, for any address that is not a page (nginx error_page).
+{
+  const { html, head } = render("/404");
+  write(
+    path.join(distDir, "404.html"),
+    stripped
+      .replace("</head>", () => `    ${head}\n    ${NOSCRIPT_STYLE}\n  </head>`)
+      .replace('<div id="root"></div>', () => `<div id="root">${html}</div>`),
+  );
+  written.push("/404 (404.html)");
+}
+
 // /configurator is WebGL and stays a client-rendered page, but its served HTML gets its own tags and a noscript note.
 // Title, description and path come from src/lib/configuratorMeta.ts (the page's own <Seo> uses the same values).
 const CONFIGURATOR = {

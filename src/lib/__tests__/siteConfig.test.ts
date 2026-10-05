@@ -184,7 +184,7 @@ describe("verify-prerender: origin and noindex checks", () => {
     try {
       const routes = ["/", "/contact"];
       fs.writeFileSync(path.join(dir, "robots.txt"), buildRobotsTxt("https://t2wraps.com", false));
-      fs.writeFileSync(path.join(dir, "sitemap.xml"), buildSitemap(routes.map((p) => ({ path: p, changefreq: "monthly" as const, priority: 0.5 })), "https://t2wraps.com"));
+      fs.writeFileSync(path.join(dir, "sitemap.xml"), buildSitemap([...routes, "/configurator"].map((p) => ({ path: p, changefreq: "monthly" as const, priority: 0.5 })), "https://t2wraps.com"));
       fs.writeFileSync(path.join(dir, "llms.txt"), "# x\n- [a](https://t2wraps.com/)\n");
       expect(checkSiteFiles(dir, routes, { siteUrl: "https://t2wraps.com", noindex: false })).toEqual([]);
 

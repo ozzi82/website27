@@ -33,7 +33,7 @@ describe("case studies drive routes, sitemap, llms.txt and the page", () => {
     const xml = buildSitemap(getSitemapEntries(), SITE_URL);
     expect(xml).toContain(`<loc>${SITE_URL}${route}</loc>`);
     const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]).sort();
-    expect(locs).toEqual(getPrerenderRoutes().map((r) => (r === "/" ? `${SITE_URL}/` : SITE_URL + r)).sort());
+    expect(locs).toEqual([...getPrerenderRoutes(), "/configurator"].map((r) => (r === "/" ? `${SITE_URL}/` : SITE_URL + r)).sort());
     expect(getSitemapEntries().find((e) => e.path === route)).toMatchObject({ changefreq: "yearly", priority: 0.6 });
   });
 

@@ -148,7 +148,7 @@ UL 48 listed signs
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German-engineered, nationwide sign company partner]*
+*[Image: Trusted by sign companies: 10,000+ channel letters produced, clients across North America, quotes in 24 to 48 hours, German Engineered, UL 48 listed, 3 to 4 week typical delivery, trade only]*
 
 Sunlite Ultra-Slim · EdgeLuxe LP 11
 

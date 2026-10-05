@@ -170,8 +170,8 @@ export function checkSiteFiles(distDir, routes, { siteUrl = SITE_URL, noindex = 
   const sitemap = read("sitemap.xml");
   if (sitemap) {
     const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]).sort();
-    const expected = routes.map((r) => (r === "/" ? `${siteUrl}/` : siteUrl + r)).sort();
-    if (JSON.stringify(locs) !== JSON.stringify(expected)) errors.push("sitemap.xml does not list exactly the prerendered routes");
+    const expected = [...routes, "/configurator"].map((r) => (r === "/" ? `${siteUrl}/` : siteUrl + r)).sort();
+    if (JSON.stringify(locs) !== JSON.stringify(expected)) errors.push("sitemap.xml does not list exactly the prerendered routes plus /configurator");
   }
   const html = read("index.html");
   if (html && siteUrl !== DEFAULT_SITE_URL && html.includes(DEFAULT_SITE_URL)) errors.push(`index.html still mentions ${DEFAULT_SITE_URL}`);
@@ -198,6 +198,9 @@ export async function verifyPrerender({ distDir = path.join(root, "dist"), route
   results.push({ route: "/configurator (SPA shell)", file: shellFile, errors: shellErrors, title: "", textLength: 0 });
   if (shellErrors.length) failed++;
   const fileErrors = checkSiteFiles(distDir, routes);
+  const notFoundFile = path.join(distDir, "404.html");
+  if (!fs.existsSync(notFoundFile)) fileErrors.push("404.html missing (nginx serves it for unknown addresses)");
+  else if (!/name="robots"[^>]*noindex/i.test(fs.readFileSync(notFoundFile, "utf8"))) fileErrors.push("404.html must be noindex");
   results.push({ route: "robots.txt, sitemap.xml, llms.txt", file: distDir, errors: fileErrors, title: "", textLength: 0 });
   if (fileErrors.length) failed++;
   return { results, failed };

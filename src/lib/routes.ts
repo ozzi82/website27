@@ -33,9 +33,11 @@ export function getSitemapEntries(): SitemapEntry[] {
     if (route === "/about") return { changefreq: "yearly", priority: 0.6 };
     if (route === "/contact") return { changefreq: "yearly", priority: 0.7 };
     if (route.startsWith("/projects/")) return { changefreq: "yearly", priority: 0.6 };
+    if (route === "/configurator") return { changefreq: "monthly", priority: 0.8 };
     return { changefreq: "monthly", priority: 0.7 };
   };
-  return getPrerenderRoutes().map((path) => ({ path, ...meta(path) }));
+  // /configurator is a client-rendered page with its own prerendered shell, so it is not in getPrerenderRoutes() but is a real page.
+  return [...getPrerenderRoutes(), "/configurator"].map((path) => ({ path, ...meta(path) }));
 }
 
 /** Case studies as llms.txt bullets (empty while there are none). */

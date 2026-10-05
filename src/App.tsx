@@ -1,3 +1,4 @@
+import NotFoundPage from "./pages/NotFoundPage";
 import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -43,7 +44,7 @@ export function AppRoutes() {
             <Route key={from} path={from} element={<Navigate to={to} replace />} />
           ))}
           {/* Any other /services/... URL (retired or mistyped) goes home. */}
-          <Route path="/services/*" element={<Navigate to="/" replace />} />
+          <Route path="/services/*" element={<NotFoundPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route
             path="/configurator"
@@ -53,6 +54,7 @@ export function AppRoutes() {
               </Suspense>
             }
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
       <Footer />

@@ -194,7 +194,7 @@ describe("retired /services URLs redirect on the client", () => {
     expect(h1("/services/cabinet-signs")).toBe("Custom Sign Fabrication.Made to Your Drawings.");
   });
 
-  it("an unknown /services path goes home", () => {
-    expect(h1("/services/nope")).toBe("Wholesale Channel Letters.Built for Sign Companies.");
+  it("an unknown /services path shows the 404 page", () => {
+    expect(h1("/services/nope")).toBe("Page not found.");
   });
 });
