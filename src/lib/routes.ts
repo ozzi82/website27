@@ -66,6 +66,8 @@ export const LEGACY_PAGE_REDIRECTS: Record<string, string> = {
   "/lightbox-push-through-letters/": "/services/custom-sign-fabrication",
   "/contact-sunlite-signs-llc": "/contact",
   "/contact-sunlite-signs-llc/": "/contact",
+  "/edgeluxe-lp-1": "/light-effects/lp-1-flat-cutout",
+  "/edgeluxe-lp-1/": "/light-effects/lp-1-flat-cutout",
   "/privacy-policy": "/",
   "/privacy-policy/": "/",
 };
