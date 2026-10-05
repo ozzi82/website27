@@ -31,9 +31,9 @@ export const productCategories: ProductCategory[] = [
     number: "01",
     title: "Ultra-Slim Letters",
     navLabel: "Ultra-Slim Letters (LP 11)",
-    systems: "EdgeLuxe LP 11 series · cast block acrylic · 25–30 mm",
+    systems: "EdgeLuxe LP 11 series · cast block acrylic · 10–30 mm",
     description:
-      "Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 25–30 mm deep. Eight lighting variants: face, halo, face + halo, side, faux neon and conical.",
+      "Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 10–30 mm deep. Eight configurations: face, halo, face + halo, side, faux neon and conical.",
     cta: CTA_LINKS.exploreUltraSlim,
     image: {
       src: "/images/pasted-image-1785345075402-x1ttofrm.png",
@@ -64,7 +64,7 @@ export const productCategories: ProductCategory[] = [
     title: "Non-Illuminated Flat Cutout Letters",
     navLabel: "Flat Cutout Letters (LP 1)",
     systems: "EdgeLuxe LP 1 · unlit",
-    description: "Everything non-illuminated: precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.",
+    description: "Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.",
     cta: CTA_LINKS.viewFlatCutout,
     image: {
       src: "/images/edgeluxe/lp-1-flat-cutout-gold.jpg",

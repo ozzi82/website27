@@ -12,7 +12,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
   it("routes to the dedicated page with the owner's H1 and body", () => {
     const { main } = renderAt(PATH);
     const h1 = within(main).getByRole("heading", { level: 1 });
-    expect(h1.textContent).toBe("Ultra-Slim Channel Letters.Just 25–30 mm Deep.");
+    expect(h1.textContent).toBe("Ultra-Slim Channel Letters.Just 10–30 mm Deep.");
     expect(h1.querySelector("br")).not.toBeNull();
     expect(main.textContent).toContain(
       "A cleaner alternative to conventional deep-return channel letters — engineered for premium retail, architectural and interior signage applications.",
@@ -32,9 +32,9 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
 
   it("sets the exact SEO title (no site suffix), description, canonical and Product + BreadcrumbList JSON-LD", async () => {
     renderAt(PATH);
-    await waitFor(() => expect(document.title).toBe("Ultra-Slim Trimless Channel Letters | 25–30 mm Depth"));
+    await waitFor(() => expect(document.title).toBe("Ultra-Slim Trimless Channel Letters | 10–30 mm Depth"));
     expect(document.head.querySelector('meta[property="og:title"]')!.getAttribute("content")).toBe(document.title);
-    expect(document.head.querySelector('meta[name="description"]')!.getAttribute("content")).toMatch(/25–30 mm/);
+    expect(document.head.querySelector('meta[name="description"]')!.getAttribute("content")).toMatch(/10–30 mm/);
     expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe(`${SITE_URL}${PATH}`);
     const ld = [...document.head.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent!));
     expect(ld.map((x) => x["@type"]).sort()).toEqual(["BreadcrumbList", "Product"]);
@@ -77,7 +77,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
     const fs = main.querySelector('#variants [data-system="LP 11-FS"]') as HTMLElement;
     expect(fs.textContent).toMatch(/face glows and a thin band lights the front edge of the side wall/i);
     expect(fs.textContent).toContain("Face-lit + Partial Front Side-lit");
-    expect(fs.textContent).toContain("Flush or stand-off");
+    expect(fs.textContent).toContain("Flush or standoff");
   });
 
   it("states the brochure depths without contradicting them: 30 mm standard, 25 mm for small letters, LP 11-B thinner", () => {
@@ -95,14 +95,14 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
     expect(specs).toMatch(/2″ \(50 mm\)/);
     expect(specs).toMatch(/0\.47″ \(12 mm\)/);
     expect(ultraSlimSpecs.find((s) => s.label === "Mounting")!.value).toBe(
-      "Flush-mount: LP 11-F, LP 11-S, LP 11-N and LP 11-C. Stand-off spacers: LP 11-B and LP 11-FB, because the halo needs the gap to reach the wall. Flush or stand-off: LP 11-BS and LP 11-FS.",
+      "Flush-mount: LP 11-F, LP 11-S, LP 11-N and LP 11-C. Standoff spacers: LP 11-B and LP 11-FB, because the halo needs the gap to reach the wall. Flush or standoff: LP 11-BS and LP 11-FS.",
     );
   });
 
   it("explains face, halo and face + halo with the section drawings, and the other variants in words", () => {
     const { main } = renderAt(PATH);
     const kinds = [...main.querySelectorAll("[data-diagram]")].map((d) => d.getAttribute("data-diagram"));
-    // The three section drawings, then one animated, data-driven drawing per other variant, then stand-off versus flush.
+    // The three section drawings, then one animated, data-driven drawing per other variant, then standoff versus flush.
     expect(kinds).toEqual([
       "lighting-front",
       "lighting-halo",
@@ -142,7 +142,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
     const { main } = renderAt(PATH);
     const classic = main.querySelector("#classic") as HTMLElement;
     expect(classic.textContent).toMatch(/trimless fabricated stainless steel in depths from 30 to 100 mm/);
-    expect(classic.textContent).toMatch(/only 25–30 mm line/);
+    expect(classic.textContent).toMatch(/only 10–30 mm line/);
     for (const code of ["LP 5", "LP 3.1", "LP 3.2"]) expect(classic.textContent).toContain(code);
     expect(internalHrefs(classic)).toContain("/services/channel-letters");
     expect(main.textContent).not.toMatch(/Standard depths start at 30 mm/);
@@ -161,7 +161,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
   it("states only brochure or brief numbers, offers no trim caps, and keeps cabinet or blade signs off the page", () => {
     const { main } = renderAt(PATH);
     const text = main.textContent!;
-    const allowed = new Set(["25–30 mm", "30 mm", "25 mm", "10 mm", "15 mm", "20 mm", "12 mm", "50 mm", "3 mm", "75 mm", "100 mm", "12.7 mm"]);
+    const allowed = new Set(["10–30 mm", "30 mm", "25 mm", "10 mm", "15 mm", "20 mm", "12 mm", "50 mm", "3 mm", "75 mm", "100 mm", "12.7 mm"]);
     for (const m of mmClaims(spacedText(main))) expect(allowed.has(m), m).toBe(true);
     for (const f of FORBIDDEN) expect(text).not.toMatch(f);
     expect(textOutsideCustomFabrication(main)).not.toMatch(CUSTOM_ONLY_TERMS);
@@ -171,6 +171,6 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
 
   it("the merged cast-block-acrylic URL lands here", () => {
     const { main } = renderAt("/services/cast-block-acrylic");
-    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe("Ultra-Slim Channel Letters.Just 25–30 mm Deep.");
+    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe("Ultra-Slim Channel Letters.Just 10–30 mm Deep.");
   });
 });

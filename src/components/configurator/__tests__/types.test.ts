@@ -138,7 +138,7 @@ describe("LP 1 finish and build", () => {
 });
 
 describe("mounting state", () => {
-  it("starts flush where offered, stand-off where it is the only option, and keeps the choice when the new system offers it", () => {
+  it("starts flush where offered, standoff where it is the only option, and keeps the choice when the new system offers it", () => {
     expect(defaultStateFor(byId("lp-11-f-face-lit")).mounting).toBe("flush");
     expect(defaultStateFor(byId("lp-11-b-back-lit")).mounting).toBe("standoff");
     const standoff = { ...defaultStateFor(byId("lp-1-flat-cutout")), mounting: "standoff" as const };

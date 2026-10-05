@@ -115,7 +115,7 @@ export function effectiveConfig(config: LightConfig, state: Pick<ConfiguratorSta
   return { ...config, code: variant.code, light: variant.light, mounts: variant.mounts };
 }
 
-/** Switches the variant on or off; its halo needs stand-off mounting, and switching it off goes back to the default mounting. */
+/** Switches the variant on or off; its halo needs standoff mounting, and switching it off goes back to the default mounting. */
 export function withVariant(config: LightConfig, state: ConfiguratorState, on: boolean): ConfiguratorState {
   if (!config.variant) return state;
   const next = { ...state, variant: on };

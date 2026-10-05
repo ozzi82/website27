@@ -128,7 +128,7 @@ export default function CustomFabricationPage() {
           </h2>
           <div>
             <p className="text-foreground/85 max-w-md">
-              Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a tailored quote within 24 to 48 hours, most times within 24 hours.
+              Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a quote within 24 to 48 hours; most quotes are returned within 24 hours.
             </p>
             <div className="mt-6">
               <PrimaryCta />

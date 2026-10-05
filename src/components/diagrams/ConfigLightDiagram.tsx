@@ -130,7 +130,7 @@ const MOUNT_COPY: Record<MountCompareKind, string> = {
   flush: "Section diagram: letter flush against the wall; light only leaves through a band of the side wall, as a thin edge of light",
 };
 
-/** One half of the "stand-off vs flush mount" explanation: the same halo-lit letter, with and without a gap to the wall. */
+/** One half of the "standoff vs flush mount" explanation: the same halo-lit letter, with and without a gap to the wall. */
 export function MountCompareDiagram({ kind, className }: { kind: MountCompareKind; className?: string }) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const standoff = kind === "standoff";
@@ -186,7 +186,7 @@ const STANDOFF_ONLY = codes(configurations.filter((c) => !c.mounts.includes("flu
 const FLUSH_ONLY = codes(configurations.filter((c) => !c.mounts.includes("standoff")));
 const EITHER = codes(configurations.filter((c) => c.mounts.length > 1));
 
-/** Stand-off next to flush mount, each with a short factual caption; used where the mount decides how the halo looks. */
+/** Standoff next to flush mount, each with a short factual caption; used where the mount decides how the halo looks. */
 export function StandoffVsFlush({ className }: { className?: string }) {
   return (
     <div className={cn("grid sm:grid-cols-2 gap-5", className)}>
@@ -195,9 +195,9 @@ export function StandoffVsFlush({ className }: { className?: string }) {
           <MountCompareDiagram kind="standoff" />
         </div>
         <figcaption className="p-5">
-          <p className="mono-label text-primary">Stand-off mount</p>
+          <p className="mono-label text-primary">Standoff mount</p>
           <p className="text-sm text-muted-foreground mt-2">
-            The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: {STANDOFF_ONLY}, because the halo needs the gap. Flush or stand-off: {EITHER}.
+            The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: {STANDOFF_ONLY}, because the halo needs the gap. Flush or standoff: {EITHER}.
           </p>
         </figcaption>
       </figure>
@@ -208,7 +208,7 @@ export function StandoffVsFlush({ className }: { className?: string }) {
         <figcaption className="p-5">
           <p className="mono-label text-primary">Flush mount</p>
           <p className="text-sm text-muted-foreground mt-2">
-            The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: {FLUSH_ONLY}. Flush or stand-off: {EITHER}.
+            The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: {FLUSH_ONLY}. Flush or standoff: {EITHER}.
           </p>
         </figcaption>
       </figure>

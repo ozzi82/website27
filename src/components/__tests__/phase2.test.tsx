@@ -51,8 +51,8 @@ describe("RelatedLinks", () => {
 
 describe("Seo exactTitle", () => {
   it("uses the title verbatim when asked and appends the site name otherwise", async () => {
-    const { rerender } = wrap(<Seo title="Ultra-Slim Trimless Channel Letters | 25–30 mm Depth" exactTitle description="d" path="/x" />);
-    await waitFor(() => expect(document.title).toBe("Ultra-Slim Trimless Channel Letters | 25–30 mm Depth"));
+    const { rerender } = wrap(<Seo title="Ultra-Slim Trimless Channel Letters | 10–30 mm Depth" exactTitle description="d" path="/x" />);
+    await waitFor(() => expect(document.title).toBe("Ultra-Slim Trimless Channel Letters | 10–30 mm Depth"));
     rerender(<HelmetProvider><MemoryRouter><Seo title="Projects" description="d" path="/x" /></MemoryRouter></HelmetProvider>);
     await waitFor(() => expect(document.title).toBe("Projects | Sunlite Signs"));
   });
@@ -109,7 +109,7 @@ describe("page data", () => {
     const blob = JSON.stringify([channelLetterFaqs, channelLetterSpecs, ultraSlimSpecs, customFaqs, customSpecs]);
     expect(blob).not.toMatch(/light ?box|raceway|remote/i);
     // numeric facts: 24 to 48 hours, 3-4 weeks, 3 years, UL 48, and brochure sizes (depths, heights, strokes, system codes)
-    const allowed = new Set(["48", "24", "3", "4", "3–4", "25–30", "25", "30", "1", "1.2", "2", "50", "75", "100", "0.5", "15", "10", "12", "20", "0.47", "0.79", "0.12", "0.4", "11", "5", "3.1", "3.2", "67"]);
+    const allowed = new Set(["48", "24", "3", "4", "3–4", "10–30", "25", "30", "1", "1.2", "2", "50", "75", "100", "0.5", "15", "10", "12", "20", "0.47", "0.79", "0.12", "0.4", "11", "5", "3.1", "3.2", "67"]);
     const numbers = (blob.match(/\d+(?:[–.]\d+)?/g) ?? []).filter((n) => !allowed.has(n));
     expect(numbers).toEqual([]);
     for (const f of [...channelLetterFaqs, ...customFaqs]) {

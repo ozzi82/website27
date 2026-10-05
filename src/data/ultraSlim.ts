@@ -18,9 +18,9 @@ export { ULTRA_SLIM_PATH };
 export const lp11: LightConfig[] = configurations.filter((c) => c.family === "Block acrylic");
 
 export const ultraSlimMeta = {
-  title: "Ultra-Slim Trimless Channel Letters | 25–30 mm Depth",
+  title: "Ultra-Slim Trimless Channel Letters | 10–30 mm Depth",
   description:
-    "Ultra-slim trimless channel letters: EdgeLuxe LP 11 cast block acrylic with embedded LEDs, IP67 sealed, 25–30 mm deep. Eight lighting variants. Wholesale to sign companies.",
+    "Ultra-slim trimless channel letters: EdgeLuxe LP 11 cast block acrylic with embedded LEDs, IP67 sealed, 10–30 mm deep. Eight configurations. Wholesale to sign companies.",
   intro:
     "A cleaner alternative to conventional deep-return channel letters — engineered for premium retail, architectural and interior signage applications.",
   signature:
@@ -34,7 +34,7 @@ export const ultraSlimMeta = {
 };
 
 /** The three short attributes shown on the homepage section and at the top of the page. */
-export const ultraSlimAttributes = ["25–30 mm depth", "Cast block acrylic", "Eight lighting variants"];
+export const ultraSlimAttributes = ["10–30 mm depth", "Cast block acrylic", "Eight configurations"];
 
 export const whyDepthMatters = [
   { title: "A cleaner profile", text: "A solid block with no trim cap at the edge: the face and the sides read as one body." },
@@ -62,14 +62,14 @@ export function depthLabel(c: LightConfig): string {
 
 /** One line per variant: how it lights, in words that follow the brochure (keyed by configuration id). */
 const HOW_IT_LIGHTS: Record<string, { lights: string; mounting: string; short: string }> = {
-  "lp-11-f-face-lit": { short: "Face-lit", lights: "The face glows evenly toward the viewer.", mounting: "Flush-mount" },
+  "lp-11-f-face-lit": { short: "Face", lights: "The face glows evenly toward the viewer.", mounting: "Flush-mount" },
   "lp-11-b-back-lit": { short: "Halo", lights: "A uniform halo washes the wall behind the letter.", mounting: "Standoff spacers" },
   "lp-11-fb-face-halo": { short: "Face + halo", lights: "A glowing face plus a halo on the wall behind.", mounting: "Standoff spacers" },
-  "lp-11-bs-back-side-lit": { short: "Back side", lights: "A band of light glows along the back edge of the side wall.", mounting: "Flush or stand-off" },
-  "lp-11-fs-front-side-lit": { short: "Face + front side", lights: "The face glows and a thin band lights the front edge of the side wall.", mounting: "Flush or stand-off" },
+  "lp-11-bs-back-side-lit": { short: "Back side", lights: "A band of light glows along the back edge of the side wall.", mounting: "Flush or standoff" },
+  "lp-11-fs-front-side-lit": { short: "Face + front side", lights: "The face glows and a thin band lights the front edge of the side wall.", mounting: "Flush or standoff" },
   "lp-11-s-side-lit": { short: "Full side", lights: "The whole side wall glows; the painted face stays solid.", mounting: "Flush-mount" },
   "lp-11-n-faux-neon": { short: "Faux neon", lights: "Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.", mounting: "Flush-mount" },
-  "lp-11-c-conical": { short: "Conical", lights: "Tapered conical profile for narrow strokes and serifs, face-lit.", mounting: "Flush-mount" },
+  "lp-11-c-conical": { short: "Conical profile", lights: "Tapered conical profile for narrow strokes and serifs, face-lit.", mounting: "Flush-mount" },
 };
 
 export interface Lp11Variant {
@@ -112,8 +112,8 @@ export const ultraSlimLightingDiagrams = [
 
 /** The other lighting variants, described in words. */
 export const ultraSlimOtherLighting = [
-  { code: "BS", title: "Partial back side-lit", text: "Flush or stand-off. A band of light glows along the back edge of the side wall." },
-  { code: "FS", title: "Face-lit + partial front side-lit", text: "Flush or stand-off. The face glows and a thin band of light also glows along the front edge of the side wall." },
+  { code: "BS", title: "Partial back side-lit", text: "Flush or standoff. A band of light glows along the back edge of the side wall." },
+  { code: "FS", title: "Face-lit + partial front side-lit", text: "Flush or standoff. The face glows and a thin band of light also glows along the front edge of the side wall." },
   { code: "S", title: "Full side-lit", text: "The whole side wall glows while the painted face stays solid." },
   { code: "N", title: "Faux neon", text: "Block acrylic with the front edge routed round (up to 0.5\" / 12.7 mm, at most half the thickness) to simulate a neon glass tube. The face and the front half of the side wall glow." },
   { code: "C", title: "Conical", text: "A tapered profile so the lit face can be much narrower than the body, for fine strokes and serifs." },
@@ -141,11 +141,11 @@ export const ultraSlimSpecs: SpecRow[] = [
   { label: "Colors", value: spec(first, "Customization") },
   {
     label: "Mounting",
-    value: `Flush-mount: ${ids(...flushOnly())}. Stand-off spacers: ${ids(...standoffOnly())}, because the halo needs the gap to reach the wall. Flush or stand-off: ${ids(...either())}.`,
+    value: `Flush-mount: ${ids(...flushOnly())}. Standoff spacers: ${ids(...standoffOnly())}, because the halo needs the gap to reach the wall. Flush or standoff: ${ids(...either())}.`,
   },
   { label: "Certification", value: "UL 48 listed" },
   { label: "Warranty", value: "3 years, LED modules and power supplies" },
-  { label: "Quote", value: "Tailored quote in 24 to 48 hours, most times 24 hours" },
+  { label: "Quote", value: "Quote in 24 to 48 hours; most quotes returned within 24 hours" },
 ];
 
 export const installationPoints: SpecRow[] = [

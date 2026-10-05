@@ -121,19 +121,19 @@ describe("HomePage", () => {
     renderHome();
     const section = document.getElementById("ultra-slim")!;
     expect(within(section).getByRole("img", { name: /conventional trim-cap channel letter.*versus Sunlite Ultra-Slim LP 11/i })).toBeInTheDocument();
-    for (const a of ["25–30 mm depth", "Cast block acrylic", "Eight lighting variants"]) expect(section.textContent).toContain(a);
+    for (const a of ["10–30 mm depth", "Cast block acrylic", "Eight configurations"]) expect(section.textContent).toContain(a);
     expect(section.textContent).toMatch(/cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67/i);
     const variants = [...section.querySelectorAll('a[href^="/light-effects/lp-11-"]')];
     expect(variants).toHaveLength(8);
     expect(variants.map((a) => spacedText(a).trim())).toEqual([
-      "F Face-lit",
+      "F Face",
       "B Halo",
       "FB Face + halo",
       "BS Back side",
       "FS Face + front side",
       "S Full side",
       "N Faux neon",
-      "C Conical",
+      "C Conical profile",
     ]);
     for (const a of variants) expect(a.querySelector("img")!.getAttribute("src")).toMatch(/^\/images\/edgeluxe\/lp-11-/);
     expect(within(section).getByRole("link", { name: /explore ultra-slim/i })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
@@ -192,10 +192,10 @@ describe("Header and footer", () => {
 });
 
 describe("owner final touches (2026-10)", () => {
-  it("shows German engineered and UL 48 in the capability strip, with 24 to 48 hour quotes", () => {
+  it("shows German-engineered and UL 48 in the capability strip, with 24 to 48 hour quotes", () => {
     renderHome();
     const strip = screen.getByRole("region", { name: "Capabilities" });
-    expect(strip.textContent).toMatch(/German engineered/i);
+    expect(strip.textContent).toMatch(/German-engineered/i);
     expect(strip.textContent).toMatch(/UL 48 Listed/);
     expect(strip.textContent).toMatch(/24–48 H/);
   });

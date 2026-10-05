@@ -10,7 +10,7 @@ interface SpacersProps {
 
 const VISUAL_THICKNESS = 2;
 
-/** The clear plastic stand-off tubes between the wall and the back of the letter (z from the wall up to 0). */
+/** The clear plastic standoff tubes between the wall and the back of the letter (z from the wall up to 0). */
 export default function Spacers({ shapes, height }: SpacersProps) {
   const points = useMemo(() => spacerPoints(shapes, height), [shapes, height]);
   const length = mmToWorld(SPACER_LENGTH_MM, height);

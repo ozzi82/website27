@@ -126,7 +126,7 @@ describe("/services/channel-letters (classic trimless letters)", () => {
   it("only states numbers the brochure or the site supplies, and cabinet or blade signs appear only in the custom pointer", () => {
     const { main } = renderAt(PATH);
     const text = main.textContent!;
-    const allowed = new Set(["25–30 mm", "30 mm", "25 mm", "50 mm", "75 mm", "100 mm", "10 mm", "15 mm", "25 mm"]);
+    const allowed = new Set(["10–30 mm", "30 mm", "25 mm", "50 mm", "75 mm", "100 mm", "10 mm", "15 mm", "25 mm"]);
     for (const m of mmClaims(spacedText(main))) expect(allowed.has(m), m).toBe(true);
     for (const f of FORBIDDEN) expect(text).not.toMatch(f);
     expect(textOutsideCustomFabrication(main)).not.toMatch(CUSTOM_ONLY_TERMS);

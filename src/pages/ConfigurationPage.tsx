@@ -153,7 +153,7 @@ export default function ConfigurationPage() {
         {emitsLight(c) && (
           <section className="mt-16" aria-labelledby="mount-explainer">
             <p className="mono-label text-primary mb-3">Mounting</p>
-            <h2 id="mount-explainer" className="text-3xl md:text-4xl mb-6">Stand-off or flush mount.</h2>
+            <h2 id="mount-explainer" className="text-3xl md:text-4xl mb-6">Standoff or flush mount.</h2>
             <StandoffVsFlush />
             <p className="mono-label text-muted-foreground mt-4">Concept section diagrams, not to scale. {c.code} {c.mounts.length > 1 ? "can be mounted flush or on standoffs" : c.mounts[0] === "standoff" ? "is mounted on standoffs only" : "is mounted flush"}.</p>
           </section>

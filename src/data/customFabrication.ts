@@ -66,7 +66,7 @@ export const customSpecs: SpecRow[] = [
   { label: "Configuration", value: "Single-sided, double-sided or blade" },
   { label: "Certification", value: "UL 48 listed" },
   { label: "Warranty", value: "3 years, LED modules and power supplies" },
-  { label: "Quote", value: "Tailored quote in 24 to 48 hours, most times 24 hours" },
+  { label: "Quote", value: "Quote in 24 to 48 hours; most quotes returned within 24 hours" },
   { label: "Delivery", value: "Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint" },
   { label: "Installation", value: "Not provided. Installation is handled by you or your contractor." },
   { label: "Sold to", value: "Trade only: sign companies and industry professionals" },
@@ -116,7 +116,7 @@ export const customFaqs: Faq[] = [
 
 /** Where else to go from here: the letter systems and the unlit flat cutouts. */
 export const customRelated = [
-  { to: ULTRA_SLIM_PATH, title: "Ultra-slim letters", text: "EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep." },
+  { to: ULTRA_SLIM_PATH, title: "Ultra-slim letters", text: "EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep." },
   { to: CHANNEL_LETTERS_PATH, title: "Classic trimless letters", text: "Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2." },
   { to: "/light-effects/lp-1-flat-cutout", title: "Flat cutout letters", text: "Non-illuminated LP 1 letters in wood, metal, acrylic and more." },
   { to: "/configurator", title: "Build Your Sign", text: "Preview your logo as a letter system in 3D before you request pricing." },

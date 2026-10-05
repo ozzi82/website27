@@ -28,7 +28,7 @@ describe("product categories", () => {
     const [slim, classic, flat, custom] = productCategories;
     expect(slim.systems).toMatch(/LP 11/);
     expect(slim.description).toMatch(/cast block acrylic/i);
-    expect(slim.description).toMatch(/25–30 mm/);
+    expect(slim.description).toMatch(/10–30 mm/);
     expect(slim.description).toMatch(/IP67/);
     expect(classic.systems).toMatch(/LP 5, LP 3\.1, LP 3\.2/);
     expect(classic.description).toMatch(/stainless steel/i);
@@ -164,7 +164,7 @@ describe("EdgeLuxe render files", () => {
 });
 
 describe("mounting (owner list, 2026-10-03)", () => {
-  it("LP 3.1, LP 11-B and LP 11-FB are stand-off only; LP 1, 11-BS and 11-FS can be either; every other system is flush only", async () => {
+  it("LP 3.1, LP 11-B and LP 11-FB are standoff only; LP 1, 11-BS and 11-FS can be either; every other system is flush only", async () => {
     const { configurations, defaultMount } = await import("../configurations");
     const standoffOnly = configurations.filter((c) => c.mounts.length === 1 && c.mounts[0] === "standoff").map((c) => c.id);
     expect(standoffOnly).toEqual(["lp-3-1-standoff-halo", "lp-11-b-back-lit", "lp-11-fb-face-halo"]);

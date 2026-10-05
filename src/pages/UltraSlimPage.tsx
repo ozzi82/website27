@@ -84,7 +84,7 @@ export default function UltraSlimPage() {
             <p className="mono-label font-bold text-foreground mb-4 md:mb-5">Sunlite Ultra-Slim · EdgeLuxe LP 11</p>
             <h1 className="text-[clamp(1.75rem,8.6vw,2.4rem)] leading-[1.04] sm:text-5xl lg:text-[3.4rem] xl:text-6xl">
               Ultra-Slim Channel Letters.<br />
-              <span className="text-primary">Just 25–30 mm Deep.</span>
+              <span className="text-primary">Just 10–30 mm Deep.</span>
             </h1>
             <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-xl">{ultraSlimMeta.intro}</p>
             <p className="mt-3 text-sm text-muted-foreground max-w-xl">{ultraSlimMeta.signature}</p>
@@ -116,7 +116,7 @@ export default function UltraSlimPage() {
             eyebrow="The LP 11 series"
             title={
               <>
-                Eight ways to <span className="text-primary">light a block.</span>
+                Eight configurations. <span className="text-primary">One ultra-slim platform.</span>
               </>
             }
             titleClassName={sectionTitle}
@@ -159,7 +159,7 @@ export default function UltraSlimPage() {
       <section id="depth" className="py-14 md:py-28 border-t border-border steel-plate scroll-mt-20">
         {/* DOM order is heading, drawing, reasons (so the drawing comes before the list on phones); on lg the drawing sits beside both. */}
         <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[2fr_3fr] lg:grid-rows-[auto_1fr] gap-x-16 gap-y-8 items-start">
-          <SectionHeader eyebrow="Side profile" title="Why 25–30 mm matters." titleClassName={sectionTitle} className="mb-0 pb-0 border-b-0 lg:col-start-1 lg:row-start-1" />
+          <SectionHeader eyebrow="Side profile" title="Why 10–30 mm matters." titleClassName={sectionTitle} className="mb-0 pb-0 border-b-0 lg:col-start-1 lg:row-start-1" />
           <div className="corner-marks border border-border bg-background/60 p-3 sm:p-8 lg:p-10 lg:col-start-2 lg:row-span-2 lg:row-start-1">
             <DepthComparison size="lg" />
           </div>
@@ -213,7 +213,7 @@ export default function UltraSlimPage() {
 
           <div className="mt-10 md:mt-14">
             <p className="mono-label text-primary mb-2">Mounting</p>
-            <h3 className="text-2xl md:text-4xl uppercase mb-6">Stand-off or flush mount.</h3>
+            <h3 className="text-2xl md:text-4xl uppercase mb-6">Standoff or flush mount.</h3>
             <StandoffVsFlush />
             <p className="mono-label text-muted-foreground mt-4">Concept section diagrams, not to scale.</p>
           </div>
@@ -289,7 +289,7 @@ export default function UltraSlimPage() {
             eyebrow="Classic trimless letters"
             title="Need a deeper, fabricated letter?"
             titleClassName={sectionTitle}
-            intro="Our classic channel letters are trimless fabricated stainless steel in depths from 30 to 100 mm. Ultra-slim LP 11 is the only 25–30 mm line."
+            intro="Our classic channel letters are trimless fabricated stainless steel in depths from 30 to 100 mm. Ultra-slim LP 11 is the only 10–30 mm line."
             action={<ArrowLink label={CTA_LINKS.viewChannelLetters.label} to={CHANNEL_LETTERS_PATH} />}
           />
           <ul className="grid md:grid-cols-3 gap-5 md:gap-6">

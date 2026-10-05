@@ -88,7 +88,7 @@ export function LightingDiagram({ kind, className }: { kind: LightingKind; class
       <line x1={face} y1={TOP - 1} x2={face} y2={BOTTOM + 1} className={litFace ? "stroke-primary" : "stroke-foreground/80"} strokeWidth={litFace ? 4 : 3.5} />
       {/* LED module */}
       <rect x={back + 6} y={CY - 10} width={5} height={20} className="fill-primary" />
-      {/* stand-off pegs */}
+      {/* standoff pegs */}
       {floating && (
         <g className="fill-foreground/70">
           <rect x={WALL_X} y={TOP + 8} width={back - WALL_X} height={3} />

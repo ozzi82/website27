@@ -14,7 +14,7 @@ export type HaloLight = "none" | "standoff";
 export type SideLight = "none" | "partial-back" | "partial-front" | "full";
 /** Cross-section of the letter. */
 export type Profile = "flat" | "standard" | "tube" | "conical";
-/** How a letter is carried: flush against the wall, or held off it on stand-off spacers. */
+/** How a letter is carried: flush against the wall, or held off it on standoff spacers. */
 export type Mount = "standoff" | "flush";
 
 export interface LightBehavior {
@@ -48,7 +48,7 @@ export interface LightConfig {
   variant?: { code: string; label: string; note: string; light: LightBehavior; mounts: Mount[] };
   profile: Profile;
   light: LightBehavior;
-  /** The mountings the letter is offered with (owner list, updated 2026-10-05). Halo letters need the gap, so they are stand-off only; most others are flush only. */
+  /** The mountings the letter is offered with (owner list, updated 2026-10-05). Halo letters need the gap, so they are standoff only; most others are flush only. */
   mounts: Mount[];
   /** Selectable depths in millimetres (the brochure's standard sizes). */
   depthOptionsMm: number[];
@@ -65,12 +65,14 @@ const COMMON_TAIL = [
 ];
 const PMS_FACE_LIT =
   "Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.";
+const PMS_SIDE_LIT =
+  "Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored side-lit effects.";
 const PMS_HALO =
   "Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colorful halo effects.";
 const STEEL_DEPTHS = [30, 50, 75, 100];
 const STEEL_DEPTH_TEXT = '1.2" (30 mm), 2" (50 mm), 3" (75 mm), 4" (100 mm) and custom depth';
 const ACRYLIC_SEALING = 'Epoxy-sealed for IP67 waterproofing and heat dissipation.';
-const ACRYLIC_MAINT = "IP67 water- and dust-proof, no maintenance";
+const ACRYLIC_MAINT = "IP67 water- and dust-proof, low maintenance";
 
 const baseConfigurations: LightConfig[] = [
   {
@@ -81,7 +83,7 @@ const baseConfigurations: LightConfig[] = [
     family: "Flat cutout",
     summary: "Precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more.",
     description:
-      "Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.039\" (1 mm) up to 7.87\" (200 mm) thick. They are unlit and need no maintenance, a clean choice for architectural and interior lettering in a broad range of materials and finishes.",
+      "Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.039\" (1 mm) up to 7.87\" (200 mm) thick. They are unlit and low-maintenance, a clean choice for architectural and interior lettering in a broad range of materials and finishes.",
     specs: [
       { label: "Materials", value: "Wood, aluminum, stainless steel, acrylic and many more" },
       { label: "Illumination", value: "None (unlit)" },
@@ -89,7 +91,7 @@ const baseConfigurations: LightConfig[] = [
       { label: "Customization", value: "Broad range of acrylic colors, paint and vinyl" },
       { label: "Min. stroke width", value: '0.2" (5 mm)' },
       { label: "Min. height", value: '0.4" (10 mm)' },
-      { label: "Maintenance", value: "No maintenance" },
+      { label: "Maintenance", value: "Low maintenance" },
     ],
     img: IMG + "lp-1-flat-cutout-gold.jpg",
     profile: "flat",
@@ -167,7 +169,7 @@ const baseConfigurations: LightConfig[] = [
     description:
       "Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter that suits building façade and canopy signage at larger scale.",
     specs: [
-      { label: "Materials", value: "Thick gauge stainless steel returns and back welded together; step-router acrylic face, trimless" },
+      { label: "Materials", value: "Thick gauge stainless steel returns and back welded together; step-routed acrylic face, trimless" },
       { label: "Illumination", value: "Face-lit" },
       { label: "Depth", value: STEEL_DEPTH_TEXT },
       { label: "Customization", value: PMS_FACE_LIT },
@@ -201,7 +203,7 @@ const baseConfigurations: LightConfig[] = [
     family: "Block acrylic",
     summary: "Solid cast block acrylic letters with embedded LEDs for uniform face lighting.",
     description:
-      "Cast block acrylic letters with LEDs embedded in the body for uniform face lighting, from letters as small as 2\" tall. Epoxy-sealed to IP67, so they are waterproof, dust-proof and maintenance-free.",
+      "Cast block acrylic letters with LEDs embedded in the body for uniform face lighting, from letters as small as 2\" tall. Epoxy-sealed to IP67, so they are waterproof, dust-proof and low-maintenance.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
       { label: "Illumination", value: "Embedded LEDs for uniform face lighting" },
@@ -234,9 +236,9 @@ const baseConfigurations: LightConfig[] = [
       "Cast block acrylic letters with embedded LEDs that wash the wall behind each letter with a uniform halo, mounted on standoff spacers. Available in four depths from 0.39\" to 1.2\".",
     specs: [
       { label: "Materials", value: '0.39"-1.2" (10-30 mm) cast block acrylic' },
-      { label: "Illumination", value: "Embedded LEDs for uniform halo-lit with standoff spacers" },
+      { label: "Illumination", value: "Embedded LEDs for uniform halo illumination with standoff spacers" },
       { label: "Depth", value: '0.39" (10 mm), 0.5" (15 mm), 0.78" (20 mm) and 1.2" (30 mm) for durability and optimal light diffusion' },
-      { label: "Customization", value: "Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored halo-lit effects." },
+      { label: "Customization", value: "Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored halo effects." },
       { label: "Min. stroke width", value: '0.47" (12 mm) for stability and even illumination' },
       { label: "Min. height", value: '2" (50 mm)' },
       { label: "Sealing", value: ACRYLIC_SEALING },
@@ -261,10 +263,10 @@ const baseConfigurations: LightConfig[] = [
     family: "Block acrylic",
     summary: "Face-lit and halo-lit in one letter: a glowing face plus a wall halo.",
     description:
-      "Cast block acrylic letters that combine uniform face lighting with a halo on the wall behind, on standoff spacers. Epoxy-sealed to IP67 and maintenance-free.",
+      "Cast block acrylic letters that combine uniform face lighting with a halo on the wall behind, on standoff spacers. Epoxy-sealed to IP67 and low-maintenance.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
-      { label: "Illumination", value: "Embedded LEDs for uniform face- and halo-lit with standoff spacers" },
+      { label: "Illumination", value: "Embedded LEDs for uniform face and halo illumination with standoff spacers" },
       { label: "Depth", value: 'Standard 1.2" (30 mm) for durability and optimal light diffusion' },
       { label: "Customization", value: PMS_FACE_LIT },
       { label: "Min. stroke width", value: '0.47" (12 mm) for stability and even illumination' },
@@ -289,14 +291,14 @@ const baseConfigurations: LightConfig[] = [
     title: "EdgeLuxe LP 11-BS",
     subtitle: "Block Acrylic Partial Back Side-lit",
     family: "Block acrylic",
-    summary: "Letters, flush or stand-off mounted, with light glowing from the back edge of the side wall.",
+    summary: "Letters, flush or standoff mounted, with light glowing from the back edge of the side wall.",
     description:
       "Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for a uniform partial back side-lit effect: a band of light glows around the back edge of each letter.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
-      { label: "Illumination", value: "Embedded LEDs for uniform partial back side-lit" },
+      { label: "Illumination", value: "Embedded LEDs for uniform partial back-side illumination" },
       { label: "Depth", value: 'Standard 1.2" (30 mm) for durability and optimal light diffusion' },
-      { label: "Customization", value: PMS_FACE_LIT },
+      { label: "Customization", value: PMS_SIDE_LIT },
       { label: "Min. stroke width", value: '0.47" (12 mm) for stability and even illumination' },
       { label: "Min. height", value: '2" (50 mm)' },
       { label: "Sealing", value: ACRYLIC_SEALING },
@@ -319,7 +321,7 @@ const baseConfigurations: LightConfig[] = [
     title: "EdgeLuxe LP 11-FS",
     subtitle: "Block Acrylic Face-lit + Partial Front Side-lit",
     family: "Block acrylic",
-    summary: "Letters, flush or stand-off mounted, with a glowing face and a thin band of light along the front edge of the side wall.",
+    summary: "Letters, flush or standoff mounted, with a glowing face and a thin band of light along the front edge of the side wall.",
     description:
       "Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.",
     specs: [
@@ -354,9 +356,9 @@ const baseConfigurations: LightConfig[] = [
       "Cast block acrylic letters with embedded LEDs for uniform full side lighting: the whole side wall of each letter glows while the painted face stays solid.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
-      { label: "Illumination", value: "Embedded LEDs for uniform full side-lit" },
+      { label: "Illumination", value: "Embedded LEDs for uniform full-side illumination" },
       { label: "Depth", value: 'Standard 1.2" (30 mm) for durability and optimal light diffusion' },
-      { label: "Customization", value: PMS_FACE_LIT },
+      { label: "Customization", value: PMS_SIDE_LIT },
       { label: "Min. stroke width", value: '0.79" (20 mm) recommended for stability and even illumination' },
       { label: "Min. height", value: '2" (50 mm)' },
       { label: "Sealing", value: ACRYLIC_SEALING },
@@ -436,25 +438,25 @@ const baseConfigurations: LightConfig[] = [
   },
 ];
 
-/** The mounting a letter starts on: flush where it is offered, otherwise stand-off. */
+/** The mounting a letter starts on: flush where it is offered, otherwise standoff. */
 export function defaultMount(c: Pick<LightConfig, "mounts">): Mount {
   return c.mounts.includes("flush") ? "flush" : "standoff";
 }
 
-export const MOUNT_LABEL: Record<Mount, string> = { flush: "Flush", standoff: "Stand-off" };
+export const MOUNT_LABEL: Record<Mount, string> = { flush: "Flush", standoff: "Standoff" };
 
 /** The brochure-style mounting line for a configuration's spec list. */
 export function mountingText(c: Pick<LightConfig, "mounts">): string {
-  if (c.mounts.length > 1) return "Flush to the wall or on stand-off spacers";
+  if (c.mounts.length > 1) return "Flush to the wall or on standoff spacers";
   return c.mounts[0] === "standoff"
-    ? "Stand-off spacers only: the halo needs the gap to reach the wall"
+    ? "Standoff spacers only: the halo needs the gap to reach the wall"
     : "Flush to the wall";
 }
 
 /** Every configuration, with its mounting line added to the specs (before the closing warranty and certification rows). */
 export const configurations: LightConfig[] = baseConfigurations.map((c) => {
   const rows = [{ label: "Mounting", value: mountingText(c) }];
-  if (c.variant) rows.push({ label: "Option", value: `${c.variant.code}: ${c.variant.note.toLowerCase()}; stand-off mounted (the halo needs the gap to the wall)` });
+  if (c.variant) rows.push({ label: "Option", value: `${c.variant.code}: ${c.variant.note.toLowerCase()}; standoff mounted (the halo needs the gap to the wall)` });
   const at = c.specs.findIndex((r) => r.label === "Warranty");
   const specs = at === -1 ? [...c.specs, ...rows] : [...c.specs.slice(0, at), ...rows, ...c.specs.slice(at)];
   return { ...c, specs };

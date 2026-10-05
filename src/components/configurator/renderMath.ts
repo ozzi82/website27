@@ -93,11 +93,11 @@ export function conicalInset(heightWorld: number, halfStroke: number): number {
   return Math.min(heightWorld * 0.035, halfStroke * 0.5);
 }
 
-/** The stand-off spacer length: 1" (see spacers.ts). */
+/** The standoff spacer length: 1" (see spacers.ts). */
 const STANDOFF_MM = 25.4;
 
 /**
- * Distance between the back of the letter and the wall behind it, in world units: flush sits against the wall, stand-off
+ * Distance between the back of the letter and the wall behind it, in world units: flush sits against the wall, standoff
  * is one spacer length (1") off it. `heightWorld` is the artwork height, standing for the nominal 12" letter.
  */
 export function wallGapFor(mount: Mount, heightWorld = 2.4): number {

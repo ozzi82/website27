@@ -1,8 +1,8 @@
 import SectionHeader from "./SectionHeader";
 
 const groups = [
-  "Sign Companies", "Agencies", "Shopfitters", "Interior Build-Out",
-  "Architects", "Planning Firms", "Trade Show Builders", "Print Shops", "Retail Agencies",
+  "Sign Companies", "Agencies", "Retail Fixture & Millwork Firms", "Interior Build-Out Contractors",
+  "Architects", "Planning Firms", "Trade Show Builders", "Print Shops", "Retail Design Agencies",
 ];
 
 /** Who Sunlite builds for (existing list of trade audiences), as a ruled editorial grid. */

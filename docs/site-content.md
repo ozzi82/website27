@@ -84,8 +84,8 @@ German-engineered ultra-slim cast acrylic letters and classic trimless channel l
 [Build your sign in 3D](/configurator)
 
 - **UL 48 Listed:** Electrical sign certification
-- **German engineered:** EdgeLuxe letter systems
-- **24–48 H:** Tailored quotes, most times 24 h
+- **German-engineered:** EdgeLuxe letter systems
+- **24–48 H:** Quotes in 24–48 hours, most within 24
 - **3–4 WK:** Typical production + delivery
 - **3 YR:** LED & power supply warranty
 - **Trade only:** Your customer stays your customer.
@@ -98,11 +98,11 @@ What we build
 
 01
 
-Signature product · EdgeLuxe LP 11 series · cast block acrylic · 25–30 mm
+Signature product · EdgeLuxe LP 11 series · cast block acrylic · 10–30 mm
 
 ##### Ultra-Slim Letters
 
-Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 25–30 mm deep. Eight lighting variants: face, halo, face + halo, side, faux neon and conical.
+Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 10–30 mm deep. Eight configurations: face, halo, face + halo, side, faux neon and conical.
 
 [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
 
@@ -122,7 +122,7 @@ Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo
 
 ##### Non-Illuminated Flat Cutout Letters
 
-Everything non-illuminated: precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.
+Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.
 
 [View Flat Cutouts](/light-effects/lp-1-flat-cutout)
 
@@ -148,34 +148,34 @@ UL 48 listed signs
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German engineered, nationwide sign company partner]*
+*[Image: Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German-engineered, nationwide sign company partner]*
 
 Sunlite Ultra-Slim · EdgeLuxe LP 11
 
-#### 25–30 mm. Less depth. More design freedom.
+#### 10–30 mm. Less depth. More design freedom.
 
 Cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and engineered for projects where conventional channel-letter returns are simply too bulky.
 
-- 01 — 25–30 mm depth
+- 01 — 10–30 mm depth
 - 02 — Cast block acrylic
-- 03 — Eight lighting variants
+- 03 — Eight configurations
 
 [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters) · [Build Your Sign](/configurator?config=lp-11-f-face-lit)
 
 Illustrative side profiles, not to scale. The conventional letter is a trim-cap channel letter, a type Sunlite does not build; its return depth varies by project.
 
-The LP 11 series · eight lighting variants
+The LP 11 series · eight configurations
 
 F face · B back · S side · N neon · C conical
 
-- *[Image: LP 11-F Block Acrylic Face-lit: sample letter, lit at night]* — F — Face-lit — (Links to: /light-effects/lp-11-f-face-lit)
+- *[Image: LP 11-F Block Acrylic Face-lit: sample letter, lit at night]* — F — Face — (Links to: /light-effects/lp-11-f-face-lit)
 - *[Image: LP 11-B Block Acrylic Back-lit: sample letter, lit at night]* — B — Halo — (Links to: /light-effects/lp-11-b-back-lit)
 - *[Image: LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter, lit at night]* — FB — Face + halo — (Links to: /light-effects/lp-11-fb-face-halo)
 - *[Image: LP 11-BS Block Acrylic Partial Back Side-lit: sample letter, lit at night]* — BS — Back side — (Links to: /light-effects/lp-11-bs-back-side-lit)
 - *[Image: LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter, lit at night]* — FS — Face + front side — (Links to: /light-effects/lp-11-fs-front-side-lit)
 - *[Image: LP 11-S Block Acrylic Full Side-lit: sample letter, lit at night]* — S — Full side — (Links to: /light-effects/lp-11-s-side-lit)
 - *[Image: LP 11-N Block Acrylic Faux Neon: sample letter, lit at night]* — N — Faux neon — (Links to: /light-effects/lp-11-n-faux-neon)
-- *[Image: LP 11-C Block Acrylic Conical Profile: sample letter, lit at night]* — C — Conical — (Links to: /light-effects/lp-11-c-conical)
+- *[Image: LP 11-C Block Acrylic Conical Profile: sample letter, lit at night]* — C — Conical profile — (Links to: /light-effects/lp-11-c-conical)
 
 Build Your Sign · A 3D sign configurator built for sign companies
 
@@ -530,13 +530,13 @@ Who we serve
 
 - 01 — Sign Companies
 - 02 — Agencies
-- 03 — Shopfitters
-- 04 — Interior Build-Out
+- 03 — Retail Fixture & Millwork Firms
+- 04 — Interior Build-Out Contractors
 - 05 — Architects
 - 06 — Planning Firms
 - 07 — Trade Show Builders
 - 08 — Print Shops
-- 09 — Retail Agencies
+- 09 — Retail Design Agencies
 
 #### We don't compete with our partners. We build for them.
 
@@ -596,7 +596,7 @@ Related
 
 #### Keep exploring.
 
-- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
 - Classic trimless letters — Fabricated stainless steel channel letters. — Open — (Links to: /services/channel-letters)
 - Manufacturing — How drawings become finished signs. — Open — (Links to: /manufacturing)
 - Projects — See recent production. — Open — (Links to: /projects)
@@ -707,7 +707,7 @@ Related
 
 #### Keep exploring.
 
-- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
 - Classic trimless letters — Fabricated stainless steel channel letters. — Open — (Links to: /services/channel-letters)
 - Projects — See recent production. — Open — (Links to: /projects)
 - About — Who we build for, and why the trade outsources to us. — Open — (Links to: /about)
@@ -937,7 +937,7 @@ Related
 
 #### Keep exploring.
 
-- Ultra-slim letters — EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Ultra-slim letters — EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
 - Classic trimless letters — Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2. — Open — (Links to: /services/channel-letters)
 - Custom fabrication — Blade signs, push-through cabinet signs and custom projects. — Open — (Links to: /services/custom-sign-fabrication)
 - Manufacturing — How drawings become finished signs. — Open — (Links to: /manufacturing)
@@ -954,7 +954,7 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
 - URL: https://sunlitesigns.com/contact
 - Title: Get Your Wholesale Quote: Channel Letters | Sunlite Signs
-- Meta description: Send artwork, dimensions and project details for a tailored wholesale quote on channel letters and illuminated signage, within 24 to 48 hours (most times 24 hours). Trade customers only.
+- Meta description: Send artwork, dimensions and project details for a wholesale quote on channel letters and illuminated signage, within 24 to 48 hours (most quotes returned within 24 hours). Trade customers only.
 
 - [Home](/)
 - /Wholesale quote
@@ -963,7 +963,7 @@ Wholesale quote
 
 ### Get your wholesale quote
 
-Send your artwork, dimensions and project details. We'll return a tailored quote within 24 to 48 hours, most times within 24 hours.
+Send your artwork, dimensions and project details. We'll return a quote within 24 to 48 hours; most quotes are returned within 24 hours.
 
 Trade customers only · No retail sales
 
@@ -1021,8 +1021,8 @@ Please contact us directly to discuss white-label and neutral shipping options.
 ## /services/ultra-slim-trimless-channel-letters
 
 - URL: https://sunlitesigns.com/services/ultra-slim-trimless-channel-letters
-- Title: Ultra-Slim Trimless Channel Letters | 25–30 mm Depth
-- Meta description: Ultra-slim trimless channel letters: EdgeLuxe LP 11 cast block acrylic with embedded LEDs, IP67 sealed, 25–30 mm deep. Eight lighting variants. Wholesale to sign companies.
+- Title: Ultra-Slim Trimless Channel Letters | 10–30 mm Depth
+- Meta description: Ultra-slim trimless channel letters: EdgeLuxe LP 11 cast block acrylic with embedded LEDs, IP67 sealed, 10–30 mm deep. Eight configurations. Wholesale to sign companies.
 
 - [Home](/)
 - /[Products](/#products)
@@ -1030,7 +1030,7 @@ Please contact us directly to discuss white-label and neutral shipping options.
 
 Sunlite Ultra-Slim · EdgeLuxe LP 11
 
-### Ultra-Slim Channel Letters. Just 25–30 mm Deep.
+### Ultra-Slim Channel Letters. Just 10–30 mm Deep.
 
 A cleaner alternative to conventional deep-return channel letters — engineered for premium retail, architectural and interior signage applications.
 
@@ -1042,13 +1042,13 @@ Sunlite's signature product: the EdgeLuxe LP 11 series of cast block acrylic let
 
 Fig. 01 / Project photography
 
-- 01 — 25–30 mm depth
+- 01 — 10–30 mm depth
 - 02 — Cast block acrylic
-- 03 — Eight lighting variants
+- 03 — Eight configurations
 
 The LP 11 series
 
-#### Eight ways to light a block.
+#### Eight configurations. One ultra-slim platform.
 
 Every LP 11 letter is cast block acrylic with LEDs embedded in the body, epoxy-sealed to IP67. The letters in the name say where the light goes.
 
@@ -1114,7 +1114,7 @@ LP 11-BS
 A band of light glows along the back edge of the side wall.
 
 - **Depth:** 30 mm
-- **Mounting:** Flush or stand-off
+- **Mounting:** Flush or standoff
 
 [View system](/light-effects/lp-11-bs-back-side-lit) · [Preview in 3D](/configurator?config=lp-11-bs-back-side-lit)
 
@@ -1129,7 +1129,7 @@ LP 11-FS
 The face glows and a thin band lights the front edge of the side wall.
 
 - **Depth:** 30 mm
-- **Mounting:** Flush or stand-off
+- **Mounting:** Flush or standoff
 
 [View system](/light-effects/lp-11-fs-front-side-lit) · [Preview in 3D](/configurator?config=lp-11-fs-front-side-lit)
 
@@ -1180,7 +1180,7 @@ Tapered conical profile for narrow strokes and serifs, face-lit.
 
 Side profile
 
-#### Why 25–30 mm matters.
+#### Why 10–30 mm matters.
 
 Illustrative side profiles, not to scale. The conventional letter is a trim-cap channel letter, a type Sunlite does not build; its return depth varies by project.
 
@@ -1218,23 +1218,23 @@ LP 11-FB. A glowing face combined with a halo on the wall, from one letter.
 
 Concept section diagrams, not to scale.
 
-- BS — Partial back side-lit — Flush or stand-off. A band of light glows along the back edge of the side wall.
-- FS — Face-lit + partial front side-lit — Flush or stand-off. The face glows and a thin band of light also glows along the front edge of the side wall.
+- BS — Partial back side-lit — Flush or standoff. A band of light glows along the back edge of the side wall.
+- FS — Face-lit + partial front side-lit — Flush or standoff. The face glows and a thin band of light also glows along the front edge of the side wall.
 - S — Full side-lit — The whole side wall glows while the painted face stays solid.
 - N — Faux neon — Block acrylic with the front edge routed round (up to 0.5" / 12.7 mm, at most half the thickness) to simulate a neon glass tube. The face and the front half of the side wall glow.
 - C — Conical — A tapered profile so the lit face can be much narrower than the body, for fine strokes and serifs.
 
 Mounting
 
-##### Stand-off or flush mount.
+##### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale.
 
@@ -1258,14 +1258,14 @@ UL 48 listed · 3-year warranty on LED modules and power supplies
 - **Depth:** 30 mm (1.2″) standard for durability and optimal light diffusion; 25 mm (1″) for small letters and signs (LP 11-F). LP 11-B is also offered at 10, 15 and 20 mm.
 - **Illumination:** Embedded LEDs for uniform lighting: face, halo, face + halo, partial side, full side, faux neon or conical
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Min. letter height:** 2″ (50 mm)
 - **Min. stroke width:** 0.47″ (12 mm) for stability and even illumination. LP 11-S: 0.79″ (20 mm) recommended. LP 11-C: face as narrow as 0.12″ (3 mm).
 - **Colors:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
-- **Mounting:** Flush-mount: LP 11-F, LP 11-S, LP 11-N and LP 11-C. Stand-off spacers: LP 11-B and LP 11-FB, because the halo needs the gap to reach the wall. Flush or stand-off: LP 11-BS and LP 11-FS.
+- **Mounting:** Flush-mount: LP 11-F, LP 11-S, LP 11-N and LP 11-C. Standoff spacers: LP 11-B and LP 11-FB, because the halo needs the gap to reach the wall. Flush or standoff: LP 11-BS and LP 11-FS.
 - **Certification:** UL 48 listed
 - **Warranty:** 3 years, LED modules and power supplies
-- **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
+- **Quote:** Quote in 24 to 48 hours; most quotes returned within 24 hours
 
 3D preview
 
@@ -1314,7 +1314,7 @@ Classic trimless letters
 
 #### Need a deeper, fabricated letter?
 
-Our classic channel letters are trimless fabricated stainless steel in depths from 30 to 100 mm. Ultra-slim LP 11 is the only 25–30 mm line.
+Our classic channel letters are trimless fabricated stainless steel in depths from 30 to 100 mm. Ultra-slim LP 11 is the only 10–30 mm line.
 
 [View Classic Letters](/services/channel-letters)
 
@@ -1366,8 +1366,8 @@ Sunlite Signs is a trade-only wholesale manufacturer. We build for sign companie
 Fig. 01 / Illuminated letters on a building facade
 
 - **UL 48 Listed:** Electrical sign certification
-- **German engineered:** EdgeLuxe letter systems
-- **24–48 H:** Tailored quotes, most times 24 h
+- **German-engineered:** EdgeLuxe letter systems
+- **24–48 H:** Quotes in 24–48 hours, most within 24
 - **3–4 WK:** Typical production + delivery
 - **3 YR:** LED & power supply warranty
 - **Trade only:** Your customer stays your customer.
@@ -1376,9 +1376,9 @@ Fig. 01 / Illuminated letters on a building facade
 
 Our signature option
 
-#### Ultra-slim LP 11. Cast block acrylic, 25–30 mm.
+#### Ultra-slim LP 11. Cast block acrylic, 10–30 mm.
 
-When the letter has to be as shallow as possible, our ultra-slim letters are the answer: solid cast block acrylic with embedded LEDs, in eight lighting variants.
+When the letter has to be as shallow as possible, our ultra-slim letters are the answer: solid cast block acrylic with embedded LEDs, in eight configurations.
 
 [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters) · [Preview in 3D](/configurator?config=lp-11-f-face-lit)
 
@@ -1524,7 +1524,7 @@ Depth options
 
 - 01 — 30 / 50 / 75 / 100 mm — The standard depths of the classic stainless steel systems: 1.2″, 2″, 3″ and 4″.
 - 02 — Custom depth — Tell us the depth the project calls for when you request pricing.
-- 03 — Need it slimmer? — Ultra-slim LP 11 cast block acrylic letters are 25–30 mm deep: our signature product. — [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
+- 03 — Need it slimmer? — Ultra-slim LP 11 cast block acrylic letters are 10–30 mm deep: our signature product. — [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
 
 Mounting options
 
@@ -1605,13 +1605,13 @@ UL 48 listed · 3-year warranty on LED modules and power supplies
 - **Certification:** UL 48 listed
 - **Electrical:** Finished signs UL listed to UL 48; LED modules and power supplies are UL listed components
 - **Warranty:** 3 years, LED modules and power supplies
-- **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
+- **Quote:** Quote in 24 to 48 hours; most quotes returned within 24 hours
 - **Lead time:** Typically 3–4 weeks, production and delivery
 - **Delivery:** Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint
 - **Installation:** Not provided. Installation is handled by you or your contractor.
 - **Files for a quote:** Vector artwork (AI, EPS, PDF), dimensions or a sketch, site photos
 - **Sold to:** Trade only: sign companies and industry professionals
-- **Slimmer option:** Ultra-slim LP 11 cast block acrylic letters, 25–30 mm deep: our signature product. Ultra-slim page
+- **Slimmer option:** Ultra-slim LP 11 cast block acrylic letters, 10–30 mm deep: our signature product. Ultra-slim page
 
 [Request Wholesale Pricing](/contact) · [Explore Products](/#products)
 
@@ -1697,7 +1697,7 @@ Our finished electric signs are UL listed to UL 48, and the LED modules and powe
 
 ##### Do you offer ultra-slim letters?
 
-Yes, they are our signature product: the EdgeLuxe LP 11 series of cast block acrylic letters, 25–30 mm deep (30 mm standard, 25 mm for small letters).
+Yes, they are our signature product: the EdgeLuxe LP 11 series of cast block acrylic letters, 10–30 mm deep (30 mm standard, 25 mm for small letters).
 
 ##### What files do you need to quote channel letters?
 
@@ -1705,7 +1705,7 @@ A logo as a vector file (AI, EPS, PDF), dimensions or a dimension sketch, photos
 
 ##### How long do quotes and production take?
 
-We return a tailored quote in 24 to 48 hours, most times within 24 hours. Production and delivery typically take 3–4 weeks.
+We return a quote within 24 to 48 hours, and most quotes are returned within 24 hours. Production and delivery typically take 3–4 weeks.
 
 ##### What warranty do channel letters carry?
 
@@ -1723,7 +1723,7 @@ Related
 
 #### Keep exploring.
 
-- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Ultra-slim letters — Our signature product: EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
 - Custom fabrication — Blade signs, push-through cabinet signs and custom projects to your drawings. — Open — (Links to: /services/custom-sign-fabrication)
 - Projects — See recent production. — Open — (Links to: /projects)
 - Manufacturing — How drawings become finished signs. — Open — (Links to: /manufacturing)
@@ -1856,7 +1856,7 @@ What we make to order
 
 #### Bring us your drawing. We make it to size.
 
-Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a tailored quote within 24 to 48 hours, most times within 24 hours.
+Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a quote within 24 to 48 hours; most quotes are returned within 24 hours.
 
 [Request Wholesale Pricing](/contact)
 
@@ -1872,7 +1872,7 @@ Technical details
 - **Configuration:** Single-sided, double-sided or blade
 - **Certification:** UL 48 listed
 - **Warranty:** 3 years, LED modules and power supplies
-- **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
+- **Quote:** Quote in 24 to 48 hours; most quotes returned within 24 hours
 - **Delivery:** Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint
 - **Installation:** Not provided. Installation is handled by you or your contractor.
 - **Sold to:** Trade only: sign companies and industry professionals
@@ -1932,7 +1932,7 @@ Letter systems
 
 #### Standard systems, too.
 
-- Ultra-slim letters — EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Ultra-slim letters — EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
 - Classic trimless letters — Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2. — Open — (Links to: /services/channel-letters)
 - Flat cutout letters — Non-illuminated LP 1 letters in wood, metal, acrylic and more. — Open — (Links to: /light-effects/lp-1-flat-cutout)
 - Build Your Sign — Preview your logo as a letter system in 3D before you request pricing. — Open — (Links to: /configurator)
@@ -1967,7 +1967,7 @@ Precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more.
 
 #### About this system
 
-Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.039" (1 mm) up to 7.87" (200 mm) thick. They are unlit and need no maintenance, a clean choice for architectural and interior lettering in a broad range of materials and finishes.
+Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.039" (1 mm) up to 7.87" (200 mm) thick. They are unlit and low-maintenance, a clean choice for architectural and interior lettering in a broad range of materials and finishes.
 
 #### Specifications
 
@@ -1977,8 +1977,8 @@ Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.0
 - **Customization:** Broad range of acrylic colors, paint and vinyl
 - **Min. stroke width:** 0.2" (5 mm)
 - **Min. height:** 0.4" (10 mm)
-- **Maintenance:** No maintenance
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Maintenance:** Low maintenance
+- **Mounting:** Flush to the wall or on standoff spacers
 
 3D preview
 
@@ -2082,7 +2082,7 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
-- **Mounting:** Stand-off spacers only: the halo needs the gap to reach the wall
+- **Mounting:** Standoff spacers only: the halo needs the gap to reach the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2096,15 +2096,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 3.1 is mounted on standoffs only.
 
@@ -2179,15 +2179,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 3.2 is mounted flush.
 
@@ -2241,7 +2241,7 @@ Where the light goes · concept section, not to scale
 
 #### Specifications
 
-- **Materials:** Thick gauge stainless steel returns and back welded together; step-router acrylic face, trimless
+- **Materials:** Thick gauge stainless steel returns and back welded together; step-routed acrylic face, trimless
 - **Illumination:** Face-lit
 - **Depth:** 1.2" (30 mm), 2" (50 mm), 3" (75 mm), 4" (100 mm) and custom depth
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
@@ -2249,7 +2249,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
 - **Mounting:** Flush to the wall
-- **Option:** LP 5+3.1: face and halo lit; the back and the front are made of acrylic; stand-off mounted (the halo needs the gap to the wall)
+- **Option:** LP 5+3.1: face and halo lit; the back and the front are made of acrylic; standoff mounted (the halo needs the gap to the wall)
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2263,15 +2263,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 5 is mounted flush.
 
@@ -2319,7 +2319,7 @@ NightDay
 
 #### About this system
 
-Cast block acrylic letters with LEDs embedded in the body for uniform face lighting, from letters as small as 2" tall. Epoxy-sealed to IP67, so they are waterproof, dust-proof and maintenance-free.
+Cast block acrylic letters with LEDs embedded in the body for uniform face lighting, from letters as small as 2" tall. Epoxy-sealed to IP67, so they are waterproof, dust-proof and low-maintenance.
 
 Where the light goes · concept section, not to scale
 
@@ -2332,7 +2332,7 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
@@ -2347,15 +2347,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-F is mounted flush.
 
@@ -2410,14 +2410,14 @@ Where the light goes · concept section, not to scale
 #### Specifications
 
 - **Materials:** 0.39"-1.2" (10-30 mm) cast block acrylic
-- **Illumination:** Embedded LEDs for uniform halo-lit with standoff spacers
+- **Illumination:** Embedded LEDs for uniform halo illumination with standoff spacers
 - **Depth:** 0.39" (10 mm), 0.5" (15 mm), 0.78" (20 mm) and 1.2" (30 mm) for durability and optimal light diffusion
-- **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored halo-lit effects.
+- **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored halo effects.
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
-- **Mounting:** Stand-off spacers only: the halo needs the gap to reach the wall
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
+- **Mounting:** Standoff spacers only: the halo needs the gap to reach the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2431,15 +2431,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-B is mounted on standoffs only.
 
@@ -2487,21 +2487,21 @@ NightDay
 
 #### About this system
 
-Cast block acrylic letters that combine uniform face lighting with a halo on the wall behind, on standoff spacers. Epoxy-sealed to IP67 and maintenance-free.
+Cast block acrylic letters that combine uniform face lighting with a halo on the wall behind, on standoff spacers. Epoxy-sealed to IP67 and low-maintenance.
 
 Where the light goes · concept section, not to scale
 
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
-- **Illumination:** Embedded LEDs for uniform face- and halo-lit with standoff spacers
+- **Illumination:** Embedded LEDs for uniform face and halo illumination with standoff spacers
 - **Depth:** Standard 1.2" (30 mm) for durability and optimal light diffusion
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
-- **Mounting:** Stand-off spacers only: the halo needs the gap to reach the wall
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
+- **Mounting:** Standoff spacers only: the halo needs the gap to reach the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2515,15 +2515,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-FB is mounted on standoffs only.
 
@@ -2547,7 +2547,7 @@ Block Acrylic Partial Back Side-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-bs-back-side-lit
 - Title: EdgeLuxe LP 11-BS — Block Acrylic Partial Back Side-lit | Sunlite Signs
-- Meta description: Letters, flush or stand-off mounted, with light glowing from the back edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Letters, flush or standoff mounted, with light glowing from the back edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2557,7 +2557,7 @@ LP 11-BS / Block acrylic
 
 Block Acrylic Partial Back Side-lit
 
-Letters, flush or stand-off mounted, with light glowing from the back edge of the side wall.
+Letters, flush or standoff mounted, with light glowing from the back edge of the side wall.
 
 *[Image: UL mark]*
 
@@ -2578,14 +2578,14 @@ Where the light goes · concept section, not to scale
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
-- **Illumination:** Embedded LEDs for uniform partial back side-lit
+- **Illumination:** Embedded LEDs for uniform partial back-side illumination
 - **Depth:** Standard 1.2" (30 mm) for durability and optimal light diffusion
-- **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
+- **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored side-lit effects.
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
+- **Mounting:** Flush to the wall or on standoff spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2599,15 +2599,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-BS can be mounted flush or on standoffs.
 
@@ -2631,7 +2631,7 @@ Block Acrylic Face-lit + Partial Front Side-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-fs-front-side-lit
 - Title: EdgeLuxe LP 11-FS — Block Acrylic Face-lit + Partial Front Side-lit | Sunlite Signs
-- Meta description: Letters, flush or stand-off mounted, with a glowing face and a thin band of light along the front edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Letters, flush or standoff mounted, with a glowing face and a thin band of light along the front edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2641,7 +2641,7 @@ LP 11-FS / Block acrylic
 
 Block Acrylic Face-lit + Partial Front Side-lit
 
-Letters, flush or stand-off mounted, with a glowing face and a thin band of light along the front edge of the side wall.
+Letters, flush or standoff mounted, with a glowing face and a thin band of light along the front edge of the side wall.
 
 *[Image: UL mark]*
 
@@ -2668,8 +2668,8 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
+- **Mounting:** Flush to the wall or on standoff spacers
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2683,15 +2683,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-FS can be mounted flush or on standoffs.
 
@@ -2746,13 +2746,13 @@ Where the light goes · concept section, not to scale
 #### Specifications
 
 - **Materials:** 1.2" (30 mm) cast block acrylic
-- **Illumination:** Embedded LEDs for uniform full side-lit
+- **Illumination:** Embedded LEDs for uniform full-side illumination
 - **Depth:** Standard 1.2" (30 mm) for durability and optimal light diffusion
-- **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
+- **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored side-lit effects.
 - **Min. stroke width:** 0.79" (20 mm) recommended for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
@@ -2767,15 +2767,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-S is mounted flush.
 
@@ -2837,7 +2837,7 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
@@ -2852,15 +2852,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-N is mounted flush.
 
@@ -2921,7 +2921,7 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** Body 0.47" (12 mm); face as narrow as 0.12" (3 mm)
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
-- **Maintenance:** IP67 water- and dust-proof, no maintenance
+- **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
@@ -2936,15 +2936,15 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 Mounting
 
-#### Stand-off or flush mount.
+#### Standoff or flush mount.
 
-Stand-off mount
+Standoff mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-C is mounted flush.
 

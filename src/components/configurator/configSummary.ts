@@ -40,7 +40,7 @@ export function configSummaryRows(
   const rows: SummaryRow[] = [
     { label: "Configuration", value: `${config.code} ${config.subtitle}` },
     { label: "Depth", value: formatDepth(state.depthMm) },
-    { label: "Mounting", value: state.mounting === "standoff" ? "Stand-off spacers (clear plastic tubes, 1″ long, 0.4″ diameter)" : "Flush to the wall" },
+    { label: "Mounting", value: state.mounting === "standoff" ? "Standoff spacers (clear plastic tubes, 1″ long, 0.4″ diameter)" : "Flush to the wall" },
   ];
   const finish = getLp1Finish(state.finish);
   if (isLp1(config)) {

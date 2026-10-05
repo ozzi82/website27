@@ -58,7 +58,7 @@ describe("glow colours", () => {
 });
 
 describe("LP 5 + 3.1 option", () => {
-  it("makes LP 5 face and halo lit, stand-off only, and goes back", () => {
+  it("makes LP 5 face and halo lit, standoff only, and goes back", () => {
     const on = withVariant(lp5, defaultStateFor(lp5), true);
     const eff = effectiveConfig(lp5, on);
     expect(eff.code).toBe("LP 5+3.1");
@@ -96,14 +96,14 @@ describe("disclaimer", () => {
 import { SPACER_DIAMETER_MM, SPACER_LENGTH_MM, mmToWorld, spacerPoints } from "../spacers";
 import { wallGapFor } from "../renderMath";
 
-describe("stand-off spacers", () => {
+describe("standoff spacers", () => {
   const block = (x: number, y: number, w: number, h: number) => {
     const s = new THREE.Shape();
     s.moveTo(x, y); s.lineTo(x + w, y); s.lineTo(x + w, y + h); s.lineTo(x, y + h); s.closePath();
     return s;
   };
 
-  it("are clear 1 inch tubes, 0.4 inch across, and the stand-off gap is exactly one tube long", () => {
+  it("are clear 1 inch tubes, 0.4 inch across, and the standoff gap is exactly one tube long", () => {
     expect(SPACER_LENGTH_MM).toBeCloseTo(25.4, 6);
     expect(SPACER_DIAMETER_MM).toBeCloseTo(10.16, 6);
     expect(wallGapFor("standoff", 2.4)).toBeCloseTo(mmToWorld(SPACER_LENGTH_MM, 2.4), 9);

@@ -106,7 +106,7 @@ export default function ManufacturingPage() {
 
       <RelatedLinks
         items={[
-          { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim letters", text: "Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep." },
+          { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim letters", text: "Our signature product: EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep." },
           { to: CTA_LINKS.viewChannelLetters.to, title: "Classic trimless letters", text: "Fabricated stainless steel channel letters." },
           { to: CTA_LINKS.viewProjects.to, title: "Projects", text: "See recent production." },
           { to: "/about", title: "About", text: "Who we build for, and why the trade outsources to us." },

@@ -7,7 +7,7 @@ export const TRUST_BADGE = {
   src640: "/images/trust-badge-640.webp",
   width: 1134,
   height: 1178,
-  alt: "Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German engineered, nationwide sign company partner",
+  alt: "Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German-engineered, nationwide sign company partner",
 } as const;
 
 /**

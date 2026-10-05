@@ -186,8 +186,8 @@ describe("retired /services URLs redirect on the client", () => {
   const h1 = (path: string) => within(renderAt(path).main).getByRole("heading", { level: 1 }).textContent;
 
   it("/services/cast-block-acrylic and /services/trimless-letters land on the ultra-slim page", () => {
-    expect(h1("/services/cast-block-acrylic")).toBe("Ultra-Slim Channel Letters.Just 25–30 mm Deep.");
-    expect(h1("/services/trimless-letters")).toBe("Ultra-Slim Channel Letters.Just 25–30 mm Deep.");
+    expect(h1("/services/cast-block-acrylic")).toBe("Ultra-Slim Channel Letters.Just 10–30 mm Deep.");
+    expect(h1("/services/trimless-letters")).toBe("Ultra-Slim Channel Letters.Just 10–30 mm Deep.");
   });
 
   it("/services/cabinet-signs lands on the custom fabrication page", () => {

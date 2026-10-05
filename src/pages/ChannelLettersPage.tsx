@@ -184,10 +184,10 @@ export default function ChannelLettersPage() {
             <h2 className="text-3xl md:text-5xl uppercase leading-[1.05]">
               Ultra-slim LP 11.
               <br />
-              <span className="text-primary">Cast block acrylic, 25–30 mm.</span>
+              <span className="text-primary">Cast block acrylic, 10–30 mm.</span>
             </h2>
             <p className="text-sm md:text-base text-foreground/85 mt-4 max-w-xl">
-              When the letter has to be as shallow as possible, our ultra-slim letters are the answer: solid cast block acrylic with embedded LEDs, in eight lighting variants.
+              When the letter has to be as shallow as possible, our ultra-slim letters are the answer: solid cast block acrylic with embedded LEDs, in eight configurations.
             </p>
             <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3">
               <ArrowLink label={CTA_LINKS.exploreUltraSlim.label} to={ULTRA_SLIM_PATH} />
@@ -445,7 +445,7 @@ export default function ChannelLettersPage() {
 
       <RelatedLinks
         items={[
-          { to: ULTRA_SLIM_PATH, title: "Ultra-slim letters", text: "Our signature product: EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep." },
+          { to: ULTRA_SLIM_PATH, title: "Ultra-slim letters", text: "Our signature product: EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep." },
           { to: CTA_LINKS.customFabrication.to, title: "Custom fabrication", text: "Blade signs, push-through cabinet signs and custom projects to your drawings." },
           { to: CTA_LINKS.viewProjects.to, title: "Projects", text: "See recent production." },
           { to: CTA_LINKS.viewManufacturing.to, title: "Manufacturing", text: "How drawings become finished signs." },

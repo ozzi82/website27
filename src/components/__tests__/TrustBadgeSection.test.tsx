@@ -24,7 +24,7 @@ describe("TrustBadgeSection", () => {
     renderSection();
     const img = screen.getByRole("img", { name: TRUST_BADGE.alt });
     expect(TRUST_BADGE.alt).toBe(
-      "Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German engineered, nationwide sign company partner",
+      "Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German-engineered, nationwide sign company partner",
     );
     expect(img).toHaveAttribute("src", "/images/trust-badge.webp");
     expect(img).toHaveAttribute("width", String(TRUST_BADGE.width));

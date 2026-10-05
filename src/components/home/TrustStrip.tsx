@@ -1,12 +1,12 @@
 /**
  * Capability strip directly under the hero. Only claims the owner has confirmed:
- * UL 48 listed, German engineered, quotes in 24 to 48 hours (most times 24), 3-4 week production + delivery,
+ * UL 48 listed, German-engineered, quotes in 24 to 48 hours (most times 24), 3-4 week production + delivery,
  * 3-year LED & power-supply warranty, trade only (the site's "your customer stays your customer" promise).
  */
 const items = [
   { value: "UL 48 Listed", label: "Electrical sign certification" },
-  { value: "German engineered", label: "EdgeLuxe letter systems" },
-  { value: "24–48 H", label: "Tailored quotes, most times 24 h" },
+  { value: "German-engineered", label: "EdgeLuxe letter systems" },
+  { value: "24–48 H", label: "Quotes in 24–48 hours, most within 24" },
   { value: "3–4 WK", label: "Typical production + delivery" },
   { value: "3 YR", label: "LED & power supply warranty" },
   { value: "Trade only", label: "Your customer stays your customer." },

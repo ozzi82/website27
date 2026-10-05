@@ -20,7 +20,7 @@ const SECTIONS = [
 
 const PRODUCT_LINKS: Record<string, RelatedItem> = {
   "channel-letters": { to: CTA_LINKS.viewChannelLetters.to, title: "Classic trimless letters", text: "Fabricated stainless steel: face-lit LP 5, halo-lit LP 3.1 and flush-mount LP 3.2." },
-  "ultra-slim-trimless-channel-letters": { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim letters", text: "EdgeLuxe LP 11 cast block acrylic, 25–30 mm deep." },
+  "ultra-slim-trimless-channel-letters": { to: CTA_LINKS.exploreUltraSlim.to, title: "Ultra-slim letters", text: "EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep." },
   "custom-sign-fabrication": { to: CTA_LINKS.customFabrication.to, title: "Custom fabrication", text: "Blade signs, push-through cabinet signs and custom projects to your drawings." },
 };
 

@@ -36,7 +36,7 @@ describe("ConfigLightDiagram", () => {
     expect(rays("lp-11-f-face-lit")).toBe(3); // three rays through the face
   });
 
-  it("explains stand-off versus flush mount with one drawing and one caption each", () => {
+  it("explains standoff versus flush mount with one drawing and one caption each", () => {
     const { container } = render(<StandoffVsFlush />);
     expect([...container.querySelectorAll("[data-diagram]")].map((d) => d.getAttribute("data-diagram"))).toEqual(["mount-standoff", "mount-flush"]);
     expect(container.textContent).toMatch(/floats off the wall on spacers/);

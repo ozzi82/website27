@@ -27,7 +27,7 @@ export interface GlowParts {
  */
 export function glowParts(light: LightBehavior, _profile?: Profile, mount?: Mount): GlowParts {
   const face = light.face === "glow";
-  // Only letters made to light the wall spill light on it: halo letters (stand-off) and a back side band (a thin leak
+  // Only letters made to light the wall spill light on it: halo letters (standoff) and a back side band (a thin leak
   // when flush, a wash when stood off). A face-lit, front-band or side-lit letter does not light the wall behind it.
   const wallSpill: WallSpill =
     light.halo === "standoff"

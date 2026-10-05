@@ -29,7 +29,7 @@ describe("DepthComparison", () => {
     expect(text).toContain("CONVENTIONAL TRIM-CAP LETTER");
     expect(text).toContain("A TYPE SUNLITE DOES NOT BUILD");
     expect(text).toContain("SUNLITE ULTRA-SLIM (LP 11)");
-    expect(text).toContain("25–30 mm");
+    expect(text).toContain("10–30 mm");
     // The only millimetre figure in the drawing is the ultra-slim one: nothing is claimed for the conventional return.
     expect(text.match(/\d+\s?mm/g)).toEqual(["30 mm"]);
     expect(text).not.toMatch(/\d+\s?(in|inch|")(?!\w)/);

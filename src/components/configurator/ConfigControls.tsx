@@ -303,8 +303,8 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           {illustrative && <p>Illustrative preview — this profile is approximated.</p>}
           <p>Paint color applies to the sides and any face that isn’t lit; glow color is the pigmented acrylic or vinyl.</p>
           <p>The brightness slider dims the LEDs in the night view.</p>
-          {state.mounting === "standoff" && <p>Stand-off spacers are clear plastic tubes, 1″ long and 0.4″ in diameter (drawn slightly thicker here so they can be seen).</p>}
-          {mounts.length === 1 && <p>This system is mounted on stand-off spacers only: the halo needs the gap to reach the wall.</p>}
+          {state.mounting === "standoff" && <p>Standoff spacers are clear plastic tubes, 1″ long and 0.4″ in diameter (drawn slightly thicker here so they can be seen).</p>}
+          {mounts.length === 1 && <p>This system is mounted on standoff spacers only: the halo needs the gap to reach the wall.</p>}
           {flat && (
             <p>
               {finish.builds.length === 1

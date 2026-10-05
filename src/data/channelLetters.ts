@@ -168,7 +168,7 @@ export interface MountingOption {
   systems: string;
 }
 
-/** The two mountings (owner list, 2026-10-05): LP 3.1 is stand-off only; LP 5 and LP 3.2 are flush-mount. */
+/** The two mountings (owner list, 2026-10-05): LP 3.1 is standoff only; LP 5 and LP 3.2 are flush-mount. */
 export const mountingOptions: MountingOption[] = [
   {
     id: "standoff",
@@ -230,7 +230,7 @@ export const channelLetterSpecs: SpecRow[] = [
   { label: "Certification", value: "UL 48 listed" },
   { label: "Electrical", value: "Finished signs UL listed to UL 48; LED modules and power supplies are UL listed components" },
   { label: "Warranty", value: "3 years, LED modules and power supplies" },
-  { label: "Quote", value: "Tailored quote in 24 to 48 hours, most times 24 hours" },
+  { label: "Quote", value: "Quote in 24 to 48 hours; most quotes returned within 24 hours" },
   { label: "Lead time", value: "Typically 3–4 weeks, production and delivery" },
   { label: "Delivery", value: "Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint" },
   { label: "Installation", value: "Not provided. Installation is handled by you or your contractor." },
@@ -238,7 +238,7 @@ export const channelLetterSpecs: SpecRow[] = [
   { label: "Sold to", value: "Trade only: sign companies and industry professionals" },
   {
     label: "Slimmer option",
-    value: "Ultra-slim LP 11 cast block acrylic letters, 25–30 mm deep: our signature product.",
+    value: "Ultra-slim LP 11 cast block acrylic letters, 10–30 mm deep: our signature product.",
     link: { label: "Ultra-slim page", to: ULTRA_SLIM_PATH },
   },
 ];
@@ -267,7 +267,7 @@ export const channelLetterFaqs: Faq[] = [
   },
   {
     q: "Do you offer ultra-slim letters?",
-    a: "Yes, they are our signature product: the EdgeLuxe LP 11 series of cast block acrylic letters, 25–30 mm deep (30 mm standard, 25 mm for small letters).",
+    a: "Yes, they are our signature product: the EdgeLuxe LP 11 series of cast block acrylic letters, 10–30 mm deep (30 mm standard, 25 mm for small letters).",
   },
   {
     q: "What files do you need to quote channel letters?",
@@ -275,7 +275,7 @@ export const channelLetterFaqs: Faq[] = [
   },
   {
     q: "How long do quotes and production take?",
-    a: "We return a tailored quote in 24 to 48 hours, most times within 24 hours. Production and delivery typically take 3–4 weeks.",
+    a: "We return a quote within 24 to 48 hours, and most quotes are returned within 24 hours. Production and delivery typically take 3–4 weeks.",
   },
   {
     q: "What warranty do channel letters carry?",
@@ -328,7 +328,7 @@ export const depthOptions: DepthOption[] = [
   {
     id: "ultra-slim",
     title: "Need it slimmer?",
-    text: "Ultra-slim LP 11 cast block acrylic letters are 25–30 mm deep: our signature product.",
+    text: "Ultra-slim LP 11 cast block acrylic letters are 10–30 mm deep: our signature product.",
     link: { label: "Explore Ultra-Slim", to: ULTRA_SLIM_PATH },
   },
 ];

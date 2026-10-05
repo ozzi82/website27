@@ -19,7 +19,7 @@ export default function UltraSlimSection() {
               eyebrow="Sunlite Ultra-Slim · EdgeLuxe LP 11"
               title={
                 <>
-                  25–30 mm.
+                  10–30 mm.
                   <br />
                   <span className="text-primary">Less depth. More design freedom.</span>
                 </>
@@ -50,7 +50,7 @@ export default function UltraSlimSection() {
 
         <div className="mt-14 md:mt-20">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-5 border-b border-border pb-4">
-            <p className="mono-label text-primary">The LP 11 series · eight lighting variants</p>
+            <p className="mono-label text-primary">The LP 11 series · eight configurations</p>
             <p className="mono-label text-muted-foreground">F face · B back · S side · N neon · C conical</p>
           </div>
           <ul className="grid grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-3">
