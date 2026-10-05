@@ -23,6 +23,7 @@ import { formatConfigSummary, configSummaryRows, type ArtworkInfo } from "../com
 import { saveQuote, quoteFileId, type ArtworkFileMeta, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 import { clearArtworkFile, saveArtworkFile } from "../components/configurator/artworkFileStorage";
 import { lineStackFactor, strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
+import ThinStrokeNotice from "../components/configurator/ThinStrokeNotice";
 import ConfiguratorDisclaimer from "../components/configurator/ConfiguratorDisclaimer";
 import { isLp1, isLp1FinishId } from "../components/configurator/lp1Materials";
 import { configurations } from "../data/configurations";
@@ -210,6 +211,7 @@ export default function ConfiguratorPage() {
               <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
                 <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} />
               </ErrorBoundary>
+              <ThinStrokeNotice config={config} strokeRatio={strokeRatio} />
               {!shapes && (
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
                   <span className="rounded-full bg-black/55 px-4 py-2 text-sm text-white/90">Type your text to see your sign here.</span>
@@ -249,7 +251,7 @@ export default function ConfiguratorPage() {
               />
             )}
 
-            <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} />
+            <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} adviceInPreview />
 
             <ConfiguratorDisclaimer />
 

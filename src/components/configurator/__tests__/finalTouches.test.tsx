@@ -142,3 +142,17 @@ describe("walls light only where the letter is made to light them", () => {
     expect(glowParts(byId("lp-11-bs-back-side-lit").light, "standard", "flush").wallSpill).toBe("flush");
   });
 });
+
+import ThinStrokeNotice from "../ThinStrokeNotice";
+
+describe("thin-stroke notice", () => {
+  it("is a visible note over the preview for thin artwork, and absent for sturdy artwork", () => {
+    const neon = byId("lp-11-n-faux-neon");
+    const { container, rerender } = render(<ThinStrokeNotice config={neon} strokeRatio={0.03} />);
+    const note = screen.getByRole("note");
+    expect(note.textContent).toMatch(/thin strokes/i);
+    expect(note.className).toMatch(/absolute/);
+    rerender(<ThinStrokeNotice config={neon} strokeRatio={0.3} />);
+    expect(container.querySelector('[role="note"]')).toBeNull();
+  });
+});

@@ -16,6 +16,8 @@ interface ConfigControlsProps {
   onChange: (state: ConfiguratorState) => void;
   /** Average stroke width over artwork height (see strokeHeightRatio); null/undefined when unknown. */
   strokeRatio?: number | null;
+  /** The thin-stroke advice is shown over the 3D preview instead of here (see ThinStrokeNotice). */
+  adviceInPreview?: boolean;
 }
 
 /** Bigger, easier to see segments for the choices that matter most (depth, mounting, lighting, build). */
@@ -92,7 +94,7 @@ function DepthLabel({ mm }: { mm: number }) {
   );
 }
 
-export default function ConfigControls({ config, state, onChange, strokeRatio = null }: ConfigControlsProps) {
+export default function ConfigControls({ config, state, onChange, strokeRatio = null, adviceInPreview = false }: ConfigControlsProps) {
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
 
   const brightnessId = useId();
@@ -271,7 +273,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
 
       <DayNightToggle value={state.dayNight} onChange={(dayNight) => set({ dayNight })} />
 
-      {advice && (
+      {advice && !adviceInPreview && (
         <p
           role="note"
           className={
