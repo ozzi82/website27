@@ -73,3 +73,12 @@ describe("static route lists", () => {
     expect(redirects).toMatch(/\/services\/cabinet-signs\s+\/services\/custom-sign-fabrication\s+301/);
   });
 });
+
+describe("old WordPress pages", () => {
+  it("nginx answers 410 Gone for the old /service/ lorem ipsum pages and WordPress internals, but not for /services/", () => {
+    const nginx = fs.readFileSync(path.resolve(__dirname, "../../../nginx.conf"), "utf8");
+    expect(nginx).toMatch(/location \^~ \/service\/ \{ return 410; \}/);
+    expect(nginx).toMatch(/error_page 404 410 \/404\.html;/);
+    expect(nginx).not.toMatch(/location \^~ \/services\/ \{ return 410/);
+  });
+});

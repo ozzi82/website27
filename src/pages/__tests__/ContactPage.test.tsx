@@ -356,12 +356,12 @@ describe("ContactPage wholesale quote page (brief section 10)", () => {
     expect(screen.queryByText(/get in touch|request a quote|get a quote|start your project/i)).not.toBeInTheDocument();
   });
 
-  it("keeps phone, email and WhatsApp alternatives", () => {
+  it("keeps phone and email alternatives, and has no WhatsApp link", () => {
     installHubSpot();
     renderContact();
     expect(screen.getByRole("link", { name: /hello@sunlitesigns\.com/ })).toHaveAttribute("href", "mailto:hello@sunlitesigns.com");
     expect(screen.getByRole("link", { name: /\(689\) 294-0912/ })).toHaveAttribute("href", "tel:+16892940912");
-    expect(screen.getByRole("link", { name: /whatsapp/i })).toHaveAttribute("href", expect.stringContaining("wa.me"));
+    expect(screen.queryByRole("link", { name: /whatsapp/i })).toBeNull();
   });
 
   it("asks HubSpot for the primary CTA label on the submit button", () => {

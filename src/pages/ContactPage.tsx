@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Mail, MessageCircle, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import ContactForm, { type AttachmentStatus } from "../components/ContactForm";
 import ULBadge from "../components/ULBadge";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -10,7 +10,7 @@ import QuoteCard from "../components/configurator/QuoteCard";
 import { clearQuote, isQuoteSnapshot, loadQuote, quoteFileId, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 import { clearArtworkFile, loadArtworkFile } from "../components/configurator/artworkFileStorage";
 import { renderSummaryImage } from "../components/configurator/summaryImage";
-import { EMAIL, PHONE_DISPLAY, PHONE_NUMBER, WHATSAPP_URL } from "../lib/contact";
+import { EMAIL, PHONE_DISPLAY, PHONE_NUMBER } from "../lib/contact";
 import { CTA_LINKS, CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl, breadcrumbJsonLd, type Crumb } from "../lib/seo";
 
@@ -162,10 +162,6 @@ export default function ContactPage() {
                 <a href={`tel:${PHONE_NUMBER}`} className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
                   <Phone aria-hidden="true" className="w-4 h-4 text-primary" />
                   {PHONE_DISPLAY}
-                </a>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
-                  <MessageCircle aria-hidden="true" className="w-4 h-4 text-primary" />
-                  WhatsApp
                 </a>
               </p>
             </div>

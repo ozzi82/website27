@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import Logo from "./Logo";
 import { LegalDialogs, useLegalDialogs } from './LegalDialogs';
 import { clearConsent } from '../lib/consent';
 import { openChat } from '../lib/chat';
@@ -26,8 +27,8 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-start gap-8 mb-8">
             <div className="space-y-3 max-w-md">
-              <Link to="/" className="flex items-center gap-2 font-bold text-lg">
-                <span className="text-primary">SUNLITE</span> <span className="text-foreground">SIGNS</span>
+              <Link to="/" aria-label="Sunlite Signs, home" className="inline-flex items-center">
+                <Logo className="h-7 w-auto text-foreground" />
               </Link>
               <p className="text-sm leading-relaxed text-muted-foreground">
                 <span className="text-foreground/90">{COMPANY_LINE}</span>

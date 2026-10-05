@@ -39,11 +39,9 @@ Top bar: Wholesale manufacturing partner for sign companies · Trade only
 
 Header navigation (Products dropdown, then Projects, Manufacturing, About): Products (/#products), Ultra-Slim Letters (LP 11) (/services/ultra-slim-trimless-channel-letters), Classic Trimless Letters (/services/channel-letters), Flat Cutout Letters (LP 1) (/light-effects/lp-1-flat-cutout), Custom Fabrication (/services/custom-sign-fabrication), All 12 letter systems (/#light-effects), Build Your Sign (/configurator), Projects (/projects), Manufacturing (/manufacturing), About (/about). Plus the primary button (Request Wholesale Pricing, /contact).
 
-Header contact links: tel:+16892940912, https://wa.me/16892940912, mailto:hello@sunlitesigns.com
+Header contact links: tel:+16892940912, mailto:hello@sunlitesigns.com
 
 Footer:
-
-[SUNLITE SIGNS](/)
 
 Sunlite Signs LLC Wholesale manufacturing partner for sign companies nationwide.
 
@@ -980,7 +978,7 @@ Helps us quote fast
 - Photos of the facade or installation site
 - Desired light effect, indoor or outdoor
 
-[hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912) · [WhatsApp](https://wa.me/16892940912)
+[hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
 
 FAQ
 

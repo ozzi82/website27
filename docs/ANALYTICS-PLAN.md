@@ -8,7 +8,7 @@ learn from real leads (not only clicks).
   or direct gtag loading, `dataLayer` events, ad click / UTM capture.
 - `src/components/CookieBanner.tsx` + footer "Cookie settings": the cookie note and the consent switch.
 - Events already sent: `page_view` (every route change), `generate_lead` (quote form submitted, with
-  `has_configurator_quote`), `click_to_call`, `click_email`, `click_whatsapp`, `configurator_quote_click`.
+  `has_configurator_quote`), `click_to_call`, `click_email`, `configurator_quote_click`.
 - Ad tags (gclid, gbraid, wbraid, msclkid, utm_source/medium/campaign/term/content) are kept for the visit and written
   into hidden HubSpot form fields of the same names (see "HubSpot" below).
 
@@ -31,7 +31,7 @@ is loaded at all.
 3. GTM trigger "Custom event = generate_lead" -> **GA4 event `generate_lead`** and a **Google Ads Conversion** tag (conversion ID
    and label from Ads > Goals > Conversions > New > Website). Mark `generate_lead` as a key event in GA4 and import it into
    Ads (or use the Ads tag directly, not both, or leads count twice).
-4. Secondary conversions (observe only, not for bidding): `click_to_call`, `click_whatsapp`, `click_email`,
+4. Secondary conversions (observe only, not for bidding): `click_to_call`, `click_email`,
    `configurator_quote_click`.
 5. Turn on **Enhanced conversions for leads** in Ads (uses the hashed email from the form, helps when cookies are declined).
 6. Link GA4 <-> Google Ads, and Search Console <-> GA4.
@@ -66,7 +66,7 @@ is loaded at all.
 | Heatmaps and session recordings | **Microsoft Clarity** (free) | In GTM add a Custom HTML tag with Clarity's snippet, trigger after consent; shows clicks, scroll depth, rage clicks, recordings |
 | Do they use the configurator | GA4 > Explore > Funnel exploration | Events sent: `page_view` of `/configurator`, `configurator_artwork` (source text or upload: a sign was actually built), `configurator_system` (which letter system), `configurator_option` (option, value: day/night, mounting, depth, glow colour, finish...), `configurator_quote_click` (asked for a quote), `generate_lead` |
 | Which systems / options are popular | GA4 > Explore > Free form, break down by event parameter | Register `configuration`, `option`, `value`, `source` as custom dimensions (Admin > Custom definitions) |
-| Phone, WhatsApp, email, chat use | GA4 events | `click_to_call`, `click_whatsapp`, `click_email`, `chat_started` |
+| Phone, email, chat use | GA4 events | `click_to_call`, `click_email`, `chat_started` |
 | Do ads produce submissions | Google Ads > Goals/Conversions, GA4 > Advertising | The `generate_lead` conversion in Ads (see steps 3 and 5 above); compare conversions per campaign, ad group and keyword |
 | Which ad / keyword produced which lead, and whether it became a customer | HubSpot contact record | `gclid` and `utm_*` land in hidden form fields; qualified and won deals go back to Ads as offline conversions |
 | How visible on Google | Search Console > Performance (queries, impressions, clicks, position) | Verify the domain property; check weekly |

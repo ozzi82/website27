@@ -5,7 +5,7 @@ import { initTracking, trackEvent, trackPageView } from "../lib/tracking";
 
 /**
  * Starts tracking once, sends a page view on every route change, and reports the clicks that matter to the business:
- * phone, email and WhatsApp links. Renders nothing.
+ * phone and email links. Renders nothing.
  */
 export default function TrackingListener() {
   const { pathname, search } = useLocation();
@@ -19,7 +19,6 @@ export default function TrackingListener() {
       const href = a.getAttribute("href") ?? "";
       if (href.startsWith("tel:")) trackEvent("click_to_call", { link_url: href });
       else if (href.startsWith("mailto:")) trackEvent("click_email", { link_url: href });
-      else if (href.includes("wa.me/")) trackEvent("click_whatsapp", { link_url: href });
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);
