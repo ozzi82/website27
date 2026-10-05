@@ -81,7 +81,7 @@ describe("/services/channel-letters depth (construction, depth options, files, w
     expect(files).toMatch(/AI, EPS or PDF/);
     expect(files).not.toMatch(/svg|dxf|dwg|cdr|png|jpe?g/i);
     expect(filesWeAccept.map((r) => r.label)).toEqual(["Artwork", "Size", "Site", "Brief"]);
-    expect(section.textContent).toMatch(/Build Your Sign 3D preview accepts SVG or PDF/);
+    expect(section.textContent).toMatch(/Build Your Sign 3D preview accepts SVG, PDF or Illustrator \(.ai\)/);
   });
 
   it("what arrives stays within the existing ready-to-install wording (no hardware, no test, no backer panel)", () => {

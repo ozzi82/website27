@@ -181,7 +181,10 @@ export function MountCompareDiagram({ kind, className }: { kind: MountCompareKin
   );
 }
 
-const STANDOFF_ONLY = configurations.filter((c) => !c.mounts.includes("flush")).map((c) => c.code);
+const codes = (list: typeof configurations) => list.map((c) => c.code).join(", ");
+const STANDOFF_ONLY = codes(configurations.filter((c) => !c.mounts.includes("flush")));
+const FLUSH_ONLY = codes(configurations.filter((c) => !c.mounts.includes("standoff")));
+const EITHER = codes(configurations.filter((c) => c.mounts.length > 1));
 
 /** Stand-off next to flush mount, each with a short factual caption; used where the mount decides how the halo looks. */
 export function StandoffVsFlush({ className }: { className?: string }) {
@@ -194,7 +197,7 @@ export function StandoffVsFlush({ className }: { className?: string }) {
         <figcaption className="p-5">
           <p className="mono-label text-primary">Stand-off mount</p>
           <p className="text-sm text-muted-foreground mt-2">
-            The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; {STANDOFF_ONLY.join(", ")} can only be mounted this way, because the halo needs the gap.
+            The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: {STANDOFF_ONLY}, because the halo needs the gap. Flush or stand-off: {EITHER}.
           </p>
         </figcaption>
       </figure>
@@ -205,7 +208,7 @@ export function StandoffVsFlush({ className }: { className?: string }) {
         <figcaption className="p-5">
           <p className="mono-label text-primary">Flush mount</p>
           <p className="text-sm text-muted-foreground mt-2">
-            The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except {STANDOFF_ONLY.join(", ")}.
+            The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: {FLUSH_ONLY}. Flush or stand-off: {EITHER}.
           </p>
         </figcaption>
       </figure>

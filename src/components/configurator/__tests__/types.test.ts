@@ -141,8 +141,9 @@ describe("mounting state", () => {
   it("starts flush where offered, stand-off where it is the only option, and keeps the choice when the new system offers it", () => {
     expect(defaultStateFor(byId("lp-11-f-face-lit")).mounting).toBe("flush");
     expect(defaultStateFor(byId("lp-11-b-back-lit")).mounting).toBe("standoff");
-    const standoff = { ...defaultStateFor(byId("lp-5-trimless-face-lit")), mounting: "standoff" as const };
-    expect(switchConfig(standoff, byId("lp-11-s-side-lit")).mounting).toBe("standoff");
+    const standoff = { ...defaultStateFor(byId("lp-1-flat-cutout")), mounting: "standoff" as const };
+    expect(switchConfig(standoff, byId("lp-11-fs-front-side-lit")).mounting).toBe("standoff");
+    expect(switchConfig(standoff, byId("lp-11-s-side-lit")).mounting).toBe("flush"); // flush only
     expect(switchConfig({ ...standoff, mounting: "flush" }, byId("lp-3-1-standoff-halo")).mounting).toBe("standoff");
   });
 });

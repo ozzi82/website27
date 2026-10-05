@@ -69,10 +69,18 @@ describe("UploadDropzone", () => {
 
     const alert = await screen.findByRole("alert");
     expect(alert).toHaveTextContent(
-      "We support SVG and PDF right now. Export your logo as SVG, or send it to us directly and we'll quote it by hand."
+      "We support SVG, PDF and Illustrator (.ai) files right now. Export your logo as SVG, or send it to us directly and we'll quote it by hand."
     );
     // The raw technical message must not reach the user.
     expect(alert).not.toHaveTextContent(/unsupported file type/i);
+  });
+
+  it("explains what to do with an EPS file, which cannot be previewed here", async () => {
+    const user = userEvent.setup({ applyAccept: false });
+    vi.mocked(parseArtwork).mockRejectedValue(new UnsupportedFormatError("logo.eps"));
+    renderDropzone();
+    await user.upload(screen.getByLabelText(/upload your logo/i), new File(["%!PS"], "logo.eps"));
+    expect(await screen.findByRole("alert")).toHaveTextContent(/can't preview EPS files.*export the logo as SVG or PDF/i);
   });
 
   it.each([

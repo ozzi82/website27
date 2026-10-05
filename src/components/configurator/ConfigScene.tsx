@@ -13,6 +13,7 @@ import { brightnessFactor } from "./brightness";
 import { emitsLight, type ConfiguratorState } from "./types";
 import Lp1Material from "./Lp1Material";
 import { isLp1 } from "./lp1Materials";
+import Spacers from "./Spacers";
 import { glowParts, type WallSpill } from "./glowParts";
 
 interface ConfigSceneProps {
@@ -26,8 +27,6 @@ interface ConfigSceneProps {
 const WALL_SPILL: Record<Exclude<WallSpill, "none">, { scale: number; spread: number }> = {
   standoff: { scale: 1.1, spread: 1.5 },
   flush: { scale: 1.5, spread: 0.6 },
-  edge: { scale: 0.9, spread: 0.55 },
-  glare: { scale: 0.45, spread: 0.9 },
 };
 
 /**
@@ -64,13 +63,13 @@ function SignScene({ shapes, config, state }: ConfigSceneProps) {
 
   const background = getBackground(state.background);
   const wall = useWallTexture(background.id);
-  const gap = wallGapFor(state.mounting);
+  const gap = wallGapFor(state.mounting, height);
   const lit = emitsLight(config);
   const level = brightnessFactor(state.brightness);
   const glowColor = useMemo(() => new THREE.Color(state.glowColor), [state.glowColor]);
   const parts = glowParts(light, profile, state.mounting);
   const band = litBandThickness(depth, height, parts.sideBand ?? undefined);
-  const spill = WALL_SPILL[parts.wallSpill === "none" ? "glare" : parts.wallSpill];
+  const spill = WALL_SPILL[parts.wallSpill === "none" ? "flush" : parts.wallSpill];
   const haloColor = useMemo(() => glowColor.clone().multiplyScalar(spill.scale), [glowColor, spill]);
 
   // material-0 = front/back caps = the face; material-1 = extruded sides —
@@ -109,6 +108,7 @@ function SignScene({ shapes, config, state }: ConfigSceneProps) {
       </mesh>
 
       <BackdropWall gap={gap} background={background} wall={wall} />
+      {state.mounting === "standoff" && <Spacers shapes={shapes} height={height} />}
 
       {wallSpill && (
         <HaloGlow shapes={shapes} z={-gap + 0.003} color={haloColor} spread={spill.spread} background={background} wall={wall} level={level} />

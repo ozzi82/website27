@@ -8,7 +8,7 @@ const POSTER = "/images/configurator-demo-poster.webp";
 const SIZE = { width: 720, height: 548 };
 
 const points = [
-  "Upload your artwork (SVG or PDF) or just type your text",
+  "Upload your artwork (SVG, PDF or AI) or just type your text",
   "Choose from the 12 EdgeLuxe letter systems",
   "Switch between day and night, dim the LEDs, try different walls",
   "Send the configuration with your wholesale pricing request",

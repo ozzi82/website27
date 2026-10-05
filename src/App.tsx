@@ -2,6 +2,8 @@ import { lazy, Suspense } from "react";
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import CookieBanner from "./components/CookieBanner";
+import TrackingListener from "./components/TrackingListener";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
 import ProjectsPage from "./pages/ProjectsPage";
@@ -54,6 +56,8 @@ export function AppRoutes() {
         </Routes>
       </main>
       <Footer />
+      <CookieBanner />
+      <TrackingListener />
     </div>
   );
 }

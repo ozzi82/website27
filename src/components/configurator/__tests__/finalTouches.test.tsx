@@ -100,3 +100,45 @@ describe("LP 1 placeholder gallery", () => {
     expect(new THREE.Color("#fff").isColor).toBe(true);
   });
 });
+
+import { SPACER_DIAMETER_MM, SPACER_LENGTH_MM, mmToWorld, spacerPoints } from "../spacers";
+import { wallGapFor } from "../renderMath";
+
+describe("stand-off spacers", () => {
+  const block = (x: number, y: number, w: number, h: number) => {
+    const s = new THREE.Shape();
+    s.moveTo(x, y); s.lineTo(x + w, y); s.lineTo(x + w, y + h); s.lineTo(x, y + h); s.closePath();
+    return s;
+  };
+
+  it("are clear 1 inch tubes, 0.4 inch across, and the stand-off gap is exactly one tube long", () => {
+    expect(SPACER_LENGTH_MM).toBeCloseTo(25.4, 6);
+    expect(SPACER_DIAMETER_MM).toBeCloseTo(10.16, 6);
+    expect(wallGapFor("standoff", 2.4)).toBeCloseTo(mmToWorld(SPACER_LENGTH_MM, 2.4), 9);
+  });
+
+  it("go inside thick parts of the letter, spread out, and never onto a stroke too thin to hold a tube", () => {
+    const thick = [block(0, 0, 3, 2.4)];
+    const pts = spacerPoints(thick, 2.4);
+    expect(pts.length).toBeGreaterThan(1);
+    for (const p of pts) {
+      expect(p.x).toBeGreaterThan(0);
+      expect(p.x).toBeLessThan(3);
+      expect(p.y).toBeGreaterThan(0);
+      expect(p.y).toBeLessThan(2.4);
+    }
+    const hairline = [block(0, 0, 3, 0.01)];
+    expect(spacerPoints(hairline, 2.4)).toEqual([]);
+  });
+});
+
+describe("walls light only where the letter is made to light them", () => {
+  it("face-lit, front-band and full side-lit letters spill nothing on the wall", () => {
+    for (const id of ["lp-11-f-face-lit", "lp-11-fs-front-side-lit", "lp-11-s-side-lit", "lp-11-n-faux-neon", "lp-11-c-conical", "lp-5-trimless-face-lit"]) {
+      const c = byId(id);
+      expect(glowParts(c.light, c.profile, "flush").wallSpill, id).toBe("none");
+    }
+    expect(glowParts(byId("lp-11-b-back-lit").light, "standard", "standoff").wallSpill).toBe("standoff");
+    expect(glowParts(byId("lp-11-bs-back-side-lit").light, "standard", "flush").wallSpill).toBe("flush");
+  });
+});

@@ -1,6 +1,8 @@
 export class UnsupportedFormatError extends Error {
+  readonly fileName: string;
   constructor(fileName: string) {
-    super(`Unsupported file type: ${fileName}. Only SVG and PDF are supported.`);
+    super(`Unsupported file type: ${fileName}. Only SVG, PDF and Illustrator (.ai) files are supported.`);
+    this.fileName = fileName;
     this.name = "UnsupportedFormatError";
   }
 }

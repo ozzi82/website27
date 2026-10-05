@@ -55,6 +55,8 @@ Sunlite Signs LLC Wholesale manufacturing partner for sign companies nationwide.
 
 [Button: Privacy Policy]
 
+[Button: Cookie settings]
+
 © 2026 Sunlite Signs LLC. All rights reserved.
 
 Trade customers only. No retail sales. No installation services.
@@ -169,7 +171,7 @@ Build Your Sign · A 3D sign configurator built for sign companies
 
 #### Design it. See it lit. Send it for a quote.
 
-- Upload your artwork (SVG or PDF) or just type your text
+- Upload your artwork (SVG, PDF or AI) or just type your text
 - Choose from the 12 EdgeLuxe letter systems
 - Switch between day and night, dim the LEDs, try different walls
 - Send the configuration with your wholesale pricing request
@@ -955,7 +957,7 @@ LP 11-F
 The face glows evenly toward the viewer.
 
 - **Depth:** 25 or 30 mm
-- **Mounting:** Flush or stand-off
+- **Mounting:** Flush-mount
 
 [View system](/light-effects/lp-11-f-face-lit) · [Preview in 3D](/configurator?config=lp-11-f-face-lit)
 
@@ -1020,7 +1022,7 @@ LP 11-S
 The whole side wall glows; the painted face stays solid.
 
 - **Depth:** 30 mm
-- **Mounting:** Flush or stand-off
+- **Mounting:** Flush-mount
 
 [View system](/light-effects/lp-11-s-side-lit) · [Preview in 3D](/configurator?config=lp-11-s-side-lit)
 
@@ -1033,7 +1035,7 @@ LP 11-N
 Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.
 
 - **Depth:** 30 mm
-- **Mounting:** Flush or stand-off
+- **Mounting:** Flush-mount
 
 [View system](/light-effects/lp-11-n-faux-neon) · [Preview in 3D](/configurator?config=lp-11-n-faux-neon)
 
@@ -1046,7 +1048,7 @@ LP 11-C
 Tapered conical profile for narrow strokes and serifs, face-lit.
 
 - **Depth:** 30 mm
-- **Mounting:** Flush or stand-off
+- **Mounting:** Flush-mount
 
 [View system](/light-effects/lp-11-c-conical) · [Preview in 3D](/configurator?config=lp-11-c-conical)
 
@@ -1102,11 +1104,11 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale.
 
@@ -1130,7 +1132,7 @@ Technical details
 - **Min. letter height:** 2″ (50 mm)
 - **Min. stroke width:** 0.47″ (12 mm) for stability and even illumination. LP 11-S: 0.79″ (20 mm) recommended. LP 11-C: face as narrow as 0.12″ (3 mm).
 - **Colors:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
-- **Mounting:** Flush to the wall or on stand-off spacers. LP 11-B and LP 11-FB are stand-off only, because the halo needs the gap to reach the wall.
+- **Mounting:** Flush-mount: LP 11-F, LP 11-S, LP 11-N and LP 11-C. Stand-off spacers: LP 11-B and LP 11-FB, because the halo needs the gap to reach the wall. Flush or stand-off: LP 11-BS and LP 11-FS.
 - **Certification:** UL 48 listed
 - **Warranty:** 3 years, LED modules and power supplies
 - **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
@@ -1149,7 +1151,7 @@ Installation / mounting
 
 - **Ships ready to install:** Every sign ships with a printed installation template.
 - **Touch-up paint:** Every sign comes with touch-up paint.
-- **Standoff or flush:** LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; the other LP 11 variants can be mounted flush to the surface or on standoffs. Mounting explained
+- **Standoff or flush:** LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; LP 11-BS and LP 11-FS can be flush or on standoffs; LP 11-F, LP 11-S, LP 11-N and LP 11-C mount flush. Standoff spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Mounting explained
 - **Installation:** Not provided. Handled by you, your crew or a local contractor.
 
 Project photography
@@ -1283,7 +1285,7 @@ LP 5
 Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies. Also available as LP 5+3.1: face and halo lit, with the back and front made of acrylic.
 
 - **Light:** Face lit
-- **Mounting:** Flush or stand-off
+- **Mounting:** Flush-mount
 - **Depth:** 30, 50, 75 or 100 mm, or custom
 - **Min. height:** 2″ (50 mm)
 
@@ -1310,10 +1312,10 @@ LP 3.2
 
 ##### Fabricated Stainless Steel Flush-mount
 
-Fabricated stainless steel letters that mount flush to the wall or on standoffs, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.
+Fabricated stainless steel letters mounted flush to the wall, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.
 
 - **Light:** Partial side-lit halo
-- **Mounting:** Flush or stand-off
+- **Mounting:** Flush-mount
 - **Depth:** 30, 50, 75 or 100 mm, or custom
 - **Min. height:** 2″ (50 mm)
 
@@ -1404,7 +1406,7 @@ State your surface and preference when you request pricing.
 
 ##### Standoff mount
 
-- **System:** LP 3.1, LP 5 and LP 3.2
+- **System:** LP 3.1
 
 The letter is held off the surface on standoff spacers, leaving a gap: the halo needs it so the light can reach the wall.
 
@@ -1412,7 +1414,7 @@ The letter is held off the surface on standoff spacers, leaving a gap: the halo 
 
 ##### Flush mount
 
-- **System:** LP 5 and LP 3.2 (LP 3.1 is stand-off only)
+- **System:** LP 5 and LP 3.2
 
 The letter sits directly against the surface, with the glow around its edge from an exposed acrylic band.
 
@@ -1463,7 +1465,7 @@ Technical specifications
 - **Depth:** 1.2″ (30 mm), 2″ (50 mm), 3″ (75 mm), 4″ (100 mm) and custom depth
 - **Min. letter height:** 2″ (50 mm)
 - **Min. stroke width:** 0.5″ (15 mm) for stability and even illumination
-- **Mounting:** Flush or on standoff spacers (LP 5 and LP 3.2); LP 3.1 is stand-off only
+- **Mounting:** Standoff spacers (LP 3.1) or flush-mount (LP 5 and LP 3.2)
 - **Colors:** Painted in any PMS color; vinyl or pigmented translucent acrylic options
 - **Maintenance:** Serviceable LEDs
 - **Certification:** UL 48 listed
@@ -1488,7 +1490,7 @@ Files we accept
 - **Site:** Photos of the facade or installation site
 - **Brief:** Desired light effect, indoor or outdoor
 
-The Build Your Sign 3D preview accepts SVG or PDF artwork.
+The Build Your Sign 3D preview accepts SVG, PDF or Illustrator (.ai) artwork.
 
 What arrives
 
@@ -1873,11 +1875,11 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 3.1 is mounted on standoffs only.
 
@@ -1901,7 +1903,7 @@ Fabricated Stainless Steel Flush-mount
 
 - URL: https://sunlitesigns.com/light-effects/lp-3-2-flush-mount
 - Title: EdgeLuxe LP 3.2 — Fabricated Stainless Steel Flush-mount | Sunlite Signs
-- Meta description: Stainless steel letters, flush or stand-off mounted, with a partial side-lit halo effect. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Flush-mounted stainless steel letters with a partial side-lit halo effect. UL Listed, 3-year warranty, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -1911,7 +1913,7 @@ LP 3.2 / Stainless steel
 
 Fabricated Stainless Steel Flush-mount
 
-Stainless steel letters, flush or stand-off mounted, with a partial side-lit halo effect.
+Flush-mounted stainless steel letters with a partial side-lit halo effect.
 
 [Request Wholesale Pricing](/contact)
 
@@ -1921,7 +1923,7 @@ NightDay
 
 #### About this system
 
-Fabricated stainless steel letters that mount flush to the wall or on standoffs, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39" / 10 mm) that glows around the edge of each letter.
+Fabricated stainless steel letters mounted flush to the wall, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39" / 10 mm) that glows around the edge of each letter.
 
 Where the light goes · concept section, not to scale
 
@@ -1934,7 +1936,7 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -1952,13 +1954,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
-Concept section diagrams, not to scale. LP 3.2 can be mounted flush or on standoffs.
+Concept section diagrams, not to scale. LP 3.2 is mounted flush.
 
 Previous
 
@@ -2013,7 +2015,7 @@ Where the light goes · concept section, not to scale
 - **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Mounting:** Flush to the wall
 - **Option:** LP 5+3.1: face and halo lit; the back and the front are made of acrylic; stand-off mounted (the halo needs the gap to the wall)
 - **Warranty:** 3 years
 - **Certification:** UL Listed
@@ -2032,13 +2034,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
-Concept section diagrams, not to scale. LP 5 can be mounted flush or on standoffs.
+Concept section diagrams, not to scale. LP 5 is mounted flush.
 
 Previous
 
@@ -2094,7 +2096,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2112,13 +2114,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
-Concept section diagrams, not to scale. LP 11-F can be mounted flush or on standoffs.
+Concept section diagrams, not to scale. LP 11-F is mounted flush.
 
 Previous
 
@@ -2192,11 +2194,11 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-B is mounted on standoffs only.
 
@@ -2272,11 +2274,11 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-FB is mounted on standoffs only.
 
@@ -2352,11 +2354,11 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-BS can be mounted flush or on standoffs.
 
@@ -2432,11 +2434,11 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Concept section diagrams, not to scale. LP 11-FS can be mounted flush or on standoffs.
 
@@ -2494,7 +2496,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2512,13 +2514,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
-Concept section diagrams, not to scale. LP 11-S can be mounted flush or on standoffs.
+Concept section diagrams, not to scale. LP 11-S is mounted flush.
 
 Previous
 
@@ -2575,7 +2577,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2593,13 +2595,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
-Concept section diagrams, not to scale. LP 11-N can be mounted flush or on standoffs.
+Concept section diagrams, not to scale. LP 11-N is mounted flush.
 
 Previous
 
@@ -2655,7 +2657,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, no maintenance
-- **Mounting:** Flush to the wall or on stand-off spacers
+- **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
@@ -2673,13 +2675,13 @@ Mounting
 
 Stand-off mount
 
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. Every system can be mounted this way; LP 3.1, LP 11-B, LP 11-FB can only be mounted this way, because the halo needs the gap.
+The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows all round the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Stand-off only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
 Flush mount
 
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Available on every system except LP 3.1, LP 11-B, LP 11-FB.
+The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or stand-off: LP 1, LP 11-BS, LP 11-FS.
 
-Concept section diagrams, not to scale. LP 11-C can be mounted flush or on standoffs.
+Concept section diagrams, not to scale. LP 11-C is mounted flush.
 
 Previous
 

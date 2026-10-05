@@ -31,7 +31,7 @@ const depthList = (c: LightConfig) => `${c.depthOptionsMm.map(String).slice(0, -
 const SYSTEM_TEXT: Record<string, { lights: string; mounting: string; text: string }> = {
   "lp-5-trimless-face-lit": {
     lights: "Face lit",
-    mounting: "Flush or stand-off",
+    mounting: "Flush-mount",
     text: "Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies. Also available as LP 5+3.1: face and halo lit, with the back and front made of acrylic.",
   },
   "lp-3-1-standoff-halo": {
@@ -41,8 +41,8 @@ const SYSTEM_TEXT: Record<string, { lights: string; mounting: string; text: stri
   },
   "lp-3-2-flush-mount": {
     lights: "Partial side-lit halo",
-    mounting: "Flush or stand-off",
-    text: "Fabricated stainless steel letters that mount flush to the wall or on standoffs, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.",
+    mounting: "Flush-mount",
+    text: "Fabricated stainless steel letters mounted flush to the wall, with a halo effect from an exposed acrylic band (standard exposed thickness 10 mm) that glows around the edge of each letter.",
   },
 };
 
@@ -168,20 +168,20 @@ export interface MountingOption {
   systems: string;
 }
 
-/** The two mountings (owner list, 2026-10-03): LP 3.1 is stand-off only; LP 5 and LP 3.2 can be flush or stand-off. */
+/** The two mountings (owner list, 2026-10-05): LP 3.1 is stand-off only; LP 5 and LP 3.2 are flush-mount. */
 export const mountingOptions: MountingOption[] = [
   {
     id: "standoff",
     kind: "standoff",
     title: "Standoff mount",
-    systems: "LP 3.1, LP 5 and LP 3.2",
+    systems: "LP 3.1",
     text: "The letter is held off the surface on standoff spacers, leaving a gap: the halo needs it so the light can reach the wall.",
   },
   {
     id: "flush",
     kind: "flush",
     title: "Flush mount",
-    systems: "LP 5 and LP 3.2 (LP 3.1 is stand-off only)",
+    systems: "LP 5 and LP 3.2",
     text: "The letter sits directly against the surface, with the glow around its edge from an exposed acrylic band.",
   },
 ];
@@ -224,7 +224,7 @@ export const channelLetterSpecs: SpecRow[] = [
   { label: "Depth", value: "1.2″ (30 mm), 2″ (50 mm), 3″ (75 mm), 4″ (100 mm) and custom depth" },
   { label: "Min. letter height", value: "2″ (50 mm)" },
   { label: "Min. stroke width", value: "0.5″ (15 mm) for stability and even illumination" },
-  { label: "Mounting", value: "Flush or on standoff spacers (LP 5 and LP 3.2); LP 3.1 is stand-off only" },
+  { label: "Mounting", value: "Standoff spacers (LP 3.1) or flush-mount (LP 5 and LP 3.2)" },
   { label: "Colors", value: "Painted in any PMS color; vinyl or pigmented translucent acrylic options" },
   { label: "Maintenance", value: "Serviceable LEDs" },
   { label: "Certification", value: "UL 48 listed" },
@@ -341,8 +341,8 @@ export const filesWeAccept: SpecRow[] = [
   { label: "Brief", value: "Desired light effect, indoor or outdoor" },
 ];
 
-/** The 3D preview (Build Your Sign) takes SVG or PDF; this is separate from the files we quote from. */
-export const previewFilesNote = "The Build Your Sign 3D preview accepts SVG or PDF artwork.";
+/** The 3D preview (Build Your Sign) takes SVG, PDF or Illustrator (.ai); this is separate from the files we quote from. */
+export const previewFilesNote = "The Build Your Sign 3D preview accepts SVG, PDF or Illustrator (.ai) artwork.";
 
 /** What ships with an order: the existing "ready to install" wording (printed installation template, touch-up paint, crated). */
 export const whatArrives: SpecRow[] = [

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
+import { getAttribution, trackLead } from "../lib/tracking";
 import { attachFileToInput, clearFileInput, findFileInput, formDocuments, isSameFile } from "./hubspotFile";
 import { CTA_PRIMARY } from "../lib/cta";
 import { COMPANY_TYPE_FIELD_NAME } from "../lib/companyType";
@@ -214,6 +215,22 @@ export default function HubSpotForm({ prefill = null, companyType = null, aboveF
     if (root) writeCompanyType(root, companyTypeRef.current, companyWritten);
   }, []);
 
+  /**
+   * Hidden form fields named like the ad tags (gclid, utm_source...) get this visit's values, so each lead carries the
+   * ad or campaign that brought it. The fields are created in the HubSpot form editor; without them nothing happens.
+   */
+  const applyAttribution = useCallback(() => {
+    const root = containerRef.current;
+    if (!root) return;
+    for (const [name, value] of Object.entries(getAttribution())) {
+      const field = root.querySelector<HTMLInputElement>(`input[name="${name}"]`);
+      if (!field || !value) continue;
+      field.value = value;
+      field.dispatchEvent(new Event("input", { bubbles: true }));
+      field.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  }, []);
+
   useEffect(() => {
     if (loaded.current) return;
     loaded.current = true;
@@ -228,11 +245,15 @@ export default function HubSpotForm({ prefill = null, companyType = null, aboveF
           target: "#hubspot-form-container",
           submitText: CTA_PRIMARY.label, // the primary CTA wording, whatever the HubSpot portal says
           onFormReady: () => {
+            applyAttribution();
             applyPrefill();
             applyCompanyType();
             applyAttachment();
           },
-          onFormSubmitted: () => submittedCallback.current?.(),
+          onFormSubmitted: () => {
+            trackLead({ has_configurator_quote: Boolean(prefillRef.current) });
+            submittedCallback.current?.();
+          },
         });
       }
     };
@@ -251,7 +272,7 @@ export default function HubSpotForm({ prefill = null, companyType = null, aboveF
       setTimeout(createForm, 100);
     };
     document.head.appendChild(script);
-  }, [applyPrefill, applyCompanyType, applyAttachment]);
+  }, [applyPrefill, applyCompanyType, applyAttachment, applyAttribution]);
 
   // The form renders asynchronously and may re-render: keep trying (poll, then watch for changes) until the file is on.
   useEffect(() => {

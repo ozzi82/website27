@@ -109,6 +109,6 @@ describe("wallGapFor", () => {
     expect(wallGapFor("standoff")).toBeGreaterThan(wallGapFor("flush"));
     expect(wallGapFor("flush")).toBeGreaterThan(0);
     expect(wallGapFor("flush")).toBeGreaterThan(0);
-    expect(wallGapFor("standoff")).toBeCloseTo(0.12, 6);
+    expect(wallGapFor("standoff", 3)).toBeCloseTo((25.4 / 300) * 3, 6); // one 1" spacer on the nominal 12" letter
   });
 });

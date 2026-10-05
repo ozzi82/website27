@@ -27,9 +27,12 @@ import ConfiguratorDisclaimer from "../components/configurator/ConfiguratorDiscl
 import { isLp1, isLp1FinishId } from "../components/configurator/lp1Materials";
 import { configurations } from "../data/configurations";
 import { CTA_PRIMARY } from "../lib/cta";
+import { trackEvent } from "../lib/tracking";
 import { SITE_URL } from "../lib/seo";
 import { CONFIGURATOR_META, CONFIGURATOR_NAME, configuratorJsonLd } from "../lib/configuratorMeta";
 
+/** Building a sign starts with text, and this word, so there is something lit to look at straight away. */
+const PRESET_TEXT = "SUNLITE";
 const NO_SHAPES: THREE.Shape[] = [];
 const JSON_LD = configuratorJsonLd(SITE_URL);
 
@@ -57,12 +60,14 @@ export default function ConfiguratorPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [state, setState] = useState<ConfiguratorState | null>(() => initialState(searchParams));
+  // Text first, with the preset word; `?source=upload` opens on the logo upload instead.
+  const startSource: ArtworkSource = searchParams.get("source") === "upload" ? "upload" : "text";
   // Each artwork source keeps its own result, so the sign shown always belongs to the source selected.
-  const [source, setSource] = useState<ArtworkSource>("upload");
+  const [source, setSource] = useState<ArtworkSource>(startSource);
   const [uploadShapes, setUploadShapes] = useState<THREE.Shape[] | null>(null);
   // The original file is kept as well as the parsed shapes: it travels to the contact form with the quote.
   const [uploadFile, setUploadFile] = useState<File | null>(null);
-  const [text, setText] = useState("");
+  const [text, setText] = useState(startSource === "text" ? PRESET_TEXT : "");
   const [pickedFontId, setFontId] = useState(DEFAULT_FONT_ID);
   // As chosen (LP 5 or LP 5+3.1), and the font actually used: the single-line neon fonts only go with LP 11-N.
   const baseConfig = findConfig(state?.configId ?? null);
@@ -143,6 +148,7 @@ export default function ConfiguratorPage() {
   // The quote button (the site's primary CTA) carries the configuration to /contact: router state for this visit,
   // sessionStorage for a refresh.
   async function handleQuote(e: MouseEvent<HTMLAnchorElement>) {
+    trackEvent("configurator_quote_click", { configuration: config?.id });
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) {
       const quote = buildQuote(null); // a new tab / window: no snapshot, but the summary still travels via sessionStorage
       if (quote) saveQuote(quote);

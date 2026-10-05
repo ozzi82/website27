@@ -48,7 +48,7 @@ export interface LightConfig {
   variant?: { code: string; label: string; note: string; light: LightBehavior; mounts: Mount[] };
   profile: Profile;
   light: LightBehavior;
-  /** The mountings the letter is offered with (owner list, 2026-10-03). Halo letters need the gap, so they are stand-off only. */
+  /** The mountings the letter is offered with (owner list, updated 2026-10-05). Halo letters need the gap, so they are stand-off only; most others are flush only. */
   mounts: Mount[];
   /** Selectable depths in millimetres (the brochure's standard sizes). */
   depthOptionsMm: number[];
@@ -135,9 +135,9 @@ const baseConfigurations: LightConfig[] = [
     title: "EdgeLuxe LP 3.2",
     subtitle: "Fabricated Stainless Steel Flush-mount",
     family: "Stainless steel",
-    summary: "Stainless steel letters, flush or stand-off mounted, with a partial side-lit halo effect.",
+    summary: "Flush-mounted stainless steel letters with a partial side-lit halo effect.",
     description:
-      "Fabricated stainless steel letters that mount flush to the wall or on standoffs, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39\" / 10 mm) that glows around the edge of each letter.",
+      "Fabricated stainless steel letters mounted flush to the wall, with a partially side-lit halo effect from an exposed acrylic band (standard exposed thickness 0.39\" / 10 mm) that glows around the edge of each letter.",
     specs: [
       { label: "Illumination", value: "Partial side-lit halo effect" },
       { label: "Depth", value: STEEL_DEPTH_TEXT },
@@ -152,7 +152,7 @@ const baseConfigurations: LightConfig[] = [
     imgDay: IMG + "lp-3-2-flush-mount-day.jpg",
     profile: "standard",
     light: { face: "none", halo: "none", side: "partial-back" },
-    mounts: ["standoff", "flush"],
+    mounts: ["flush"],
     depthOptionsMm: STEEL_DEPTHS,
     customDepth: true,
     minHeightMm: 50,
@@ -188,7 +188,7 @@ const baseConfigurations: LightConfig[] = [
     },
     profile: "standard",
     light: { face: "glow", halo: "none", side: "none" },
-    mounts: ["standoff", "flush"],
+    mounts: ["flush"],
     depthOptionsMm: STEEL_DEPTHS,
     customDepth: true,
     minHeightMm: 50,
@@ -218,7 +218,7 @@ const baseConfigurations: LightConfig[] = [
     imgDay: IMG + "lp-11-f-face-lit-day.jpg",
     profile: "standard",
     light: { face: "glow", halo: "none", side: "none" },
-    mounts: ["standoff", "flush"],
+    mounts: ["flush"],
     depthOptionsMm: [25, 30],
     customDepth: false,
     minHeightMm: 50,
@@ -368,7 +368,7 @@ const baseConfigurations: LightConfig[] = [
     imgDay: IMG + "lp-11-s-side-lit-day.jpg",
     profile: "standard",
     light: { face: "none", halo: "none", side: "full" },
-    mounts: ["standoff", "flush"],
+    mounts: ["flush"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
@@ -399,7 +399,7 @@ const baseConfigurations: LightConfig[] = [
     imgDay: IMG + "lp-11-n-faux-neon-day.jpg",
     profile: "tube",
     light: { face: "glow", halo: "none", side: "partial-front", sideBand: 0.5 },
-    mounts: ["standoff", "flush"],
+    mounts: ["flush"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
@@ -429,7 +429,7 @@ const baseConfigurations: LightConfig[] = [
     imgDay: IMG + "lp-11-c-conical-day.jpg",
     profile: "conical",
     light: { face: "glow", halo: "none", side: "none" },
-    mounts: ["standoff", "flush"],
+    mounts: ["flush"],
     depthOptionsMm: [30],
     customDepth: false,
     minHeightMm: 50,
@@ -446,9 +446,10 @@ export const MOUNT_LABEL: Record<Mount, string> = { flush: "Flush", standoff: "S
 
 /** The brochure-style mounting line for a configuration's spec list. */
 export function mountingText(c: Pick<LightConfig, "mounts">): string {
-  return c.mounts.length > 1
-    ? "Flush to the wall or on stand-off spacers"
-    : "Stand-off spacers only: the halo needs the gap to reach the wall";
+  if (c.mounts.length > 1) return "Flush to the wall or on stand-off spacers";
+  return c.mounts[0] === "standoff"
+    ? "Stand-off spacers only: the halo needs the gap to reach the wall"
+    : "Flush to the wall";
 }
 
 /** Every configuration, with its mounting line added to the specs (before the closing warranty and certification rows). */

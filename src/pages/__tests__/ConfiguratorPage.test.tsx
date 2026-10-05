@@ -65,6 +65,8 @@ function ContactProbe() {
 }
 
 function renderPage(initialPath: string) {
+  // The page starts in text mode with SUNLITE; most of these tests are about the logo upload flow, so open that unless asked.
+  if (!initialPath.includes("source=")) initialPath += (initialPath.includes("?") ? "&" : "?") + "source=upload";
   render(
     // ConfiguratorPage renders <Seo>, which needs a <HelmetProvider> ancestor
     // (react-helmet-async throws otherwise) — in the real app this is
@@ -417,7 +419,14 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await user.click(screen.getByRole("radio", { name: "Type text" }));
     }
 
-    it("defaults to uploading a logo and offers the toggle", () => {
+    it("starts with the text mode and the preset word SUNLITE, and offers the toggle", async () => {
+      renderPage("/configurator?config=lp-5-trimless-face-lit&source=text");
+      expect(screen.getByRole("radio", { name: "Type text" })).toBeChecked();
+      expect(screen.getByLabelText(/your text/i)).toHaveValue("SUNLITE");
+      await waitFor(() => expect(generateTextShapes).toHaveBeenCalledWith("SUNLITE", "montserrat"));
+    });
+
+    it("opens on the logo upload with ?source=upload", () => {
       renderPage("/configurator?config=lp-5-trimless-face-lit");
       expect(screen.getByRole("radio", { name: "Upload logo" })).toBeChecked();
       expect(screen.getByLabelText(/upload your logo/i)).toBeInTheDocument();

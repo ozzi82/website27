@@ -41,13 +41,13 @@ export default function TrustBadgeSection() {
           <img
             src={TRUST_BADGE.src}
             srcSet={`${TRUST_BADGE.src640} 640w, ${TRUST_BADGE.src} ${TRUST_BADGE.width}w`}
-            sizes="(min-width: 1024px) 600px, (min-width: 640px) 520px, calc(100vw - 3rem)"
+            sizes="(min-width: 1024px) 360px, 300px"
             width={TRUST_BADGE.width}
             height={TRUST_BADGE.height}
             alt={TRUST_BADGE.alt}
             loading="lazy"
             decoding="async"
-            className="block w-full max-w-[520px] lg:max-w-[600px] h-auto mx-auto [filter:drop-shadow(0_18px_36px_rgba(0,0,0,0.35))]"
+            className="block w-full max-w-[300px] lg:max-w-[360px] h-auto mx-auto [filter:drop-shadow(0_18px_36px_rgba(0,0,0,0.35))]"
           />
         </figure>
       </div>

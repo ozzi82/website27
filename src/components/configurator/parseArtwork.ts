@@ -25,7 +25,8 @@ async function parseShapes(file: File): Promise<THREE.Shape[]> {
     return normalizeShapes(parseSvg(text));
   }
 
-  if (extension === "pdf") {
+  // An Illustrator .ai file saved with "Create PDF Compatible File" (the default) is a PDF inside, so it takes the PDF path.
+  if (extension === "pdf" || extension === "ai") {
     const data = new Uint8Array(await file.arrayBuffer());
     // Lazy-loaded: pdf.js is large and SVG-only users shouldn't download it.
     const { parsePdf } = await import("./parsePdf");

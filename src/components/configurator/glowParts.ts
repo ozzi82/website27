@@ -4,11 +4,9 @@ import type { LightBehavior, Mount, Profile, SideLight } from "../../data/config
  * How light reaches the wall behind the letter:
  * - standoff: the letter floats on spacers and a halo washes the wall (LP 3.1, 11-B, 11-FB);
  * - flush: a flush back band leaks a thin ring of light around the edge (LP 3.2, 11-BS);
- * - edge: a lit side wall bleeds a little light onto the wall around it (11-S);
- * - glare: a lit face throws a faint soft wash around the letter (every face-lit letter);
- * - none: nothing (the unlit LP 1).
+ * - none: nothing. Face-lit, front-band and full side-lit letters (and the unlit LP 1) do not light the wall behind them.
  */
-export type WallSpill = "standoff" | "flush" | "edge" | "glare" | "none";
+export type WallSpill = "standoff" | "flush" | "none";
 
 /** Which parts of a letter emit light in the 3D scene (the pure rule behind ConfigScene's material choices). */
 export interface GlowParts {
@@ -29,18 +27,16 @@ export interface GlowParts {
  */
 export function glowParts(light: LightBehavior, _profile?: Profile, mount?: Mount): GlowParts {
   const face = light.face === "glow";
+  // Only letters made to light the wall spill light on it: halo letters (stand-off) and a back side band (a thin leak
+  // when flush, a wash when stood off). A face-lit, front-band or side-lit letter does not light the wall behind it.
   const wallSpill: WallSpill =
     light.halo === "standoff"
       ? "standoff"
       : light.side === "partial-back"
         ? mount === "standoff"
-          ? "standoff" // the same back band, but with a gap behind the letter it washes the wall instead of leaking at the edge
+          ? "standoff"
           : "flush"
-        : light.side === "full"
-          ? "edge"
-          : face
-            ? "glare"
-            : "none";
+        : "none";
   return {
     face,
     side: light.side,

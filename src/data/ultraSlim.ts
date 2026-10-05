@@ -62,14 +62,14 @@ export function depthLabel(c: LightConfig): string {
 
 /** One line per variant: how it lights, in words that follow the brochure (keyed by configuration id). */
 const HOW_IT_LIGHTS: Record<string, { lights: string; mounting: string; short: string }> = {
-  "lp-11-f-face-lit": { short: "Face-lit", lights: "The face glows evenly toward the viewer.", mounting: "Flush or stand-off" },
+  "lp-11-f-face-lit": { short: "Face-lit", lights: "The face glows evenly toward the viewer.", mounting: "Flush-mount" },
   "lp-11-b-back-lit": { short: "Halo", lights: "A uniform halo washes the wall behind the letter.", mounting: "Standoff spacers" },
   "lp-11-fb-face-halo": { short: "Face + halo", lights: "A glowing face plus a halo on the wall behind.", mounting: "Standoff spacers" },
   "lp-11-bs-back-side-lit": { short: "Back side", lights: "A band of light glows along the back edge of the side wall.", mounting: "Flush or stand-off" },
   "lp-11-fs-front-side-lit": { short: "Face + front side", lights: "The face glows and a thin band lights the front edge of the side wall.", mounting: "Flush or stand-off" },
-  "lp-11-s-side-lit": { short: "Full side", lights: "The whole side wall glows; the painted face stays solid.", mounting: "Flush or stand-off" },
-  "lp-11-n-faux-neon": { short: "Faux neon", lights: "Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.", mounting: "Flush or stand-off" },
-  "lp-11-c-conical": { short: "Conical", lights: "Tapered conical profile for narrow strokes and serifs, face-lit.", mounting: "Flush or stand-off" },
+  "lp-11-s-side-lit": { short: "Full side", lights: "The whole side wall glows; the painted face stays solid.", mounting: "Flush-mount" },
+  "lp-11-n-faux-neon": { short: "Faux neon", lights: "Front edge routed round to simulate a neon glass tube; the face and the front half of the side glow.", mounting: "Flush-mount" },
+  "lp-11-c-conical": { short: "Conical", lights: "Tapered conical profile for narrow strokes and serifs, face-lit.", mounting: "Flush-mount" },
 };
 
 export interface Lp11Variant {
@@ -121,8 +121,14 @@ export const ultraSlimOtherLighting = [
 
 const first = lp11[0]; // LP 11-F carries the series-wide wording
 const spec = (c: LightConfig, label: string) => c.specs.find((r) => r.label === label)?.value ?? "";
-const ids = (...codes: string[]) => codes.map((x) => `LP 11-${x}`).join(" and ");
-const standoffOnly = () => lp11.filter((c) => !c.mounts.includes("flush")).map((c) => c.code.replace("LP 11-", ""));
+const ids = (...codes: string[]) => {
+  const named = codes.map((x) => `LP 11-${x}`);
+  return named.length < 2 ? named.join("") : `${named.slice(0, -1).join(", ")} and ${named[named.length - 1]}`;
+};
+const codesWhere = (test: (c: LightConfig) => boolean) => lp11.filter(test).map((c) => c.code.replace("LP 11-", ""));
+const standoffOnly = () => codesWhere((c) => !c.mounts.includes("flush"));
+const flushOnly = () => codesWhere((c) => !c.mounts.includes("standoff"));
+const either = () => codesWhere((c) => c.mounts.length > 1);
 
 export const ultraSlimSpecs: SpecRow[] = [
   { label: "Product", value: "EdgeLuxe LP 11 series: cast block acrylic letters" },
@@ -135,7 +141,7 @@ export const ultraSlimSpecs: SpecRow[] = [
   { label: "Colors", value: spec(first, "Customization") },
   {
     label: "Mounting",
-    value: `Flush to the wall or on stand-off spacers. ${ids(...standoffOnly())} are stand-off only, because the halo needs the gap to reach the wall.`,
+    value: `Flush-mount: ${ids(...flushOnly())}. Stand-off spacers: ${ids(...standoffOnly())}, because the halo needs the gap to reach the wall. Flush or stand-off: ${ids(...either())}.`,
   },
   { label: "Certification", value: "UL 48 listed" },
   { label: "Warranty", value: "3 years, LED modules and power supplies" },
@@ -147,7 +153,7 @@ export const installationPoints: SpecRow[] = [
   { label: "Touch-up paint", value: "Every sign comes with touch-up paint." },
   {
     label: "Standoff or flush",
-    value: "LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; the other LP 11 variants can be mounted flush to the surface or on standoffs.",
+    value: "LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; LP 11-BS and LP 11-FS can be flush or on standoffs; LP 11-F, LP 11-S, LP 11-N and LP 11-C mount flush. Standoff spacers are clear plastic tubes, 1″ long and 0.4″ in diameter.",
     link: { label: "Mounting explained", to: `${CHANNEL_LETTERS_PATH}#mounting` },
   },
   { label: "Installation", value: "Not provided. Handled by you, your crew or a local contractor." },

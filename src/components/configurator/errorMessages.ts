@@ -19,7 +19,10 @@ export const CONTACT_PHRASE = "send it to us directly";
  */
 export function userMessageFor(error: unknown): string {
   if (error instanceof UnsupportedFormatError) {
-    return `We support SVG and PDF right now. Export your logo as SVG, or ${CONTACT_PHRASE} and we'll quote it by hand.`;
+    if (/\.(eps|cdr|dxf|dwg)$/i.test(error.fileName)) {
+      return `We can't preview ${error.fileName.split(".").pop()!.toUpperCase()} files here. In your design program, export the logo as SVG or PDF (with text converted to outlines), or ${CONTACT_PHRASE}: we work from EPS and other vector files when we quote.`;
+    }
+    return `We support SVG, PDF and Illustrator (.ai) files right now. Export your logo as SVG, or ${CONTACT_PHRASE} and we'll quote it by hand.`;
   }
   if (error instanceof FileTooLargeError) {
     return `That file is over our 10MB limit. Try exporting a smaller SVG or PDF, or ${CONTACT_PHRASE} and we'll quote it by hand.`;
