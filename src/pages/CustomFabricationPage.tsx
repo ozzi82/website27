@@ -77,13 +77,29 @@ export default function CustomFabricationPage() {
             <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-xl">{customMeta.intro}</p>
             <div className="mt-7 md:mt-9 flex flex-col sm:flex-row gap-3">
               <PrimaryCta />
-              <SecondaryCta label="View Specs" to={`${CUSTOM_FABRICATION_PATH}#specifications`} />
+              <SecondaryCta label="See Our Work" to={`${CUSTOM_FABRICATION_PATH}#projects`} />
             </div>
           </div>
           <figure className="corner-marks border border-border bg-card/50">
-            <MediaFrame image={customMeta.heroImage} aspect="aspect-[4/3]" priority />
-            <figcaption className="mono-label text-muted-foreground p-3 border-t border-border">Fig. 01 / Illuminated sign panel</figcaption>
+            <MediaFrame image={customMeta.heroImage} aspect="aspect-video" priority />
+            <figcaption className="mono-label text-muted-foreground p-3 border-t border-border">Fig. 01 / WE ♥ HOCKEY display</figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section id="projects" className="py-14 md:py-20 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionHeader
+            eyebrow="Reference projects"
+            title="Recent production."
+            titleClassName={sectionTitle}
+            action={<ArrowLink label={CTA_LINKS.viewAllProjects.label} to={CTA_LINKS.viewAllProjects.to} />}
+          />
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
+            {references.map((p, i) => (
+              <ProjectCard key={p.id} project={p} index={i} />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -136,22 +152,6 @@ export default function CustomFabricationPage() {
       </section>
 
       <ProcessSteps />
-
-      <section id="projects" className="py-14 md:py-24 border-t border-border scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <SectionHeader
-            eyebrow="Reference projects"
-            title="Recent production."
-            titleClassName={sectionTitle}
-            action={<ArrowLink label={CTA_LINKS.viewAllProjects.label} to={CTA_LINKS.viewAllProjects.to} />}
-          />
-          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 md:gap-6">
-            {references.map((p, i) => (
-              <ProjectCard key={p.id} project={p} index={i} />
-            ))}
-          </div>
-        </div>
-      </section>
 
       <FAQSection items={customFaqs} eyebrow="Custom fabrication FAQ" title="Before you send the drawing." titleClassName={sectionTitle} />
 

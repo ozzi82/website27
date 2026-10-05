@@ -21,10 +21,10 @@ export const customMeta = {
   intro:
     "When the job is not a standard letter system, send us the drawing. We fabricate custom signs to your drawings and ship them ready to install: blade signs, push-through cabinet signs and custom illuminated letters and logos.",
   heroImage: {
-    src: "/images/pasted-image-1787683159993-jg0ymerg.png",
-    alt: "Illuminated MUSTANG lettering on a dark sign panel above a storefront at night",
-    width: 1536,
-    height: 1024,
+    src: "/images/custom-hockey-display-front.jpg",
+    alt: "Large WE ♥ HOCKEY display with a red heart beside an illuminated IIHF 2026 World Junior Championship panel, on a wheeled base",
+    width: 1600,
+    height: 900,
   } satisfies MediaImage,
 };
 

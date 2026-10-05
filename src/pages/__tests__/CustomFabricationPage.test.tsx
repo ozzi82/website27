@@ -41,15 +41,15 @@ describe("/services/custom-sign-fabrication", () => {
     expect(digits).toEqual([]);
   });
 
-  it("has the 'bring us your drawing' call to action, the process, projects and FAQ in order", () => {
+  it("has the 'bring us your drawing' call to action, the process and FAQ in order, with projects first", () => {
     const { main } = renderAt(PATH);
     const ids = [...main.querySelectorAll("section[id]")].map((s) => s.id);
     expect(ids.filter((id) => ["what-we-make", "drawing", "specifications", "process", "projects", "faq", "request-pricing"].includes(id))).toEqual([
+      "projects",
       "what-we-make",
       "drawing",
       "specifications",
       "process",
-      "projects",
       "faq",
       "request-pricing",
     ]);

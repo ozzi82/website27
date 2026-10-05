@@ -1758,53 +1758,11 @@ Wholesale sign manufacturer · Trade only
 
 When the job is not a standard letter system, send us the drawing. We fabricate custom signs to your drawings and ship them ready to install: blade signs, push-through cabinet signs and custom illuminated letters and logos.
 
-[Request Wholesale Pricing](/contact) · [View Specs](/services/custom-sign-fabrication#specifications)
+[Request Wholesale Pricing](/contact) · [See Our Work](/services/custom-sign-fabrication#projects)
 
-*[Image: Illuminated MUSTANG lettering on a dark sign panel above a storefront at night]*
+*[Image: Large WE ♥ HOCKEY display with a red heart beside an illuminated IIHF 2026 World Junior Championship panel, on a wheeled base]*
 
-Fig. 01 / Illuminated sign panel
-
-What we make to order
-
-#### Your drawing. Our fabrication.
-
-- 01 — Push-through cabinet signs — Single or double-sided — Illuminated cabinets with CNC-routed aluminum faces and push-through acrylic graphics that glow evenly. Made as wall-mounted single-sided cabinets or double-sided signs.
-- 02 — Blade signs — Double-sided — Double-sided illuminated blade signs, fabricated to your drawing.
-- 03 — Illuminated logos & letter projects — Custom letterforms — Logos, custom letterforms and other illuminated letter projects, fabricated to your drawings. Send your artwork as a vector file and we advise on materials, light effects, sizing and technical feasibility.
-
-#### Bring us your drawing. We make it to size.
-
-Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a tailored quote within 24 to 48 hours, most times within 24 hours.
-
-[Request Wholesale Pricing](/contact)
-
-Technical details
-
-#### The spec sheet.
-
-- **Product:** Custom signs made to your drawings
-- **Includes:** Blade signs, push-through cabinet signs, illuminated logos and custom letter projects
-- **Size:** Custom to project: set by your drawing
-- **Cabinet material:** CNC-routed aluminum face with push-through acrylic graphics
-- **Lighting:** Internal LED
-- **Configuration:** Single-sided, double-sided or blade
-- **Certification:** UL 48 listed
-- **Warranty:** 3 years, LED modules and power supplies
-- **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
-- **Delivery:** Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint
-- **Installation:** Not provided. Installation is handled by you or your contractor.
-- **Sold to:** Trade only: sign companies and industry professionals
-
-Process
-
-#### From Artwork to Your Dock.
-
-- 01 — Send your files
-- 02 — Receive your quote
-- 03 — Approve drawings
-- 04 — We fabricate
-- 05 — Quality control
-- 06 — Crated & shipped
+Fig. 01 / WE ♥ HOCKEY display
 
 Reference projects
 
@@ -1893,6 +1851,48 @@ Fig. 10
 Fig. 11
 
 ##### Mustang
+
+What we make to order
+
+#### Your drawing. Our fabrication.
+
+- 01 — Push-through cabinet signs — Single or double-sided — Illuminated cabinets with CNC-routed aluminum faces and push-through acrylic graphics that glow evenly. Made as wall-mounted single-sided cabinets or double-sided signs.
+- 02 — Blade signs — Double-sided — Double-sided illuminated blade signs, fabricated to your drawing.
+- 03 — Illuminated logos & letter projects — Custom letterforms — Logos, custom letterforms and other illuminated letter projects, fabricated to your drawings. Send your artwork as a vector file and we advise on materials, light effects, sizing and technical feasibility.
+
+#### Bring us your drawing. We make it to size.
+
+Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a tailored quote within 24 to 48 hours, most times within 24 hours.
+
+[Request Wholesale Pricing](/contact)
+
+Technical details
+
+#### The spec sheet.
+
+- **Product:** Custom signs made to your drawings
+- **Includes:** Blade signs, push-through cabinet signs, illuminated logos and custom letter projects
+- **Size:** Custom to project: set by your drawing
+- **Cabinet material:** CNC-routed aluminum face with push-through acrylic graphics
+- **Lighting:** Internal LED
+- **Configuration:** Single-sided, double-sided or blade
+- **Certification:** UL 48 listed
+- **Warranty:** 3 years, LED modules and power supplies
+- **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
+- **Delivery:** Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint
+- **Installation:** Not provided. Installation is handled by you or your contractor.
+- **Sold to:** Trade only: sign companies and industry professionals
+
+Process
+
+#### From Artwork to Your Dock.
+
+- 01 — Send your files
+- 02 — Receive your quote
+- 03 — Approve drawings
+- 04 — We fabricate
+- 05 — Quality control
+- 06 — Crated & shipped
 
 Custom fabrication FAQ
 
