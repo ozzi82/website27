@@ -46,6 +46,12 @@ export const productionStages: ProductionStage[] = [
     number: "02",
     title: "LED & Electrical",
     description: "LED modules and power supplies, UL 48 labeled.",
+    image: {
+      src: "/images/production-electrical.jpg",
+      alt: "Sunlite Signs team fitting LED strips and wiring into green letter returns at the work table",
+      width: 1280,
+      height: 866,
+    },
   },
   {
     id: "hand-assembly",

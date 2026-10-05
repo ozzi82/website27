@@ -218,7 +218,7 @@ Stage 01
 
 Precision-routed aluminum returns, faces and backs, built to your shop drawings.
 
-02LED & Electrical
+*[Image: Sunlite Signs team fitting LED strips and wiring into green letter returns at the work table]*
 
 Stage 02
 
@@ -634,7 +634,7 @@ Stage 01
 
 Precision-routed aluminum returns, faces and backs, built to your shop drawings.
 
-02LED & Electrical
+*[Image: Sunlite Signs team fitting LED strips and wiring into green letter returns at the work table]*
 
 Stage 02
 
