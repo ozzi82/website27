@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { parseSvg } from "./parseSvg";
 import { normalizeShapes } from "./normalizeShapes";
-import { UnsupportedFormatError, FileTooLargeError, NoVectorPathsFoundError } from "./parseErrors";
+import { UnsupportedFormatError, FileTooLargeError, NoVectorPathsFoundError, ReaderUnavailableError } from "./parseErrors";
 
 const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
 
@@ -29,7 +29,9 @@ async function parseShapes(file: File): Promise<THREE.Shape[]> {
   if (extension === "pdf" || extension === "ai") {
     const data = new Uint8Array(await file.arrayBuffer());
     // Lazy-loaded: pdf.js is large and SVG-only users shouldn't download it.
-    const { parsePdf } = await import("./parsePdf");
+    const { parsePdf } = await import("./parsePdf").catch((cause) => {
+      throw new ReaderUnavailableError(cause);
+    });
     return normalizeShapes(await parsePdf(data));
   }
 

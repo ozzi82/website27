@@ -18,6 +18,9 @@ interface ConfigControlsProps {
   strokeRatio?: number | null;
 }
 
+/** Bigger, easier to see segments for the choices that matter most (depth, mounting, lighting, build). */
+const BIG = "[&_label]:py-1.5 [&_label]:text-sm [&_label]:font-semibold";
+
 /** One compact row: a short label on the left, the control on the right. */
 function Row({ label, htmlFor, labelId, children }: { label: string; htmlFor?: string; labelId?: string; children: ReactNode }) {
   return (
@@ -106,6 +109,9 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
 
   return (
     <div className="space-y-2 [@media(min-height:830px)]:space-y-4">
+      {/* The choices that change what is built (and the price): kept together in one highlighted block. */}
+      <section aria-label="Size and mounting" className="space-y-2.5 rounded-xl border border-primary/40 bg-primary/5 p-3">
+      <p className="mono-label text-primary">Size · mounting</p>
       {flat && (
         <>
           <Row label="Finish" labelId="finish-label">
@@ -136,6 +142,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           <Row label="Build" labelId="build-label">
             <SegmentedControl<Lp1Build>
               label="Build"
+              className={BIG}
               value={state.build}
               onChange={(build) => onChange(withBuild(state, build))}
               disabled={finish.builds.length === 1}
@@ -152,6 +159,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         <Row label="Lighting" labelId="variant-label">
           <SegmentedControl<"face" | "face-halo">
             label="Lighting"
+            className={BIG}
             value={state.variant ? "face-halo" : "face"}
             onChange={(v) => onChange(withVariant(config, state, v === "face-halo"))}
             options={[
@@ -166,6 +174,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         <Row label="Mounting" labelId="mounting-label">
           <SegmentedControl
             label="Mounting"
+            className={BIG}
             value={state.mounting}
             onChange={(mounting) => set({ mounting })}
             options={mounts.map((m) => ({
@@ -188,8 +197,10 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
             label: <DepthLabel mm={mm} />,
             ariaLabel: formatDepth(mm),
           }))}
+          className={BIG}
         />
       </Row>
+      </section>
 
       {hasPaint && (
         <ColorRow

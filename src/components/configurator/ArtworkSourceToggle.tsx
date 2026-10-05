@@ -20,7 +20,7 @@ export default function ArtworkSourceToggle({ value, onChange }: ArtworkSourceTo
         { value: "upload", label: (<><ImageUp aria-hidden="true" className="h-3.5 w-3.5" />Upload logo</>) },
         { value: "text", label: (<><Type aria-hidden="true" className="h-3.5 w-3.5" />Type text</>) },
       ]}
-      className="w-full"
+      className="w-full border-primary/50 [&_label]:py-2 [&_label]:text-sm [&_label]:font-semibold"
     />
   );
 }

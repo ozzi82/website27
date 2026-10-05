@@ -2,6 +2,7 @@ import {
   FileTooLargeError,
   NoVectorPathsFoundError,
   ParseError,
+  ReaderUnavailableError,
   TextNotOutlinedError,
   UnsupportedFormatError,
 } from "./parseErrors";
@@ -36,7 +37,14 @@ export function userMessageFor(error: unknown): string {
   if (error instanceof NoVectorPathsFoundError) {
     return `We couldn't find a clean outline in this file. Please send us a vector file instead, or ${CONTACT_PHRASE}.`;
   }
-  return `Something went wrong reading that file. Please try again, or ${CONTACT_PHRASE} and we'll quote it by hand.`;
+  if (error instanceof ReaderUnavailableError) {
+    return `The PDF reader could not load (a connection hiccup, or the page is out of date). Please reload the page and try again, or ${CONTACT_PHRASE}.`;
+  }
+  // Unknown failure: the full detail goes to the console (never to the customer), and only the error's type is shown,
+  // so a report like "(TypeError)" plus the console text is enough to act on.
+  console.error("Artwork could not be read:", error);
+  const detail = error instanceof Error ? ` (${error.name})` : "";
+  return `Something went wrong reading that file${detail}. Please try again, or ${CONTACT_PHRASE} and we'll quote it by hand.`;
 }
 
 /** Shown when typed text cannot be turned into letters (see TextRenderError). */

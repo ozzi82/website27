@@ -1,18 +1,27 @@
 import * as THREE from "three";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
-// Vite resolves this to the bundled worker's URL. The legacy worker must match
-// the legacy build imported above. Without it, browsers throw 'No
-// "GlobalWorkerOptions.workerSrc" specified'.
-import pdfWorkerUrl from "pdfjs-dist/legacy/build/pdf.worker.min.mjs?url";
 import { ParseError, NoVectorPathsFoundError, TextNotOutlinedError } from "./parseErrors";
 
-// Only configure the worker in a real browser. Under Node (including Vitest,
-// where Vite's ?url yields a root-relative path Node can't import) pdf.js
-// falls back to its own built-in fake-worker loading, which works — and is why
-// the tests never caught the missing workerSrc in the first place.
+// pdf.js needs its worker. Its source is bundled INTO this lazy chunk and started as a blob worker, instead of being fetched as a
+// separate .mjs file: a separate file depends on how the host serves it (MIME type for .mjs, caching, a stale file after a
+// deploy), and any hiccup there made every PDF fail on the live site with a generic error. Under Node (Vitest) pdf.js
+// uses its own built-in fake worker, so the browser-only worker is imported lazily and never in tests.
 const isNode = typeof process !== "undefined" && !!process.versions?.node;
-if (!isNode) {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+let workerReady: Promise<void> | null = null;
+function ensureWorker(): Promise<void> {
+  if (isNode) return Promise.resolve();
+  workerReady ??= import("pdfjs-dist/legacy/build/pdf.worker.min.mjs?raw").then(
+    ({ default: source }) => {
+      // The worker's own source, as text, becomes a blob module worker: nothing about it is fetched from the host.
+      const url = URL.createObjectURL(new Blob([source], { type: "text/javascript" }));
+      pdfjsLib.GlobalWorkerOptions.workerPort = new Worker(url, { type: "module" });
+    },
+    (err) => {
+      workerReady = null;
+      throw err;
+    }
+  );
+  return workerReady;
 }
 
 const { OPS } = pdfjsLib;
@@ -97,7 +106,13 @@ export async function parsePdf(data: Uint8Array): Promise<THREE.Shape[]> {
   // Keep the loading task so its worker/transport can be released afterwards.
   // (pdfjs-dist 6.x no longer has an isEvalSupported option — it never uses
   // eval — so there is nothing to disable.)
-  const loadingTask = pdfjsLib.getDocument({ data });
+  let loadingTask: pdfjsLib.PDFDocumentLoadingTask;
+  try {
+    await ensureWorker();
+    loadingTask = pdfjsLib.getDocument({ data });
+  } catch (cause) {
+    throw new ParseError("artwork.pdf (reader could not start)", cause);
+  }
   try {
     let page;
     try {

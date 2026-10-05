@@ -7,6 +7,15 @@ export class UnsupportedFormatError extends Error {
   }
 }
 
+/** The PDF reader itself (a lazy-loaded chunk) could not be fetched, e.g. a flaky connection or a stale page after a deploy. */
+export class ReaderUnavailableError extends Error {
+  constructor(cause?: unknown) {
+    super("The PDF reader could not be loaded.");
+    (this as { cause?: unknown }).cause = cause;
+    this.name = "ReaderUnavailableError";
+  }
+}
+
 export class FileTooLargeError extends Error {
   constructor(sizeBytes: number, maxBytes: number) {
     super(`File is ${sizeBytes} bytes, which exceeds the ${maxBytes}-byte limit.`);

@@ -18,7 +18,7 @@ interface TextArtworkPanelProps {
   fonts?: readonly TextFont[];
 }
 
-const FIELD = "w-full rounded-md border border-input bg-background px-2.5 py-1.5 text-sm";
+const FIELD = "w-full rounded-md border-2 border-primary/50 bg-background px-3 py-2 text-base font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
 
 /** Typed-text artwork: a small multi-line box plus a picker of the bundled fonts, each shown in its own face. */
 export default function TextArtworkPanel({

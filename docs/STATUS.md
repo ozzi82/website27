@@ -41,6 +41,11 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
   Build Your Sign starts in text mode with "SUNLITE" (`?source=upload` opens the upload); `.ai` upload; cookie banner + Consent Mode + tracking module
   (see docs/ANALYTICS-PLAN.md); smaller trust badge. Docs: ANALYTICS-PLAN, LAUNCH-CHECKLIST, LIVE-CHAT, ARTWORK-FILES.
 
+- 2026-10-05 (3): product card pictures open the detail page; "Build in 3D" beside the quote button on every detail page; configurator: Size and mounting
+  block (depth, mounting, lighting, build) highlighted, bigger Upload logo / Type text toggle and text field; PDF reader now ships its worker inside its own chunk
+  (no separate .mjs file from the host), unknown read errors show the error type and log the detail to the console. If a PDF still fails on the live site, open
+  the browser console (F12) and send the "Artwork could not be read" line.
+
 ## Owner confirmations still open
 - UL label: owner offered to share it for use as a badge (not yet received).
 - LP 11-B depths 10/15/20/30 mm versus the H1 "25-30 mm".
