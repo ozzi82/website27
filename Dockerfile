@@ -1,4 +1,4 @@
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 # Coolify passes environment variables as build args when "Build Variable" is ticked. All of them are optional:
 #   VITE_SITE_URL  site origin for canonicals, sitemap, llms.txt (default https://sunlitesigns.com)
