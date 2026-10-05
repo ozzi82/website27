@@ -15,7 +15,7 @@ learn from real leads (not only clicks).
 ## The IDs to fill in (build-time environment variables)
 | Variable | Example | Needed for |
 |---|---|---|
-| `VITE_GTM_ID` | `GTM-XXXXXXX` | Recommended: one container, tags managed without code changes |
+| `VITE_GTM_ID` | `GTM-M5SPNMN2` (default in the Dockerfile) | Recommended: one container, tags managed without code changes |
 | `VITE_GA4_ID` | `G-XXXXXXXXXX` | Only if you do NOT use GTM |
 | `VITE_GOOGLE_ADS_ID` | `AW-123456789` | Only if you do NOT use GTM |
 | `VITE_GOOGLE_ADS_LEAD_LABEL` | `AbC-D_efG-h12` | Only if you do NOT use GTM |

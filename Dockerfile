@@ -3,7 +3,7 @@ WORKDIR /app
 # Coolify passes environment variables as build args when "Build Variable" is ticked. All of them are optional:
 #   VITE_SITE_URL  site origin for canonicals, sitemap, llms.txt (default https://sunlitesigns.com)
 #   VITE_NOINDEX   1 = demo build: noindex meta, Disallow: / robots.txt, X-Robots-Tag header
-#   VITE_GTM_ID                 Google Tag Manager container, "GTM-XXXXXXX" (recommended; see docs/ANALYTICS-PLAN.md)
+#   VITE_GTM_ID                 Google Tag Manager container (default: the Sunlite Signs container; set it empty to disable; see docs/ANALYTICS-PLAN.md)
 #   VITE_GA4_ID                 GA4 measurement ID "G-XXXXXXXXXX"            (only when not using GTM)
 #   VITE_GOOGLE_ADS_ID          Google Ads conversion ID "AW-123456789"      (only when not using GTM)
 #   VITE_GOOGLE_ADS_LEAD_LABEL  Ads conversion label of the lead conversion  (only when not using GTM)
@@ -11,7 +11,7 @@ WORKDIR /app
 # in Coolify and redeploy (a rebuild), not just restart.
 ARG VITE_SITE_URL=""
 ARG VITE_NOINDEX=""
-ARG VITE_GTM_ID=""
+ARG VITE_GTM_ID="GTM-M5SPNMN2"
 ARG VITE_GA4_ID=""
 ARG VITE_GOOGLE_ADS_ID=""
 ARG VITE_GOOGLE_ADS_LEAD_LABEL=""
