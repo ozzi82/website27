@@ -234,7 +234,7 @@ Stage 03
 
 Letters assembled and wired by hand at the bench.
 
-04Quality Control
+*[Image: Two sets of white letters on the shop floor with wiring connected, one set lit for testing]*
 
 Stage 04
 
@@ -242,7 +242,7 @@ Stage 04
 
 Finished letters are checked before they are crated.
 
-05Packaging
+*[Image: Letters wrapped in bubble wrap and nested in foam inside a plywood shipping crate]*
 
 Stage 05
 
@@ -650,7 +650,7 @@ Stage 03
 
 Letters assembled and wired by hand at the bench.
 
-04Quality Control
+*[Image: Two sets of white letters on the shop floor with wiring connected, one set lit for testing]*
 
 Stage 04
 
@@ -658,7 +658,7 @@ Stage 04
 
 Finished letters are checked before they are crated.
 
-05Packaging
+*[Image: Letters wrapped in bubble wrap and nested in foam inside a plywood shipping crate]*
 
 Stage 05
 

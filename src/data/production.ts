@@ -70,12 +70,24 @@ export const productionStages: ProductionStage[] = [
     number: "04",
     title: "Quality Control",
     description: "Finished letters are checked before they are crated.",
+    image: {
+      src: "/images/production-quality-control.jpg",
+      alt: "Two sets of white letters on the shop floor with wiring connected, one set lit for testing",
+      width: 1280,
+      height: 720,
+    },
   },
   {
     id: "packaging",
     number: "05",
     title: "Packaging",
     description: "Crated and protected, with a printed installation template and touch-up paint.",
+    image: {
+      src: "/images/production-packaging.jpg",
+      alt: "Letters wrapped in bubble wrap and nested in foam inside a plywood shipping crate",
+      width: 1280,
+      height: 720,
+    },
   },
   {
     id: "ready-for-freight",
