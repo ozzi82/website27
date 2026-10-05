@@ -159,10 +159,10 @@ export const installationPoints: SpecRow[] = [
   { label: "Installation", value: "Not provided. Handled by you, your crew or a local contractor." },
 ];
 
-/** Day and night renderings (illustrative) shown with the lighting section. */
+/** Day and night images of LP 11-F (face-lit) shown with the lighting section. */
 export const dayNightImages = {
-  day: "/images/pasted-image-1786570376374-6us1e90k.jpg",
-  night: "/images/pasted-image-1786570376502-qxjiefjq.jpg",
+  day: "/images/edgeluxe/lp-11-f-face-lit-day.jpg",
+  night: "/images/edgeluxe/lp-11-f-face-lit-night.jpg",
 };
 
 /** Placeholder slot for the side-profile photograph. Set this to a real MediaImage to replace the placeholder card. */

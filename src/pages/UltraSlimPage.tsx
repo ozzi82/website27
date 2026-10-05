@@ -248,7 +248,7 @@ export default function UltraSlimPage() {
           </div>
 
           <div className="mt-10 md:mt-14 max-w-3xl">
-            <p className="mono-label text-primary mb-4">Illustrative rendering / day and night</p>
+            <p className="mono-label text-primary mb-4">LP 11-F face-lit / day and night</p>
             <BeforeAfterSlider dayImg={dayNightImages.day} nightImg={dayNightImages.night} />
           </div>
         </div>

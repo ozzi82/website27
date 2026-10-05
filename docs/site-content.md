@@ -1238,7 +1238,7 @@ The letter sits against the wall. Light leaves through a band of the side wall i
 
 Concept section diagrams, not to scale.
 
-Illustrative rendering / day and night
+LP 11-F face-lit / day and night
 
 *[Image: Night]*
 
