@@ -104,7 +104,7 @@ export default function DepthComparison({ size = "md", className, hideNote = fal
         <Dimension y={290} x0={WALL_X} x1={ultraX1} />
         <text x={WALL_X} y={314} className="font-mono fill-muted-foreground" fontSize={11} letterSpacing={1.2}>TOTAL DEPTH</text>
         <text x={ultraX1 + 24} y={250} className="font-heading fill-primary" fontSize={36} fontWeight={700}>10–30 mm</text>
-        <text x={ultraX1 + 24} y={270} className="font-mono fill-muted-foreground" fontSize={12} letterSpacing={1.2}>ABOUT 1″ – 1.2″</text>
+        <text x={ultraX1 + 24} y={270} className="font-mono fill-muted-foreground" fontSize={12} letterSpacing={1.2}>ABOUT 0.4″ – 1.2″</text>
       </svg>
       {!hideNote && (
         <figcaption className="mono-label text-muted-foreground mt-4 leading-relaxed">
