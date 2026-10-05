@@ -226,7 +226,7 @@ Stage 02
 
 LED modules and power supplies, UL 48 labeled.
 
-*[Image: Letter returns and LED wiring being assembled by hand on a work table]*
+*[Image: Sunlite Signs technician assembling a stainless steel letter return by hand at the work table]*
 
 Stage 03
 
@@ -642,7 +642,7 @@ Stage 02
 
 LED modules and power supplies, UL 48 labeled.
 
-*[Image: Letter returns and LED wiring being assembled by hand on a work table]*
+*[Image: Sunlite Signs technician assembling a stainless steel letter return by hand at the work table]*
 
 Stage 03
 

@@ -53,10 +53,10 @@ export const productionStages: ProductionStage[] = [
     title: "Hand Assembly",
     description: "Letters assembled and wired by hand at the bench.",
     image: {
-      src: "/images/pasted-image-1787755199271-ob18hn5t.png",
-      alt: "Letter returns and LED wiring being assembled by hand on a work table",
-      width: 1920,
-      height: 1298,
+      src: "/images/production-hand-assembly.jpg",
+      alt: "Sunlite Signs technician assembling a stainless steel letter return by hand at the work table",
+      width: 1280,
+      height: 720,
     },
   },
   {
