@@ -2,7 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@p
 import SectionHeader from './SectionHeader';
 
 export const faqs: Faq[] = [
-  { q: "Does Sunlite Signs serve retail customers?", a: "No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, shopfitters, and other trade professionals." },
+  { q: "Does Sunlite Signs serve retail customers?", a: "No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, retail fixture and millwork firms, and other trade professionals." },
   { q: "Can sign companies use Sunlite as a production partner?", a: "Yes. Sign companies use Sunlite as an outsourced manufacturer to expand their product offering with channel letters and illuminated signage – without investing in in-house production." },
   { q: "Do you handle installation?", a: "No. Sunlite delivers ready-to-install. Installation is handled by you, your crew, your electrician, or a local contractor." },
   { q: "Can you ship directly to the project site?", a: "Yes, by arrangement. We ship to your shop, warehouse, or – after coordination – directly to your client's project site." },

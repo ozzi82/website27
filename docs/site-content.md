@@ -457,7 +457,7 @@ FAQ
 
 ##### Does Sunlite Signs serve retail customers?
 
-No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, shopfitters, and other trade professionals.
+No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, retail fixture and millwork firms, and other trade professionals.
 
 ##### Can sign companies use Sunlite as a production partner?
 
@@ -562,7 +562,7 @@ FAQ
 
 ##### Does Sunlite Signs serve retail customers?
 
-No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, shopfitters, and other trade professionals.
+No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, retail fixture and millwork firms, and other trade professionals.
 
 ##### Can sign companies use Sunlite as a production partner?
 
@@ -988,7 +988,7 @@ FAQ
 
 ##### Does Sunlite Signs serve retail customers?
 
-No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, shopfitters, and other trade professionals.
+No. Sunlite Signs is exclusively a B2B manufacturing partner for sign companies, agencies, retail fixture and millwork firms, and other trade professionals.
 
 ##### Can sign companies use Sunlite as a production partner?
 
@@ -1677,7 +1677,7 @@ Channel letter FAQ
 
 ##### Do you sell channel letters to retail customers?
 
-No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, shopfitters and other trade professionals.
+No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, retail fixture and millwork firms and other trade professionals.
 
 ##### Which classic channel letter systems do you build?
 
@@ -1926,7 +1926,7 @@ No. Signs ship ready to install, with a printed installation template and touch-
 
 ##### Do you sell custom signs to retail customers?
 
-No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, shopfitters and other trade professionals.
+No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, retail fixture and millwork firms and other trade professionals.
 
 Letter systems
 

@@ -247,7 +247,7 @@ export const channelLetterSpecs: SpecRow[] = [
 export const channelLetterFaqs: Faq[] = [
   {
     q: "Do you sell channel letters to retail customers?",
-    a: "No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, shopfitters and other trade professionals.",
+    a: "No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, retail fixture and millwork firms and other trade professionals.",
   },
   {
     q: "Which classic channel letter systems do you build?",

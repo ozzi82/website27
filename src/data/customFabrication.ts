@@ -110,7 +110,7 @@ export const customFaqs: Faq[] = [
   },
   {
     q: "Do you sell custom signs to retail customers?",
-    a: "No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, shopfitters and other trade professionals.",
+    a: "No. Sunlite Signs is a trade-only wholesale manufacturer for sign companies, agencies, retail fixture and millwork firms and other trade professionals.",
   },
 ];
 
