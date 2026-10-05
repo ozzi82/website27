@@ -145,6 +145,22 @@ The `Dockerfile` accepts both as build arguments and writes the nginx header fro
 
 Tick **Build Variable** on each (Coolify only passes variables to the Docker build as build args when that box is ticked; without it the values never reach `npm run build` and the site silently builds as the production default). Save, then **Redeploy**. To confirm after the deploy: `curl -sI https://t2wraps.com/` shows `x-robots-tag: noindex, nofollow`; `https://t2wraps.com/robots.txt` shows `Disallow: /`; view-source of any page shows the noindex meta and a canonical on `https://t2wraps.com`.
 
+### Analytics and Google Ads IDs (VITE_GTM_ID and friends)
+
+The same build-argument mechanism carries the tracking IDs (see `docs/ANALYTICS-PLAN.md`). Add them in Coolify as **Build Variable**
+entries, then redeploy (they are baked into the JavaScript, so a rebuild is needed whenever one changes):
+
+| Name | Example | When |
+| --- | --- | --- |
+| `VITE_GTM_ID` | `GTM-XXXXXXX` | Recommended: one Google Tag Manager container manages GA4, Google Ads and everything else |
+| `VITE_GA4_ID` | `G-XXXXXXXXXX` | Only without GTM |
+| `VITE_GOOGLE_ADS_ID` | `AW-123456789` | Only without GTM |
+| `VITE_GOOGLE_ADS_LEAD_LABEL` | `AbC-D_efG-h12` | Only without GTM (the conversion label of the quote-request conversion) |
+
+Leave them empty on the t2wraps.com demo (it is noindex anyway) and set them on the production build. With none set, no Google
+script is loaded; visitors still get the cookie notice, and nothing is sent until they accept. Check after deploying: open the
+site in a private window, accept the notice, and look for `googletagmanager.com` in the browser's Network tab (or use GTM Preview).
+
 ### Switching to production (sunlitesigns.com)
 
 1. Point the production domain at the application (or create a new application from the same repository).
