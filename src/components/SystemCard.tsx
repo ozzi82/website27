@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { ArrowLink } from "./CtaButton";
 
 export interface SystemCardProps {
@@ -18,8 +19,11 @@ export default function SystemCard({ code, title, img, alt, text, rows, links }:
   return (
     <article className="grid grid-cols-[6.75rem_1fr] sm:flex sm:flex-col border border-border bg-card/50 h-full" data-system={code}>
       <div className="relative overflow-hidden sm:aspect-[4/3] max-sm:min-h-[8rem] max-sm:border-r sm:border-b border-border bg-card">
-        <img src={img} alt={alt} width={1200} height={900} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover object-[50%_50%]" />
-        <span className="absolute top-2 left-2 sm:top-3 sm:left-3 mono-label bg-background/90 px-1.5 sm:px-2 py-1">{code}</span>
+        {/* The picture opens the system's detail page (the first link below), like the "View system" link. */}
+        <Link to={links[0]?.to ?? "#"} tabIndex={-1} className="absolute inset-0 block">
+          <img src={img} alt={alt} width={1200} height={900} loading="lazy" decoding="async" className="h-full w-full object-cover object-[50%_50%] transition-transform duration-500 hover:scale-[1.03]" />
+        </Link>
+        <span className="pointer-events-none absolute top-2 left-2 sm:top-3 sm:left-3 mono-label bg-background/90 px-1.5 sm:px-2 py-1">{code}</span>
       </div>
       <div className="p-4 sm:p-5 flex-1 flex flex-col min-w-0">
         <h3 className="text-lg sm:text-2xl leading-tight">{title}</h3>

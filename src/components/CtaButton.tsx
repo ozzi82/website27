@@ -74,7 +74,7 @@ export function ArrowLink({ label, to, className }: { label: string; to: string;
 }
 
 /** Highlighted entry to the 3D configurator ("Build Your Sign"): an outlined button that stands out from the quiet nav links. */
-export function BuildYourSignButton({ size = "md", className, onClick }: { size?: "md" | "lg"; className?: string; onClick?: () => void }) {
+export function BuildYourSignButton({ size = "md", className, onClick, label = CTA_LINKS.tryConfigurator.label, to = CTA_LINKS.tryConfigurator.to }: { size?: "md" | "lg"; className?: string; onClick?: () => void; label?: string; to?: string }) {
   return (
     <Button
       asChild
@@ -86,9 +86,9 @@ export function BuildYourSignButton({ size = "md", className, onClick }: { size?
         className,
       )}
     >
-      <Link to={CTA_LINKS.tryConfigurator.to} onClick={onClick}>
+      <Link to={to} onClick={onClick}>
         <Box aria-hidden="true" />
-        {CTA_LINKS.tryConfigurator.label}
+        {label}
       </Link>
     </Button>
   );

@@ -8,6 +8,7 @@ import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
 import { lp1Gallery } from "../data/lp1Gallery";
 import SystemImage from "../components/SystemImage";
+import { BuildYourSignButton } from "../components/CtaButton";
 import BuildYourSign from "../components/BuildYourSign";
 import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
 import { emitsLight } from "../components/configurator/types";
@@ -65,9 +66,12 @@ export default function ConfigurationPage() {
             <p className="text-2xl text-foreground/80 mt-3">{c.subtitle}</p>
             <p className="text-muted-foreground mt-4 max-w-xl">{c.summary}</p>
           </div>
-          <Button asChild size="lg" className="h-14 px-8 uppercase tracking-wider font-semibold">
-            <Link to={CTA_PRIMARY.to}>{CTA_PRIMARY.label}</Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <BuildYourSignButton size="lg" label="Build in 3D" to={`/configurator?config=${c.id}`} />
+            <Button asChild size="lg" className="h-14 px-8 uppercase tracking-wider font-semibold">
+              <Link to={CTA_PRIMARY.to}>{CTA_PRIMARY.label}</Link>
+            </Button>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12">

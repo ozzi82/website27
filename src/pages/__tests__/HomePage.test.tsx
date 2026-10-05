@@ -205,3 +205,19 @@ describe("owner final touches (2026-10)", () => {
     expect(document.body.textContent).not.toMatch(/5005 W Laurel|Tampa, F/i);
   });
 });
+
+describe("product cards and detail pages", () => {
+  it("opens the detail page from the picture of a system card, and each detail page has Build in 3D beside the quote button", async () => {
+    const { renderAt } = await import("./helpers/renderPage");
+    const { main } = renderAt("/services/ultra-slim-trimless-channel-letters");
+    const card = main.querySelector('[data-system="LP 11-FS"]') as HTMLElement;
+    const pictureLink = card.querySelector("img")!.closest("a")!;
+    expect(pictureLink.getAttribute("href")).toBe("/light-effects/lp-11-fs-front-side-lit");
+
+    const detail = renderAt("/light-effects/lp-5-trimless-face-lit");
+    const build = detail.main.querySelector('a[href="/configurator?config=lp-5-trimless-face-lit"]');
+    expect(build?.textContent).toMatch(/build in 3d/i);
+    const quote = [...detail.main.querySelectorAll('a[href="/contact"]')].find((a) => /request wholesale pricing/i.test(a.textContent ?? ""));
+    expect(quote).toBeTruthy();
+  });
+});
