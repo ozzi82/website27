@@ -186,3 +186,13 @@ npm run build && npm run verify:prerender
 ## Running on your local network
 
 `npm run dev:lan` serves the dev build on all network interfaces (the terminal prints the `Network:` address, for example `http://192.168.4.235:5173`). Windows may ask to allow Node through the firewall: allow it on Private networks.
+
+## Cut-over checklist: t2wraps.com (test) to sunlitesigns.com (production)
+Keep the test site as it is (noindex) and build a separate production deployment. In this order:
+1. **Redirect list complete**: every URL of the old sunlitesigns.com site is in `LEGACY_PAGE_REDIRECTS`, `public/_redirects` and `nginx.conf` (see docs/SEO-AND-AI-VISIBILITY.md).
+2. **Production build variables** (Coolify, Build Variable ticked): `VITE_SITE_URL=https://www.sunlitesigns.com` (the host Google already indexes), **no** `VITE_NOINDEX`, `VITE_GTM_ID=GTM-...`.
+3. **DNS and HTTPS**: point `www.sunlitesigns.com` at the new application; redirect the bare domain to `www`. Lower the DNS TTL a day before, switch at a quiet hour, keep the old site's files for a week in case of rollback.
+4. **Right after the switch**: open the home page, `/contact`, `/configurator`; send a test quote through the form (check it reaches HubSpot with the artwork and the picture); test the chat; test two old URLs (they must return 301 to the new pages).
+5. **Search**: Search Console and Bing Webmaster for `sunlitesigns.com` (domain property): submit `sitemap.xml`, inspect the home page and the main product pages, watch Coverage for 404s for two weeks and add any missing redirects.
+6. **HubSpot / Google**: add the production domain wherever a domain list exists (HubSpot tracking-code domain restriction if enabled, GA4 data stream, Google Ads final URLs, Google Business Profile website field).
+7. **Keep the test domain noindex** (or password-protect it) so the two sites never compete in search.

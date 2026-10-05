@@ -221,3 +221,12 @@ describe("product cards and detail pages", () => {
     expect(quote).toBeTruthy();
   });
 });
+
+describe("UL mark", () => {
+  it("shows the owner's UL mark beside UL 48 Listed in the capability strip and in the footer", () => {
+    renderHome();
+    const strip = screen.getByRole("region", { name: "Capabilities" });
+    expect(strip.querySelector('img[src="/images/ul-mark.svg"]')).not.toBeNull();
+    expect(screen.getByRole("contentinfo").querySelector('img[src="/images/ul-mark.svg"]')).not.toBeNull();
+  });
+});

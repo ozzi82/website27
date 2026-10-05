@@ -47,6 +47,10 @@ Footer:
 
 Sunlite Signs LLC Wholesale manufacturing partner for sign companies nationwide.
 
+*[Image: UL mark]*
+
+UL 48 listed signs
+
 (689) 294-0912 · hello@sunlitesigns.com
 
 [Ultra-Slim Letters](/services/ultra-slim-trimless-channel-letters) · [Classic Trimless Letters](/services/channel-letters) · [Flat Cutout Letters](/light-effects/lp-1-flat-cutout) · [Custom Fabrication](/services/custom-sign-fabrication) · [Build Your Sign](/configurator) · [Projects](/projects) · [Manufacturing](/manufacturing) · [About](/about) · [Request Wholesale Pricing](/contact)

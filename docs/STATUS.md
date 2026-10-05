@@ -54,6 +54,9 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
   configurator usage events (artwork, system, option, quote click); docs/SEO-AND-AI-VISIBILITY.md and the measurement table in docs/ANALYTICS-PLAN.md.
   IMPORTANT before launch: sunlitesigns.com is already live with the old site; export ALL its URLs and redirect every one (see SEO doc).
 
+- 2026-10-05 (6): UL mark (owner SVG, `public/images/ul-mark.svg`) beside "UL 48 Listed" in the capability strip and in the footer. Confirm with UL that this mark may be used.
+  The current domain (t2wraps.com) is the test site; production moves to sunlitesigns.com (see docs/SEO-AND-AI-VISIBILITY.md and DEPLOY.md cut-over).
+
 ## Owner confirmations still open
 - UL label: owner offered to share it for use as a badge (not yet received).
 - LP 11-B depths 10/15/20/30 mm versus the H1 "25-30 mm".

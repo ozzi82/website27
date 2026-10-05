@@ -34,6 +34,10 @@ export default function Footer() {
                 <br />
                 {COMPANY_POSITIONING}
               </p>
+              <p className="flex items-center gap-2 text-xs text-muted-foreground">
+                <img src="/images/ul-mark.svg" alt="UL mark" width={24} height={24} className="h-6 w-6 shrink-0" loading="lazy" />
+                UL 48 listed signs
+              </p>
               <p className="text-xs text-muted-foreground">
                 {PHONE_DISPLAY} · {EMAIL}
               </p>
