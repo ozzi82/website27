@@ -1073,6 +1073,7 @@ When you first visit, a notice lets you accept or decline optional cookies. Your
 - **Necessary:** remembering your cookie choice (browser storage) and the technical operation of the site. These do not track you across sites.
 - **Analytics (optional):** Google Tag Manager and Google Analytics measure page views, time on site and use of the configurator. They set cookies only if you accept.
 - **Advertising measurement (optional):** Google Ads measures which advertisements lead to a quote request. If you arrive from an advertisement we keep its campaign tags with your inquiry so we can tell which advertisement led to it; in your browser they are stored for up to 90 days, and only if you accepted.
+- **Remarketing (optional):** if you accept advertising cookies, Google Ads may recognise your browser as one that visited this site, so that our advertisements can be shown to you on Google’s services and partner websites. You can turn this off with Cookie settings, and you can manage Google’s ad personalisation in your Google account.
 - **HubSpot (form and chat):** the quote form is provided by HubSpot, which may set cookies to operate the form and connect it to your inquiry. The chat widget loads only after you accept cookies or when you click “Chat with us”.
 
 Until you accept, the Google tags run in a restricted mode: they set no analytics or advertising cookies and receive no advertising identifiers. Like any server you connect to, Google still receives the technical data every web request carries, such as your IP address and browser type. If you decline, the quote form and the configurator work in the same way.
@@ -1088,7 +1089,7 @@ We share personal data only with service providers that process it for us, and w
 - **Our email and file-sharing providers**: to correspond with you and exchange artwork.
 - Professional advisers, authorities or a buyer of the business, where required by law or in a sale of the business.
 
-We do not sell your personal information. We do not share it for advertising, except that if you accept advertising cookies, Google processes the data described in section 4 as our service provider for measuring our advertisements; you can withdraw that at any time with Cookie settings.
+We do not sell your personal information. We do not share it with advertisers or data brokers. If you accept advertising cookies, Google processes the data described in section 4 as our service provider, to measure our advertisements and to show our advertisements to people who visited the site (remarketing); you can withdraw that at any time with Cookie settings.
 
 Some of these providers are in, or process data in, the United States and other countries. Where personal data of people in the European Economic Area, the United Kingdom or Switzerland is transferred outside those regions, we rely on the safeguards our providers offer, such as standard contractual clauses.
 

@@ -97,6 +97,10 @@ export default function PrivacyPolicyPage() {
             its campaign tags with your inquiry so we can tell which advertisement led to it; in your browser they are stored for up to 90 days, and only if you accepted.
           </li>
           <li>
+            <strong>Remarketing (optional):</strong> if you accept advertising cookies, Google Ads may recognise your browser as one that visited this site, so that our advertisements can be shown
+            to you on Google&rsquo;s services and partner websites. You can turn this off with Cookie settings, and you can manage Google&rsquo;s ad personalisation in your Google account.
+          </li>
+          <li>
             <strong>HubSpot (form and chat):</strong> the quote form is provided by HubSpot, which may set cookies to operate the form and connect it to your inquiry. The
             chat widget loads only after you accept cookies or when you click &ldquo;Chat with us&rdquo;.
           </li>
@@ -118,8 +122,8 @@ export default function PrivacyPolicyPage() {
           <li>Professional advisers, authorities or a buyer of the business, where required by law or in a sale of the business.</li>
         </ul>
         <p className={p}>
-          We do not sell your personal information. We do not share it for advertising, except that if you accept advertising cookies, Google processes the data described in section 4 as
-          our service provider for measuring our advertisements; you can withdraw that at any time with Cookie settings.
+          We do not sell your personal information. We do not share it with advertisers or data brokers. If you accept advertising cookies, Google processes the data described in section 4 as
+          our service provider, to measure our advertisements and to show our advertisements to people who visited the site (remarketing); you can withdraw that at any time with Cookie settings.
         </p>
         <p className={p}>
           Some of these providers are in, or process data in, the United States and other countries. Where personal data of people in the European Economic Area, the United Kingdom or
