@@ -737,21 +737,61 @@ Illuminated letters and logos, fabricated to our partners' drawings.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: Quarrix lettering with a blue glow behind the letters on a white display wall]*
+*[Image: Rounded-rectangle illuminated sign on two black legs, lit with a glowing white border and logo]*
 
 Fig. 01
+
+##### Rounded illuminated sign on legs (lit)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Rounded-rectangle sign with a green recessed face and raised logo, standing on two black legs with base plates]*
+
+Fig. 02
+
+##### Rounded illuminated sign on legs (unlit)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Side view of the rounded sign showing its depth and the black leg supports]*
+
+Fig. 03
+
+##### Rounded illuminated sign on legs (side view)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Jaxen Grey wall-bracket box sign with warm white glowing letters on a black cabinet]*
+
+Fig. 04
+
+##### Jaxen Grey custom sign (lit)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Jaxen Grey wall-bracket box sign with white letters on a black cabinet and a black mounting bracket]*
+
+Fig. 05
+
+##### Jaxen Grey custom sign (unlit)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Quarrix lettering with a blue glow behind the letters on a white display wall]*
+
+Fig. 06
 
 ##### Quarrix
 
 *[Image: Piada lettering above a dark canopy on a brick storefront]*
 
-Fig. 02
+Fig. 07
 
 ##### Piada
 
 *[Image: Olympus Clinical Research logo and lettering cut out in blue, orange and white, laid on paper templates]*
 
-Fig. 03
+Fig. 08
 
 ##### Olympus Clinical Research
 
@@ -759,7 +799,7 @@ Fig. 03
 
 *[Image: Two Olympus Clinical Research flat cutout sign sets laid out on paper templates in the workshop]*
 
-Fig. 04
+Fig. 09
 
 ##### Olympus Clinical Research (layout)
 
@@ -767,55 +807,55 @@ Fig. 04
 
 *[Image: Mustang sign with illuminated lettering on a dark panel]*
 
-Fig. 05
+Fig. 10
 
 ##### Mustang
 
 *[Image: Panther Dome entrance with an illuminated panther emblem at dusk]*
 
-Fig. 06
+Fig. 11
 
 ##### Panther Dome
 
 *[Image: Illuminated acorn and laurel crest on a wood-slat wall]*
 
-Fig. 07
+Fig. 12
 
 ##### Acorn crest
 
 *[Image: Illuminated wall graphic in an interior corridor]*
 
-Fig. 08
+Fig. 13
 
 ##### Interior wall graphic
 
 *[Image: Pre-Loved Luxury Collection lettering above a storefront]*
 
-Fig. 09
+Fig. 14
 
 ##### Pre-Loved Luxury Collection
 
 *[Image: Inspire logo lettering with a glowing halo on an interior wall]*
 
-Fig. 10
+Fig. 15
 
 ##### Inspire
 
 *[Image: Stroh + Scheuerpflug logo lettering on a white wall]*
 
-Fig. 11
+Fig. 16
 
 ##### Stroh + Scheuerpflug
 
 *[Image: Tradebyte lettering with a halo glow on a grey wall]*
 
-Fig. 12
+Fig. 17
 
 ##### Tradebyte
 
 *[Image: MACS Innovative Companies lettering on a concrete wall]*
 
-Fig. 13
+Fig. 18
 
 ##### MACS
 
@@ -823,19 +863,19 @@ Fig. 13
 
 *[Image: JenTower lettering with a warm halo above an entrance]*
 
-Fig. 14
+Fig. 19
 
 ##### JenTower
 
 *[Image: ARGO-HYTOS illuminated lettering on a blue building facade at dusk]*
 
-Fig. 15
+Fig. 20
 
 ##### ARGO-HYTOS
 
 *[Image: Vertical lettering with glowing white outlines on a blue panel beside a concrete column]*
 
-Fig. 16
+Fig. 21
 
 ##### Concourse lettering
 
@@ -845,7 +885,7 @@ Fig. 16
 
 *[Image: Illuminated vertical lettering on a blue column panel in a large interior concourse]*
 
-Fig. 17
+Fig. 22
 
 ##### Concourse column sign
 
@@ -855,7 +895,7 @@ Fig. 17
 
 *[Image: Large white illuminated lettering with a soft halo above an event stand]*
 
-Fig. 18
+Fig. 23
 
 ##### Event stand lettering
 
@@ -865,7 +905,7 @@ Fig. 18
 
 *[Image: itonics lettering on a white wall]*
 
-Fig. 19
+Fig. 24
 
 ##### itonics
 
@@ -1748,21 +1788,61 @@ Reference projects
 
 [View All Projects](/projects)
 
-*[Image: Illuminated acorn and laurel crest on a wood-slat wall]*
+*[Image: Rounded-rectangle illuminated sign on two black legs, lit with a glowing white border and logo]*
 
 Fig. 01
+
+##### Rounded illuminated sign on legs (lit)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Rounded-rectangle sign with a green recessed face and raised logo, standing on two black legs with base plates]*
+
+Fig. 02
+
+##### Rounded illuminated sign on legs (unlit)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Side view of the rounded sign showing its depth and the black leg supports]*
+
+Fig. 03
+
+##### Rounded illuminated sign on legs (side view)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Jaxen Grey wall-bracket box sign with warm white glowing letters on a black cabinet]*
+
+Fig. 04
+
+##### Jaxen Grey custom sign (lit)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Jaxen Grey wall-bracket box sign with white letters on a black cabinet and a black mounting bracket]*
+
+Fig. 05
+
+##### Jaxen Grey custom sign (unlit)
+
+- **Product:** Custom sign fabrication
+
+*[Image: Illuminated acorn and laurel crest on a wood-slat wall]*
+
+Fig. 06
 
 ##### Acorn crest
 
 *[Image: Panther Dome entrance with an illuminated panther emblem at dusk]*
 
-Fig. 02
+Fig. 07
 
 ##### Panther Dome
 
 *[Image: Mustang sign with illuminated lettering on a dark panel]*
 
-Fig. 03
+Fig. 08
 
 ##### Mustang
 

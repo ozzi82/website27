@@ -28,6 +28,12 @@ const I = "/images/";
 
 export const projects: Project[] = [
   // Added 2026-10-05 (owner photos). Only what the photos show is recorded: no product line, depth or finish is claimed.
+  // Custom sign fabrication (owner photos, 2026-10-05). Only what the photos show is recorded.
+  { id: "cabinet-sign-lit", title: "Rounded illuminated sign on legs (lit)", image: I + "custom-cabinet-sign-lit.jpg", width: 1600, height: 1600, alt: "Rounded-rectangle illuminated sign on two black legs, lit with a glowing white border and logo", productType: "Custom sign fabrication" },
+  { id: "cabinet-sign-unlit", title: "Rounded illuminated sign on legs (unlit)", image: I + "custom-cabinet-sign-unlit-front.jpg", width: 1600, height: 1600, alt: "Rounded-rectangle sign with a green recessed face and raised logo, standing on two black legs with base plates", productType: "Custom sign fabrication" },
+  { id: "cabinet-sign-side", title: "Rounded illuminated sign on legs (side view)", image: I + "custom-cabinet-sign-unlit-side.jpg", width: 1600, height: 1600, alt: "Side view of the rounded sign showing its depth and the black leg supports", productType: "Custom sign fabrication" },
+  { id: "jaxen-grey-lit", title: "Jaxen Grey custom sign (lit)", image: I + "custom-blade-sign-jaxen-grey-lit.jpg", width: 900, height: 1600, alt: "Jaxen Grey wall-bracket box sign with warm white glowing letters on a black cabinet", productType: "Custom sign fabrication" },
+  { id: "jaxen-grey-unlit", title: "Jaxen Grey custom sign (unlit)", image: I + "custom-blade-sign-jaxen-grey-unlit.jpg", width: 1280, height: 1280, alt: "Jaxen Grey wall-bracket box sign with white letters on a black cabinet and a black mounting bracket", productType: "Custom sign fabrication" },
   { id: "quarrix", title: "Quarrix", image: I + "project-quarrix.jpg", width: 1280, height: 1707, alt: "Quarrix lettering with a blue glow behind the letters on a white display wall" },
   { id: "piada", title: "Piada", image: I + "project-piada.jpg", width: 1280, height: 1706, alt: "Piada lettering above a dark canopy on a brick storefront" },
   { id: "olympus-templates", title: "Olympus Clinical Research", image: I + "project-olympus-flat.jpg", width: 1600, height: 1200, alt: "Olympus Clinical Research logo and lettering cut out in blue, orange and white, laid on paper templates", productType: "Flat cutout letters" },

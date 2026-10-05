@@ -73,7 +73,7 @@ export const customSpecs: SpecRow[] = [
 ];
 
 /** Real photos shown as recent production, with no category claim beyond what is visible. */
-export const customReferenceIds = ["acorn-crest", "panther-dome", "mustang"];
+export const customReferenceIds = ["cabinet-sign-lit", "cabinet-sign-unlit", "cabinet-sign-side", "jaxen-grey-lit", "jaxen-grey-unlit", "acorn-crest", "panther-dome", "mustang"];
 
 export const customFaqs: Faq[] = [
   {
