@@ -14,11 +14,11 @@ import { productionStages } from "../../data/production";
 const wrap = (ui: React.ReactElement, path = "/") => render(<MemoryRouter initialEntries={[path]}>{ui}</MemoryRouter>);
 
 describe("DepthComparison", () => {
-  it("is an image with an accessible title and description naming both letters, saying the conventional one is not built by Sunlite, and 25-30 mm", () => {
+  it("is an image with an accessible title and description naming both letters, saying the conventional one is not built by Sunlite, and 10–30 mm", () => {
     render(<DepthComparison />);
     const svg = screen.getByRole("img");
     expect(svg).toHaveAccessibleName(/conventional trim-cap channel letter, a type Sunlite does not build, versus Sunlite Ultra-Slim LP 11/i);
-    expect(svg).toHaveAccessibleDescription(/25 to 30 millimetres/i);
+    expect(svg).toHaveAccessibleDescription(/10 to 30 millimetres/i);
     expect(svg).toHaveAccessibleDescription(/not to scale/i);
     expect(svg).toHaveAccessibleDescription(/does not build/i);
   });

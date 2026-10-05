@@ -59,7 +59,6 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
 
 ## Owner confirmations still open
 - UL label: owner offered to share it for use as a badge (not yet received).
-- LP 11-B depths 10/15/20/30 mm versus the H1 "25-30 mm".
 - Wording "trimless" for cast acrylic: owner says it is not really used for cast block acrylic but is not wrong, so it stays.
 - `/services/cabinet-signs` now redirects to the custom fabrication page.
 - Photo labels on the product pages.

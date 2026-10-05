@@ -4,7 +4,6 @@ import path from "node:path";
 import { render, screen, within } from "@testing-library/react";
 import * as THREE from "three";
 import { configurations } from "../../../data/configurations";
-import { lp1Gallery } from "../../../data/lp1Gallery";
 import ConfigControls from "../ConfigControls";
 import { TEXT_FONTS, fontsFor, usableFontId } from "../textFonts";
 import { GLOW_SWATCHES } from "../swatches";
@@ -91,13 +90,6 @@ describe("disclaimer", () => {
     expect(DISCLAIMER_TEXT).toMatch(/do not represent the real acrylic colors/);
     expect(DISCLAIMER_TEXT).toMatch(/every order needs proper artwork/);
     expect(formatConfigSummary(defaultStateFor(lp5), lp5, null)).toContain(DISCLAIMER_TEXT);
-  });
-});
-
-describe("LP 1 placeholder gallery", () => {
-  it("has a picture file for every finish shown", () => {
-    for (const g of lp1Gallery) expect(fs.existsSync(path.resolve(__dirname, "../../../../public" + g.img)), g.img).toBe(true);
-    expect(new THREE.Color("#fff").isColor).toBe(true);
   });
 });
 

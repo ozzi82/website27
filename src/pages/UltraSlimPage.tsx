@@ -20,12 +20,10 @@ import { ArrowLink, PrimaryCta, SecondaryCta } from "../components/CtaButton";
 import { CHANNEL_LETTERS_PATH, CUSTOM_FABRICATION_PATH, classicSystems } from "../data/channelLetters";
 import {
   ULTRA_SLIM_ID,
-  SIDE_PROFILE_PLACEHOLDER,
   dayNightImages,
   installationPoints,
   lightingCodes,
   lp11Variants,
-  sideProfileMedia,
   ultraSlimAttributes,
   ultraSlimLightingDiagrams,
   ultraSlimMeta,
@@ -59,33 +57,6 @@ const jsonLd = [
   },
   breadcrumbJsonLd(crumbs),
 ];
-
-/** Side-profile photo slot: shows the real image once `sideProfileMedia` is set, an honest placeholder until then. */
-function SideProfileCard({ index }: { index: number }) {
-  return (
-    <article className="flex flex-col border border-border bg-card/50" data-slot="side-profile">
-      <MediaFrame
-        image={sideProfileMedia}
-        aspect="aspect-[4/3]"
-        className="border-b border-border"
-        placeholder={
-          <div aria-hidden="true" className="absolute inset-0 steel-plate bg-secondary/60 p-3">
-            <div className="corner-marks h-full flex flex-col items-center justify-center gap-3 border border-border/60 text-center p-4">
-              <span className="font-heading text-6xl sm:text-7xl leading-none font-bold text-transparent [-webkit-text-stroke:1.5px_hsl(var(--primary)/0.5)]">
-                25–30
-              </span>
-              <span className="mono-label text-muted-foreground">{SIDE_PROFILE_PLACEHOLDER}</span>
-            </div>
-          </div>
-        }
-      />
-      <div className="p-3 sm:p-5">
-        <p className="mono-label text-muted-foreground">Fig. {String(index + 1).padStart(2, "0")}</p>
-        <h3 className="text-lg sm:text-2xl mt-1 leading-tight">Side profile</h3>
-      </div>
-    </article>
-  );
-}
 
 /** Dedicated page for the signature product: the EdgeLuxe LP 11 series of ultra-slim cast block acrylic letters. */
 export default function UltraSlimPage() {
@@ -308,7 +279,6 @@ export default function UltraSlimPage() {
             {photos.map((p, i) => (
               <ProjectCard key={p.id} project={p} index={i} />
             ))}
-            <SideProfileCard index={photos.length} />
           </div>
         </div>
       </section>

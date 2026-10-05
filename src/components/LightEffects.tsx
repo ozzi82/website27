@@ -19,10 +19,10 @@ export default function LightEffects() {
               letter system
             </>
           }
-          intro="12 German-engineered, UL Listed configurations, from flat cutouts to halo-lit stainless steel and sealed block acrylic. Open any one for depths, materials and limits."
+          intro="12 German-engineered configurations, from flat cutouts to halo-lit stainless steel and sealed block acrylic. Open any one for depths, materials and limits."
           action={<ArrowLink label={CTA_LINKS.tryConfigurator.label} to={CTA_LINKS.tryConfigurator.to} />}
         />
-        <ULBadge label="Every system UL Listed" className="mb-6" />
+        <ULBadge label="Every illuminated system UL Listed" className="mb-6" />
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {configurations.map((c) => (
             <Link key={c.id} to={`/light-effects/${c.id}`} className="group bg-card flex flex-col rounded-xl overflow-hidden border border-border hover:border-primary/60 transition-colors">

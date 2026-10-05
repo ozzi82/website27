@@ -129,17 +129,16 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
     expect(text).toMatch(/LP 11-BS and LP 11-FS can be flush or on standoffs; LP 11-F, LP 11-S, LP 11-N and LP 11-C mount flush/);
   });
 
-  it("keeps project photography with a side-profile slot, and real images only", () => {
+  it("shows project photography with real images only, and no side-profile placeholder", () => {
     const { main } = renderAt(PATH);
-    const slot = main.querySelector('[data-slot="side-profile"]')!;
-    expect(slot.textContent).toContain("Side-profile photography — coming soon");
-    expect(slot.querySelector("img")).toBeNull();
+    expect(main.querySelector('[data-slot="side-profile"]')).toBeNull();
+    expect(main.textContent).not.toMatch(/coming soon/i);
     const imgs = [...main.querySelectorAll("img")].map((i) => i.getAttribute("src")!);
     for (const src of imgs) expect(src.startsWith("/images/"), src).toBe(true);
     expect(imgs.some((s) => s.includes("1787683170345"))).toBe(true);
   });
 
-  it("cross-links to the classic letters (30-100 mm, fabricated stainless steel) and never says stainless is the 25-30 mm product", () => {
+  it("cross-links to the classic letters (30-100 mm, fabricated stainless steel) and never says stainless is the 10–30 mm product", () => {
     const { main } = renderAt(PATH);
     const classic = main.querySelector("#classic") as HTMLElement;
     expect(classic.textContent).toMatch(/trimless fabricated stainless steel in depths from 30 to 100 mm/);

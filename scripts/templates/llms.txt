@@ -6,7 +6,7 @@ Sunlite Signs LLC is a wholesale manufacturing partner that fabricates illuminat
 
 ## Products
 
-- [Ultra-Slim Trimless Channel Letters]({{SITE_URL}}/services/ultra-slim-trimless-channel-letters): Sunlite's signature product. The EdgeLuxe LP 11 series of cast block acrylic letters with embedded LEDs, IP67 epoxy-sealed, 25-30 mm deep (30 mm standard, 25 mm for small letters), in eight lighting variants: face, halo, face + halo, partial back side, face + partial front side, full side, faux neon and conical.
+- [Ultra-Slim Trimless Channel Letters]({{SITE_URL}}/services/ultra-slim-trimless-channel-letters): Sunlite's signature product. The EdgeLuxe LP 11 series of cast block acrylic letters with embedded LEDs, IP67 epoxy-sealed, 10–30 mm deep (30 mm standard, 25 mm for small letters), in eight lighting variants: face, halo, face + halo, partial back side, face + partial front side, full side, faux neon and conical.
 - [Classic Trimless Channel Letters]({{SITE_URL}}/services/channel-letters): Wholesale channel letters in fabricated stainless steel, trimless (no trim caps): face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2, 30-100 mm and custom depths. Includes mounting, specifications and FAQ.
 - [Flat Cutout Letters (LP 1)]({{SITE_URL}}/light-effects/lp-1-flat-cutout): Non-illuminated flat cutout letters in wood, aluminum, stainless steel, acrylic and more.
 - [Custom Sign Fabrication]({{SITE_URL}}/services/custom-sign-fabrication): Custom signs made to your drawings, including blade signs, push-through cabinet signs and custom illuminated logos and letter projects.

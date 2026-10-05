@@ -192,7 +192,7 @@ export const lightingOptions: { label: string; value: string }[] = [
   { label: "LP 5", value: "Face lit, trimless" },
   { label: "LP 3.1", value: "Halo lit from the back, standoff spacers" },
   { label: "LP 3.2", value: "Partial side-lit halo, flush-mount" },
-  { label: "LED & electrical", value: "Serviceable LEDs; LED modules and power supplies UL 48 labeled" },
+  { label: "LED & electrical", value: "Serviceable LEDs. Finished signs UL listed to UL 48; power supplies and LED modules are UL listed components" },
   { label: "Warranty", value: "3 years on LED modules and power supplies" },
 ];
 
@@ -228,7 +228,7 @@ export const channelLetterSpecs: SpecRow[] = [
   { label: "Colors", value: "Painted in any PMS color; vinyl or pigmented translucent acrylic options" },
   { label: "Maintenance", value: "Serviceable LEDs" },
   { label: "Certification", value: "UL 48 listed" },
-  { label: "Electrical", value: "LED modules and power supplies, UL 48 labeled" },
+  { label: "Electrical", value: "Finished signs UL listed to UL 48; LED modules and power supplies are UL listed components" },
   { label: "Warranty", value: "3 years, LED modules and power supplies" },
   { label: "Quote", value: "Tailored quote in 24 to 48 hours, most times 24 hours" },
   { label: "Lead time", value: "Typically 3–4 weeks, production and delivery" },
@@ -263,7 +263,7 @@ export const channelLetterFaqs: Faq[] = [
   },
   {
     q: "Are your channel letters UL listed?",
-    a: "Our illuminated signage is UL 48 listed, and LED modules and power supplies are UL 48 labeled.",
+    a: "Our finished electric signs are UL listed to UL 48, and the LED modules and power supplies inside are UL listed components.",
   },
   {
     q: "Do you offer ultra-slim letters?",
@@ -311,7 +311,7 @@ export const constructionRows: SpecRow[] = [
   { label: "Returns and back", value: "Fabricated stainless steel; on LP 5, thick gauge stainless steel returns and back welded together." },
   { label: "Face", value: "LP 5: step-routed acrylic face, trimless. The light passes through the face." },
   { label: "LED system", value: "Serviceable LEDs. On LP 3.1 they are arranged to avoid reflection of the diodes on the mounting surface." },
-  { label: "Power supply", value: "Power supplies, UL 48 labeled. 3-year warranty on LED modules and power supplies." },
+  { label: "Power supply", value: "UL listed components. 3-year warranty on LED modules and power supplies." },
 ];
 
 export interface DepthOption {

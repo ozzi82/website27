@@ -10,12 +10,12 @@ interface DepthComparisonProps {
 }
 
 // An aria-label rather than an SVG <title>: a <title> inside the body would be a second <title> element on the page.
-const LABEL = "Side-profile depth comparison: conventional trim-cap channel letter, a type Sunlite does not build, versus Sunlite Ultra-Slim LP 11, 25 to 30 millimetres deep";
+const LABEL = "Side-profile depth comparison: conventional trim-cap channel letter, a type Sunlite does not build, versus Sunlite Ultra-Slim LP 11, 10 to 30 millimetres deep";
 
 const WALL_X = 30; // mounting surface
 const STROKE_H = 56; // height of the drawn stroke section
 const CONVENTIONAL_DEPTH = 250; // drawn deeper on purpose: illustrative, no depth is claimed for it
-const ULTRA_SLIM_DEPTH = 70; // drawn in the 25-30 mm band
+const ULTRA_SLIM_DEPTH = 70; // drawn in the 10–30 mm band
 
 /** One stroke cross-section: back on the wall, returns top and bottom, lit face on the right. */
 function Profile({ cy, depth, uid }: { cy: number; depth: number; uid: string }) {
@@ -51,7 +51,7 @@ function Dimension({ y, x0, x1 }: { y: number; x0: number; x1: number }) {
 
 /**
  * Side-profile depth comparison drawn as an architectural section: a conventional trim-cap channel-letter return (a type
- * Sunlite does not build) versus the Sunlite Ultra-Slim (LP 11) 25-30 mm profile. Illustrative: the conventional letter is drawn visibly deeper but
+ * Sunlite does not build) versus the Sunlite Ultra-Slim (LP 11) 10–30 mm profile. Illustrative: the conventional letter is drawn visibly deeper but
  * no depth is claimed for it. Responsive (viewBox scales; works at 360 px) and reused by the ultra-slim page.
  */
 export default function DepthComparison({ size = "md", className, hideNote = false }: DepthComparisonProps) {
@@ -73,7 +73,7 @@ export default function DepthComparison({ size = "md", className, hideNote = fal
         <desc id={descId}>
           Two cross-sections of an illuminated letter mounted on a wall. The conventional trim-cap channel-letter return,
           a type Sunlite does not build, is drawn several times deeper than the Sunlite Ultra-Slim LP 11 letter, which is
-          25 to 30 millimetres deep in total. The drawing is illustrative and not to scale.
+          10 to 30 millimetres deep in total. The drawing is illustrative and not to scale.
         </desc>
         <defs>
           <pattern id={`${uid}-hatch`} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">

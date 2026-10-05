@@ -6,7 +6,6 @@ import { configurations } from "../data/configurations";
 import Seo from "../components/Seo";
 import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
-import { lp1Gallery } from "../data/lp1Gallery";
 import { projectsByIds } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 import SystemImage from "../components/SystemImage";
@@ -55,7 +54,7 @@ export default function ConfigurationPage() {
     <div className="pt-28 pb-24">
       <Seo
         title={`${c.title} — ${c.subtitle}`}
-        description={`${c.summary} UL Listed, 3-year warranty, wholesale to the trade.`}
+        description={c.family === "Flat cutout" ? `${c.summary} Wholesale to the trade.` : `${c.summary} UL Listed, 3-year warranty, wholesale to the trade.`}
         path={path}
         image={absoluteUrl(c.img)}
         jsonLd={jsonLd}
@@ -70,7 +69,7 @@ export default function ConfigurationPage() {
             <h1 className="text-5xl md:text-7xl">{c.title}</h1>
             <p className="text-2xl text-foreground/80 mt-3">{c.subtitle}</p>
             <p className="text-muted-foreground mt-4 max-w-xl">{c.summary}</p>
-            <ULBadge label="UL Listed · 3-year warranty" className="mt-5" />
+            {c.family !== "Flat cutout" && <ULBadge label="UL Listed · 3-year warranty" className="mt-5" />}
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
             <BuildYourSignButton size="lg" label="Build in 3D" to={`/configurator?config=${c.id}`} />
@@ -123,20 +122,19 @@ export default function ConfigurationPage() {
 
         {c.family === "Flat cutout" && (
           <section className="mt-16" aria-labelledby="lp1-finishes">
-            <p className="mono-label text-primary mb-3">Finishes</p>
-            <h2 id="lp1-finishes" className="text-3xl md:text-4xl mb-6">Material and finish options.</h2>
-            <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {lp1Gallery.map((g) => (
-                <li key={g.id} className="border border-border bg-card/50">
-                  <img src={g.img} alt={g.alt} width={900} height={675} loading="lazy" decoding="async" className="w-full h-auto block" />
-                  <div className="p-4 flex items-center justify-between gap-3">
-                    <p className="font-medium">{g.label}</p>
-                    <Link to={`/configurator?config=${c.id}&finish=${g.id}`} className="mono-label text-primary hover:text-foreground whitespace-nowrap">Try it</Link>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <p className="mono-label text-muted-foreground mt-4">Illustrative renders, placeholders until project photos are added. Solid or fabricated builds; see the configurator.</p>
+            <p className="mono-label text-primary mb-3">Materials and finishes</p>
+            <h2 id="lp1-finishes" className="text-3xl md:text-4xl mb-6">Cut from the material you need.</h2>
+            <div className="max-w-3xl space-y-4 text-foreground/85">
+              <p>
+                Flat cutout letters can be made in many materials: wood, aluminum, stainless steel in brushed or mirror finishes, corten, clear or colored acrylic, and more. Tell us the material and finish you have in mind and we will tell you how we would build it.
+              </p>
+              <p>
+                Thickness runs from 1 mm sheet up to 200 mm, as a solid piece or as a fabricated, hollow build. You can preview several finishes on your own artwork in the configurator.
+              </p>
+              <Link to={`/configurator?config=${c.id}`} className="mono-label text-primary hover:text-foreground inline-flex items-center gap-2">
+                Preview finishes in 3D <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
           </section>
         )}
 

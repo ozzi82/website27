@@ -90,7 +90,6 @@ const baseConfigurations: LightConfig[] = [
       { label: "Min. stroke width", value: '0.2" (5 mm)' },
       { label: "Min. height", value: '0.4" (10 mm)' },
       { label: "Maintenance", value: "No maintenance" },
-      ...COMMON_TAIL,
     ],
     img: IMG + "lp-1-flat-cutout-gold.jpg",
     profile: "flat",

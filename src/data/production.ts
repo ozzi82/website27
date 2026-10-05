@@ -45,7 +45,7 @@ export const productionStages: ProductionStage[] = [
     id: "led-electrical",
     number: "02",
     title: "LED & Electrical",
-    description: "LED modules and power supplies, UL 48 labeled.",
+    description: "Finished electric signs are UL listed to UL 48. Power supplies and LED modules are UL listed components.",
     image: {
       src: "/images/production-electrical.jpg",
       alt: "Sunlite Signs team fitting LED strips and wiring into green letter returns at the work table",

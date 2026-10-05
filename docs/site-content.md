@@ -224,7 +224,7 @@ Stage 02
 
 ##### LED & Electrical
 
-LED modules and power supplies, UL 48 labeled.
+Finished electric signs are UL listed to UL 48. Power supplies and LED modules are UL listed components.
 
 *[Image: Sunlite Signs technician assembling a stainless steel letter return by hand at the work table]*
 
@@ -304,13 +304,13 @@ EdgeLuxe letter systems
 
 #### Choose your letter system
 
-12 German-engineered, UL Listed configurations, from flat cutouts to halo-lit stainless steel and sealed block acrylic. Open any one for depths, materials and limits.
+12 German-engineered configurations, from flat cutouts to halo-lit stainless steel and sealed block acrylic. Open any one for depths, materials and limits.
 
 [Build Your Sign](/configurator)
 
 *[Image: UL mark]*
 
-Every system UL Listed
+Every illuminated system UL Listed
 
 *[Image: EdgeLuxe LP 1 — Flat Cutout Letters (FCO)]*
 
@@ -640,7 +640,7 @@ Stage 02
 
 ##### LED & Electrical
 
-LED modules and power supplies, UL 48 labeled.
+Finished electric signs are UL listed to UL 48. Power supplies and LED modules are UL listed components.
 
 *[Image: Sunlite Signs technician assembling a stainless steel letter return by hand at the work table]*
 
@@ -1310,12 +1310,6 @@ Fig. 02
 
 [View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
 
-25–30Side-profile photography — coming soon
-
-Fig. 03
-
-##### Side profile
-
 Classic trimless letters
 
 #### Need a deeper, fabricated letter?
@@ -1522,7 +1516,7 @@ Construction
 - **Returns and back:** Fabricated stainless steel; on LP 5, thick gauge stainless steel returns and back welded together.
 - **Face:** LP 5: step-routed acrylic face, trimless. The light passes through the face.
 - **LED system:** Serviceable LEDs. On LP 3.1 they are arranged to avoid reflection of the diodes on the mounting surface.
-- **Power supply:** Power supplies, UL 48 labeled. 3-year warranty on LED modules and power supplies.
+- **Power supply:** UL listed components. 3-year warranty on LED modules and power supplies.
 
 Depth options
 
@@ -1569,7 +1563,7 @@ Lighting options
 - **LP 5:** Face lit, trimless
 - **LP 3.1:** Halo lit from the back, standoff spacers
 - **LP 3.2:** Partial side-lit halo, flush-mount
-- **LED & electrical:** Serviceable LEDs; LED modules and power supplies UL 48 labeled
+- **LED & electrical:** Serviceable LEDs. Finished signs UL listed to UL 48; power supplies and LED modules are UL listed components
 - **Warranty:** 3 years on LED modules and power supplies
 
 Color / finish options
@@ -1609,7 +1603,7 @@ UL 48 listed · 3-year warranty on LED modules and power supplies
 - **Colors:** Painted in any PMS color; vinyl or pigmented translucent acrylic options
 - **Maintenance:** Serviceable LEDs
 - **Certification:** UL 48 listed
-- **Electrical:** LED modules and power supplies, UL 48 labeled
+- **Electrical:** Finished signs UL listed to UL 48; LED modules and power supplies are UL listed components
 - **Warranty:** 3 years, LED modules and power supplies
 - **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
 - **Lead time:** Typically 3–4 weeks, production and delivery
@@ -1699,7 +1693,7 @@ The classic stainless steel systems come in 30, 50, 75 and 100 mm (1.2, 2, 3 and
 
 ##### Are your channel letters UL listed?
 
-Our illuminated signage is UL 48 listed, and LED modules and power supplies are UL 48 labeled.
+Our finished electric signs are UL listed to UL 48, and the LED modules and power supplies inside are UL listed components.
 
 ##### Do you offer ultra-slim letters?
 
@@ -1955,7 +1949,7 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
 - URL: https://sunlitesigns.com/light-effects/lp-1-flat-cutout
 - Title: EdgeLuxe LP 1 — Flat Cutout Letters (FCO) | Sunlite Signs
-- Meta description: Precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more. Wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -1966,10 +1960,6 @@ LP 1 / Flat cutout
 Flat Cutout Letters (FCO)
 
 Precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more.
-
-*[Image: UL mark]*
-
-UL Listed · 3-year warranty
 
 [Build in 3D](/configurator?config=lp-1-flat-cutout) · [Request Wholesale Pricing](/contact)
 
@@ -1989,8 +1979,6 @@ Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.0
 - **Min. height:** 0.4" (10 mm)
 - **Maintenance:** No maintenance
 - **Mounting:** Flush to the wall or on stand-off spacers
-- **Warranty:** 3 years
-- **Certification:** UL Listed
 
 3D preview
 
@@ -2000,18 +1988,15 @@ Upload your artwork or type your text and preview it in wood, gold mirror, brush
 
 [Build Your Sign](/configurator?config=lp-1-flat-cutout)
 
-Finishes
+Materials and finishes
 
-#### Material and finish options.
+#### Cut from the material you need.
 
-- *[Image: Flat cutout letter S in wood on a concrete wall (illustrative render)]* — Wood — [Try it](/configurator?config=lp-1-flat-cutout&finish=wood)
-- *[Image: Flat cutout letter S in mirror gold stainless steel on a concrete wall (illustrative render)]* — Mirror gold stainless steel — [Try it](/configurator?config=lp-1-flat-cutout&finish=mirror-gold)
-- *[Image: Flat cutout letter S in brushed stainless steel on a concrete wall (illustrative render)]* — Brushed stainless steel — [Try it](/configurator?config=lp-1-flat-cutout&finish=brushed-steel)
-- *[Image: Flat cutout letter S with a corten finish on a concrete wall (illustrative render)]* — Corten finish — [Try it](/configurator?config=lp-1-flat-cutout&finish=corten)
-- *[Image: Flat cutout letter S in clear acrylic on a concrete wall (illustrative render)]* — Clear acrylic — [Try it](/configurator?config=lp-1-flat-cutout&finish=acrylic-clear)
-- *[Image: Flat cutout letter S in red acrylic on a concrete wall (illustrative render)]* — Coloured acrylic — [Try it](/configurator?config=lp-1-flat-cutout&finish=acrylic-colored)
+Flat cutout letters can be made in many materials: wood, aluminum, stainless steel in brushed or mirror finishes, corten, clear or colored acrylic, and more. Tell us the material and finish you have in mind and we will tell you how we would build it.
 
-Illustrative renders, placeholders until project photos are added. Solid or fabricated builds; see the configurator.
+Thickness runs from 1 mm sheet up to 200 mm, as a solid piece or as a fabricated, hollow build. You can preview several finishes on your own artwork in the configurator.
+
+[Preview finishes in 3D](/configurator?config=lp-1-flat-cutout)
 
 Projects
 

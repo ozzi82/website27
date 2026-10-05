@@ -164,7 +164,3 @@ export const dayNightImages = {
   day: "/images/edgeluxe/lp-11-f-face-lit-day.jpg",
   night: "/images/edgeluxe/lp-11-f-face-lit-night.jpg",
 };
-
-/** Placeholder slot for the side-profile photograph. Set this to a real MediaImage to replace the placeholder card. */
-export const sideProfileMedia: MediaImage | undefined = undefined;
-export const SIDE_PROFILE_PLACEHOLDER = "Side-profile photography — coming soon";

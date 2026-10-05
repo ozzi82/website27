@@ -53,7 +53,7 @@ export const projects: Project[] = [
   { id: "jentower", title: "JenTower", image: I + "pasted-image-1787166590876-4gqe7y4j.jpeg", width: 900, height: 900, alt: "JenTower lettering with a warm halo above an entrance", featured: true },
   { id: "argo-hytos", title: "ARGO-HYTOS", image: I + "pasted-image-1787166590951-kao0m19c.jpeg", width: 1600, height: 1200, alt: "ARGO-HYTOS illuminated lettering on a blue building facade at dusk", featured: true },
   // The next three were the imagery of the previous "Trimless Letters" and "Cast Block Acrylic" service pages, so they link to the ultra-slim page.
-  // No depth or finish is recorded for them (owner to confirm which jobs are 25-30 mm).
+  // No depth or finish is recorded for them (owner to confirm which jobs are 10–30 mm).
   { id: "concourse-lettering", title: "Concourse lettering", image: I + "pasted-image-1785345075402-x1ttofrm.png", width: 1070, height: 1022, alt: "Vertical lettering with glowing white outlines on a blue panel beside a concrete column", productType: "Ultra-slim letters", productSlug: "ultra-slim-trimless-channel-letters" },
   { id: "concourse-column", title: "Concourse column sign", image: I + "pasted-image-1787683170345-8s9whs6f.jpg", width: 1920, height: 1440, alt: "Illuminated vertical lettering on a blue column panel in a large interior concourse", productType: "Ultra-slim letters", productSlug: "ultra-slim-trimless-channel-letters" },
   { id: "event-stand", title: "Event stand lettering", image: I + "pasted-image-1787683165508-erx4nd1w.jpg", width: 1280, height: 1792, alt: "Large white illuminated lettering with a soft halo above an event stand", productType: "Ultra-slim letters", productSlug: "ultra-slim-trimless-channel-letters" },

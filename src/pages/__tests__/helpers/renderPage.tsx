@@ -33,7 +33,7 @@ export function mmClaims(text: string): string[] {
 
 export const FORBIDDEN = [/light ?box/i, /testimonial/i, /\b(built|made|manufactured|fabricated|produced) in tampa/i, /\d+\s?%/, /\d+\+\s/];
 
-/** Text of an element with a space between adjacent text nodes (textContent glues "01" and "25-30 mm" together). */
+/** Text of an element with a space between adjacent text nodes (textContent glues "01" and "10–30 mm" together). */
 export function spacedText(el: Element): string {
   const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
   const parts: string[] = [];

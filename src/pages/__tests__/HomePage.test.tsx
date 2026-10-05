@@ -251,3 +251,23 @@ describe("new project photos", () => {
     expect(projects.map((p) => p.id)).toEqual(expect.arrayContaining(["quarrix", "piada"]));
   });
 });
+
+describe("LP 1 page: no UL claim, no warranty, no placeholder finish pictures", () => {
+  it("states no UL listing or warranty for the unlit flat cutout letters, and describes finishes in text", async () => {
+    const { renderAt } = await import("./helpers/renderPage");
+    const { main } = renderAt("/light-effects/lp-1-flat-cutout");
+    expect(main.textContent).not.toMatch(/UL Listed|UL 48|warranty/i);
+    expect(main.querySelector('section[aria-labelledby="lp1-finishes"]')!.textContent).toMatch(/many materials/i);
+    expect(main.querySelectorAll('section[aria-labelledby="lp1-finishes"] img').length).toBe(0);
+  });
+});
+
+describe("Stage 02 electrical wording", () => {
+  it("says finished signs are UL listed to UL 48 and components are UL listed components", async () => {
+    const { productionStages } = await import("../../data/production");
+    const d = productionStages.find((s) => s.id === "led-electrical")!.description;
+    expect(d).toMatch(/Finished electric signs are UL listed to UL 48/);
+    expect(d).toMatch(/UL listed components/);
+    expect(d).not.toMatch(/labeled/i);
+  });
+});
