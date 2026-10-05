@@ -28,9 +28,9 @@ vi.mock("../../components/configurator/fontFaces", () => ({
 const previewState = vi.hoisted(() => ({ shouldThrow: false }));
 
 vi.mock("../../components/configurator/SignPreview", () => ({
-  default: () => {
+  default: ({ shapes }: { shapes: unknown[] }) => {
     if (previewState.shouldThrow) throw new Error("WebGL context lost");
-    return <div data-testid="sign-preview-stub" />;
+    return <div data-testid="sign-preview-stub" data-shapes={shapes.length} />;
   },
 }));
 
@@ -83,11 +83,18 @@ function renderPage(initialPath: string) {
   );
 }
 
+/** The preview stub once it has letters: the real canvas stays mounted while the text is empty or rebuilding, so it is always there. */
+async function findPreview() {
+  const stub = await screen.findByTestId("sign-preview-stub");
+  await waitFor(() => expect(stub).not.toHaveAttribute("data-shapes", "0"));
+  return stub;
+}
+
 const file = () => new File(["<svg></svg>"], "logo.svg", { type: "image/svg+xml" });
 
 async function upload(user: ReturnType<typeof userEvent.setup>) {
   await user.upload(screen.getByLabelText(/upload your logo/i), file());
-  return screen.findByTestId("sign-preview-stub");
+  return findPreview();
 }
 
 describe("ConfiguratorPage end-to-end smoke tests", () => {
@@ -168,7 +175,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     await upload(user);
     await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
     await user.click(screen.getByRole("radio", { name: "Night" }));
-    await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /cyan/i }));
+    await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /blue/i }));
     fireEvent.change(screen.getByRole("slider", { name: "Brightness" }), { target: { value: "60" } });
 
     await user.selectOptions(switcher(), "lp-3-1-standoff-halo"); // also offers 75 mm
@@ -180,7 +187,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(switcher()).toHaveValue("lp-3-1-standoff-halo");
     expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
     expect(screen.getByRole("radio", { name: "Night" })).toBeChecked();
-    expect(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /cyan/i })).toHaveAttribute("aria-pressed", "true");
+    expect(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /blue/i })).toHaveAttribute("aria-pressed", "true");
     expect(screen.getByRole("slider", { name: "Brightness" })).toHaveValue("60");
     expect(parseArtwork).toHaveBeenCalledTimes(1);
   });
@@ -269,7 +276,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       renderPage("/configurator?config=lp-3-1-standoff-halo");
       await upload(user);
       await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
-      await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /cyan/i }));
+      await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /blue/i }));
       fireEvent.change(screen.getByRole("slider", { name: "Brightness" }), { target: { value: "70" } });
 
       await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
@@ -278,7 +285,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       const summary = screen.getByTestId("quote-summary").textContent!;
       expect(summary).toContain("LP 3.1");
       expect(summary).toContain("Depth: 3″ (75 mm)");
-      expect(summary).toContain("Glow color: Cyan (#19e0ff)");
+      expect(summary).toContain("Glow color: Blue (#2d5bff)");
       expect(summary).toContain("LED brightness: 70%");
       expect(summary).toContain("Artwork: uploaded file logo.svg");
       // no snapshot function in the stubbed preview: the quote still goes through, without an image
@@ -293,7 +300,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await user.click(screen.getByRole("radio", { name: "Type text" }));
       await user.type(screen.getByLabelText(/your text/i), "Open");
       await user.click(screen.getByRole("radio", { name: "Pacifico" }));
-      await screen.findByTestId("sign-preview-stub");
+      await findPreview();
 
       await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
       expect(await screen.findByTestId("quote-summary")).toHaveTextContent('Artwork: typed text "Open" in Pacifico');
@@ -328,7 +335,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
         await user.click(screen.getByRole("radio", { name: "Type text" }));
         await user.type(screen.getByLabelText(/your text/i), "Open");
         await user.click(screen.getByRole("radio", { name: "Pacifico" }));
-        await screen.findByTestId("sign-preview-stub");
+        await findPreview();
         await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
 
         expect(await screen.findByText("Contact Page")).toBeInTheDocument();
@@ -347,7 +354,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
         renderPage("/configurator?config=lp-5-trimless-face-lit");
         await user.click(screen.getByRole("radio", { name: "Type text" }));
         await user.type(screen.getByLabelText(/your text/i), "Open");
-        await screen.findByTestId("sign-preview-stub");
+        await findPreview();
         await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
         expect(await screen.findByText("Contact Page")).toBeInTheDocument();
         expect(screen.getByTestId("quote-file")).toHaveTextContent("null");
@@ -380,7 +387,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
           screen.getByLabelText(/upload your logo/i),
           new File(["<svg>two</svg>"], "second.svg", { type: "image/svg+xml" })
         );
-        await screen.findByTestId("sign-preview-stub");
+        await findPreview();
         await user.click(screen.getByRole("link", { name: /request wholesale pricing/i }));
         expect(await screen.findByText("Contact Page")).toBeInTheDocument();
         expect(JSON.parse(screen.getByTestId("quote-file").textContent!).name).toBe("second.svg");
@@ -427,7 +434,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       expect(screen.getByLabelText(/your text/i)).toHaveValue("");
       expect(screen.getByRole("radiogroup", { name: /font/i })).toBeInTheDocument();
       expect(screen.getByText(/type your text to see your sign/i)).toBeInTheDocument();
-      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.getByTestId("sign-preview-stub")).toHaveAttribute("data-shapes", "0"); // the canvas stays mounted, with no letters
       expect(screen.queryByRole("alert")).not.toBeInTheDocument();
       expect(generateTextShapes).not.toHaveBeenCalled();
     });
@@ -439,7 +446,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
 
       await user.type(screen.getByLabelText(/your text/i), "Sunlite");
-      expect(await screen.findByTestId("sign-preview-stub")).toBeInTheDocument();
+      expect(await findPreview()).toBeInTheDocument();
       expect(generateTextShapes).toHaveBeenCalledTimes(1); // typing 7 characters in a row is one rebuild
       expect(generateTextShapes).toHaveBeenCalledWith("Sunlite", "montserrat");
       expect(screen.getByRole("status")).toHaveTextContent("Preview updated");
@@ -452,7 +459,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await chooseText(user);
       await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
       await user.type(screen.getByLabelText(/your text/i), "Hi");
-      await screen.findByTestId("sign-preview-stub");
+      await findPreview();
 
       await user.click(screen.getByRole("radio", { name: "Pacifico" }));
       await waitFor(() => expect(generateTextShapes).toHaveBeenLastCalledWith("Hi", "pacifico"));
@@ -465,10 +472,10 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       renderPage("/configurator?config=lp-5-trimless-face-lit");
       await chooseText(user);
       await user.type(screen.getByLabelText(/your text/i), "Hi");
-      await screen.findByTestId("sign-preview-stub");
+      await findPreview();
 
       await user.clear(screen.getByLabelText(/your text/i));
-      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.getByTestId("sign-preview-stub")).toHaveAttribute("data-shapes", "0"); // the canvas stays mounted, with no letters
       expect(screen.getByText(/type your text to see your sign/i)).toBeInTheDocument();
       expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     });
@@ -484,7 +491,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       expect(await screen.findByRole("alert")).toHaveTextContent(
         "Couldn't render that text with this font. Try different characters or another font."
       );
-      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.getByTestId("sign-preview-stub")).toHaveAttribute("data-shapes", "0"); // the canvas stays mounted, with no letters
       expect(screen.getByRole("radiogroup", { name: "Depth" })).toBeInTheDocument(); // the page keeps working
       spy.mockRestore();
     });
@@ -498,13 +505,13 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await upload(user);
       await user.click(screen.getByRole("radio", { name: "3″ (75 mm)" }));
       await chooseText(user);
-      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+      expect(screen.getByTestId("sign-preview-stub")).toHaveAttribute("data-shapes", "0"); // the canvas stays mounted, with no letters
       expect(screen.getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
       expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
 
       await user.type(screen.getByLabelText(/your text/i), "Hello");
       await user.click(screen.getByRole("radio", { name: "Poppins" }));
-      await screen.findByTestId("sign-preview-stub");
+      await findPreview();
 
       // Back to upload: the earlier upload returns at once, text controls are gone.
       await user.click(screen.getByRole("radio", { name: "Upload logo" }));
@@ -525,7 +532,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       renderPage("/configurator?config=lp-5-trimless-face-lit");
       await chooseText(user);
       await user.type(screen.getByLabelText(/your text/i), "Hello");
-      await screen.findByTestId("sign-preview-stub");
+      await findPreview();
 
       await user.click(screen.getByRole("radio", { name: "Upload logo" }));
       expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
@@ -537,7 +544,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       renderPage("/configurator?config=lp-5-trimless-face-lit");
       await chooseText(user);
       await user.type(screen.getByLabelText(/your text/i), "Hello");
-      await screen.findByTestId("sign-preview-stub");
+      await findPreview();
 
       await user.selectOptions(screen.getByRole("combobox", { name: "Configuration" }), "lp-11-f-face-lit");
       expect(screen.getByLabelText(/your text/i)).toHaveValue("Hello");
@@ -571,7 +578,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       // Retry re-renders the preview once the underlying problem is gone.
       previewState.shouldThrow = false;
       await user.click(screen.getByRole("button", { name: /try again/i }));
-      expect(await screen.findByTestId("sign-preview-stub")).toBeInTheDocument();
+      expect(await findPreview()).toBeInTheDocument();
     });
   });
 });

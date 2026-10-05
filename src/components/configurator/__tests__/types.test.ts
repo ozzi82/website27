@@ -28,7 +28,7 @@ describe("defaultStateFor", () => {
     expect(s).toMatchObject({
       configId: "lp-5-trimless-face-lit",
       dayNight: "day",
-      glowColor: "#ffffff",
+      glowColor: "#fff4f0",
     });
     expect(s).not.toHaveProperty("letterHeightIn"); // height was dropped: it made deeper letters look thinner
     expect(s.color).toMatch(/^#[0-9a-f]{6}$/i);
@@ -62,7 +62,7 @@ describe("switchConfig", () => {
     const prev = {
       ...defaultStateFor(byId("lp-3-1-standoff-halo")),
       color: "#aa3311",
-      glowColor: "#19e0ff",
+      glowColor: "#2d5bff",
       brightness: 40,
       dayNight: "night" as const,
       background: "brick" as const,
@@ -71,7 +71,7 @@ describe("switchConfig", () => {
     expect(next).toMatchObject({
       configId: "lp-11-f-face-lit",
       color: "#aa3311",
-      glowColor: "#19e0ff",
+      glowColor: "#2d5bff",
       brightness: 40,
       dayNight: "night",
       background: "brick",

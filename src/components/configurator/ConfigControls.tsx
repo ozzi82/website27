@@ -6,7 +6,7 @@ import DayNightToggle from "./DayNightToggle";
 import SegmentedControl from "./SegmentedControl";
 import { GLOW_SWATCHES, PAINT_SWATCHES, type Swatch } from "./swatches";
 import { thinStrokeAdvice } from "./strokeGuard";
-import { depthOptionsFor, emitsLight, formatDepth, withBuild, withFinish, type ConfiguratorState } from "./types";
+import { depthOptionsFor, effectiveConfig, emitsLight, formatDepth, withBuild, withFinish, withVariant, type ConfiguratorState } from "./types";
 import { MOUNT_LABEL } from "../../data/configurations";
 import { LP1_FINISHES, getLp1Finish, isLp1, type Lp1Build } from "./lp1Materials";
 
@@ -44,9 +44,11 @@ interface ColorRowProps {
   value: string;
   swatches: Swatch[];
   onChange: (hex: string) => void;
+  /** Offer the free colour picker next to the swatches (paint only: the glow is a fixed set). */
+  allowCustom?: boolean;
 }
 
-function ColorRow({ label, legend, value, swatches, onChange }: ColorRowProps) {
+function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true }: ColorRowProps) {
   const labelId = useId();
   return (
     <Row label={label} labelId={labelId}>
@@ -63,14 +65,14 @@ function ColorRow({ label, legend, value, swatches, onChange }: ColorRowProps) {
             className="h-6 w-6 rounded-full border border-border aria-pressed:ring-2 aria-pressed:ring-primary aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
           />
         ))}
-        <input
+        {allowCustom && <input
           type="color"
           aria-label={`Custom ${legend.toLowerCase()}`}
           title="Any color"
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className="h-6 w-8 cursor-pointer rounded border border-border bg-transparent p-0.5"
-        />
+        />}
       </div>
     </Row>
   );
@@ -91,7 +93,8 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
 
   const brightnessId = useId();
-  const lights = emitsLight(config);
+  const lights = emitsLight(effectiveConfig(config, state));
+  const mounts = effectiveConfig(config, state).mounts;
   const flat = isLp1(config);
   const finish = getLp1Finish(state.finish);
   // LP 1 is painted only where the finish takes a colour; every lit letter has painted parts (even the neon one: the back half of its side).
@@ -145,13 +148,27 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         </>
       )}
 
-      {config.mounts.length > 1 && (
+      {config.variant && (
+        <Row label="Lighting" labelId="variant-label">
+          <SegmentedControl<"face" | "face-halo">
+            label="Lighting"
+            value={state.variant ? "face-halo" : "face"}
+            onChange={(v) => onChange(withVariant(config, state, v === "face-halo"))}
+            options={[
+              { value: "face", label: "Face", ariaLabel: `${config.code} face lit`, title: `${config.code}: face lit` },
+              { value: "face-halo", label: "Face + halo", ariaLabel: `${config.variant.code} face and halo lit`, title: `${config.variant.code}: ${config.variant.note}` },
+            ]}
+          />
+        </Row>
+      )}
+
+      {mounts.length > 1 && (
         <Row label="Mounting" labelId="mounting-label">
           <SegmentedControl
             label="Mounting"
             value={state.mounting}
             onChange={(mounting) => set({ mounting })}
-            options={config.mounts.map((m) => ({
+            options={mounts.map((m) => ({
               value: m,
               label: MOUNT_LABEL[m],
               title: m === "flush" ? "Against the wall" : "Held off the wall on spacers",
@@ -191,6 +208,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           value={state.glowColor}
           swatches={GLOW_SWATCHES}
           onChange={(hex) => set({ glowColor: hex })}
+          allowCustom={false}
         />
       )}
 
@@ -272,7 +290,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           {illustrative && <p>Illustrative preview — this profile is approximated.</p>}
           <p>Paint color applies to the sides and any face that isn’t lit; glow color is the pigmented acrylic or vinyl.</p>
           <p>The brightness slider dims the LEDs in the night view.</p>
-          {config.mounts.length === 1 && <p>This system is mounted on stand-off spacers only: the halo needs the gap to reach the wall.</p>}
+          {mounts.length === 1 && <p>This system is mounted on stand-off spacers only: the halo needs the gap to reach the wall.</p>}
           {flat && (
             <p>
               {finish.builds.length === 1

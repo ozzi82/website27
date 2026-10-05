@@ -7,7 +7,7 @@ const byId = (id: string) => configurations.find((c) => c.id === id)!;
 
 describe("formatConfigSummary", () => {
   const config = byId("lp-3-1-standoff-halo");
-  const state = { ...defaultStateFor(config), depthMm: 75, color: "#b4332a", glowColor: "#19e0ff", brightness: 80 };
+  const state = { ...defaultStateFor(config), depthMm: 75, color: "#b4332a", glowColor: "#2d5bff", brightness: 80 };
 
   it("is plain readable text, one labelled line per choice, US units first", () => {
     const text = formatConfigSummary(state, config, { kind: "upload", fileName: "logo.svg" });
@@ -15,7 +15,7 @@ describe("formatConfigSummary", () => {
     expect(text).toContain(config.subtitle);
     expect(text).toContain("Depth: 3″ (75 mm)");
     expect(text).toContain("Paint color: Red (#b4332a)");
-    expect(text).toContain("Glow color: Cyan (#19e0ff)");
+    expect(text).toContain("Glow color: Blue (#2d5bff)");
     expect(text).toContain("LED brightness: 80%");
     expect(text).toContain("Artwork: uploaded file logo.svg");
     expect(text).not.toMatch(/[<>{}]/);
@@ -54,7 +54,7 @@ describe("formatConfigSummary", () => {
     const neon = byId("lp-11-n-faux-neon");
     const text = formatConfigSummary(defaultStateFor(neon), neon, null);
     expect(text).toContain("Paint color:");
-    expect(text).toContain("Glow color: White (#ffffff)");
+    expect(text).toContain("Glow color: 6000 K daylight white (#fff4f0)");
     expect(text).toContain("LED brightness: 100%");
     expect(text).not.toContain("Finish:");
   });
@@ -81,6 +81,6 @@ describe("configSummaryRows", () => {
     const rows = configSummaryRows(defaultStateFor(config), config, null);
     expect(rows[0]).toMatchObject({ label: "Configuration" });
     expect(rows.find((r) => r.label === "Paint color")).toMatchObject({ swatch: "#4b5059" });
-    expect(rows.find((r) => r.label === "Glow color")).toMatchObject({ swatch: "#ffffff" });
+    expect(rows.find((r) => r.label === "Glow color")).toMatchObject({ swatch: "#fff4f0" });
   });
 });

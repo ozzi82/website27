@@ -41,6 +41,11 @@ export interface LightConfig {
   img: string;
   /** The same letter by day, where there is a day render. */
   imgDay?: string;
+  /**
+   * An optional build of the same system (owner, 2026-10-05): LP 5 can also be LP 5+3.1, face AND halo lit, with the
+   * back and the front made of acrylic. It replaces the light behaviour and, because the halo needs the gap, the mounts.
+   */
+  variant?: { code: string; label: string; note: string; light: LightBehavior; mounts: Mount[] };
   profile: Profile;
   light: LightBehavior;
   /** The mountings the letter is offered with (owner list, 2026-10-03). Halo letters need the gap, so they are stand-off only. */
@@ -174,6 +179,13 @@ const baseConfigurations: LightConfig[] = [
     ],
     img: IMG + "lp-5-trimless-face-lit-night.jpg",
     imgDay: IMG + "lp-5-trimless-face-lit-day.jpg",
+    variant: {
+      code: "LP 5+3.1",
+      label: "Face + halo",
+      note: "Face and halo lit; the back and the front are made of acrylic",
+      light: { face: "glow", halo: "standoff", side: "none" },
+      mounts: ["standoff"],
+    },
     profile: "standard",
     light: { face: "glow", halo: "none", side: "none" },
     mounts: ["standoff", "flush"],
@@ -441,8 +453,9 @@ export function mountingText(c: Pick<LightConfig, "mounts">): string {
 
 /** Every configuration, with its mounting line added to the specs (before the closing warranty and certification rows). */
 export const configurations: LightConfig[] = baseConfigurations.map((c) => {
-  const row = { label: "Mounting", value: mountingText(c) };
+  const rows = [{ label: "Mounting", value: mountingText(c) }];
+  if (c.variant) rows.push({ label: "Option", value: `${c.variant.code}: ${c.variant.note.toLowerCase()}; stand-off mounted (the halo needs the gap to the wall)` });
   const at = c.specs.findIndex((r) => r.label === "Warranty");
-  const specs = at === -1 ? [...c.specs, row] : [...c.specs.slice(0, at), row, ...c.specs.slice(at)];
+  const specs = at === -1 ? [...c.specs, ...rows] : [...c.specs.slice(0, at), ...rows, ...c.specs.slice(at)];
   return { ...c, specs };
 });

@@ -89,9 +89,9 @@ describe("/services/channel-letters depth (construction, depth options, files, w
     const section = main.querySelector("#what-arrives") as HTMLElement;
     const text = section.textContent!;
     for (const r of whatArrives) expect(text).toContain(r.value);
-    expect(text).toMatch(/drill template/i);
-    expect(text).toMatch(/wiring plan/i);
-    expect(text).toMatch(/pre-wired/i);
+    expect(text).toMatch(/installation template/i);
+    expect(text).toMatch(/touch-up paint/i);
+    expect(text).not.toMatch(/pre-wired|wiring plan/i);
     expect(text).not.toMatch(/hardware|\btest|backer|mounting pattern|blind ship/i);
     expect(main.textContent).not.toMatch(/backer panel/i);
   });

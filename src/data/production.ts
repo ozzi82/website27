@@ -45,7 +45,7 @@ export const productionStages: ProductionStage[] = [
     id: "led-electrical",
     number: "02",
     title: "LED & Electrical",
-    description: "LED modules and power supplies, pre-wired and UL 48 labeled.",
+    description: "LED modules and power supplies, UL 48 labeled.",
   },
   {
     id: "hand-assembly",
@@ -69,7 +69,7 @@ export const productionStages: ProductionStage[] = [
     id: "packaging",
     number: "05",
     title: "Packaging",
-    description: "Crated and protected, with a drill template and wiring plan.",
+    description: "Crated and protected, with a printed installation template and touch-up paint.",
   },
   {
     id: "ready-for-freight",

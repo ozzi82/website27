@@ -14,9 +14,19 @@ export const GLOW_INTENSITY = 1.5;
 
 type Shader = { uniforms: Record<string, unknown>; vertexShader: string; fragmentShader: string };
 
-/** Unlit translucent acrylic reads as milky white with a hint of its glow colour. */
+/**
+ * What lit acrylic looks like with the LEDs off. Whites and warm whites stay milky; a coloured glow (red, blue, green...)
+ * is pigmented acrylic, so it keeps its colour instead of fading to a pale tint: the more saturated the glow, the closer the
+ * unlit surface is to the colour itself.
+ */
 export function milkyTint(glow: string): THREE.Color {
-  return new THREE.Color("#f3f0ea").lerp(new THREE.Color(glow), 0.35);
+  const target = new THREE.Color(glow);
+  const hsl = { h: 0, s: 0, l: 0 };
+  target.getHSL(hsl);
+  const t = Math.min(0.97, 0.3 + 0.7 * Math.min(1, hsl.s * 1.1));
+  const unlit = new THREE.Color("#f3f0ea").lerp(target, t);
+  // Keep strongly coloured acrylic a touch deeper than the glow itself, as pigmented acrylic looks in daylight.
+  return hsl.s > 0.6 ? unlit.multiplyScalar(0.9) : unlit;
 }
 
 interface Attach {

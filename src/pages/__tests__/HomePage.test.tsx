@@ -182,11 +182,26 @@ describe("Header and footer", () => {
     expect(within(nav).queryByText(/cabinet|blade|cast acrylic/i)).toBeNull();
   });
 
-  it("footer states the location without claiming Tampa production", () => {
+  it("footer gives no street address or Tampa location (it is only a mailbox)", () => {
     renderHome();
     const footer = screen.getByRole("contentinfo");
-    expect(footer.textContent).toContain("Sunlite Signs LLC · Tampa, Florida");
+    expect(footer.textContent).toContain("Sunlite Signs LLC");
+    expect(footer.textContent).not.toMatch(/tampa|laurel|33607/i);
     expect(footer.textContent).toContain("Wholesale manufacturing partner for sign companies nationwide.");
-    expect(footer.textContent).not.toMatch(/manufactured in tampa|made in tampa|built in tampa/i);
+      });
+});
+
+describe("owner final touches (2026-10)", () => {
+  it("shows German engineered and UL 48 in the capability strip, with 24 to 48 hour quotes", () => {
+    renderHome();
+    const strip = screen.getByRole("region", { name: "Capabilities" });
+    expect(strip.textContent).toMatch(/German engineered/i);
+    expect(strip.textContent).toMatch(/UL 48 Listed/);
+    expect(strip.textContent).toMatch(/24–48 H/);
+  });
+
+  it("has no Tampa address anywhere on the home page", () => {
+    renderHome();
+    expect(document.body.textContent).not.toMatch(/5005 W Laurel|Tampa, F/i);
   });
 });

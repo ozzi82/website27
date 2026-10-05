@@ -2,6 +2,7 @@ import type { LightConfig } from "../../data/configurations";
 import { GLOW_SWATCHES, PAINT_SWATCHES, describeColor } from "./swatches";
 import type { SummaryRow } from "./quoteStorage";
 import { getLp1Finish, isLp1 } from "./lp1Materials";
+import { DISCLAIMER_TEXT } from "./disclaimer";
 import { emitsLight, formatDepth, type ConfiguratorState } from "./types";
 
 /** Where the sign's shapes came from, for the quote summary. */
@@ -65,5 +66,5 @@ export function formatConfigSummary(
   extras: SummaryExtras = {}
 ): string {
   const lines = configSummaryRows(state, config, artwork, extras).map((r) => `${r.label}: ${r.value}`);
-  return ["Sign configuration (from the Sunlite 3D configurator)", ...lines].join("\n");
+  return ["Sign configuration (from the Sunlite 3D configurator)", ...lines, `Note: ${DISCLAIMER_TEXT}`].join("\n");
 }

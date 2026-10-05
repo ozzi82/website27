@@ -35,7 +35,23 @@ const WALL_SPILL: Record<Exclude<WallSpill, "none">, { scale: number; spread: nu
  * the letter is built all come from the configuration's `light`, `profile` and
  * `mount`; the state supplies colours, depth and size.
  */
-export default function ConfigScene({ shapes, config, state }: ConfigSceneProps) {
+export default function ConfigScene(props: ConfigSceneProps) {
+  return props.shapes.length > 0 ? <SignScene {...props} /> : <EmptyScene {...props} />;
+}
+
+/** No artwork yet (typed text still empty): just the wall, so the 3D canvas can stay mounted instead of being rebuilt the moment text arrives. */
+function EmptyScene({ config, state }: ConfigSceneProps) {
+  const background = getBackground(state.background);
+  const wall = useWallTexture(background.id);
+  return (
+    <>
+      <BackdropWall gap={wallGapFor(state.mounting)} background={background} wall={wall} />
+      <NightEffects lit={emitsLight(config)} level={brightnessFactor(state.brightness)} />
+    </>
+  );
+}
+
+function SignScene({ shapes, config, state }: ConfigSceneProps) {
   const { light, profile } = config;
   const geometry = useSignGeometry(shapes, depthRatioFor(state.depthMm), profile);
 

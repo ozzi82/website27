@@ -19,7 +19,6 @@ const crumbs: Crumb[] = [
 ];
 
 const details: { label: string; value: React.ReactNode }[] = [
-  { label: "Address", value: "5005 W Laurel · Tampa, FL 33607" },
   { label: "Phone", value: <a href={`tel:${PHONE_NUMBER}`} className="hover:text-primary transition-colors">{PHONE_DISPLAY}</a> },
   { label: "Email", value: <a href={`mailto:${EMAIL}`} className="hover:text-primary transition-colors">{EMAIL}</a> },
   { label: "Who we sell to", value: "Trade customers only. No retail sales. No installation services." },

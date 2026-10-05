@@ -320,13 +320,13 @@ describe("ContactPage wholesale quote page (brief section 10)", () => {
     delete window.hbspt;
   });
 
-  it("has the wholesale H1, the 48-hour body copy and the visible trade-only line", () => {
+  it("has the wholesale H1, the 24 to 48 hour body copy and the visible trade-only line", () => {
     installHubSpot();
     renderContact();
     const h1 = screen.getByRole("heading", { level: 1 });
     expect(h1.textContent!.replace(/\s+/g, " ").trim()).toMatch(/^get your wholesale quote$/i);
     expect(h1.className).toMatch(/uppercase/);
-    expect(screen.getByText("Send your artwork, dimensions and project details. We'll return a tailored quote within 48 hours.")).toBeInTheDocument();
+    expect(screen.getByText("Send your artwork, dimensions and project details. We'll return a tailored quote within 24 to 48 hours, most times within 24 hours.")).toBeInTheDocument();
     expect(screen.getByText(/trade customers only · no retail sales/i)).toBeVisible();
     expect(screen.queryByText(/get in touch|request a quote|get a quote|start your project/i)).not.toBeInTheDocument();
   });
@@ -355,9 +355,9 @@ describe("ContactPage wholesale quote page (brief section 10)", () => {
     });
     const desc = document.head.querySelector('meta[name="description"]')!.getAttribute("content")!;
     expect(desc).toMatch(/wholesale quote/i);
-    expect(desc).toMatch(/48 hours/);
+    expect(desc).toMatch(/24 to 48 hours/);
     expect(desc).toMatch(/trade customers only/i);
-    expect(desc.length).toBeLessThanOrEqual(180);
+    expect(desc.length).toBeLessThanOrEqual(200);
     const ld = [...document.head.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent!));
     expect(ld.map((x) => x["@type"]).sort()).toEqual(["BreadcrumbList", "ContactPage", "FAQPage"]);
     expect(ld.find((x) => x["@type"] === "ContactPage").url).toMatch(/\/contact$/);

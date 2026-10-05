@@ -15,15 +15,18 @@ export const PAINT_SWATCHES: Swatch[] = [
   { name: "Gold", hex: "#b8903a" },
 ];
 
+// Glow colours are a fixed set (no free colour picker): four LED white temperatures and six colours.
 export const GLOW_SWATCHES: Swatch[] = [
-  { name: "White", hex: "#ffffff" },
-  { name: "Warm white", hex: "#ffd9a0" },
+  { name: "3000 K warm white", hex: "#ffb46b" },
+  { name: "4000 K white", hex: "#ffd6aa" },
+  { name: "5000 K cool white", hex: "#ffeadb" },
+  { name: "6000 K daylight white", hex: "#fff4f0" },
+  { name: "Yellow", hex: "#ffd400" },
+  { name: "Orange", hex: "#ff8a1a" },
   { name: "Red", hex: "#ff1a1a" },
-  { name: "Amber", hex: "#ff9a1a" },
+  { name: "Pink", hex: "#ff4fb8" },
   { name: "Green", hex: "#20e060" },
-  { name: "Cyan", hex: "#19e0ff" },
   { name: "Blue", hex: "#2d5bff" },
-  { name: "Magenta", hex: "#ff2bd6" },
 ];
 
 /** `Red (#b4332a)` for a known swatch, otherwise just the hex. */

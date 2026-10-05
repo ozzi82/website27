@@ -27,14 +27,6 @@ const jsonLd = {
     "Wholesale sign manufacturer for sign companies: ultra-slim cast block acrylic letters, classic trimless stainless steel channel letters, flat cutout letters and custom sign fabrication, UL 48 listed and shipped ready-to-install nationwide. Trade only.",
   email: "hello@sunlitesigns.com",
   telephone: "+1-689-294-0912",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "5005 W Laurel",
-    addressLocality: "Tampa",
-    addressRegion: "FL",
-    postalCode: "33607",
-    addressCountry: "US",
-  },
   areaServed: "United States",
   knowsAbout: ["Channel letters", "Ultra-slim channel letters", "Cast block acrylic letters", "Trimless stainless steel letters", "Illuminated signage", "UL 48 certification"],
 };

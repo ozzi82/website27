@@ -19,8 +19,8 @@ const crumbs: Crumb[] = [
 
 /** What arrives with every order: only claims that already exist on the site. */
 const readyToInstall = [
-  { label: "Pre-wired", value: "LED modules and power supplies come pre-wired and UL 48 labeled." },
-  { label: "Drill template + wiring plan", value: "Every sign ships with a drill template and wiring plan." },
+  { label: "Touch-up paint", value: "Every sign comes with touch-up paint." },
+  { label: "Installation template", value: "Every sign ships with a printed installation template." },
   { label: "Crated and protected", value: "Packed to arrive ready to install." },
   { label: "Shipped nationwide", value: "To your shop, warehouse or, by arrangement, directly to the project site." },
   { label: "Installation", value: "Not provided. Installation is handled by you, your crew or a local contractor." },

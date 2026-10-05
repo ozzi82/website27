@@ -31,6 +31,8 @@ export interface ConfiguratorState {
   background: BackgroundId;
   /** How the letter is carried; always one of the configuration's `mounts`. */
   mounting: Mount;
+  /** The configuration's optional variant (LP 5+3.1: face and halo lit) is switched on. */
+  variant: boolean;
   /** LP 1 only: the material of the flat cutout letter. */
   finish: Lp1FinishId;
   /** LP 1 only: solid (thinner) or fabricated (hollow, thicker). */
@@ -43,7 +45,7 @@ export function depthOptionsFor(config: LightConfig, state: Pick<ConfiguratorSta
 }
 
 export const DEFAULT_PAINT_COLOR = "#4b5059";
-export const DEFAULT_GLOW_COLOR = "#ffffff";
+export const DEFAULT_GLOW_COLOR = "#fff4f0"; // 6000 K daylight white
 
 const PREFERRED_DEPTH_MM: Record<LightConfig["family"], number> = {
   "Flat cutout": 5,
@@ -66,6 +68,7 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
     brightness: DEFAULT_BRIGHTNESS,
     background: DEFAULT_BACKGROUND,
     mounting: defaultMount(config),
+    variant: false,
     finish: DEFAULT_LP1_FINISH,
     build: DEFAULT_LP1_BUILD,
   };
@@ -94,6 +97,7 @@ export function switchConfig(prev: ConfiguratorState, next: LightConfig): Config
     ...fresh,
     depthMm: depthOptionsFor(next, prev).includes(prev.depthMm) ? prev.depthMm : fresh.depthMm,
     mounting: next.mounts.includes(prev.mounting) ? prev.mounting : fresh.mounting,
+    variant: false,
     finish: prev.finish,
     build: prev.build,
     color: prev.color,
@@ -102,6 +106,21 @@ export function switchConfig(prev: ConfiguratorState, next: LightConfig): Config
     dayNight: prev.dayNight,
     background: prev.background,
   };
+}
+
+/** The configuration as chosen: with its variant (LP 5+3.1) applied when that is switched on. */
+export function effectiveConfig(config: LightConfig, state: Pick<ConfiguratorState, "variant">): LightConfig {
+  if (!state.variant || !config.variant) return config;
+  const { variant } = config;
+  return { ...config, code: variant.code, light: variant.light, mounts: variant.mounts };
+}
+
+/** Switches the variant on or off; its halo needs stand-off mounting, and switching it off goes back to the default mounting. */
+export function withVariant(config: LightConfig, state: ConfiguratorState, on: boolean): ConfiguratorState {
+  if (!config.variant) return state;
+  const next = { ...state, variant: on };
+  const mounts = on ? config.variant.mounts : config.mounts;
+  return mounts.includes(state.mounting) ? next : { ...next, mounting: defaultMount({ mounts }) };
 }
 
 /** True when any part of the letter emits light (everything but the flat cutout). */

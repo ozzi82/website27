@@ -7,7 +7,7 @@ import { CHANNEL_LETTERS_PATH, ULTRA_SLIM_PATH } from "./channelLetters";
  * Content for /services/ultra-slim-trimless-channel-letters. Ultra-slim letters ARE the EdgeLuxe LP 11 series: cast
  * block acrylic letters (owner clarification, docs/briefs/2026-10-03-product-taxonomy-clarification.md). Every spec
  * below is read from the brochure data in data/configurations.ts so the page cannot contradict it; the only other facts
- * are claims the site already makes (UL 48, 3-year warranty, 48 h quotes, ready to install with drill template and wiring
+ * are claims the site already makes (UL 48, 3-year warranty, 24-48 h quotes, ready to install with a printed installation template and touch-up paint
  * plan). Depth: 30 mm is the standard, 25 mm is for small letters; LP 11-B is also offered thinner (10, 15, 20 mm).
  */
 
@@ -139,12 +139,12 @@ export const ultraSlimSpecs: SpecRow[] = [
   },
   { label: "Certification", value: "UL 48 listed" },
   { label: "Warranty", value: "3 years, LED modules and power supplies" },
-  { label: "Quote", value: "Tailored quote within 48 hours" },
+  { label: "Quote", value: "Tailored quote in 24 to 48 hours, most times 24 hours" },
 ];
 
 export const installationPoints: SpecRow[] = [
-  { label: "Ships ready to install", value: "Every sign ships with a drill template and wiring plan." },
-  { label: "Pre-wired", value: "LED modules and power supplies come pre-wired and UL 48 labeled." },
+  { label: "Ships ready to install", value: "Every sign ships with a printed installation template." },
+  { label: "Touch-up paint", value: "Every sign comes with touch-up paint." },
   {
     label: "Standoff or flush",
     value: "LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; the other LP 11 variants can be mounted flush to the surface or on standoffs.",

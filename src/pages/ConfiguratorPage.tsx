@@ -10,25 +10,27 @@ import ArtworkSourceToggle, { type ArtworkSource } from "../components/configura
 import TextArtworkPanel from "../components/configurator/TextArtworkPanel";
 import { useTextArtwork } from "../components/configurator/useTextArtwork";
 import { generateTextArtworkFile } from "../components/configurator/textArtwork";
-import { DEFAULT_FONT_ID, TEXT_FONTS } from "../components/configurator/textFonts";
+import { DEFAULT_FONT_ID, TEXT_FONTS, fontsFor, usableFontId } from "../components/configurator/textFonts";
 import ConfigControls from "../components/configurator/ConfigControls";
 import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
 import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
-import { defaultStateFor, switchConfig, withBuild, withFinish } from "../components/configurator/types";
+import { defaultStateFor, effectiveConfig, switchConfig, withBuild, withFinish } from "../components/configurator/types";
 import type { ConfiguratorState } from "../components/configurator/types";
 import { DEFAULT_BACKGROUND, type BackgroundId } from "../components/configurator/backgrounds";
 import { formatConfigSummary, configSummaryRows, type ArtworkInfo } from "../components/configurator/configSummary";
 import { saveQuote, quoteFileId, type ArtworkFileMeta, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 import { clearArtworkFile, saveArtworkFile } from "../components/configurator/artworkFileStorage";
 import { lineStackFactor, strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
+import ConfiguratorDisclaimer from "../components/configurator/ConfiguratorDisclaimer";
 import { isLp1, isLp1FinishId } from "../components/configurator/lp1Materials";
 import { configurations } from "../data/configurations";
 import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL } from "../lib/seo";
 import { CONFIGURATOR_META, CONFIGURATOR_NAME, configuratorJsonLd } from "../lib/configuratorMeta";
 
+const NO_SHAPES: THREE.Shape[] = [];
 const JSON_LD = configuratorJsonLd(SITE_URL);
 
 function findConfig(id: string | null) {
@@ -61,7 +63,11 @@ export default function ConfiguratorPage() {
   // The original file is kept as well as the parsed shapes: it travels to the contact form with the quote.
   const [uploadFile, setUploadFile] = useState<File | null>(null);
   const [text, setText] = useState("");
-  const [fontId, setFontId] = useState(DEFAULT_FONT_ID);
+  const [pickedFontId, setFontId] = useState(DEFAULT_FONT_ID);
+  // As chosen (LP 5 or LP 5+3.1), and the font actually used: the single-line neon fonts only go with LP 11-N.
+  const baseConfig = findConfig(state?.configId ?? null);
+  const config = baseConfig && state ? effectiveConfig(baseConfig, state) : baseConfig;
+  const fontId = config ? usableFontId(config, pickedFontId) : pickedFontId;
   const textArtwork = useTextArtwork(text, fontId, source === "text");
   const shapes = source === "text" ? textArtwork.shapes : uploadShapes;
   const lineCount = text.split("\n").filter((l) => l.trim()).length;
@@ -77,7 +83,6 @@ export default function ConfiguratorPage() {
   const [quoting, setQuoting] = useState(false);
 
   const webglSupported = useWebglSupported();
-  const config = findConfig(state?.configId ?? null);
 
   function handleChange(next: ConfiguratorState) {
     background.current = next.background;
@@ -194,15 +199,17 @@ export default function ConfiguratorPage() {
         <div className="flex flex-col gap-3 lg:h-[calc(100svh-117px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
           {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
           <div className="sticky top-[65px] z-10 -mx-3 h-[36svh] min-h-[230px] bg-background px-3 pb-2 sm:-mx-5 sm:px-5 lg:static lg:z-auto lg:m-0 lg:h-auto lg:min-w-0 lg:flex-1 lg:bg-transparent lg:p-0">
-            {shapes ? (
+            {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
+            <div className="relative h-full w-full">
               <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                <SignPreview shapes={shapes} config={config} state={state} captureRef={capture} />
+                <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} />
               </ErrorBoundary>
-            ) : (
-              <div className="flex h-full w-full items-center justify-center rounded-xl border border-dashed border-border bg-card p-6 text-center text-muted-foreground">
-                Type your text to see your sign here.
-              </div>
-            )}
+              {!shapes && (
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
+                  <span className="rounded-full bg-black/55 px-4 py-2 text-sm text-white/90">Type your text to see your sign here.</span>
+                </div>
+              )}
+            </div>
           </div>
 
           <aside aria-label="Sign options" className="flex min-w-0 flex-col gap-2 [&>*]:shrink-0 [@media(min-height:830px)]:gap-4 lg:w-[440px] lg:shrink-0 lg:overflow-y-auto lg:pr-1">
@@ -228,6 +235,7 @@ export default function ConfiguratorPage() {
                 text={text}
                 onTextChange={setText}
                 fontId={fontId}
+                fonts={fontsFor(config)}
                 onFontChange={setFontId}
                 error={textArtwork.error}
                 skipped={textArtwork.skipped}
@@ -235,7 +243,9 @@ export default function ConfiguratorPage() {
               />
             )}
 
-            <ConfigControls config={config} state={state} onChange={handleChange} strokeRatio={strokeRatio} />
+            <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} />
+
+            <ConfiguratorDisclaimer />
 
             <Button asChild size="lg" className="sticky bottom-2 z-20 mt-auto w-full shrink-0 shadow-lg lg:static lg:shadow-none">
               <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="uppercase tracking-wider font-semibold">

@@ -1,5 +1,5 @@
 import { useEffect, useId } from "react";
-import { TEXT_FONTS } from "./textFonts";
+import { TEXT_FONTS, type TextFont } from "./textFonts";
 import { ensureFontFaces } from "./fontFaces";
 import { MAX_CHARS, MAX_CHARS_PER_LINE, MAX_LINES, clampTextInput } from "./textToShapes";
 
@@ -14,6 +14,8 @@ interface TextArtworkPanelProps {
   skipped: string[];
   /** Polite live-region text ("Preview updated"). */
   announcement: string;
+  /** The fonts this configuration offers (the single-line neon fonts only go with LP 11-N). */
+  fonts?: readonly TextFont[];
 }
 
 const FIELD = "w-full rounded-md border border-input bg-background px-2.5 py-1.5 text-sm";
@@ -27,6 +29,7 @@ export default function TextArtworkPanel({
   error,
   skipped,
   announcement,
+  fonts = TEXT_FONTS,
 }: TextArtworkPanelProps) {
   const textId = useId();
   const hintId = useId();
@@ -78,7 +81,7 @@ export default function TextArtworkPanel({
       </div>
 
       <div role="radiogroup" aria-label="Font" className="grid grid-cols-4 gap-1">
-        {TEXT_FONTS.map((f) => (
+        {fonts.map((f) => (
           <label
             key={f.id}
             title={f.label}

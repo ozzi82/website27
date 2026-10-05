@@ -85,9 +85,9 @@ describe("ConfigControls colours", () => {
   });
 
   it("marks the active swatch as pressed", () => {
-    setup("lp-5-trimless-face-lit", { glowColor: "#ffffff" });
+    setup("lp-5-trimless-face-lit", { glowColor: "#fff4f0" });
     const group = screen.getByRole("group", { name: "Glow color" });
-    expect(within(group).getByRole("button", { name: /^glow color: white$/i })).toHaveAttribute("aria-pressed", "true");
+    expect(within(group).getByRole("button", { name: /^glow color: 6000 k daylight white$/i })).toHaveAttribute("aria-pressed", "true");
   });
 
   it("shows a glow colour control only for configurations that emit light", () => {
@@ -103,8 +103,8 @@ describe("ConfigControls colours", () => {
   it("reports the glow colour", async () => {
     const user = userEvent.setup();
     const { onChange } = setup("lp-5-trimless-face-lit");
-    await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /cyan/i }));
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ glowColor: "#19e0ff" }));
+    await user.click(within(screen.getByRole("group", { name: "Glow color" })).getByRole("button", { name: /blue/i }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ glowColor: "#2d5bff" }));
   });
 
   it("keeps the paint colour for the neon letter: the back half of its side is painted", () => {

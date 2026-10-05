@@ -6,6 +6,7 @@ import { configurations } from "../data/configurations";
 import Seo from "../components/Seo";
 import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
+import { lp1Gallery } from "../data/lp1Gallery";
 import SystemImage from "../components/SystemImage";
 import BuildYourSign from "../components/BuildYourSign";
 import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
@@ -109,6 +110,25 @@ export default function ConfigurationPage() {
             </div>
           </div>
         </div>
+
+        {c.family === "Flat cutout" && (
+          <section className="mt-16" aria-labelledby="lp1-finishes">
+            <p className="mono-label text-primary mb-3">Finishes</p>
+            <h2 id="lp1-finishes" className="text-3xl md:text-4xl mb-6">Material and finish options.</h2>
+            <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {lp1Gallery.map((g) => (
+                <li key={g.id} className="border border-border bg-card/50">
+                  <img src={g.img} alt={g.alt} width={900} height={675} loading="lazy" decoding="async" className="w-full h-auto block" />
+                  <div className="p-4 flex items-center justify-between gap-3">
+                    <p className="font-medium">{g.label}</p>
+                    <Link to={`/configurator?config=${c.id}&finish=${g.id}`} className="mono-label text-primary hover:text-foreground whitespace-nowrap">Try it</Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <p className="mono-label text-muted-foreground mt-4">Illustrative renders, placeholders until project photos are added. Solid or fabricated builds; see the configurator.</p>
+          </section>
+        )}
 
         {emitsLight(c) && (
           <section className="mt-16" aria-labelledby="mount-explainer">

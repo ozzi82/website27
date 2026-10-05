@@ -45,10 +45,10 @@ function woodPainter(): (u: number, v: number) => Rgb {
   const light: Rgb = [0.86, 0.64, 0.4];
   const dark: Rgb = [0.34, 0.19, 0.09];
   return (u, v) => {
-    const warp = grain(u, v) * 0.3;
-    const band = 0.5 + 0.5 * Math.sin((v + warp + rings(u, v) * 0.25) * Math.PI * 2 * 14);
+    const warp = grain(u, v) * 0.12;
+    const band = 0.5 + 0.5 * Math.sin((v + warp + rings(u, v) * 0.1) * Math.PI * 2 * 14);
     const fine = (grain(u, v * 6) - 0.5) * 0.35;
-    const k = clamp01(band * 0.9 + fine + (pores() - 0.5) * 0.08);
+    const k = clamp01(band * 0.45 + fine * 1.4 + 0.1 + (pores() - 0.5) * 0.08);
     return mixRgb(light, dark, k);
   };
 }

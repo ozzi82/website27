@@ -33,7 +33,7 @@ export default function Footer() {
                 {COMPANY_POSITIONING}
               </p>
               <p className="text-xs text-muted-foreground">
-                5005 W Laurel · Tampa, FL 33607 · {PHONE_DISPLAY} · {EMAIL}
+                {PHONE_DISPLAY} · {EMAIL}
               </p>
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 md:ml-auto md:max-w-md md:justify-end">

@@ -2,7 +2,7 @@ import SectionHeader from "../SectionHeader";
 
 /**
  * Why a sign company should outsource to Sunlite: five short benefits. Every line restates something already on the
- * site (ships ready to install, pre-wired, ultra-slim as a specialized option, trade-only) or is a plain statement of
+ * site (ships ready to install with touch-up paint, ultra-slim as a specialized option, trade-only) or is a plain statement of
  * what outsourcing means for the shop; nothing here is a number or a claim about Sunlite's equipment.
  */
 export const outsourcingBenefits = [

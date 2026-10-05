@@ -36,8 +36,8 @@ describe("/services/custom-sign-fabrication", () => {
     expect(blob).toContain("Single-sided, double-sided or blade");
     expect(specs).toContain("UL 48 listed");
     expect(specs).toContain("3 years");
-    // no invented dimensions: the only digits are the owner's 48 hours, 3 years and UL 48
-    const digits = (specs.match(/\d+/g) ?? []).filter((n) => !["48", "3"].includes(n));
+    // no invented dimensions: the only digits are the owner's 24 to 48 hours, 3 years and UL 48
+    const digits = (specs.match(/\d+/g) ?? []).filter((n) => !["48", "3", "24"].includes(n));
     expect(digits).toEqual([]);
   });
 

@@ -26,8 +26,6 @@ export function LegalDialogs({
             <h3 className="text-base font-semibold mt-2">Company Information</h3>
             <p>
               <strong>Sunlite Signs LLC</strong><br />
-              5005 W Laurel<br />
-              Tampa, FL 33607<br />
               United States
             </p>
 
@@ -71,8 +69,6 @@ export function LegalDialogs({
             <h3 className="text-base font-semibold">2. Responsible Party</h3>
             <p>
               <strong>Sunlite Signs LLC</strong><br />
-              5005 W Laurel<br />
-              Tampa, FL 33607<br />
               Phone: (689) 294-0912<br />
               Email: hello@sunlitesigns.com
             </p>

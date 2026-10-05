@@ -124,7 +124,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
   it("covers installation from brochure facts: standoff spacers versus flush-mount", () => {
     const { main } = renderAt(PATH);
     const text = main.querySelector("#installation")!.textContent!;
-    expect(text).toMatch(/drill template and wiring plan/);
+    expect(text).toMatch(/printed installation template/);
     expect(text).toMatch(/LP 11-B and LP 11-FB are mounted on standoff spacers/);
     expect(text).toMatch(/the other LP 11 variants can be mounted flush to the surface or on standoffs/);
   });

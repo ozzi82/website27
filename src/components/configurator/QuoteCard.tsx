@@ -1,3 +1,4 @@
+import { DISCLAIMER_TEXT } from "./disclaimer";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Check, Copy, Download, Paperclip, X } from "lucide-react";
 import type { ArtworkFileMeta, QuoteSnapshot } from "./quoteStorage";
@@ -159,6 +160,8 @@ export default function QuoteCard({ quote, onClear, artwork = null }: QuoteCardP
           ))}
         </dl>
       </div>
+
+      <p className="mt-3 text-[11px] leading-snug text-muted-foreground">{DISCLAIMER_TEXT}</p>
 
       {artwork && <ArtworkFileNotice {...artwork} />}
 

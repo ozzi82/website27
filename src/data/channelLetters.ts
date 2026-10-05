@@ -8,7 +8,7 @@ import { configurations, type LightConfig } from "./configurations";
  * stainless steel, the EdgeLuxe LP 5 (face-lit), LP 3.1 (halo, standoffs) and LP 3.2 (flush-mount, partial side-lit halo).
  * Depths, materials and limits come from the brochure data in data/configurations.ts. Everything else is a claim the site
  * already makes (UL 48, 48 h quotes, 3-4 weeks, 3-year LED + power-supply warranty, nationwide shipping, ready to install
- * with drill template and wiring plan) or a plain definition. Sunlite does NOT offer trim-capped letters: the trim-cap
+ * with a printed installation template and touch-up paint) or a plain definition. Sunlite does NOT offer trim-capped letters: the trim-cap
  * drawing is kept only as a comparison ("Why we don't use trim caps"). No raceway or remote-mount claims.
  */
 
@@ -32,7 +32,7 @@ const SYSTEM_TEXT: Record<string, { lights: string; mounting: string; text: stri
   "lp-5-trimless-face-lit": {
     lights: "Face lit",
     mounting: "Flush or stand-off",
-    text: "Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies.",
+    text: "Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies. Also available as LP 5+3.1: face and halo lit, with the back and front made of acrylic.",
   },
   "lp-3-1-standoff-halo": {
     lights: "Halo lit from the back",
@@ -192,7 +192,7 @@ export const lightingOptions: { label: string; value: string }[] = [
   { label: "LP 5", value: "Face lit, trimless" },
   { label: "LP 3.1", value: "Halo lit from the back, standoff spacers" },
   { label: "LP 3.2", value: "Partial side-lit halo, flush-mount" },
-  { label: "LED & electrical", value: "Serviceable LEDs; LED modules and power supplies pre-wired and UL 48 labeled" },
+  { label: "LED & electrical", value: "Serviceable LEDs; LED modules and power supplies UL 48 labeled" },
   { label: "Warranty", value: "3 years on LED modules and power supplies" },
 ];
 
@@ -228,11 +228,11 @@ export const channelLetterSpecs: SpecRow[] = [
   { label: "Colors", value: "Painted in any PMS color; vinyl or pigmented translucent acrylic options" },
   { label: "Maintenance", value: "Serviceable LEDs" },
   { label: "Certification", value: "UL 48 listed" },
-  { label: "Electrical", value: "LED modules and power supplies, pre-wired and UL 48 labeled" },
+  { label: "Electrical", value: "LED modules and power supplies, UL 48 labeled" },
   { label: "Warranty", value: "3 years, LED modules and power supplies" },
-  { label: "Quote", value: "Tailored quote within 48 hours" },
+  { label: "Quote", value: "Tailored quote in 24 to 48 hours, most times 24 hours" },
   { label: "Lead time", value: "Typically 3–4 weeks, production and delivery" },
-  { label: "Delivery", value: "Crated and shipped nationwide, ready to install, with drill template and wiring plan" },
+  { label: "Delivery", value: "Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint" },
   { label: "Installation", value: "Not provided. Installation is handled by you or your contractor." },
   { label: "Files for a quote", value: "Vector artwork (AI, EPS, PDF), dimensions or a sketch, site photos" },
   { label: "Sold to", value: "Trade only: sign companies and industry professionals" },
@@ -263,7 +263,7 @@ export const channelLetterFaqs: Faq[] = [
   },
   {
     q: "Are your channel letters UL listed?",
-    a: "Our illuminated signage is UL 48 listed, and LED modules and power supplies are pre-wired and UL 48 labeled.",
+    a: "Our illuminated signage is UL 48 listed, and LED modules and power supplies are UL 48 labeled.",
   },
   {
     q: "Do you offer ultra-slim letters?",
@@ -275,7 +275,7 @@ export const channelLetterFaqs: Faq[] = [
   },
   {
     q: "How long do quotes and production take?",
-    a: "We return a tailored quote within 48 hours. Production and delivery typically take 3–4 weeks.",
+    a: "We return a tailored quote in 24 to 48 hours, most times within 24 hours. Production and delivery typically take 3–4 weeks.",
   },
   {
     q: "What warranty do channel letters carry?",
@@ -283,7 +283,7 @@ export const channelLetterFaqs: Faq[] = [
   },
   {
     q: "Do you handle installation?",
-    a: "No. Letters ship ready to install, with a drill template and wiring plan. Installation is handled by you, your crew, your electrician or a local contractor.",
+    a: "No. Letters ship ready to install, with a printed installation template and touch-up paint. Installation is handled by you, your crew, your electrician or a local contractor.",
   },
   {
     q: "Can you ship directly to the project site?",
@@ -311,7 +311,7 @@ export const constructionRows: SpecRow[] = [
   { label: "Returns and back", value: "Fabricated stainless steel; on LP 5, thick gauge stainless steel returns and back welded together." },
   { label: "Face", value: "LP 5: step-routed acrylic face, trimless. The light passes through the face." },
   { label: "LED system", value: "Serviceable LEDs. On LP 3.1 they are arranged to avoid reflection of the diodes on the mounting surface." },
-  { label: "Power supply", value: "Power supplies, pre-wired and UL 48 labeled. 3-year warranty on LED modules and power supplies." },
+  { label: "Power supply", value: "Power supplies, UL 48 labeled. 3-year warranty on LED modules and power supplies." },
 ];
 
 export interface DepthOption {
@@ -344,12 +344,11 @@ export const filesWeAccept: SpecRow[] = [
 /** The 3D preview (Build Your Sign) takes SVG or PDF; this is separate from the files we quote from. */
 export const previewFilesNote = "The Build Your Sign 3D preview accepts SVG or PDF artwork.";
 
-/** What ships with an order: the existing "ready to install" wording (pre-wired, drill template, wiring plan, crated). */
+/** What ships with an order: the existing "ready to install" wording (printed installation template, touch-up paint, crated). */
 export const whatArrives: SpecRow[] = [
   { label: "Letters", value: "Fabricated to your drawings" },
-  { label: "Wiring", value: "LED modules and power supplies come pre-wired and UL 48 labeled" },
-  { label: "Drill template", value: "Ships with every sign" },
-  { label: "Wiring plan", value: "Ships with every sign" },
+  { label: "Touch-up paint", value: "Comes with every sign" },
+  { label: "Installation template", value: "A printed installation template ships with every sign" },
   { label: "Packing", value: "Crated and protected, packed to arrive ready to install" },
   { label: "Installation", value: "Not provided. Handled by you or your contractor." },
 ];

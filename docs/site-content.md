@@ -45,9 +45,9 @@ Footer:
 
 [SUNLITE SIGNS](/)
 
-Sunlite Signs LLC · Tampa, Florida Wholesale manufacturing partner for sign companies nationwide.
+Sunlite Signs LLC Wholesale manufacturing partner for sign companies nationwide.
 
-5005 W Laurel · Tampa, FL 33607 · (689) 294-0912 · hello@sunlitesigns.com
+(689) 294-0912 · hello@sunlitesigns.com
 
 [Ultra-Slim Letters](/services/ultra-slim-trimless-channel-letters) · [Classic Trimless Letters](/services/channel-letters) · [Flat Cutout Letters](/light-effects/lp-1-flat-cutout) · [Custom Fabrication](/services/custom-sign-fabrication) · [Build Your Sign](/configurator) · [Projects](/projects) · [Manufacturing](/manufacturing) · [About](/about) · [Request Wholesale Pricing](/contact)
 
@@ -69,14 +69,15 @@ Wholesale sign manufacturer · Trade only
 
 ### Wholesale Channel Letters. Built for Sign Companies.
 
-Ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
+German-engineered ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
 
 [Request Wholesale Pricing](/contact) · [Explore Products](/#products)
 
 [Build your sign in 3D](/configurator)
 
 - **UL 48 Listed:** Electrical sign certification
-- **48 H:** Tailored quotes
+- **German engineered:** EdgeLuxe letter systems
+- **24–48 H:** Tailored quotes, most times 24 h
 - **3–4 WK:** Typical production + delivery
 - **3 YR:** LED & power supply warranty
 - **Trade only:** Your customer stays your customer.
@@ -211,7 +212,7 @@ Stage 02
 
 ##### LED & Electrical
 
-LED modules and power supplies, pre-wired and UL 48 labeled.
+LED modules and power supplies, UL 48 labeled.
 
 *[Image: Letter returns and LED wiring being assembled by hand on a work table]*
 
@@ -235,7 +236,7 @@ Stage 05
 
 ##### Packaging
 
-Crated and protected, with a drill template and wiring plan.
+Crated and protected, with a printed installation template and touch-up paint.
 
 06Ready for Freight
 
@@ -531,11 +532,10 @@ Your customer stays your customer.
 
 Company
 
-#### Sunlite Signs LLC · Tampa, Florida
+#### Sunlite Signs LLC
 
 Wholesale manufacturing partner for sign companies nationwide.
 
-- **Address:** 5005 W Laurel · Tampa, FL 33607
 - **Phone:** (689) 294-0912
 - **Email:** hello@sunlitesigns.com
 - **Who we sell to:** Trade customers only. No retail sales. No installation services.
@@ -624,7 +624,7 @@ Stage 02
 
 ##### LED & Electrical
 
-LED modules and power supplies, pre-wired and UL 48 labeled.
+LED modules and power supplies, UL 48 labeled.
 
 *[Image: Letter returns and LED wiring being assembled by hand on a work table]*
 
@@ -648,7 +648,7 @@ Stage 05
 
 ##### Packaging
 
-Crated and protected, with a drill template and wiring plan.
+Crated and protected, with a printed installation template and touch-up paint.
 
 06Ready for Freight
 
@@ -662,8 +662,8 @@ What ships with every order
 
 #### Ready to install.
 
-- **Pre-wired:** LED modules and power supplies come pre-wired and UL 48 labeled.
-- **Drill template + wiring plan:** Every sign ships with a drill template and wiring plan.
+- **Touch-up paint:** Every sign comes with touch-up paint.
+- **Installation template:** Every sign ships with a printed installation template.
 - **Crated and protected:** Packed to arrive ready to install.
 - **Shipped nationwide:** To your shop, warehouse or, by arrangement, directly to the project site.
 - **Installation:** Not provided. Installation is handled by you, your crew or a local contractor.
@@ -681,7 +681,7 @@ Process
 
 Company
 
-Sunlite Signs LLC · Tampa, Florida
+Sunlite Signs LLC
 
 Wholesale manufacturing partner for sign companies nationwide.
 
@@ -844,7 +844,7 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
 - URL: https://sunlitesigns.com/contact
 - Title: Get Your Wholesale Quote: Channel Letters | Sunlite Signs
-- Meta description: Send artwork, dimensions and project details for a tailored wholesale quote on channel letters and illuminated signage, within 48 hours. Trade customers only.
+- Meta description: Send artwork, dimensions and project details for a tailored wholesale quote on channel letters and illuminated signage, within 24 to 48 hours (most times 24 hours). Trade customers only.
 
 - [Home](/)
 - /Wholesale quote
@@ -853,7 +853,7 @@ Wholesale quote
 
 ### Get your wholesale quote
 
-Send your artwork, dimensions and project details. We'll return a tailored quote within 48 hours.
+Send your artwork, dimensions and project details. We'll return a tailored quote within 24 to 48 hours, most times within 24 hours.
 
 Trade customers only · No retail sales
 
@@ -1133,7 +1133,7 @@ Technical details
 - **Mounting:** Flush to the wall or on stand-off spacers. LP 11-B and LP 11-FB are stand-off only, because the halo needs the gap to reach the wall.
 - **Certification:** UL 48 listed
 - **Warranty:** 3 years, LED modules and power supplies
-- **Quote:** Tailored quote within 48 hours
+- **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
 
 3D preview
 
@@ -1147,8 +1147,8 @@ Installation / mounting
 
 #### Ready to install.
 
-- **Ships ready to install:** Every sign ships with a drill template and wiring plan.
-- **Pre-wired:** LED modules and power supplies come pre-wired and UL 48 labeled.
+- **Ships ready to install:** Every sign ships with a printed installation template.
+- **Touch-up paint:** Every sign comes with touch-up paint.
 - **Standoff or flush:** LP 11-B and LP 11-FB are mounted on standoff spacers so the halo can reach the wall; the other LP 11 variants can be mounted flush to the surface or on standoffs. Mounting explained
 - **Installation:** Not provided. Handled by you, your crew or a local contractor.
 
@@ -1240,7 +1240,8 @@ Sunlite Signs is a trade-only wholesale manufacturer. We build for sign companie
 Fig. 01 / Illuminated letters on a building facade
 
 - **UL 48 Listed:** Electrical sign certification
-- **48 H:** Tailored quotes
+- **German engineered:** EdgeLuxe letter systems
+- **24–48 H:** Tailored quotes, most times 24 h
 - **3–4 WK:** Typical production + delivery
 - **3 YR:** LED & power supply warranty
 - **Trade only:** Your customer stays your customer.
@@ -1279,7 +1280,7 @@ LP 5
 
 ##### Trimless Fabricated Stainless Steel Letters
 
-Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies.
+Thick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap. A crisp, low-profile face-lit letter for building facades and canopies. Also available as LP 5+3.1: face and halo lit, with the back and front made of acrylic.
 
 - **Light:** Face lit
 - **Mounting:** Flush or stand-off
@@ -1383,7 +1384,7 @@ Construction
 - **Returns and back:** Fabricated stainless steel; on LP 5, thick gauge stainless steel returns and back welded together.
 - **Face:** LP 5: step-routed acrylic face, trimless. The light passes through the face.
 - **LED system:** Serviceable LEDs. On LP 3.1 they are arranged to avoid reflection of the diodes on the mounting surface.
-- **Power supply:** Power supplies, pre-wired and UL 48 labeled. 3-year warranty on LED modules and power supplies.
+- **Power supply:** Power supplies, UL 48 labeled. 3-year warranty on LED modules and power supplies.
 
 Depth options
 
@@ -1430,7 +1431,7 @@ Lighting options
 - **LP 5:** Face lit, trimless
 - **LP 3.1:** Halo lit from the back, standoff spacers
 - **LP 3.2:** Partial side-lit halo, flush-mount
-- **LED & electrical:** Serviceable LEDs; LED modules and power supplies pre-wired and UL 48 labeled
+- **LED & electrical:** Serviceable LEDs; LED modules and power supplies UL 48 labeled
 - **Warranty:** 3 years on LED modules and power supplies
 
 Color / finish options
@@ -1466,11 +1467,11 @@ Technical specifications
 - **Colors:** Painted in any PMS color; vinyl or pigmented translucent acrylic options
 - **Maintenance:** Serviceable LEDs
 - **Certification:** UL 48 listed
-- **Electrical:** LED modules and power supplies, pre-wired and UL 48 labeled
+- **Electrical:** LED modules and power supplies, UL 48 labeled
 - **Warranty:** 3 years, LED modules and power supplies
-- **Quote:** Tailored quote within 48 hours
+- **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
 - **Lead time:** Typically 3–4 weeks, production and delivery
-- **Delivery:** Crated and shipped nationwide, ready to install, with drill template and wiring plan
+- **Delivery:** Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint
 - **Installation:** Not provided. Installation is handled by you or your contractor.
 - **Files for a quote:** Vector artwork (AI, EPS, PDF), dimensions or a sketch, site photos
 - **Sold to:** Trade only: sign companies and industry professionals
@@ -1494,9 +1495,8 @@ What arrives
 #### Ready to install.
 
 - **Letters:** Fabricated to your drawings
-- **Wiring:** LED modules and power supplies come pre-wired and UL 48 labeled
-- **Drill template:** Ships with every sign
-- **Wiring plan:** Ships with every sign
+- **Touch-up paint:** Comes with every sign
+- **Installation template:** A printed installation template ships with every sign
 - **Packing:** Crated and protected, packed to arrive ready to install
 - **Installation:** Not provided. Handled by you or your contractor.
 
@@ -1557,7 +1557,7 @@ The classic stainless steel systems come in 30, 50, 75 and 100 mm (1.2, 2, 3 and
 
 ##### Are your channel letters UL listed?
 
-Our illuminated signage is UL 48 listed, and LED modules and power supplies are pre-wired and UL 48 labeled.
+Our illuminated signage is UL 48 listed, and LED modules and power supplies are UL 48 labeled.
 
 ##### Do you offer ultra-slim letters?
 
@@ -1569,7 +1569,7 @@ A logo as a vector file (AI, EPS, PDF), dimensions or a dimension sketch, photos
 
 ##### How long do quotes and production take?
 
-We return a tailored quote within 48 hours. Production and delivery typically take 3–4 weeks.
+We return a tailored quote in 24 to 48 hours, most times within 24 hours. Production and delivery typically take 3–4 weeks.
 
 ##### What warranty do channel letters carry?
 
@@ -1577,7 +1577,7 @@ LED modules and power supplies carry a 3-year warranty.
 
 ##### Do you handle installation?
 
-No. Letters ship ready to install, with a drill template and wiring plan. Installation is handled by you, your crew, your electrician or a local contractor.
+No. Letters ship ready to install, with a printed installation template and touch-up paint. Installation is handled by you, your crew, your electrician or a local contractor.
 
 ##### Can you ship directly to the project site?
 
@@ -1632,7 +1632,7 @@ What we make to order
 
 #### Bring us your drawing. We make it to size.
 
-Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a tailored quote within 48 hours.
+Sizes are custom to the project. Send your artwork as a vector file, with dimensions or a dimension sketch, and we return a tailored quote within 24 to 48 hours, most times within 24 hours.
 
 [Request Wholesale Pricing](/contact)
 
@@ -1648,8 +1648,8 @@ Technical details
 - **Configuration:** Single-sided, double-sided or blade
 - **Certification:** UL 48 listed
 - **Warranty:** 3 years, LED modules and power supplies
-- **Quote:** Tailored quote within 48 hours
-- **Delivery:** Crated and shipped nationwide, ready to install, with drill template and wiring plan
+- **Quote:** Tailored quote in 24 to 48 hours, most times 24 hours
+- **Delivery:** Crated and shipped nationwide, ready to install, with a printed installation template and touch-up paint
 - **Installation:** Not provided. Installation is handled by you or your contractor.
 - **Sold to:** Trade only: sign companies and industry professionals
 
@@ -1722,7 +1722,7 @@ Our illuminated signage is UL 48 listed. LED modules and power supplies carry a 
 
 ##### Do you handle installation?
 
-No. Signs ship ready to install, with a drill template and wiring plan. Installation is handled by you, your crew, your electrician or a local contractor.
+No. Signs ship ready to install, with a printed installation template and touch-up paint. Installation is handled by you, your crew, your electrician or a local contractor.
 
 ##### Do you sell custom signs to retail customers?
 
@@ -1789,6 +1789,19 @@ See this system with your logo.
 Upload your artwork or type your text and preview it in wood, gold mirror, brushed steel, corten and acrylic finishes.
 
 [Build Your Sign](/configurator?config=lp-1-flat-cutout)
+
+Finishes
+
+#### Material and finish options.
+
+- *[Image: Flat cutout letter S in wood on a concrete wall (illustrative render)]* — Wood — [Try it](/configurator?config=lp-1-flat-cutout&finish=wood)
+- *[Image: Flat cutout letter S in mirror gold stainless steel on a concrete wall (illustrative render)]* — Mirror gold stainless steel — [Try it](/configurator?config=lp-1-flat-cutout&finish=mirror-gold)
+- *[Image: Flat cutout letter S in brushed stainless steel on a concrete wall (illustrative render)]* — Brushed stainless steel — [Try it](/configurator?config=lp-1-flat-cutout&finish=brushed-steel)
+- *[Image: Flat cutout letter S with a corten finish on a concrete wall (illustrative render)]* — Corten finish — [Try it](/configurator?config=lp-1-flat-cutout&finish=corten)
+- *[Image: Flat cutout letter S in clear acrylic on a concrete wall (illustrative render)]* — Clear acrylic — [Try it](/configurator?config=lp-1-flat-cutout&finish=acrylic-clear)
+- *[Image: Flat cutout letter S in red acrylic on a concrete wall (illustrative render)]* — Coloured acrylic — [Try it](/configurator?config=lp-1-flat-cutout&finish=acrylic-colored)
+
+Illustrative renders, placeholders until project photos are added. Solid or fabricated builds; see the configurator.
 
 Previous
 
@@ -2001,6 +2014,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
 - **Mounting:** Flush to the wall or on stand-off spacers
+- **Option:** LP 5+3.1: face and halo lit; the back and the front are made of acrylic; stand-off mounted (the halo needs the gap to the wall)
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 

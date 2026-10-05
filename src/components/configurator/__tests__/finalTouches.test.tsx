@@ -1,0 +1,102 @@
+import { describe, expect, it, vi } from "vitest";
+import fs from "node:fs";
+import path from "node:path";
+import { render, screen, within } from "@testing-library/react";
+import * as THREE from "three";
+import { configurations } from "../../../data/configurations";
+import { lp1Gallery } from "../../../data/lp1Gallery";
+import ConfigControls from "../ConfigControls";
+import { TEXT_FONTS, fontsFor, usableFontId } from "../textFonts";
+import { GLOW_SWATCHES } from "../swatches";
+import { milkyTint } from "../SceneMaterials";
+import { defaultStateFor, effectiveConfig, switchConfig, withVariant } from "../types";
+import { formatConfigSummary } from "../configSummary";
+import { DISCLAIMER_TEXT } from "../disclaimer";
+import { glowParts } from "../glowParts";
+
+const byId = (id: string) => configurations.find((c) => c.id === id)!;
+const lp5 = byId("lp-5-trimless-face-lit");
+
+describe("fonts", () => {
+  it("has no Playfair Display anywhere", () => {
+    expect(TEXT_FONTS.some((f) => /playfair/i.test(f.id + f.label))).toBe(false);
+  });
+
+  it("offers the single-line neon fonts for LP 11-N only", () => {
+    const neon = fontsFor(byId("lp-11-n-faux-neon")).map((f) => f.id);
+    expect(neon).toEqual(expect.arrayContaining(["neon-script", "neon-line"]));
+    for (const c of configurations.filter((x) => x.profile !== "tube")) {
+      expect(fontsFor(c).some((f) => f.neonOnly), c.id).toBe(false);
+    }
+  });
+
+  it("falls back to the default font when a neon font is not available for the configuration", () => {
+    expect(usableFontId(byId("lp-11-n-faux-neon"), "neon-line")).toBe("neon-line");
+    expect(usableFontId(byId("lp-11-f-face-lit"), "neon-line")).toBe("montserrat");
+  });
+});
+
+describe("glow colours", () => {
+  it("are the four white temperatures and six colours, with no free colour picker", () => {
+    expect(GLOW_SWATCHES.map((s) => s.name)).toEqual([
+      "3000 K warm white", "4000 K white", "5000 K cool white", "6000 K daylight white",
+      "Yellow", "Orange", "Red", "Pink", "Green", "Blue",
+    ]);
+    render(<ConfigControls config={lp5} state={defaultStateFor(lp5)} onChange={vi.fn()} />);
+    const glow = screen.getByRole("group", { name: "Glow color" });
+    expect(within(glow).getAllByRole("button")).toHaveLength(10);
+    expect(glow.querySelector('input[type="color"]')).toBeNull();
+    expect(screen.getByRole("group", { name: "Paint color" }).querySelector('input[type="color"]')).not.toBeNull();
+  });
+
+  it("keeps a red glow visibly red when the LEDs are off, and whites milky", () => {
+    const red = milkyTint("#ff1a1a");
+    expect(red.r).toBeGreaterThan(red.g * 3);
+    expect(red.r).toBeGreaterThan(red.b * 3);
+    const white = milkyTint("#fff4f0");
+    expect(Math.abs(white.r - white.b)).toBeLessThan(0.2);
+  });
+});
+
+describe("LP 5 + 3.1 option", () => {
+  it("makes LP 5 face and halo lit, stand-off only, and goes back", () => {
+    const on = withVariant(lp5, defaultStateFor(lp5), true);
+    const eff = effectiveConfig(lp5, on);
+    expect(eff.code).toBe("LP 5+3.1");
+    expect(eff.light).toMatchObject({ face: "glow", halo: "standoff" });
+    expect(eff.mounts).toEqual(["standoff"]);
+    expect(on.mounting).toBe("standoff");
+    expect(glowParts(eff.light, eff.profile, on.mounting).wallSpill).toBe("standoff");
+    const off = withVariant(lp5, on, false);
+    expect(effectiveConfig(lp5, off).code).toBe("LP 5");
+    expect(off.variant).toBe(false);
+  });
+
+  it("is offered on LP 5 only, and resets when another system is picked", () => {
+    expect(configurations.filter((c) => c.variant).map((c) => c.id)).toEqual(["lp-5-trimless-face-lit"]);
+    const on = withVariant(lp5, defaultStateFor(lp5), true);
+    expect(switchConfig(on, byId("lp-11-f-face-lit")).variant).toBe(false);
+  });
+
+  it("shows the Lighting switch, and names the option in the quote summary", () => {
+    const on = withVariant(lp5, defaultStateFor(lp5), true);
+    render(<ConfigControls config={lp5} state={on} onChange={vi.fn()} />);
+    expect(screen.getByRole("radiogroup", { name: "Lighting" })).toBeInTheDocument();
+    expect(formatConfigSummary(on, effectiveConfig(lp5, on), null)).toContain("Configuration: LP 5+3.1");
+  });
+});
+
+describe("disclaimer", () => {
+  it("travels with the quote summary", () => {
+    expect(DISCLAIMER_TEXT).toMatch(/do not represent the real acrylic colors/);
+    expect(DISCLAIMER_TEXT).toMatch(/every order needs proper artwork/);
+    expect(formatConfigSummary(defaultStateFor(lp5), lp5, null)).toContain(DISCLAIMER_TEXT);
+  });
+});
+
+describe("LP 1 placeholder gallery", () => {
+  it("has a picture file for every finish shown", () => {
+    for (const g of lp1Gallery) expect(fs.existsSync(path.resolve(__dirname, "../../../../public" + g.img)), g.img).toBe(true);
+    expect(new THREE.Color("#fff").isColor).toBe(true);
+  });
+});
