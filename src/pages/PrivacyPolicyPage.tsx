@@ -101,6 +101,10 @@ export default function PrivacyPolicyPage() {
             to you on Google&rsquo;s services and partner websites. You can turn this off with Cookie settings, and you can manage Google&rsquo;s ad personalisation in your Google account.
           </li>
           <li>
+            <strong>YouTube (homepage video):</strong> the background video on the homepage is played from YouTube in its privacy-enhanced mode (youtube-nocookie.com). YouTube
+            receives your IP address and browser details to deliver the video, like any server you connect to.
+          </li>
+          <li>
             <strong>HubSpot (form and chat):</strong> the quote form is provided by HubSpot, which may set cookies to operate the form and connect it to your inquiry. The
             chat widget loads only after you accept cookies or when you click &ldquo;Chat with us&rdquo;.
           </li>
