@@ -30,6 +30,8 @@ export const projects: Project[] = [
   // Added 2026-10-05 (owner photos). Only what the photos show is recorded: no product line, depth or finish is claimed.
   { id: "quarrix", title: "Quarrix", image: I + "project-quarrix.jpg", width: 1280, height: 1707, alt: "Quarrix lettering with a blue glow behind the letters on a white display wall" },
   { id: "piada", title: "Piada", image: I + "project-piada.jpg", width: 1280, height: 1706, alt: "Piada lettering above a dark canopy on a brick storefront" },
+  { id: "olympus-templates", title: "Olympus Clinical Research", image: I + "project-olympus-flat.jpg", width: 1600, height: 1200, alt: "Olympus Clinical Research logo and lettering cut out in blue, orange and white, laid on paper templates", productType: "Flat cutout letters" },
+  { id: "olympus-layout", title: "Olympus Clinical Research (layout)", image: I + "project-olympus-layout.jpg", width: 1600, height: 1200, alt: "Two Olympus Clinical Research flat cutout sign sets laid out on paper templates in the workshop", productType: "Flat cutout letters" },
   { id: "mustang", title: "Mustang", image: I + "pasted-image-1786571168082-g326u0k5.png", width: 1536, height: 1024, alt: "Mustang sign with illuminated lettering on a dark panel", featured: true },
   { id: "panther-dome", title: "Panther Dome", image: I + "pasted-image-1786571168465-hoggarou.png", width: 1254, height: 1254, alt: "Panther Dome entrance with an illuminated panther emblem at dusk" },
   { id: "acorn-crest", title: "Acorn crest", image: I + "pasted-image-1786571174777-ihzwikss.jpg", width: 709, height: 945, alt: "Illuminated acorn and laurel crest on a wood-slat wall" },
@@ -38,7 +40,7 @@ export const projects: Project[] = [
   { id: "inspire", title: "Inspire", image: I + "pasted-image-1786571527961-nvve6zo0.jpg", width: 1260, height: 945, alt: "Inspire logo lettering with a glowing halo on an interior wall", featured: true },
   { id: "stroh-scheuerpflug", title: "Stroh + Scheuerpflug", image: I + "pasted-image-1787166590601-hr7ca0em.jpeg", width: 1600, height: 1200, alt: "Stroh + Scheuerpflug logo lettering on a white wall", featured: true },
   { id: "tradebyte", title: "Tradebyte", image: I + "pasted-image-1787166590730-o61irwkk.jpeg", width: 1600, height: 1200, alt: "Tradebyte lettering with a halo glow on a grey wall", featured: true },
-  { id: "macs", title: "MACS", image: I + "pasted-image-1787166590805-pvuw1j0d.jpeg", width: 1600, height: 1200, alt: "MACS Innovative Companies lettering on a concrete wall" },
+  { id: "macs", title: "MACS", image: I + "pasted-image-1787166590805-pvuw1j0d.jpeg", width: 1600, height: 1200, alt: "MACS Innovative Companies lettering on a concrete wall", productType: "Flat cutout letters" },
   { id: "jentower", title: "JenTower", image: I + "pasted-image-1787166590876-4gqe7y4j.jpeg", width: 900, height: 900, alt: "JenTower lettering with a warm halo above an entrance", featured: true },
   { id: "argo-hytos", title: "ARGO-HYTOS", image: I + "pasted-image-1787166590951-kao0m19c.jpeg", width: 1600, height: 1200, alt: "ARGO-HYTOS illuminated lettering on a blue building facade at dusk", featured: true },
   // The next three were the imagery of the previous "Trimless Letters" and "Cast Block Acrylic" service pages, so they link to the ultra-slim page.

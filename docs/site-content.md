@@ -749,75 +749,93 @@ Fig. 02
 
 ##### Piada
 
-*[Image: Mustang sign with illuminated lettering on a dark panel]*
+*[Image: Olympus Clinical Research logo and lettering cut out in blue, orange and white, laid on paper templates]*
 
 Fig. 03
+
+##### Olympus Clinical Research
+
+- **Product:** Flat cutout letters
+
+*[Image: Two Olympus Clinical Research flat cutout sign sets laid out on paper templates in the workshop]*
+
+Fig. 04
+
+##### Olympus Clinical Research (layout)
+
+- **Product:** Flat cutout letters
+
+*[Image: Mustang sign with illuminated lettering on a dark panel]*
+
+Fig. 05
 
 ##### Mustang
 
 *[Image: Panther Dome entrance with an illuminated panther emblem at dusk]*
 
-Fig. 04
+Fig. 06
 
 ##### Panther Dome
 
 *[Image: Illuminated acorn and laurel crest on a wood-slat wall]*
 
-Fig. 05
+Fig. 07
 
 ##### Acorn crest
 
 *[Image: Illuminated wall graphic in an interior corridor]*
 
-Fig. 06
+Fig. 08
 
 ##### Interior wall graphic
 
 *[Image: Pre-Loved Luxury Collection lettering above a storefront]*
 
-Fig. 07
+Fig. 09
 
 ##### Pre-Loved Luxury Collection
 
 *[Image: Inspire logo lettering with a glowing halo on an interior wall]*
 
-Fig. 08
+Fig. 10
 
 ##### Inspire
 
 *[Image: Stroh + Scheuerpflug logo lettering on a white wall]*
 
-Fig. 09
+Fig. 11
 
 ##### Stroh + Scheuerpflug
 
 *[Image: Tradebyte lettering with a halo glow on a grey wall]*
 
-Fig. 10
+Fig. 12
 
 ##### Tradebyte
 
 *[Image: MACS Innovative Companies lettering on a concrete wall]*
 
-Fig. 11
+Fig. 13
 
 ##### MACS
 
+- **Product:** Flat cutout letters
+
 *[Image: JenTower lettering with a warm halo above an entrance]*
 
-Fig. 12
+Fig. 14
 
 ##### JenTower
 
 *[Image: ARGO-HYTOS illuminated lettering on a blue building facade at dusk]*
 
-Fig. 13
+Fig. 15
 
 ##### ARGO-HYTOS
 
 *[Image: Vertical lettering with glowing white outlines on a blue panel beside a concrete column]*
 
-Fig. 14
+Fig. 16
 
 ##### Concourse lettering
 
@@ -827,7 +845,7 @@ Fig. 14
 
 *[Image: Illuminated vertical lettering on a blue column panel in a large interior concourse]*
 
-Fig. 15
+Fig. 17
 
 ##### Concourse column sign
 
@@ -837,7 +855,7 @@ Fig. 15
 
 *[Image: Large white illuminated lettering with a soft halo above an event stand]*
 
-Fig. 16
+Fig. 18
 
 ##### Event stand lettering
 
@@ -847,7 +865,7 @@ Fig. 16
 
 *[Image: itonics lettering on a white wall]*
 
-Fig. 17
+Fig. 19
 
 ##### itonics
 
@@ -1866,6 +1884,34 @@ Finishes
 - *[Image: Flat cutout letter S in red acrylic on a concrete wall (illustrative render)]* — Coloured acrylic — [Try it](/configurator?config=lp-1-flat-cutout&finish=acrylic-colored)
 
 Illustrative renders, placeholders until project photos are added. Solid or fabricated builds; see the configurator.
+
+Projects
+
+#### Flat cutout letters we have made.
+
+*[Image: MACS Innovative Companies lettering on a concrete wall]*
+
+Fig. 01
+
+##### MACS
+
+- **Product:** Flat cutout letters
+
+*[Image: Olympus Clinical Research logo and lettering cut out in blue, orange and white, laid on paper templates]*
+
+Fig. 02
+
+##### Olympus Clinical Research
+
+- **Product:** Flat cutout letters
+
+*[Image: Two Olympus Clinical Research flat cutout sign sets laid out on paper templates in the workshop]*
+
+Fig. 03
+
+##### Olympus Clinical Research (layout)
+
+- **Product:** Flat cutout letters
 
 Previous
 

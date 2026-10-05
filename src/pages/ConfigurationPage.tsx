@@ -7,12 +7,16 @@ import Seo from "../components/Seo";
 import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
 import { lp1Gallery } from "../data/lp1Gallery";
+import { projectsByIds } from "../data/projects";
+import ProjectCard from "../components/ProjectCard";
 import SystemImage from "../components/SystemImage";
 import { BuildYourSignButton } from "../components/CtaButton";
 import ULBadge from "../components/ULBadge";
 import BuildYourSign from "../components/BuildYourSign";
 import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
 import { emitsLight } from "../components/configurator/types";
+
+const LP1_PROJECT_IDS = ["macs", "olympus-templates", "olympus-layout"];
 
 export default function ConfigurationPage() {
   const { id } = useParams();
@@ -133,6 +137,18 @@ export default function ConfigurationPage() {
               ))}
             </ul>
             <p className="mono-label text-muted-foreground mt-4">Illustrative renders, placeholders until project photos are added. Solid or fabricated builds; see the configurator.</p>
+          </section>
+        )}
+
+        {c.family === "Flat cutout" && (
+          <section className="mt-16" aria-labelledby="lp1-projects">
+            <p className="mono-label text-primary mb-3">Projects</p>
+            <h2 id="lp1-projects" className="text-3xl md:text-4xl mb-6">Flat cutout letters we have made.</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {projectsByIds(LP1_PROJECT_IDS).map((p, i) => (
+                <ProjectCard key={p.id} project={p} index={i} />
+              ))}
+            </div>
           </section>
         )}
 
