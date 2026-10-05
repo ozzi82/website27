@@ -64,7 +64,7 @@ describe("/projects (canonical; /gallery redirects)", () => {
     const redirects = read("public/_redirects");
     expect(redirects).toMatch(/^\/gallery\s+\/projects\s+301$/m);
     expect(redirects.indexOf("/gallery")).toBeLessThan(redirects.indexOf("/* "));
-    expect(read("nginx.conf")).toContain("location = /gallery { return 301 /projects; }");
+    expect(read("nginx.conf")).toContain("location = /gallery { return 301 /projects$is_args$args; }");
     expect(getPrerenderRoutes()).not.toContain("/gallery");
     expect(getPrerenderRoutes()).toContain("/projects");
   });
