@@ -142,6 +142,10 @@ Proven production partner
 
 We are a wholesale manufacturer of channel letters and illuminated signage for sign shops across North America — German-engineered, UL 48 listed, built to your drawings and shipped ready for installation.
 
+*[Image: UL mark]*
+
+UL 48 listed signs
+
 [Request Wholesale Pricing](/contact)
 
 *[Image: Sunlite Signs wholesale manufacturing credentials — 10,000+ channel letters produced, UL 48 listed, German engineered, nationwide sign company partner]*
@@ -303,6 +307,10 @@ EdgeLuxe letter systems
 12 German-engineered, UL Listed configurations, from flat cutouts to halo-lit stainless steel and sealed block acrylic. Open any one for depths, materials and limits.
 
 [Build Your Sign](/configurator)
+
+*[Image: UL mark]*
+
+Every system UL Listed
 
 *[Image: EdgeLuxe LP 1 — Flat Cutout Letters (FCO)]*
 
@@ -865,6 +873,10 @@ Send your artwork, dimensions and project details. We'll return a tailored quote
 
 Trade customers only · No retail sales
 
+*[Image: UL mark]*
+
+UL 48 listed signs
+
 Want to see your logo first? [Build your sign in 3D](/configurator) and send the configuration with this form.
 
 Helps us quote fast
@@ -1143,6 +1155,10 @@ DayNight
 Technical details
 
 #### The spec sheet.
+
+*[Image: UL mark]*
+
+UL 48 listed · 3-year warranty on LED modules and power supplies
 
 - **Product:** EdgeLuxe LP 11 series: cast block acrylic letters
 - **Depth:** 30 mm (1.2″) standard for durability and optimal light diffusion; 25 mm (1″) for small letters and signs (LP 11-F). LP 11-B is also offered at 10, 15 and 20 mm.
@@ -1484,6 +1500,10 @@ Technical specifications
 
 #### The spec sheet.
 
+*[Image: UL mark]*
+
+UL 48 listed · 3-year warranty on LED modules and power supplies
+
 - **Product:** Classic trimless channel letters, fabricated to your drawings
 - **Systems:** EdgeLuxe LP 5 (face lit), LP 3.1 (halo lit, standoffs), LP 3.2 (partial side-lit halo, flush-mount)
 - **Material:** Fabricated stainless steel; LP 5 has thick gauge returns and back welded together and a step-routed acrylic face
@@ -1789,6 +1809,10 @@ Flat Cutout Letters (FCO)
 
 Precision-cut flat letters in wood, aluminum, stainless steel, acrylic and more.
 
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
+
 [Build in 3D](/configurator?config=lp-1-flat-cutout) · [Request Wholesale Pricing](/contact)
 
 *[Image: EdgeLuxe LP 1 Flat Cutout Letters (FCO): sample letter]*
@@ -1862,6 +1886,10 @@ LP 3.1 / Stainless steel
 Fabricated Stainless Steel with Standoffs
 
 Halo-illuminated fabricated stainless steel letters floating off the wall on standoffs.
+
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
 
 [Build in 3D](/configurator?config=lp-3-1-standoff-halo) · [Request Wholesale Pricing](/contact)
 
@@ -1941,6 +1969,10 @@ Fabricated Stainless Steel Flush-mount
 
 Flush-mounted stainless steel letters with a partial side-lit halo effect.
 
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
+
 [Build in 3D](/configurator?config=lp-3-2-flush-mount) · [Request Wholesale Pricing](/contact)
 
 *[Image: EdgeLuxe LP 3.2 Fabricated Stainless Steel Flush-mount: sample letter, lit at night]*
@@ -2019,6 +2051,10 @@ LP 5 / Stainless steel
 Trimless Fabricated Stainless Steel Letters
 
 Face-lit, trimless stainless steel channel letters for façades and canopies.
+
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
 
 [Build in 3D](/configurator?config=lp-5-trimless-face-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2100,6 +2136,10 @@ Block Acrylic Face-lit
 
 Solid cast block acrylic letters with embedded LEDs for uniform face lighting.
 
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
+
 [Build in 3D](/configurator?config=lp-11-f-face-lit) · [Request Wholesale Pricing](/contact)
 
 *[Image: EdgeLuxe LP 11-F Block Acrylic Face-lit: sample letter, lit at night]*
@@ -2179,6 +2219,10 @@ LP 11-B / Block acrylic
 Block Acrylic Back-lit
 
 Block acrylic letters with a uniform halo on the wall behind, on standoff spacers.
+
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
 
 [Build in 3D](/configurator?config=lp-11-b-back-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2260,6 +2304,10 @@ Block Acrylic Face- and Halo-lit Combo
 
 Face-lit and halo-lit in one letter: a glowing face plus a wall halo.
 
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
+
 [Build in 3D](/configurator?config=lp-11-fb-face-halo) · [Request Wholesale Pricing](/contact)
 
 *[Image: EdgeLuxe LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter, lit at night]*
@@ -2339,6 +2387,10 @@ LP 11-BS / Block acrylic
 Block Acrylic Partial Back Side-lit
 
 Letters, flush or stand-off mounted, with light glowing from the back edge of the side wall.
+
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
 
 [Build in 3D](/configurator?config=lp-11-bs-back-side-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2420,6 +2472,10 @@ Block Acrylic Face-lit + Partial Front Side-lit
 
 Letters, flush or stand-off mounted, with a glowing face and a thin band of light along the front edge of the side wall.
 
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
+
 [Build in 3D](/configurator?config=lp-11-fs-front-side-lit) · [Request Wholesale Pricing](/contact)
 
 *[Image: EdgeLuxe LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter, lit at night]*
@@ -2499,6 +2555,10 @@ LP 11-S / Block acrylic
 Block Acrylic Full Side-lit
 
 Letters whose entire side wall glows, with an opaque painted face.
+
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
 
 [Build in 3D](/configurator?config=lp-11-s-side-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2580,6 +2640,10 @@ Block Acrylic Faux Neon
 
 Block acrylic with a routed, rounded front edge that simulates a neon glass tube, lit on the face and the front half of the side.
 
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
+
 [Build in 3D](/configurator?config=lp-11-n-faux-neon) · [Request Wholesale Pricing](/contact)
 
 *[Image: EdgeLuxe LP 11-N Block Acrylic Faux Neon: sample letter, lit at night]*
@@ -2660,6 +2724,10 @@ LP 11-C / Block acrylic
 Block Acrylic Conical Profile
 
 Face-lit letters with a tapered conical profile for narrow strokes and serifs.
+
+*[Image: UL mark]*
+
+UL Listed · 3-year warranty
 
 [Build in 3D](/configurator?config=lp-11-c-conical) · [Request Wholesale Pricing](/contact)
 

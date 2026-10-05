@@ -6,6 +6,7 @@ import SectionHeader from "../components/SectionHeader";
 import MediaFrame from "../components/MediaFrame";
 import ProjectCard from "../components/ProjectCard";
 import RelatedLinks from "../components/RelatedLinks";
+import ULBadge from "../components/ULBadge";
 import BuildYourSign from "../components/BuildYourSign";
 import BeforeAfterSlider from "../components/BeforeAfterSlider";
 import FinalCTA from "../components/FinalCTA";
@@ -256,6 +257,7 @@ export default function UltraSlimPage() {
       <section id="specifications" className="py-14 md:py-24 border-t border-border steel-plate scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6">
           <SectionHeader eyebrow="Technical details" title="The spec sheet." titleClassName={sectionTitle} />
+          <ULBadge label="UL 48 listed · 3-year warranty on LED modules and power supplies" className="mb-6" />
           <dl className="grid lg:grid-cols-2 lg:gap-x-16 border-t border-border">
             {ultraSlimSpecs.map((r) => (
               <div key={r.label} className="grid sm:grid-cols-[9rem_1fr] gap-1 sm:gap-6 py-3.5 border-b border-border">

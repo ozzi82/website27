@@ -230,3 +230,17 @@ describe("UL mark", () => {
     expect(screen.getByRole("contentinfo").querySelector('img[src="/images/ul-mark.svg"]')).not.toBeNull();
   });
 });
+
+describe("UL mark placements", () => {
+  it("also appears on the home proof section and system grid, the product pages, a system page and the contact page", async () => {
+    const { renderAt } = await import("./helpers/renderPage");
+    const marks = (el: Element) => el.querySelectorAll('img[src="/images/ul-mark.svg"]').length;
+    renderHome();
+    expect(marks(document.getElementById("trusted")!)).toBe(1);
+    expect(marks(document.getElementById("light-effects")!)).toBe(1);
+    for (const path of ["/services/ultra-slim-trimless-channel-letters", "/services/channel-letters", "/light-effects/lp-5-trimless-face-lit", "/contact"]) {
+      const { main } = renderAt(path);
+      expect(marks(main), path).toBeGreaterThanOrEqual(1);
+    }
+  });
+});

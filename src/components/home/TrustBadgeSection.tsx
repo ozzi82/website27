@@ -1,3 +1,4 @@
+import ULBadge from "../ULBadge";
 import { ArrowLink } from "../CtaButton";
 import { CTA_PRIMARY } from "../../lib/cta";
 
@@ -31,6 +32,7 @@ export default function TrustBadgeSection() {
               We are a wholesale manufacturer of channel letters and illuminated signage for sign shops across North America
               — German-engineered, UL 48 listed, built to your drawings and shipped ready for installation.
             </p>
+            <ULBadge className="mt-5" />
           </div>
           <div className="max-lg:order-last lg:mt-8">
             <ArrowLink label={CTA_PRIMARY.label} to={CTA_PRIMARY.to} className="text-sm" />

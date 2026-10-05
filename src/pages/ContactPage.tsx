@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Mail, MessageCircle, Phone } from "lucide-react";
 import ContactForm, { type AttachmentStatus } from "../components/ContactForm";
+import ULBadge from "../components/ULBadge";
 import Breadcrumbs from "../components/Breadcrumbs";
 import FAQSection, { faqs } from "../components/FAQSection";
 import Seo from "../components/Seo";
@@ -132,6 +133,7 @@ export default function ContactPage() {
               </h1>
               <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-md">{contactIntro}</p>
               <p className="mt-6 inline-flex border border-primary/60 px-3 py-2 mono-label text-foreground">Trade customers only · No retail sales</p>
+              <ULBadge className="mt-4 block" />
 
               <p className="mt-6 text-sm text-muted-foreground">
                 Want to see your logo first?{" "}

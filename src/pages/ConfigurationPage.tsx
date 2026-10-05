@@ -9,6 +9,7 @@ import { SITE_URL, absoluteUrl } from "../lib/seo";
 import { lp1Gallery } from "../data/lp1Gallery";
 import SystemImage from "../components/SystemImage";
 import { BuildYourSignButton } from "../components/CtaButton";
+import ULBadge from "../components/ULBadge";
 import BuildYourSign from "../components/BuildYourSign";
 import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
 import { emitsLight } from "../components/configurator/types";
@@ -65,6 +66,7 @@ export default function ConfigurationPage() {
             <h1 className="text-5xl md:text-7xl">{c.title}</h1>
             <p className="text-2xl text-foreground/80 mt-3">{c.subtitle}</p>
             <p className="text-muted-foreground mt-4 max-w-xl">{c.summary}</p>
+            <ULBadge label="UL Listed · 3-year warranty" className="mt-5" />
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
             <BuildYourSignButton size="lg" label="Build in 3D" to={`/configurator?config=${c.id}`} />
