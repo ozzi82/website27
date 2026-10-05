@@ -53,7 +53,23 @@ is loaded at all.
   on the phone link. For a US number consider a call-tracking number only if you use call ads.
 - **Speed and quality score**: run PageSpeed Insights on the five landing pages and fix red items (the hero video is already
   delayed; images are WebP/JPEG sized). Core Web Vitals feed the ad landing-page experience score.
-- **Search Console + Bing Webmaster Tools**: verify the domain, submit `sitemap.xml` (note: `/configurator` is not in it).
+- **Search Console + Bing Webmaster Tools**: verify the domain, submit `sitemap.xml` (`/configurator` is not in it).
 - **Heatmaps / recordings (optional)**: Microsoft Clarity is free; add it as a GTM tag behind the same consent.
 - **Weekly report**: GA4 Explorations + the Google Ads search-terms report; keep a changelog of campaign edits.
 - **Do not use** call-only or display remarketing until the privacy policy is reviewed for it (see LAUNCH-CHECKLIST).
+
+## What you can see once it is set up (answering "what do people look at, do they use the configurator, do ads convert")
+| Question | Where | How |
+|---|---|---|
+| Which pages people view, how long, from where | GA4 > Reports > Engagement > Pages, Acquisition > Traffic acquisition | Automatic (`page_view` is sent on every route change; engagement time is built into GA4) |
+| How far they scroll, outbound and file clicks | GA4 | Turn on Enhanced Measurement (default) |
+| Heatmaps and session recordings | **Microsoft Clarity** (free) | In GTM add a Custom HTML tag with Clarity's snippet, trigger after consent; shows clicks, scroll depth, rage clicks, recordings |
+| Do they use the configurator | GA4 > Explore > Funnel exploration | Events sent: `page_view` of `/configurator`, `configurator_artwork` (source text or upload: a sign was actually built), `configurator_system` (which letter system), `configurator_option` (option, value: day/night, mounting, depth, glow colour, finish...), `configurator_quote_click` (asked for a quote), `generate_lead` |
+| Which systems / options are popular | GA4 > Explore > Free form, break down by event parameter | Register `configuration`, `option`, `value`, `source` as custom dimensions (Admin > Custom definitions) |
+| Phone, WhatsApp, email, chat use | GA4 events | `click_to_call`, `click_whatsapp`, `click_email`, `chat_started` |
+| Do ads produce submissions | Google Ads > Goals/Conversions, GA4 > Advertising | The `generate_lead` conversion in Ads (see steps 3 and 5 above); compare conversions per campaign, ad group and keyword |
+| Which ad / keyword produced which lead, and whether it became a customer | HubSpot contact record | `gclid` and `utm_*` land in hidden form fields; qualified and won deals go back to Ads as offline conversions |
+| How visible on Google | Search Console > Performance (queries, impressions, clicks, position) | Verify the domain property; check weekly |
+
+Funnel to build in GA4: `/configurator` view -> `configurator_artwork` -> `configurator_quote_click` -> `generate_lead`. The drop
+between steps shows where the configurator loses people.

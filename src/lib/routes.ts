@@ -54,4 +54,16 @@ export const LEGACY_PAGE_REDIRECTS: Record<string, string> = {
   "/services/trimless-letters": "/services/ultra-slim-trimless-channel-letters",
   // Ultra-slim and cast block acrylic are one product line (the EdgeLuxe LP 11 series).
   "/services/cast-block-acrylic": "/services/ultra-slim-trimless-channel-letters",
+  // The previous (WordPress) sunlitesigns.com pages that Google already indexes: they keep their ranking by redirecting
+  // to the matching new page. Add every other old URL here too (see docs/SEO-AND-AI-VISIBILITY.md), in the three lists.
+  "/channel-letters": "/services/channel-letters",
+  "/channel-letters/": "/services/channel-letters",
+  "/profile-11-slim-letters": "/services/ultra-slim-trimless-channel-letters",
+  "/profile-11-slim-letters/": "/services/ultra-slim-trimless-channel-letters",
+  "/lightbox-push-through-letters": "/services/custom-sign-fabrication",
+  "/lightbox-push-through-letters/": "/services/custom-sign-fabrication",
+  "/contact-sunlite-signs-llc": "/contact",
+  "/contact-sunlite-signs-llc/": "/contact",
+  "/privacy-policy": "/",
+  "/privacy-policy/": "/",
 };

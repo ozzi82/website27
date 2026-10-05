@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import * as THREE from "three";
@@ -76,6 +76,13 @@ export default function ConfiguratorPage() {
   const fontId = config ? usableFontId(config, pickedFontId) : pickedFontId;
   const textArtwork = useTextArtwork(text, fontId, source === "text");
   const shapes = source === "text" ? textArtwork.shapes : uploadShapes;
+  const artworkTracked = useRef<string | null>(null);
+  useEffect(() => {
+    if (shapes && artworkTracked.current !== source) {
+      artworkTracked.current = source;
+      trackEvent("configurator_artwork", { source }); // "text" or "upload": someone actually saw a sign built from their input
+    }
+  }, [shapes, source]);
   const lineCount = text.split("\n").filter((l) => l.trim()).length;
   // Typed text is measured against one line's letters, not the whole stack of lines.
   const strokeRatio = useMemo(() => {
@@ -92,6 +99,12 @@ export default function ConfiguratorPage() {
 
   function handleChange(next: ConfiguratorState) {
     background.current = next.background;
+    // What visitors adjust, for the analytics (one event per changed option, no personal data).
+    if (state) {
+      for (const key of ["dayNight", "mounting", "depthMm", "glowColor", "color", "background", "finish", "build", "variant"] as const) {
+        if (next[key] !== state[key]) trackEvent("configurator_option", { option: key, value: String(next[key]), configuration: state.configId });
+      }
+    }
     setState(next);
   }
 
@@ -101,6 +114,7 @@ export default function ConfiguratorPage() {
   function handleSelectConfig(id: string) {
     const selected = findConfig(id);
     if (!selected) return;
+    trackEvent("configurator_system", { configuration: id });
     setState((prev) => (prev ? switchConfig(prev, selected) : { ...defaultStateFor(selected), background: background.current }));
   }
 

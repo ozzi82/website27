@@ -3,4 +3,15 @@
 /services/trimless-letters    /services/ultra-slim-trimless-channel-letters      301
 /services/cast-block-acrylic  /services/ultra-slim-trimless-channel-letters      301
 /gallery                      /projects                                          301
+# The previous WordPress site's indexed pages (keep their ranking)
+/channel-letters                          /services/channel-letters                           301
+/channel-letters/                         /services/channel-letters                           301
+/profile-11-slim-letters                  /services/ultra-slim-trimless-channel-letters       301
+/profile-11-slim-letters/                 /services/ultra-slim-trimless-channel-letters       301
+/lightbox-push-through-letters            /services/custom-sign-fabrication                   301
+/lightbox-push-through-letters/           /services/custom-sign-fabrication                   301
+/contact-sunlite-signs-llc                /contact                                            301
+/contact-sunlite-signs-llc/               /contact                                            301
+/privacy-policy                           /                                                   301
+/privacy-policy/                          /                                                   301
 /* /index.html 200

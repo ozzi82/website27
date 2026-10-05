@@ -50,6 +50,10 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
   HubSpot form next to the artwork file or text SVG (artwork first; the HubSpot file field must allow several files, otherwise HubSpot may keep only the first);
   HubSpot live chat wiring (docs/LIVE-CHAT.md); thin-stroke notice inside the preview.
 
+- 2026-10-05 (5): Dockerfile build args for the Google IDs (DEPLOY.md); 301 redirects for the old WordPress sunlitesigns.com URLs found indexed; Facebook `sameAs`;
+  configurator usage events (artwork, system, option, quote click); docs/SEO-AND-AI-VISIBILITY.md and the measurement table in docs/ANALYTICS-PLAN.md.
+  IMPORTANT before launch: sunlitesigns.com is already live with the old site; export ALL its URLs and redirect every one (see SEO doc).
+
 ## Owner confirmations still open
 - UL label: owner offered to share it for use as a badge (not yet received).
 - LP 11-B depths 10/15/20/30 mm versus the H1 "25-30 mm".

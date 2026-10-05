@@ -28,6 +28,8 @@ const jsonLd = {
   email: "hello@sunlitesigns.com",
   telephone: "+1-689-294-0912",
   areaServed: "United States",
+  // Other places the company is listed; add the LinkedIn company page and any directory listing here when they exist.
+  sameAs: ["https://www.facebook.com/profile.php?id=61553443110216"],
   knowsAbout: ["Channel letters", "Ultra-slim channel letters", "Cast block acrylic letters", "Trimless stainless steel letters", "Illuminated signage", "UL 48 certification"],
 };
 
