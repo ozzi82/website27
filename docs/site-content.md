@@ -737,75 +737,87 @@ Illuminated letters and logos, fabricated to our partners' drawings.
 
 [Request Wholesale Pricing](/contact)
 
-*[Image: Mustang sign with illuminated lettering on a dark panel]*
+*[Image: Quarrix lettering with a blue glow behind the letters on a white display wall]*
 
 Fig. 01
+
+##### Quarrix
+
+*[Image: Piada lettering above a dark canopy on a brick storefront]*
+
+Fig. 02
+
+##### Piada
+
+*[Image: Mustang sign with illuminated lettering on a dark panel]*
+
+Fig. 03
 
 ##### Mustang
 
 *[Image: Panther Dome entrance with an illuminated panther emblem at dusk]*
 
-Fig. 02
+Fig. 04
 
 ##### Panther Dome
 
 *[Image: Illuminated acorn and laurel crest on a wood-slat wall]*
 
-Fig. 03
+Fig. 05
 
 ##### Acorn crest
 
 *[Image: Illuminated wall graphic in an interior corridor]*
 
-Fig. 04
+Fig. 06
 
 ##### Interior wall graphic
 
 *[Image: Pre-Loved Luxury Collection lettering above a storefront]*
 
-Fig. 05
+Fig. 07
 
 ##### Pre-Loved Luxury Collection
 
 *[Image: Inspire logo lettering with a glowing halo on an interior wall]*
 
-Fig. 06
+Fig. 08
 
 ##### Inspire
 
 *[Image: Stroh + Scheuerpflug logo lettering on a white wall]*
 
-Fig. 07
+Fig. 09
 
 ##### Stroh + Scheuerpflug
 
 *[Image: Tradebyte lettering with a halo glow on a grey wall]*
 
-Fig. 08
+Fig. 10
 
 ##### Tradebyte
 
 *[Image: MACS Innovative Companies lettering on a concrete wall]*
 
-Fig. 09
+Fig. 11
 
 ##### MACS
 
 *[Image: JenTower lettering with a warm halo above an entrance]*
 
-Fig. 10
+Fig. 12
 
 ##### JenTower
 
 *[Image: ARGO-HYTOS illuminated lettering on a blue building facade at dusk]*
 
-Fig. 11
+Fig. 13
 
 ##### ARGO-HYTOS
 
 *[Image: Vertical lettering with glowing white outlines on a blue panel beside a concrete column]*
 
-Fig. 12
+Fig. 14
 
 ##### Concourse lettering
 
@@ -815,7 +827,7 @@ Fig. 12
 
 *[Image: Illuminated vertical lettering on a blue column panel in a large interior concourse]*
 
-Fig. 13
+Fig. 15
 
 ##### Concourse column sign
 
@@ -825,7 +837,7 @@ Fig. 13
 
 *[Image: Large white illuminated lettering with a soft halo above an event stand]*
 
-Fig. 14
+Fig. 16
 
 ##### Event stand lettering
 
@@ -835,7 +847,7 @@ Fig. 14
 
 *[Image: itonics lettering on a white wall]*
 
-Fig. 15
+Fig. 17
 
 ##### itonics
 

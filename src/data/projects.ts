@@ -27,6 +27,9 @@ export interface Project {
 const I = "/images/";
 
 export const projects: Project[] = [
+  // Added 2026-10-05 (owner photos). Only what the photos show is recorded: no product line, depth or finish is claimed.
+  { id: "quarrix", title: "Quarrix", image: I + "project-quarrix.jpg", width: 1280, height: 1707, alt: "Quarrix lettering with a blue glow behind the letters on a white display wall" },
+  { id: "piada", title: "Piada", image: I + "project-piada.jpg", width: 1280, height: 1706, alt: "Piada lettering above a dark canopy on a brick storefront" },
   { id: "mustang", title: "Mustang", image: I + "pasted-image-1786571168082-g326u0k5.png", width: 1536, height: 1024, alt: "Mustang sign with illuminated lettering on a dark panel", featured: true },
   { id: "panther-dome", title: "Panther Dome", image: I + "pasted-image-1786571168465-hoggarou.png", width: 1254, height: 1254, alt: "Panther Dome entrance with an illuminated panther emblem at dusk" },
   { id: "acorn-crest", title: "Acorn crest", image: I + "pasted-image-1786571174777-ihzwikss.jpg", width: 709, height: 945, alt: "Illuminated acorn and laurel crest on a wood-slat wall" },

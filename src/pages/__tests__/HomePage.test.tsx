@@ -244,3 +244,10 @@ describe("UL mark placements", () => {
     }
   });
 });
+
+describe("new project photos", () => {
+  it("lists Quarrix and Piada on the projects data", async () => {
+    const { projects } = await import("../../data/projects");
+    expect(projects.map((p) => p.id)).toEqual(expect.arrayContaining(["quarrix", "piada"]));
+  });
+});
