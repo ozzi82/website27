@@ -1,0 +1,2 @@
+job_id,date,system,depth_mm,width_in,height_in,letter_count,quantity,finish_or_color,mounting,includes_led_and_power,includes_template_and_crate,factory_price_usd,price_is_unit_or_total,freight_usd,duty_usd,drawing_file,quote_file,notes
+2025-03_Example_LP11F,2025-03-14,LP 11-F,30,96,22,7,1,white face / painted black sides,flush,yes,yes,1850,total,420,310,drawing.pdf,quote.pdf,"example row: replace with your own"
