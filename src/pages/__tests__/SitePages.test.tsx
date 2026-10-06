@@ -34,13 +34,23 @@ describe("/projects (canonical; /gallery redirects)", () => {
 
   it("cards that are mapped to a product link back to its page; unmapped cards carry no metadata", () => {
     const { main } = renderAt("/projects");
-    const mapped = projects.filter((p) => p.productSlug);
-    expect(mapped.length).toBeGreaterThan(0);
+    const mapped = projects.filter((p) => p.productSlug && !p.systems?.length);
     for (const p of mapped) {
       const card = main.querySelector(`[data-project="${p.id}"]`)!;
       expect(within(card as HTMLElement).getByRole("link")).toHaveAttribute("href", `/services/${p.productSlug}`);
     }
-    for (const p of projects.filter((x) => !x.productSlug && !x.productType)) {
+    // jobs with a known EdgeLuxe system name it and link to each system page
+    const withSystems = projects.filter((p) => p.systems?.length);
+    expect(withSystems.length).toBeGreaterThanOrEqual(15);
+    for (const p of withSystems) {
+      const card = main.querySelector(`[data-project="${p.id}"]`) as HTMLElement;
+      const hrefs = within(card).getAllByRole("link").map((a) => a.getAttribute("href"));
+      for (const id of p.systems!) expect(hrefs, p.id).toContain(`/light-effects/${id}`);
+      expect(card.textContent, p.id).toMatch(/EdgeLuxe LP/);
+    }
+    expect(projects.some((p) => p.id === "pre-loved-luxury")).toBe(false);
+    expect(main.textContent).not.toMatch(/Pre-Loved/);
+    for (const p of projects.filter((x) => !x.productSlug && !x.productType && !x.systems?.length)) {
       expect(main.querySelector(`[data-project="${p.id}"] dl`)).toBeNull();
     }
   });

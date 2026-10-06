@@ -267,11 +267,19 @@ Fig. 01
 
 ##### Mustang
 
+- **Product:** EdgeLuxe LP 5
+
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
+
 *[Image: Inspire logo lettering with a glowing halo on an interior wall]*
 
 Fig. 02
 
 ##### Inspire
+
+- **Product:** EdgeLuxe LP 11-BS
+
+[View LP 11-BS](/light-effects/lp-11-bs-back-side-lit)
 
 *[Image: Stroh + Scheuerpflug logo lettering on a white wall]*
 
@@ -279,11 +287,19 @@ Fig. 03
 
 ##### Stroh + Scheuerpflug
 
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
+
 *[Image: Tradebyte lettering with a halo glow on a grey wall]*
 
 Fig. 04
 
 ##### Tradebyte
+
+- **Product:** EdgeLuxe LP 3.1
+
+[View LP 3.1](/light-effects/lp-3-1-standoff-halo)
 
 *[Image: JenTower lettering with a warm halo above an entrance]*
 
@@ -291,11 +307,19 @@ Fig. 05
 
 ##### JenTower
 
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
+
 *[Image: ARGO-HYTOS illuminated lettering on a blue building facade at dusk]*
 
 Fig. 06
 
 ##### ARGO-HYTOS
+
+- **Product:** EdgeLuxe LP 3.1 + LP 5
+
+[View LP 3.1](/light-effects/lp-3-1-standoff-halo) · [View LP 5](/light-effects/lp-5-trimless-face-lit)
 
 [View All Projects](/projects) · [Request Wholesale Pricing](/contact)
 
@@ -814,11 +838,19 @@ Fig. 09
 
 ##### Quarrix
 
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
+
 *[Image: Piada lettering above a dark canopy on a brick storefront]*
 
 Fig. 10
 
 ##### Piada
+
+- **Product:** EdgeLuxe LP 5
+
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
 
 *[Image: Olympus Clinical Research logo and lettering cut out in blue, orange and white, laid on paper templates]*
 
@@ -842,11 +874,19 @@ Fig. 13
 
 ##### Mustang
 
+- **Product:** EdgeLuxe LP 5
+
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
+
 *[Image: Panther Dome entrance with an illuminated panther emblem at dusk]*
 
 Fig. 14
 
 ##### Panther Dome
+
+- **Product:** EdgeLuxe LP 5
+
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
 
 *[Image: Illuminated acorn and laurel crest on a wood-slat wall]*
 
@@ -854,91 +894,119 @@ Fig. 15
 
 ##### Acorn crest
 
+- **Product:** EdgeLuxe LP 11-BS
+
+[View LP 11-BS](/light-effects/lp-11-bs-back-side-lit)
+
 *[Image: Illuminated wall graphic in an interior corridor]*
 
 Fig. 16
 
 ##### Interior wall graphic
 
-*[Image: Pre-Loved Luxury Collection lettering above a storefront]*
+- **Product:** EdgeLuxe LP 11-N
 
-Fig. 17
-
-##### Pre-Loved Luxury Collection
+[View LP 11-N](/light-effects/lp-11-n-faux-neon)
 
 *[Image: Inspire logo lettering with a glowing halo on an interior wall]*
 
-Fig. 18
+Fig. 17
 
 ##### Inspire
 
+- **Product:** EdgeLuxe LP 11-BS
+
+[View LP 11-BS](/light-effects/lp-11-bs-back-side-lit)
+
 *[Image: Stroh + Scheuerpflug logo lettering on a white wall]*
 
-Fig. 19
+Fig. 18
 
 ##### Stroh + Scheuerpflug
 
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
+
 *[Image: Tradebyte lettering with a halo glow on a grey wall]*
 
-Fig. 20
+Fig. 19
 
 ##### Tradebyte
 
+- **Product:** EdgeLuxe LP 3.1
+
+[View LP 3.1](/light-effects/lp-3-1-standoff-halo)
+
 *[Image: MACS Innovative Companies lettering on a concrete wall]*
 
-Fig. 21
+Fig. 20
 
 ##### MACS
 
-- **Product:** Flat cutout letters
+- **Product:** EdgeLuxe LP 1
+
+[View LP 1](/light-effects/lp-1-flat-cutout)
 
 *[Image: JenTower lettering with a warm halo above an entrance]*
 
-Fig. 22
+Fig. 21
 
 ##### JenTower
 
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
+
 *[Image: ARGO-HYTOS illuminated lettering on a blue building facade at dusk]*
 
-Fig. 23
+Fig. 22
 
 ##### ARGO-HYTOS
 
+- **Product:** EdgeLuxe LP 3.1 + LP 5
+
+[View LP 3.1](/light-effects/lp-3-1-standoff-halo) · [View LP 5](/light-effects/lp-5-trimless-face-lit)
+
 *[Image: Vertical lettering with glowing white outlines on a blue panel beside a concrete column]*
 
-Fig. 24
+Fig. 23
 
-##### Concourse lettering
+##### Ticketmaster
 
-- **Product:** Ultra-slim letters
+- **Product:** EdgeLuxe LP 11-N
 
-[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
+[View LP 11-N](/light-effects/lp-11-n-faux-neon)
 
 *[Image: Illuminated vertical lettering on a blue column panel in a large interior concourse]*
 
-Fig. 25
+Fig. 24
 
-##### Concourse column sign
+##### Ticketmaster (concourse column)
 
-- **Product:** Ultra-slim letters
+- **Product:** EdgeLuxe LP 11-N
 
-[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
+[View LP 11-N](/light-effects/lp-11-n-faux-neon)
 
 *[Image: Large white illuminated lettering with a soft halo above an event stand]*
 
-Fig. 26
+Fig. 25
 
-##### Event stand lettering
+##### OATLY Booth
 
-- **Product:** Ultra-slim letters
+- **Product:** EdgeLuxe LP 11-FS
 
-[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
+[View LP 11-FS](/light-effects/lp-11-fs-front-side-lit)
 
 *[Image: itonics lettering on a white wall]*
 
-Fig. 27
+Fig. 26
 
 ##### itonics
+
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
 
 Related
 
@@ -1418,21 +1486,21 @@ Project photography
 
 Fig. 01
 
-##### Concourse lettering
+##### Ticketmaster
 
-- **Product:** Ultra-slim letters
+- **Product:** EdgeLuxe LP 11-N
 
-[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
+[View LP 11-N](/light-effects/lp-11-n-faux-neon)
 
 *[Image: Large white illuminated lettering with a soft halo above an event stand]*
 
 Fig. 02
 
-##### Event stand lettering
+##### OATLY Booth
 
-- **Product:** Ultra-slim letters
+- **Product:** EdgeLuxe LP 11-FS
 
-[View Ultra-slim letters](/services/ultra-slim-trimless-channel-letters)
+[View LP 11-FS](/light-effects/lp-11-fs-front-side-lit)
 
 Classic trimless letters
 
@@ -1791,17 +1859,29 @@ Fig. 01
 
 ##### Stroh + Scheuerpflug
 
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
+
 *[Image: JenTower lettering with a warm halo above an entrance]*
 
 Fig. 02
 
 ##### JenTower
 
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
+
 *[Image: itonics lettering on a white wall]*
 
 Fig. 03
 
 ##### itonics
+
+- **Product:** EdgeLuxe LP 11-B
+
+[View LP 11-B](/light-effects/lp-11-b-back-lit)
 
 Channel letter FAQ
 
@@ -1966,17 +2046,29 @@ Fig. 09
 
 ##### Acorn crest
 
+- **Product:** EdgeLuxe LP 11-BS
+
+[View LP 11-BS](/light-effects/lp-11-bs-back-side-lit)
+
 *[Image: Panther Dome entrance with an illuminated panther emblem at dusk]*
 
 Fig. 10
 
 ##### Panther Dome
 
+- **Product:** EdgeLuxe LP 5
+
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
+
 *[Image: Mustang sign with illuminated lettering on a dark panel]*
 
 Fig. 11
 
 ##### Mustang
+
+- **Product:** EdgeLuxe LP 5
+
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
 
 What we make to order
 
@@ -2148,7 +2240,9 @@ Fig. 01
 
 ##### MACS
 
-- **Product:** Flat cutout letters
+- **Product:** EdgeLuxe LP 1
+
+[View LP 1](/light-effects/lp-1-flat-cutout)
 
 *[Image: Olympus Clinical Research logo and lettering cut out in blue, orange and white, laid on paper templates]*
 

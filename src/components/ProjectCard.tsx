@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { projectMeta, type Project } from "../data/projects";
+import { projectMeta, systemCode, type Project } from "../data/projects";
 import { caseStudyForProject, caseStudyPath, type CaseStudy } from "../data/caseStudies";
 import MediaFrame from "./MediaFrame";
 
@@ -42,7 +42,20 @@ export default function ProjectCard({ project, index, caseStudy }: { project: Pr
             Read the case study <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
           </Link>
         )}
-        {project.productSlug && (
+        {project.systems?.length ? (
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+            {project.systems.map((id) => (
+              <Link
+                key={id}
+                to={`/light-effects/${id}`}
+                className="mono-label inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors"
+              >
+                View {systemCode(id)} <ArrowRight aria-hidden="true" className="w-3.5 h-3.5" />
+              </Link>
+            ))}
+          </div>
+        ) : null}
+        {!project.systems?.length && project.productSlug && (
           <Link
             to={`/services/${project.productSlug}`}
             className="mono-label mt-4 inline-flex items-center gap-2 text-primary hover:text-foreground transition-colors"

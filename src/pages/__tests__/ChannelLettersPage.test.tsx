@@ -151,12 +151,15 @@ describe("/services/channel-letters (classic trimless letters)", () => {
     expect(main.textContent).not.toMatch(/aluminum|aluminium/i);
   });
 
-  it("shows no category claim on reference projects while none is tagged for channel letters", () => {
+  it("shows the owner's system on each reference project and links it to the system page, with no other category claim", () => {
     const { main } = renderAt(PATH);
     const refs = main.querySelector("#projects")!;
     expect(refs.querySelectorAll("article").length).toBeGreaterThanOrEqual(3);
     expect(refs.textContent).toContain("Recent production.");
-    expect(refs.querySelector("dl")).toBeNull();
+    for (const article of refs.querySelectorAll("article[data-project]")) {
+      const links = [...article.querySelectorAll("a")].map((a) => a.getAttribute("href"));
+      for (const href of links) expect(href, article.getAttribute("data-project")!).toMatch(/^\/light-effects\//);
+    }
     screen.getAllByRole("link", { name: /view all projects/i }).forEach((a) => expect(a).toHaveAttribute("href", "/projects"));
   });
 });
