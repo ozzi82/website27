@@ -2,52 +2,38 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowLink, PrimaryCta, SecondaryCta } from "../CtaButton";
 import { CTA_LINKS, CTA_SECONDARY } from "../../lib/cta";
 
-const VIDEO_ID = "QsF9N8ym39k";
-const VIDEO_SRC = `https://www.youtube-nocookie.com/embed/${VIDEO_ID}?autoplay=1&mute=1&loop=1&playlist=${VIDEO_ID}&controls=0&disablekb=1&modestbranding=1&playsinline=1&rel=0&enablejsapi=1`;
-const POSTER = { src: "/images/hero-production-poster.jpg", width: 1600, height: 900 };
+const POSTER = { src: "/images/hero-loop-poster.jpg", width: 1600, height: 900 };
+/** About 2.4 MB, silent, 19 seconds of the production floor; the phone and the desktop use the same file. */
+const VIDEO_SRC = "/videos/hero-loop.mp4";
 
 /**
- * Whether to mount the background video. Poster-first: the still paints immediately and the YouTube player
- * (a heavy third-party iframe) is added right after the first render (a short delay so it never competes with the
- * first paint), and never on phones, with reduced motion, or when the visitor asked to save data. Always false on
- * the server, so the prerendered HTML and the first client render match.
+ * Whether to play the background video. It is part of the prerendered HTML (so the browser starts fetching it with the page)
+ * and is removed on the client for visitors who asked for reduced motion or to save data; they keep the poster.
  */
-function useBackgroundVideo(): boolean {
-  const [mount, setMount] = useState(false);
+function useAllowVideo(): boolean {
+  const [allow, setAllow] = useState(true);
   useEffect(() => {
     const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
-    if (window.innerWidth < 768 || nav.connection?.saveData || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = setTimeout(() => setMount(true), 300);
-    return () => clearTimeout(timer);
+    if (nav.connection?.saveData || window.matchMedia("(prefers-reduced-motion: reduce)").matches) setAllow(false);
   }, []);
-  return mount;
+  return allow;
 }
 
 export default function Hero() {
-  const showVideo = useBackgroundVideo();
+  const allowVideo = useAllowVideo();
   const [videoReady, setVideoReady] = useState(false);
-  const frame = useRef<HTMLIFrameElement>(null);
+  const video = useRef<HTMLVideoElement>(null);
 
-  // Fade the video in when it is really playing (YouTube reports player state 1), not when the empty player has loaded,
-  // so the poster never gives way to a black frame. A timer shows it anyway if the player never reports.
+  // The poster stays until the video is really playing (it may already be, before React took over the prerendered page).
   useEffect(() => {
-    if (!showVideo) return;
-    const onMessage = (e: MessageEvent) => {
-      if (!/youtube(-nocookie)?\.com$/.test(new URL(e.origin).hostname) || e.source !== frame.current?.contentWindow) return;
-      try {
-        const d = typeof e.data === "string" ? JSON.parse(e.data) : e.data;
-        if (d?.event === "onStateChange" ? d.info === 1 : d?.info?.playerState === 1) setVideoReady(true);
-      } catch {
-        /* not a player message */
-      }
-    };
-    window.addEventListener("message", onMessage);
-    const fallback = setTimeout(() => setVideoReady(true), 6000);
-    return () => {
-      window.removeEventListener("message", onMessage);
-      clearTimeout(fallback);
-    };
-  }, [showVideo]);
+    const v = video.current;
+    if (!v) return;
+    const ready = () => setVideoReady(true);
+    if (!v.paused && v.readyState >= 3) ready();
+    v.addEventListener("playing", ready);
+    Promise.resolve(v.play?.()).catch(() => undefined); // blocked (for example low-power mode): the poster simply stays
+    return () => v.removeEventListener("playing", ready);
+  }, [allowVideo]);
 
   return (
     <section className="relative min-h-[88vh] flex flex-col overflow-hidden border-b border-border">
@@ -61,15 +47,19 @@ export default function Hero() {
           className="absolute inset-0 w-full h-full object-cover"
           {...{ fetchpriority: "high" }}
         />
-        {showVideo && (
-          <iframe
-            title="Sunlite production floor"
-            tabIndex={-1}
-            ref={frame}
-            onLoad={() => frame.current?.contentWindow?.postMessage(JSON.stringify({ event: "listening", id: 1 }), "*")}
-            className={`absolute top-1/2 left-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 ${videoReady ? "opacity-100" : "opacity-0"}`}
+        {allowVideo && (
+          <video
+            ref={video}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${videoReady ? "opacity-100" : "opacity-0"}`}
             src={VIDEO_SRC}
-            allow="autoplay; encrypted-media"
+            poster={POSTER.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            disablePictureInPicture
+            tabIndex={-1}
           />
         )}
         <div className="absolute inset-0 bg-background/45" />

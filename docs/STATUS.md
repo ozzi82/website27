@@ -9,7 +9,7 @@ Live site: https://sunlitesigns.com, deployed by Coolify on Hetzner (Dockerfile 
 - Site on sunlitesigns.com with real robots.txt (Allow + Sitemap), sitemap.xml (21 URLs incl. /configurator), prerendered 404 page (real 404 status;
   old WordPress `/service/*` and `wp-*` return 410), 301s for the old indexed pages with the query string kept (so `gclid` survives), privacy policy page
   (`/privacy-policy`, replaces the old dialog), spec guide PDF at `/sunlite-signs-spec-guide.pdf` (old brochure URL redirects to it), new logo + favicon,
-  new trust badge, WhatsApp removed, hero video fix (starts right after first render, fades in on real playback, youtube-nocookie).
+  new trust badge, WhatsApp removed, homepage background is now a self-hosted 19 s silent loop (`public/videos/hero-loop.mp4`, 2.4 MB, cut from the owner's brand video; the poster is its first frame). The YouTube embed is gone. The owner's "Vertical.mp4" is not a real portrait video (1080x720 with white bars), so it is not used; phones play the same loop, cropped.
 - Tracking: GTM container `GTM-M5SPNMN2` is the default in the Dockerfile (off until cookies accepted; Consent Mode v2). GTM version 9 published: Google tag
   `G-JH80L1V5KS` (send_page_view=false), `GA4 - page_view`, `GA4 - HubSpot Form Lead` + `Google Ads - HubSpot Form Conversion` (AW-17981650924, label
   VPj4CMKXl4EcEOzvqP5C) on the custom event `generate_lead`. Verified in GTM Preview and GA4 Realtime. GA4 key events cleaned (only `generate_lead` plus
