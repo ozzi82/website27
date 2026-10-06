@@ -431,6 +431,14 @@ Block Acrylic Conical Profile
 
 (Links to: /light-effects/lp-11-c-conical)
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 Process
 
 #### From Artwork to Your Dock.
@@ -1167,6 +1175,14 @@ Every LP 11 letter is cast block acrylic with LEDs embedded in the body, epoxy-s
 - **N:** NeonRouted to look like a neon tube.
 - **C:** ConicalTapered profile for fine strokes.
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 *[Image: LP 11-F Block Acrylic Face-lit: sample letter, lit at night]*
 
 (Links to: /light-effects/lp-11-f-face-lit)
@@ -1722,6 +1738,14 @@ UL 48 listed · 3-year warranty on LED modules and power supplies
 - **Sold to:** Trade only: sign companies and industry professionals
 - **Slimmer option:** Ultra-slim LP 11 cast block acrylic letters, 10–30 mm deep: our signature product. Ultra-slim page
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 [Request Wholesale Pricing](/contact) · [Explore Products](/#products)
 
 Files we accept
@@ -2089,6 +2113,14 @@ Flat cutout letters are cut from a single sheet of material, from ultra-thin 0.0
 - **Maintenance:** Low maintenance
 - **Mounting:** Flush to the wall or on standoff spacers
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 3D preview
 
 See this system with your logo.
@@ -2195,6 +2227,14 @@ Where the light goes · concept section, not to scale
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 3D preview
 
 See this system with your logo.
@@ -2277,6 +2317,14 @@ Where the light goes · concept section, not to scale
 - **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
+
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
 
 3D preview
 
@@ -2362,6 +2410,14 @@ Where the light goes · concept section, not to scale
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 3D preview
 
 See this system with your logo.
@@ -2445,6 +2501,14 @@ Where the light goes · concept section, not to scale
 - **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
+
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
 
 3D preview
 
@@ -2530,6 +2594,14 @@ Where the light goes · concept section, not to scale
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 3D preview
 
 See this system with your logo.
@@ -2613,6 +2685,14 @@ Where the light goes · concept section, not to scale
 - **Mounting:** Standoff spacers only: the halo needs the gap to reach the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
+
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
 
 3D preview
 
@@ -2698,6 +2778,14 @@ Where the light goes · concept section, not to scale
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 3D preview
 
 See this system with your logo.
@@ -2782,6 +2870,14 @@ Where the light goes · concept section, not to scale
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 3D preview
 
 See this system with your logo.
@@ -2865,6 +2961,14 @@ Where the light goes · concept section, not to scale
 - **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
+
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
 
 3D preview
 
@@ -2951,6 +3055,14 @@ Where the light goes · concept section, not to scale
 - **Warranty:** 3 years
 - **Certification:** UL Listed
 
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
+
 3D preview
 
 See this system with your logo.
@@ -3034,6 +3146,14 @@ Where the light goes · concept section, not to scale
 - **Mounting:** Flush to the wall
 - **Warranty:** 3 years
 - **Certification:** UL Listed
+
+Spec guide · PDF · 16 pages · 3.4 MB
+
+Download the EdgeLuxe Spec Guide
+
+Every EdgeLuxe letter system on one page each: lighting, depths, materials, minimum sizes and mounting.
+
+[Download PDF](/sunlite-signs-spec-guide.pdf)
 
 3D preview
 

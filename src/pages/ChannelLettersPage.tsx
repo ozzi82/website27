@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import SpecGuide from "../components/SpecGuide";
 import { useLocation } from "react-router-dom";
 import Seo from "../components/Seo";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -400,6 +401,7 @@ export default function ChannelLettersPage() {
               </div>
             ))}
           </dl>
+          <SpecGuide className="mt-8" />
           <div className="mt-10 flex flex-col sm:flex-row gap-3">
             <PrimaryCta />
             <SecondaryCta label={CTA_SECONDARY.label} to={CTA_SECONDARY.to} />

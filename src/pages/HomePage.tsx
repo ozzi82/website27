@@ -12,6 +12,7 @@ import ProjectsSection from "../components/home/ProjectsSection";
 import ProcessSteps from "../components/home/ProcessSteps";
 import TradeStatement from "../components/home/TradeStatement";
 import LightEffects from "../components/LightEffects";
+import SpecGuide from "../components/SpecGuide";
 import FAQSection from "../components/FAQSection";
 import FinalCTA from "../components/FinalCTA";
 import Seo from "../components/Seo";
@@ -62,6 +63,7 @@ export default function HomePage() {
       <ManufacturingSection />
       <ProjectsSection />
       <LightEffects />
+      <SpecGuide variant="banner" />
       <ProcessSteps />
       <TradeStatement />
       <FAQSection />

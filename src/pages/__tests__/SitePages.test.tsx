@@ -210,3 +210,14 @@ describe("/privacy-policy", () => {
     expect(Object.keys(LEGACY_PAGE_REDIRECTS)).not.toContain("/privacy-policy");
   });
 });
+
+describe("spec guide download", () => {
+  it("is offered on the homepage, the product pages and the system pages, as a plain link to the PDF", () => {
+    for (const path of ["/", "/services/ultra-slim-trimless-channel-letters", "/services/channel-letters", "/light-effects/lp-11-f-face-lit"]) {
+      const { main } = renderAt(path);
+      const link = main.querySelector('a[href="/sunlite-signs-spec-guide.pdf"]');
+      expect(link, path).not.toBeNull();
+      expect(link!.textContent).toMatch(/download pdf/i);
+    }
+  });
+});

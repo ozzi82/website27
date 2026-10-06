@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import SpecGuide from "../components/SpecGuide";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@project/components/ui/button";
@@ -104,6 +105,8 @@ export default function ConfigurationPage() {
                 </div>
               ))}
             </dl>
+
+            <SpecGuide className="mt-8" />
 
             <div className="mt-8">
               <BuildYourSign
