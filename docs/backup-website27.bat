@@ -36,12 +36,21 @@ git -C "%MIRROR%" bundle create "%HERE%website27-%TODAY%.bundle" --all
 if errorlevel 1 goto :failed
 
 REM Optional: also refresh the second GitHub repo (remove the next 4 lines if you do not want this).
-git -C "%MIRROR%" push --mirror --force "%BACKUP_REPO%"
-if errorlevel 1 echo Note: the website27-backup repo was not updated (sign-in or permission problem). The local copy above is fine.
+git -C "%MIRROR%" push --force --all "%BACKUP_REPO%"
+if errorlevel 1 goto :backupnote
+git -C "%MIRROR%" push --force --tags "%BACKUP_REPO%"
+if errorlevel 1 goto :backupnote
+goto :done
+
+:backupnote
+echo Note: the website27-backup repo was not updated (sign-in or permission problem). The local copy is fine.
+
+:done
 
 echo.
-echo Done. Latest copy: %MIRROR%
-echo Single-file copy:  %HERE%website27-%TODAY%.bundle
+echo Done.
+echo Latest copy: "%MIRROR%"
+echo Single-file copy: "%HERE%website27-%TODAY%.bundle"
 pause
 exit /b 0
 
