@@ -15,6 +15,8 @@ export interface TextFont {
   cssFamily: string;
   /** Single-line (monoline) fonts made for the faux-neon LP 11-N: offered for that configuration only. */
   neonOnly?: boolean;
+  /** Not offered for the faux-neon LP 11-N: its rounded tube profile does not suit this face. */
+  notForTube?: boolean;
   /** Resolves to the hashed asset URL of the WOFF file. */
   fileUrl: () => Promise<string>;
 }
@@ -62,6 +64,7 @@ export const TEXT_FONTS: readonly TextFont[] = [
     id: "lobster",
     label: "Lobster",
     cssFamily: "Sign Lobster",
+    notForTube: true,
     fileUrl: url(() => import("@fontsource/lobster/files/lobster-latin-400-normal.woff?url")),
   },
   {
@@ -69,7 +72,7 @@ export const TEXT_FONTS: readonly TextFont[] = [
     label: "Neon Script",
     cssFamily: "Sign Neon Script",
     neonOnly: true,
-    fileUrl: url(() => import("@fontsource/sacramento/files/sacramento-latin-400-normal.woff?url")),
+    fileUrl: url(() => import("@fontsource/yellowtail/files/yellowtail-latin-400-normal.woff?url")),
   },
   {
     id: "neon-line",
@@ -80,9 +83,10 @@ export const TEXT_FONTS: readonly TextFont[] = [
   },
 ];
 
-/** The fonts offered for a configuration: the single-line neon fonts only go with LP 11-N (the faux neon profile). */
+/** The fonts offered for a configuration: the single-line neon fonts only go with LP 11-N (the faux neon profile), which does not offer Lobster. */
 export function fontsFor(config: Pick<LightConfig, "profile">): readonly TextFont[] {
-  return TEXT_FONTS.filter((f) => !f.neonOnly || config.profile === "tube");
+  const tube = config.profile === "tube";
+  return TEXT_FONTS.filter((f) => (tube ? !f.notForTube : !f.neonOnly));
 }
 
 /** The font actually used: the visitor's pick if this configuration offers it, otherwise the default. */

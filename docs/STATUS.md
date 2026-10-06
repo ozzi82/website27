@@ -41,6 +41,7 @@ Live site: https://sunlitesigns.com, deployed by Coolify on Hetzner (Dockerfile 
 9. The brochure PDF (`public/sunlite-signs-spec-guide.pdf`) still shows the UL mark and 3-year warranty on LP 1, which the website no longer claims for LP 1.
 
 ## Done
+- 2026-10-06: LP 11-N no longer offers Lobster; "Neon Script" is now Yellowtail (a bolder script, stroke about 11% of the height instead of 4.7% for Sacramento), so the default SUNLITE sign no longer triggers the thin-stroke notice on LP 11-N / 11-C. Sacramento was removed from the dependencies.
 - Softer design, SEO and AI-visibility pass (per-page meta, JSON-LD, sitemap, llms.txt, robots, prerendered pages).
 - Product taxonomy (owner clarification, `docs/briefs/2026-10-03-product-taxonomy-clarification.md`): ultra-slim LP 11 (cast block
   acrylic) is the main focus, classic trimless = LP 5 / 3.1 / 3.2, LP 1 = non-illuminated, blade and push-through cabinet signs only on

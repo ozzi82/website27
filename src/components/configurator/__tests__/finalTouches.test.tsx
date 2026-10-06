@@ -12,6 +12,9 @@ import { defaultStateFor, effectiveConfig, switchConfig, withVariant } from "../
 import { formatConfigSummary } from "../configSummary";
 import { DISCLAIMER_TEXT } from "../disclaimer";
 import { glowParts } from "../glowParts";
+import { textToShapes } from "../textToShapes";
+import { strokeHeightRatio, thinStrokeAdvice } from "../strokeGuard";
+import { loadTestFont } from "./helpers/loadTestFont";
 
 const byId = (id: string) => configurations.find((c) => c.id === id)!;
 const lp5 = byId("lp-5-trimless-face-lit");
@@ -27,6 +30,20 @@ describe("fonts", () => {
     for (const c of configurations.filter((x) => x.profile !== "tube")) {
       expect(fontsFor(c).some((f) => f.neonOnly), c.id).toBe(false);
     }
+  });
+
+  it("does not offer Lobster for LP 11-N, but still does for the other configurations", () => {
+    expect(fontsFor(byId("lp-11-n-faux-neon")).some((f) => f.id === "lobster")).toBe(false);
+    expect(fontsFor(byId("lp-11-f-face-lit")).some((f) => f.id === "lobster")).toBe(true);
+    expect(usableFontId(byId("lp-11-n-faux-neon"), "lobster")).toBe("montserrat");
+  });
+
+  it("the Neon Script font is bold enough that the default SUNLITE sign gets no thin-stroke notice on LP 11-N", () => {
+    const font = loadTestFont("yellowtail", "yellowtail-latin-400-normal.woff");
+    const ratio = strokeHeightRatio(textToShapes("SUNLITE", font));
+    expect(ratio).not.toBeNull();
+    expect(thinStrokeAdvice(byId("lp-11-n-faux-neon"), ratio)).toBeNull();
+    expect(thinStrokeAdvice(byId("lp-11-c-conical"), ratio)).toBeNull();
   });
 
   it("falls back to the default font when a neon font is not available for the configuration", () => {

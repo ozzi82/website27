@@ -187,6 +187,7 @@ describe("every bundled font", () => {
     ["arvo", "arvo-latin-700-normal.woff", true],
     ["pacifico", "pacifico-latin-400-normal.woff", true],
     ["lobster", "lobster-latin-400-normal.woff", false],
+    ["yellowtail", "yellowtail-latin-400-normal.woff", false],
   ];
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".split("");
 
