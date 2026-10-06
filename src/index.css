@@ -232,3 +232,9 @@
     animation: none;
   }
 }
+
+/* HubSpot chat bubble and window on the left (the right side is kept free for the configurator and the cookie buttons). */
+#hubspot-messages-iframe-container {
+  left: 0 !important;
+  right: auto !important;
+}

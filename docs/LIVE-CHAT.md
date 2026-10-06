@@ -41,3 +41,13 @@ In HubSpot (about 15 minutes):
 
 Visitors who declined cookies still reach you through **Chat with us** (it loads the chat on their click), the form, WhatsApp
 and the phone number.
+
+## Always visible, and on the left (2026-10-06)
+- `src/components/ChatLauncher.tsx`: a "Chat with us" button at the bottom left on every page, for every visitor (also before the cookie choice).
+  Clicking it loads HubSpot's chat and opens it; once HubSpot's own bubble is up the button steps aside. On phones it stays hidden while the
+  cookie notice is open. The cookie notice leaves its left corner free for it.
+- `src/index.css`: moves HubSpot's own bubble and chat window to the left (`#hubspot-messages-iframe-container`). If it looks wrong, use
+  HubSpot's own setting instead (Conversations > Chatflows > your flow > Customize > position) and delete that CSS rule.
+- "Available all the time" is a HubSpot setting: Conversations > Chatflows > your flow > Target: all pages, no office-hours rule; Inbox > Settings >
+  Channels > Chat > Availability: no working-hours restriction; the away message should say when you reply and ask for an email address;
+  HubSpot mobile app: set yourself Available and keep Inbox notifications on.

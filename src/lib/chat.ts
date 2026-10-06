@@ -9,6 +9,8 @@ import { trackEvent } from "./tracking";
  * with us" link), which is their own request to start one.
  */
 export const HUBSPOT_PORTAL_ID = "47141522";
+/** Fired on window when HubSpot's own chat bubble is ready (our "Chat with us" launcher then steps aside). */
+export const CHAT_READY_EVENT = "sls:chat-ready";
 const SCRIPT_ID = "hs-script-loader";
 const SCRIPT_SRC = `https://js-na1.hs-scripts.com/${HUBSPOT_PORTAL_ID}.js`;
 
@@ -33,6 +35,7 @@ export function loadChat(): void {
   window.hsConversationsOnReady = window.hsConversationsOnReady || [];
   window.hsConversationsOnReady.push(() => {
     window.HubSpotConversations?.on?.("conversationStarted", () => trackEvent("chat_started", { provider: "hubspot" }));
+    window.dispatchEvent(new CustomEvent(CHAT_READY_EVENT));
   });
   if (document.getElementById(SCRIPT_ID)) return;
   const s = document.createElement("script");

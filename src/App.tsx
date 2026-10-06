@@ -5,6 +5,7 @@ import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
+import ChatLauncher from "./components/ChatLauncher";
 import TrackingListener from "./components/TrackingListener";
 import HomePage from "./pages/HomePage";
 import AboutPage from "./pages/AboutPage";
@@ -61,6 +62,7 @@ export function AppRoutes() {
       </main>
       <Footer />
       <CookieBanner />
+      <ChatLauncher />
       <TrackingListener />
     </div>
   );
