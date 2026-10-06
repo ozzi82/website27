@@ -1,6 +1,44 @@
-# Project status (2026-10-03)
+# Project status (2026-10-06)
 
-Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlitesigns.com (not deployed yet; see DEPLOY.md).
+Live repo: https://github.com/ozzi82/website27 (`master`; `feature/product-taxonomy` and `feature/product-taxonomy-t48v28` are kept identical to it).
+Live site: https://sunlitesigns.com, deployed by Coolify on Hetzner (Dockerfile build, nginx), Cloudflare in front. Tests 661, `verify:prerender` 23 checks.
+
+## Where we stopped (end of 2026-10-05) and what is next
+
+### Live and working
+- Site on sunlitesigns.com with real robots.txt (Allow + Sitemap), sitemap.xml (21 URLs incl. /configurator), prerendered 404 page (real 404 status;
+  old WordPress `/service/*` and `wp-*` return 410), 301s for the old indexed pages with the query string kept (so `gclid` survives), privacy policy page
+  (`/privacy-policy`, replaces the old dialog), spec guide PDF at `/sunlite-signs-spec-guide.pdf` (old brochure URL redirects to it), new logo + favicon,
+  new trust badge, WhatsApp removed, hero video fix (starts right after first render, fades in on real playback, youtube-nocookie).
+- Tracking: GTM container `GTM-M5SPNMN2` is the default in the Dockerfile (off until cookies accepted; Consent Mode v2). GTM version 9 published: Google tag
+  `G-JH80L1V5KS` (send_page_view=false), `GA4 - page_view`, `GA4 - HubSpot Form Lead` + `Google Ads - HubSpot Form Conversion` (AW-17981650924, label
+  VPj4CMKXl4EcEOzvqP5C) on the custom event `generate_lead`. Verified in GTM Preview and GA4 Realtime. GA4 key events cleaned (only `generate_lead` plus
+  Google's lead-stage events). GA4 is linked to Google Ads account 658-218-6711.
+- HubSpot quote form `ContactFormQuoteSLS` has hidden fields gclid, gbraid, wbraid, utm_source, utm_medium, utm_campaign (utm_term / utm_content: check). `gclid`
+  arrives on the contact (tested); HubSpot also records Original Source "Paid search" and the campaign.
+
+### To do next (in this order)
+1. Coolify: redeploy the latest `master` (hero video, query-string-keeping 301s, privacy policy edits are pushed but may not be live yet).
+2. Coolify -> application -> Advanced -> Direction: set "Redirect to non-www" (the site currently lands on www; canonicals/sitemap are non-www). Remove any
+   Cloudflare redirect rule that points to www. Do NOT add a www redirect in nginx.conf again (it looped).
+3. Google Ads (account 658-218-6711), campaign "Sunlite Signs" (Search, $100/day budget, ~$21/day spent, Target CPA, 7 conversions in 30 days; "Sunlite Signs B2B
+   Germany" and "Competitors" are paused):
+   - Send the ads' Final URLs; change any that point to old WordPress addresses to the new pages.
+   - Search terms report (last 30 days): add negative keywords for consumer terms.
+   - Conversions: rename "HubSpot-" to "Quote request - website form", value off, count One. "Clicks to call" ($1, every conversion) is Primary and mixes
+     into Target CPA: take it out of bidding (the UI would not offer Secondary; look at Edit goal). Remove the stale "Sunlite Signs Germany (web) form_submit".
+     The old 113 conversions are historical (an old trigger on `conversion` re-fired itself).
+   - Enhanced conversions for leads (Goals -> Settings), using Google Tag Manager.
+   - Do not change budget / bid strategy yet.
+4. Search Console (property sunlitesigns.com, already verified; sitemap submitted, 21 pages): Removals -> temporarily remove
+   `www.sunlitesigns.com/service/making-logo-banner/` and `/service/color-contrast-view/` (lorem ipsum pages; now 410). Send the last 2 of the 12 indexed
+   URLs (page 2 of the list) so any needed 301s can be added. Not-indexed items are old WordPress internals; nothing to do.
+5. HubSpot: add `utm_term` and `utm_content` hidden fields if missing; delete the test contacts.
+6. Privacy policy: have a lawyer read it (placeholders to confirm: postal address, email / file-sharing providers, GA4 retention period). Update the
+   page whenever a service is added (it now names HubSpot, Google Tag Manager / Analytics / Ads incl. remarketing, Cloudflare, YouTube).
+7. Photos still to add when sent as files: nothing pending (custom fabrication, Olympus, MACS, hockey display, manufacturing stages are in).
+8. Open question from the owner: show only the supported mounts (stand-off only vs flush) on each product page instead of both diagrams (recommended).
+9. The brochure PDF (`public/sunlite-signs-spec-guide.pdf`) still shows the UL mark and 3-year warranty on LP 1, which the website no longer claims for LP 1.
 
 ## Done
 - Softer design, SEO and AI-visibility pass (per-page meta, JSON-LD, sitemap, llms.txt, robots, prerendered pages).
@@ -23,7 +61,6 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
 - Animated light-direction diagrams (CSS only, stop under `prefers-reduced-motion`) driven by each configuration, plus a stand-off vs flush
   mount explanation on the ultra-slim page and the system pages (`src/components/diagrams/ConfigLightDiagram.tsx`).
 - EdgeLuxe renders: owner-supplied day and night images (11 lit systems, 1200x900 JPEG) with a Day | Night switch on each system page; LP 1 uses the owner-supplied gold "S" photo (single image, no day/night switch).
-- 654 tests pass; `npm run build`, `npm run verify:prerender` (22 checks) and `npm run export:content` are clean.
 
 - Mounting (owner list, 2026-10-03): LP 3.1, LP 11-B and LP 11-FB are stand-off only; every other system (LP 1, 3.2, 5, 11-F, 11-BS, 11-FS, 11-S, 11-N, 11-C)
   can be flush or stand-off. Data: `mounts` in `src/data/configurations.ts`; configurator has a Mounting control (and `&mount=flush|standoff` deep link);
@@ -58,7 +95,7 @@ Live repo: https://github.com/ozzi82/website27 (`master`). Target domain: sunlit
   The current domain (t2wraps.com) is the test site; production moves to sunlitesigns.com (see docs/SEO-AND-AI-VISIBILITY.md and DEPLOY.md cut-over).
 
 ## Owner confirmations still open
-- UL label: owner offered to share it for use as a badge (not yet received).
+- UL mark: used on the site (capability strip, footer, product and system pages, contact page); confirm with UL that this use is allowed.
 - Wording "trimless" for cast acrylic: owner says it is not really used for cast block acrylic but is not wrong, so it stays.
 - `/services/cabinet-signs` now redirects to the custom fabrication page.
 - Photo labels on the product pages.
