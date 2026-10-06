@@ -1,7 +1,10 @@
 import { easeInOut, lerp } from "./nightFade";
 
-/** Seconds the whole day-to-night film takes. */
-export const BUILDING_SECONDS = 15;
+/** Seconds the whole film takes: 15 of day-to-night, then a 3 second zoom in on the lit sign. */
+export const BUILDING_SECONDS = 18;
+/** Share of the film (0-1) taken by the day-to-night part; the rest is the close-up. */
+export const SCENE_SHARE = 15 / 18;
+const sceneTime = (t: number) => Math.min(1, Math.max(0, t) / SCENE_SHARE);
 
 export type Vec3 = [number, number, number];
 
@@ -72,7 +75,7 @@ function direction(azimuth: number, elevation: number): Vec3 {
 
 /** Everything that changes with the clock; `t` runs 0 (sunny afternoon) to 1 (night). */
 export function timeOfDay(t: number): TimeOfDay {
-  const x = clamp01(t);
+  const x = sceneTime(t);
   const sky = skyAt(x);
   const sunElev = lerp(50, -10, easeInOut(clamp01(x / (SUN_SET / 0.833)))) * (Math.PI / 180);
   const low = 1 - clamp01((Math.sin(sunElev) - 0) / 0.35); // 0 high sun, 1 on the horizon
@@ -106,7 +109,7 @@ const POSES: { t: number; pose: CameraPose }[] = [
 ];
 
 export function cameraPoseAt(t: number): CameraPose {
-  const x = clamp01(t);
+  const x = sceneTime(t);
   for (let i = 1; i < POSES.length; i++) {
     if (x <= POSES[i].t) {
       const a = POSES[i - 1];
@@ -128,3 +131,23 @@ export function fitToAspect(pose: CameraPose, aspect: number): CameraPose {
 
 /** Floor height in world units: a 100 in wide sign is 2.4 units across, so 1 unit is about 41.7 in and a 156 in floor is about 3.74 units. */
 export const FLOOR_UNITS = 3.74;
+
+const FOV_TAN = Math.tan((35 * Math.PI) / 360); // half of the 35 degree vertical field of view
+/** Share of the picture width or height the sign fills in the close-up. */
+export const CLOSE_UP_FILL = 0.6;
+
+/** Straight-on view with the sign filling `CLOSE_UP_FILL` of the screen (its width or its height, whichever limits), slightly off-axis so the depth shows. */
+export function closeUpPose(aspect: number, sign: { w: number; h: number }): CameraPose {
+  const a = Math.max(aspect, 0.2);
+  const distance = Math.max(sign.w / (2 * FOV_TAN * a), sign.h / (2 * FOV_TAN)) / CLOSE_UP_FILL;
+  return { position: [distance * 0.14, distance * 0.02, distance * 0.99], target: [0, 0, 0] };
+}
+
+/** The camera at film time `t` for this screen and sign: the day-to-night move, then the zoom onto the sign over the last seconds. */
+export function framedPose(t: number, aspect: number, sign: { w: number; h: number }): CameraPose {
+  const overview = fitToAspect(cameraPoseAt(t), aspect);
+  if (t <= SCENE_SHARE) return overview;
+  const k = easeInOut((t - SCENE_SHARE) / (1 - SCENE_SHARE));
+  const close = closeUpPose(aspect, sign);
+  return { position: mix(overview.position, close.position, k), target: mix(overview.target, close.target, k) };
+}

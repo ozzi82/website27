@@ -1,8 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { BUILDING_SECONDS, cameraPoseAt, fitToAspect, skyAt, timeOfDay } from "../buildingTime";
+import { BUILDING_SECONDS, CLOSE_UP_FILL, SCENE_SHARE, cameraPoseAt, closeUpPose, fitToAspect, framedPose, skyAt, timeOfDay } from "../buildingTime";
 
 describe("building time of day", () => {
-  it("runs fifteen seconds", () => expect(BUILDING_SECONDS).toBe(15));
+  it("runs 15 seconds of day-to-night plus a 3 second close-up", () => {
+    expect(BUILDING_SECONDS).toBe(18);
+    expect(SCENE_SHARE * BUILDING_SECONDS).toBeCloseTo(15);
+  });
 
   it("starts as a sunny day with the sign and windows off", () => {
     const d = timeOfDay(0);
@@ -38,8 +41,8 @@ describe("building time of day", () => {
   });
 
   it("is still day at the halfway point's start and the sign is only partly on mid-dusk", () => {
-    expect(timeOfDay(0.4).night).toBe(0);
-    const mid = timeOfDay(0.72).night;
+    expect(timeOfDay(0.4 * SCENE_SHARE).night).toBe(0);
+    const mid = timeOfDay(0.72 * SCENE_SHARE).night;
     expect(mid).toBeGreaterThan(0.2);
     expect(mid).toBeLessThan(0.9);
   });
@@ -62,5 +65,32 @@ describe("building time of day", () => {
     const pose = cameraPoseAt(0);
     expect(fitToAspect(pose, 1.8)).toEqual(pose);
     expect(fitToAspect(pose, 0.5).position[2]).toBeGreaterThan(pose.position[2]);
+  });
+
+  it("stays at night during the close-up", () => {
+    expect(timeOfDay(1)).toEqual(timeOfDay(SCENE_SHARE));
+    expect(timeOfDay(1).night).toBe(1);
+  });
+
+  it("zooms to a view where the sign fills 60% of the screen across", () => {
+    const sign = { w: 2.4, h: 0.7 };
+    const aspect = 16 / 9;
+    const pose = framedPose(1, aspect, sign);
+    const distance = Math.hypot(...pose.position);
+    const visibleWidth = 2 * Math.tan((35 * Math.PI) / 360) * distance * aspect;
+    expect(sign.w / visibleWidth).toBeCloseTo(CLOSE_UP_FILL, 1);
+    expect(pose.target).toEqual([0, 0, 0]);
+  });
+
+  it("fits a tall sign by its height, and a narrow screen by its width", () => {
+    const tall = closeUpPose(16 / 9, { w: 1, h: 2.4 });
+    const wide = closeUpPose(16 / 9, { w: 2.4, h: 0.7 });
+    expect(tall.position[2]).toBeGreaterThan(wide.position[2] * 0.9);
+    const phone = closeUpPose(0.5, { w: 2.4, h: 0.7 });
+    expect(phone.position[2]).toBeGreaterThan(wide.position[2]);
+  });
+
+  it("leaves the overview alone until the close-up starts", () => {
+    expect(framedPose(SCENE_SHARE, 1.8, { w: 2.4, h: 0.7 })).toEqual(fitToAspect(cameraPoseAt(1), 1.8));
   });
 });

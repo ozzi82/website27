@@ -5,7 +5,7 @@ import * as THREE from "three";
 import BuildingScene from "./BuildingScene";
 import { NightProvider } from "./NightContext";
 import { SnapshotBridge, type CaptureSnapshot } from "./SignPreview";
-import { BUILDING_SECONDS, cameraPoseAt, timeOfDay } from "./buildingTime";
+import { BUILDING_SECONDS, SCENE_SHARE, cameraPoseAt, timeOfDay } from "./buildingTime";
 import { trackEvent } from "../../lib/tracking";
 import type { ConfiguratorState } from "./types";
 import type { LightConfig } from "../../data/configurations";
@@ -22,11 +22,11 @@ const DPR: [number, number] = [1, 1.5];
 /** Slider stops the labels sit under. */
 const MARKS = [
   { t: 0, label: "Day" },
-  { t: 0.6, label: "Sunset" },
-  { t: 1, label: "Night" },
+  { t: 0.6 * SCENE_SHARE, label: "Sunset" },
+  { t: SCENE_SHARE, label: "Night" },
 ];
 /** Where reduced-motion visitors start: the finished picture, sign on, rather than a film that moves by itself. */
-const STILL_TIME = 0.97;
+const STILL_TIME = SCENE_SHARE;
 
 function prefersStill(): boolean {
   try {
@@ -136,12 +136,12 @@ export default function BuildingView({ shapes, config, state, onClose }: Buildin
               value={t}
               onChange={(e) => seek(Number(e.target.value))}
               aria-label="Time of day"
-              aria-valuetext={`${Math.round(t * BUILDING_SECONDS)} of ${BUILDING_SECONDS} seconds, ${t < 0.5 ? "daytime" : t < 0.7 ? "sunset" : "night"}`}
+              aria-valuetext={`${Math.round(t * BUILDING_SECONDS)} of ${BUILDING_SECONDS} seconds, ${t < 0.42 ? "daytime" : t < 0.62 ? "sunset" : t < SCENE_SHARE ? "night" : "close-up"}`}
               className="w-full accent-[hsl(var(--primary))]"
             />
             <div className="relative mt-0.5 h-4 text-[11px] uppercase tracking-wider text-white/70">
               {MARKS.map((m) => (
-                <span key={m.label} className="absolute -translate-x-1/2" style={{ left: `${m.t * 100}%`, ...(m.t === 0 ? { transform: "none" } : m.t === 1 ? { transform: "translateX(-100%)" } : {}) }}>
+                <span key={m.label} className="absolute -translate-x-1/2" style={{ left: `${m.t * 100}%`, ...(m.t === 0 ? { transform: "none" } : {}) }}>
                   {m.label}
                 </span>
               ))}

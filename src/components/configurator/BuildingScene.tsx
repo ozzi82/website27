@@ -3,7 +3,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { Environment, OrbitControls } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
-import { BUILDING_SECONDS, cameraPoseAt, fitToAspect, timeOfDay, type TimeOfDay } from "./buildingTime";
+import { BUILDING_SECONDS, framedPose, timeOfDay, type TimeOfDay } from "./buildingTime";
 import ConfigScene from "./ConfigScene";
 import { emitsLight, type ConfiguratorState } from "./types";
 import type { LightConfig } from "../../data/configurations";
@@ -277,6 +277,11 @@ export default function BuildingScene({ shapes, config, state, clock, playing, o
   const lastPose = useRef(-1);
   const lastReported = useRef(-1);
   const dark = emitsLight(config);
+  const signSize = useMemo(() => {
+    const box = new THREE.Box2();
+    for (const shape of shapes) for (const p of shape.getPoints(8)) box.expandByPoint(p);
+    return box.isEmpty() ? { w: 2.4, h: 0.7 } : { w: box.max.x - box.min.x, h: box.max.y - box.min.y };
+  }, [shapes]);
 
   useFrame((_, delta) => {
     if (playing) {
@@ -312,7 +317,7 @@ export default function BuildingScene({ shapes, config, state, clock, playing, o
 
     if (playing || lastPose.current !== t) {
       lastPose.current = t;
-      const pose = fitToAspect(cameraPoseAt(t), size.width / size.height);
+      const pose = framedPose(t, size.width / size.height, signSize);
       camera.position.set(...pose.position);
       controls.current?.target.set(...pose.target);
       controls.current?.update();
