@@ -3,8 +3,8 @@ import { ArrowLink } from "../CtaButton";
 import { CTA_PRIMARY } from "../../lib/cta";
 
 export const TRUST_BADGE = {
-  src: "/images/trust-badge.webp",
-  src640: "/images/trust-badge-640.webp",
+  src: "/images/trust-badge-clear.webp",
+  src640: "/images/trust-badge-clear-640.webp",
   width: 1122,
   height: 1402,
   alt: "Trusted by sign companies: 10,000+ channel letters produced, clients across North America, quotes in 24 to 48 hours, German Engineered, UL 48 listed, 3 to 4 week typical delivery, trade only",

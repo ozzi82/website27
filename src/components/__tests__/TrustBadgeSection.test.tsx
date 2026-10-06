@@ -26,7 +26,7 @@ describe("TrustBadgeSection", () => {
     expect(TRUST_BADGE.alt).toBe(
       "Trusted by sign companies: 10,000+ channel letters produced, clients across North America, quotes in 24 to 48 hours, German Engineered, UL 48 listed, 3 to 4 week typical delivery, trade only",
     );
-    expect(img).toHaveAttribute("src", "/images/trust-badge.webp");
+    expect(img).toHaveAttribute("src", "/images/trust-badge-clear.webp");
     expect(img).toHaveAttribute("width", String(TRUST_BADGE.width));
     expect(img).toHaveAttribute("height", String(TRUST_BADGE.height));
     expect(img).toHaveAttribute("loading", "lazy");
