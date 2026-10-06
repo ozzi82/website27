@@ -16,9 +16,10 @@ export const HOME_POSITION: [number, number, number] = [2.6, 1.42, 4.73];
 export const VIEW_TARGET = new THREE.Vector3(0, 0, 0);
 
 export const VIEW_LIMITS = {
-  // The artwork is normalised to 2.4 units across, so closer than that would put the camera
-  // inside a deep letter; much further and the sign becomes a speck.
-  minRadius: 2.4,
+  // The artwork is normalised to 2.4 units across. The camera may come very close (a few percent of the sign's
+  // width) to inspect an edge or a letter; with panning it can reach any part of the sign. Much further than
+  // maxRadius and the sign becomes a speck.
+  minRadius: 0.12,
   maxRadius: 9.5,
   // Stay in front of the wall (it is a plane): about 60 degrees either side of straight on.
   minTheta: -deg(60),
@@ -29,6 +30,18 @@ export const VIEW_LIMITS = {
 };
 
 type Limits = typeof VIEW_LIMITS;
+
+/** How far the view's centre may be panned from the middle of the artwork (world units; the artwork is 2.4 across). */
+export const PAN_LIMITS = { x: 1.4, y: 1.2, z: 0.5 };
+
+/** The pan target pulled back inside PAN_LIMITS (a new vector; the input is untouched). */
+export function clampTarget(target: THREE.Vector3, limits = PAN_LIMITS): THREE.Vector3 {
+  return new THREE.Vector3(
+    Math.min(limits.x, Math.max(-limits.x, target.x)),
+    Math.min(limits.y, Math.max(-limits.y, target.y)),
+    Math.min(limits.z, Math.max(-limits.z, target.z)),
+  );
+}
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 

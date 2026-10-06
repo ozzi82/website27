@@ -5,7 +5,9 @@ import {
   HOME_VIEW,
   VIEW_LIMITS,
   VIEW_TARGET,
+  clampTarget,
   clampView,
+  PAN_LIMITS,
   dampView,
   positionFromView,
   rotateView,
@@ -57,8 +59,9 @@ describe("VIEW_LIMITS and the home view", () => {
     expect(VIEW_LIMITS.maxPhi).toBeLessThan(deg(105));
   });
 
-  it("never lets the camera get inside the sign or lose it: the nearest approach clears the 2.4 unit artwork", () => {
-    expect(VIEW_LIMITS.minRadius).toBeGreaterThanOrEqual(2.4);
+  it("lets the visitor zoom in very close (a few percent of the 2.4 unit artwork) and still not lose the sign", () => {
+    expect(VIEW_LIMITS.minRadius).toBeLessThanOrEqual(0.25);
+    expect(VIEW_LIMITS.minRadius).toBeGreaterThan(0);
     expect(VIEW_LIMITS.maxRadius).toBeGreaterThan(HOME_VIEW.radius);
     expect(VIEW_LIMITS.maxRadius).toBeLessThanOrEqual(12);
   });
@@ -76,7 +79,7 @@ describe("clampView", () => {
 describe("zoomView", () => {
   it("scales the distance and stops at the limits", () => {
     expect(zoomView(HOME_VIEW, 0.5).radius).toBeCloseTo(Math.max(VIEW_LIMITS.minRadius, HOME_VIEW.radius * 0.5), 9);
-    expect(zoomView({ ...HOME_VIEW, radius: 3 }, 0.1).radius).toBe(VIEW_LIMITS.minRadius);
+    expect(zoomView({ ...HOME_VIEW, radius: 3 }, 0.01).radius).toBe(VIEW_LIMITS.minRadius);
     expect(zoomView({ ...HOME_VIEW, radius: 9 }, 10).radius).toBe(VIEW_LIMITS.maxRadius);
   });
 
@@ -150,5 +153,16 @@ describe("shouldPassWheelToPage", () => {
 
   it("ignores a zero delta", () => {
     expect(shouldPassWheelToPage(VIEW_LIMITS.maxRadius, 0)).toBe(false);
+  });
+});
+
+describe("clampTarget (panning)", () => {
+  it("keeps the view's centre on the sign", () => {
+    const c = clampTarget(new THREE.Vector3(9, -9, 3));
+    expect(c.x).toBe(PAN_LIMITS.x);
+    expect(c.y).toBe(-PAN_LIMITS.y);
+    expect(c.z).toBe(PAN_LIMITS.z);
+    const inside = new THREE.Vector3(0.3, -0.2, 0.1);
+    expect(clampTarget(inside).equals(inside)).toBe(true);
   });
 });

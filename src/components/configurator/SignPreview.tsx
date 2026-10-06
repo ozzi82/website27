@@ -25,7 +25,7 @@ interface SignPreviewProps {
 
 // Hoisted so the props are referentially stable across re-renders (a fresh
 // camera/args object each render makes r3f re-apply them).
-const CAMERA = { position: HOME_POSITION, fov: 35 };
+const CAMERA = { position: HOME_POSITION, fov: 35, near: 0.03, far: 80 };
 const DPR: [number, number] = [1, 1.5]; // cap pixel ratio: 3x displays would push SwiftShader/low-end GPUs hard
 
 /** Lights, environment and the colour behind the wall, all following the day/night fade. */
