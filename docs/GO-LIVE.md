@@ -34,3 +34,9 @@ Do these in order. Each step is small and has one way to check it worked. Detail
 - Send a test quote from the contact page and from the configurator; confirm it reaches HubSpot with the attachment.
 - Confirm the conversion shows in Google Ads (it can take a few hours).
 - Legal pages review and the open owner confirmations in `STATUS.md`.
+
+## Backups
+
+- `docs/backup-website27.bat`: put it in a OneDrive folder and double-click. First run copies the full repo history; later runs fetch only changes, write a dated `.bundle` file, and refresh the `website27-backup` repo. Needs Git for Windows and a one-time GitHub sign-in.
+- Restore from a bundle: `git clone website27-YYYY-MM-DD.bundle website27`.
+- Coolify settings (domains, environment variables) are not in git: note them down and keep a Hetzner snapshot.
