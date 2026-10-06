@@ -1,7 +1,21 @@
-# Project status (2026-10-06)
+# Project status (2026-10-06, updated at the end of the day)
 
 Live repo: https://github.com/ozzi82/website27 (`master`; `feature/product-taxonomy` and `feature/product-taxonomy-t48v28` are kept identical to it).
-Live site: https://sunlitesigns.com, deployed by Coolify on Hetzner (Dockerfile build, nginx), Cloudflare in front. Tests 661, `verify:prerender` 23 checks.
+Live site: https://sunlitesigns.com, deployed by Coolify on Hetzner (Dockerfile build, nginx), Cloudflare in front. Tests 682, `verify:prerender` 23 checks.
+
+## End of 2026-10-06 (latest)
+
+### Done today
+- **"See it on the building!"** (configurator): full-screen 18 s film of the customer's sign at the entrance of a procedural glass tower: 15 s sunny day -> sunset -> dusk -> night (moon, stars, windows lighting up one by one, sign switching on slowly), then a 3 s zoom so the sign fills 60% of the screen. Play/pause, slider, orbit when stopped, "Download this picture" (1600 px JPEG), reduced-motion starts on the finished night picture, phones back the camera off. Files: `BuildingView.tsx`, `BuildingScene.tsx`, `buildingTime.ts` (pure, tested). Not done: attaching the dusk picture to the quote. The sign is drawn at the default 100 in width until the real-size input exists.
+- Trust badge on the home page has a transparent background (files renamed to `trust-badge-clear*.webp` to defeat Cloudflare/browser caches). The badge text and the copy beside it still say "UL 48 listed" (we removed UL claims from LP 1): owner to decide.
+- **Repo is private.** Coolify's GitHub App (`puzzled-peccary-ojjad3o8d8sibf`, installation 168566435) must have `website27` in its repository list (github.com/settings/installations/168566435) or deploys fail with "Repository not found". Check that the last Coolify deploy finished after that was fixed. Remove unused GitHub Apps (Netlify, Vercel, Lovable, TinaCloud, Builder.io); accept the pending permission request for the Claude app.
+- **Backups:** `docs/backup-website27.bat` (OneDrive): mirror clone + dated `.bundle` + a plain `website27-files` folder + push of branches/tags to the private `ozzi82/website27-backup`. The owner ran it once and the backup repo has master and both feature branches. Pushing to the backup repo from the cloud session fails (403 / index-pack failed), so the backup is only updated by the .bat (or a GitHub Action with a token, not written yet). In the backup repo set the default branch to `master` and delete the placeholder `main` branch.
+
+### Price estimator (see `docs/estimator/README.md`, private notes with the owner's supplier prices)
+Blind-test sessions on 9 China quotes. Tentative rules: stainless channel ~ $970-990 per m² of face area; 30 mm acrylic ~ $1,460 per m² + ~$26 per piece; freight ~ $20-25 per kg of estimated weight (floor ~$150-230). Tomorrow: more samples (blind), then the internal configurator (private app, rates never in the public bundle), after the real-size input in the configurator. Ask the owner before uploading anything.
+
+### Still open from earlier (see the 2026-10-05 list below)
+Coolify "Redirect to non-www", Google Ads clean-up (Final URLs, search terms, conversions, enhanced conversions), Search Console removals, HubSpot utm_term/utm_content, privacy policy review, the mounts-per-product question, brochure PDF UL/warranty on LP 1, whether to add "10 mm acrylic face" to the LP 5 page, project 16 on the projects page.
 
 ## Where we stopped (end of 2026-10-05) and what is next
 

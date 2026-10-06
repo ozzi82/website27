@@ -1,0 +1,10 @@
+job,system,size_in,qty,guess_unit,guess_freight,guess_total,actual_unit,actual_freight,actual_total,note,lp
+Auris 2026-03,LP11-B 30mm backlit acrylic,42x8,1,410,290,700,183,152,335,DDP; foam+plywood case; my guess ~2.1x too high,LP 11-B
+Kidstruction 2026-06,SS channel 75mm front-lit vinyl,125x25,1,,,,714,730,1444,NOT blind (prices seen by mistake),LP 5
+Mayo A 2025-10,SS channel 50mm front-lit white,224x42,1,720,850,1570,1245,956,2201,blind; guess 1.40x too low,LP 5
+Mayo B 2025-10,SS channel 50mm front-lit white,256x48,1,830,1000,1830,1798,1247,3045,blind; guess 1.66x too low; 48in = 4ft sheet width?,LP 5
+Dockzilla 2026-08,SS channel 75mm brushed copper front + 10mm acrylic back RGBW,360x42,1,3000,2800,5800,3920,2730,6650,"blind; unit 23% low, freight 2.5% high, total 13% low; DHL Air DDP; plywood box ",LP 3.2
+Ergodyne 2026-08,SS50 front lit (LP5),60x14,1,260,190,450,255,231,486,"blind; unit +2%, freight -18%, total -7%; DHL air DDP"
+Yakima opt1 2026,30mm acrylic front lit (LP11-F),62x36,1,900,800,1700,1078,568,1646,"blind; unit -16%, freight +41%, total +3%; area used 0.73 m2 (plate only) fits $22/kg"
+Yakima opt2 2026,SS50 front lit (LP5),62x36,1,1000,750,1750,719,512,1231,"blind; unit +39%, freight +46%, total +42%; with plate-only area 0.727 m2: $989/m2 matches rule"
+Numbers 1-20 2026-10,30mm acrylic half-side-lit (LP11-S/FS),12in digits x20,1,1200,600,1800,1815,743,2558,"blind; unit -34%, freight -19%, total -30%; ~31 pieces 0.65 m2 -> $2790/m2, $59/piece, freight $28/kg" 
