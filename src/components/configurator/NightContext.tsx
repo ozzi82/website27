@@ -11,11 +11,13 @@ const NightContext = createContext<NightRef>({ current: 0 });
 
 interface NightProviderProps {
   isNight: boolean;
+  /** A night amount (0-1) written by someone else, e.g. the building film's clock: used as is, with no fade of its own. */
+  driven?: NightRef;
   children: ReactNode;
 }
 
 /** Owns the damped `nightAmount` (0 = day, 1 = night) that every day/night-dependent part of the scene follows. */
-export function NightProvider({ isNight, children }: NightProviderProps) {
+export function NightProvider({ isNight, driven, children }: NightProviderProps) {
   const progress = useRef(isNight ? 1 : 0); // start settled: mounting at night must not fade in
   const amount = useRef(progress.current);
   // Runs before every other frame callback so they all see this frame's value.
@@ -23,7 +25,7 @@ export function NightProvider({ isNight, children }: NightProviderProps) {
     progress.current = stepProgress(progress.current, isNight ? 1 : 0, delta, FADE_SECONDS);
     amount.current = easeInOut(progress.current);
   }, -1);
-  return <NightContext.Provider value={amount}>{children}</NightContext.Provider>;
+  return <NightContext.Provider value={driven ?? amount}>{children}</NightContext.Provider>;
 }
 
 /**

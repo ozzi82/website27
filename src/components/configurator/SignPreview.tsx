@@ -63,15 +63,15 @@ function SceneAtmosphere({ dark, background }: { dark: boolean; background: Back
 const SNAPSHOT_WIDTH = 720;
 
 /** Downscales the WebGL canvas into a small JPEG. Must run in the same task as the render that filled the drawing buffer. */
-function snapshotOf(source: HTMLCanvasElement): string | null {
+function snapshotOf(source: HTMLCanvasElement, width = SNAPSHOT_WIDTH, quality = 0.85): string | null {
   if (!source.width || !source.height) return null;
   const out = document.createElement("canvas");
-  out.width = SNAPSHOT_WIDTH;
-  out.height = Math.max(1, Math.round((SNAPSHOT_WIDTH * source.height) / source.width));
+  out.width = width;
+  out.height = Math.max(1, Math.round((width * source.height) / source.width));
   const ctx = out.getContext("2d");
   if (!ctx) return null;
   ctx.drawImage(source, 0, 0, out.width, out.height);
-  return out.toDataURL("image/jpeg", 0.85);
+  return out.toDataURL("image/jpeg", quality);
 }
 
 /**
@@ -79,7 +79,7 @@ function snapshotOf(source: HTMLCanvasElement): string | null {
  * rendered it ends, so the capture waits for the next frame and reads it in a frame callback that runs after the
  * composer's render (priority 2 > the composer's 1), still inside that same task.
  */
-function SnapshotBridge({ captureRef }: { captureRef: MutableRefObject<CaptureSnapshot | null> }) {
+export function SnapshotBridge({ captureRef, width, quality }: { captureRef: MutableRefObject<CaptureSnapshot | null>; width?: number; quality?: number }) {
   const canvas = useThree((s) => s.gl.domElement);
   const waiting = useRef<((url: string | null) => void)[]>([]);
 
@@ -87,7 +87,7 @@ function SnapshotBridge({ captureRef }: { captureRef: MutableRefObject<CaptureSn
     if (waiting.current.length === 0) return;
     let url: string | null = null;
     try {
-      url = snapshotOf(canvas);
+      url = snapshotOf(canvas, width, quality);
     } catch {
       url = null;
     }

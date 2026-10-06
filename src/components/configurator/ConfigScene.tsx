@@ -20,6 +20,8 @@ interface ConfigSceneProps {
   shapes: THREE.Shape[];
   config: LightConfig;
   state: ConfiguratorState;
+  /** Mount the sign on a fascia panel this wide (world units) instead of an endless wall. */
+  facadeWidth?: number;
 }
 
 // Light on the wall behind the letter, by how it gets there (see WallSpill). `scale` is pushed above 1 so it reads as
@@ -50,7 +52,7 @@ function EmptyScene({ config, state }: ConfigSceneProps) {
   );
 }
 
-function SignScene({ shapes, config, state }: ConfigSceneProps) {
+function SignScene({ shapes, config, state, facadeWidth }: ConfigSceneProps) {
   const { light, profile } = config;
   const geometry = useSignGeometry(shapes, depthRatioFor(state.depthMm), profile);
 
@@ -107,7 +109,7 @@ function SignScene({ shapes, config, state }: ConfigSceneProps) {
         {face}
       </mesh>
 
-      <BackdropWall gap={gap} background={background} wall={wall} />
+      <BackdropWall gap={gap} background={background} wall={wall} size={facadeWidth ? { w: facadeWidth, h: Math.max(2.2, height + 1.3) } : undefined} />
       {state.mounting === "standoff" && <Spacers shapes={shapes} height={height} />}
 
       {wallSpill && (
