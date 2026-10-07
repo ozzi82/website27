@@ -40,6 +40,6 @@ Known limits: touching letters merge into one piece; very small pieces inside a 
 ## Next
 
 1. More samples (blind): aluminium channel, flat cutouts (LP 1), LP 11-F, LP 11-B, quantity above 1, small signs under 0.3 m², sea freight, and more acrylic. Owner blanks the price columns; the assistant must only open the drawing (do not crop the invoice, the first Kidstruction crop leaked its prices).
-2. Real-size input in the configurator (width in inches, default 100"; depth, spacers and thin-stroke guard at true scale).
+2. Real-size input in the configurator: DONE 2026-10-07 (`sizeIn` in the configurator state, `realSize.ts`). The internal estimator can read the real width/height from the same state.
 3. Internal configurator (private): upload SVG/PDF -> area, edge, pieces -> factory price + freight, with the rules above and the owner's own rates stored outside the public bundle. Ask the owner where it should be hosted/uploaded before building.
 4. Customer-facing estimate with markup, only after the internal one has held up on blind tests.

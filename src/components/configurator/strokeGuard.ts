@@ -2,6 +2,7 @@ import * as THREE from "three";
 import type { Profile } from "../../data/configurations";
 import { estimateHalfStroke } from "./renderMath";
 import { formatDepth } from "./types";
+import { formatInches } from "./realSize";
 
 const CURVE_SEGMENTS = 12;
 const MM_PER_INCH = 25.4;
@@ -42,12 +43,6 @@ export function neededLetterHeightMm(minStrokeMm: number, ratio: number | null):
   return minStrokeMm / ratio;
 }
 
-/** Below this stroke/height ratio the tube and cone profiles cannot meet their 12 mm minimum on a sensible letter. */
-export const THIN_STROKE_RATIO = 0.06;
-
-/** A generic note is only worth showing when the letter would have to be taller than 24 in. */
-export const MAX_REASONABLE_HEIGHT_MM = 24 * MM_PER_INCH;
-
 /** "16″ (406 mm)": rounded up to a whole inch (5 in steps once past 30 in), so the figure is never optimistic. */
 export function formatNeededHeight(mm: number): string {
   const inches = mm / MM_PER_INCH;
@@ -70,32 +65,30 @@ interface StrokeRules {
 }
 
 /**
- * The informative note about thin strokes, or null when none is due.
- * LP 11-N and 11-C (tube / conical) are called out whenever the strokes are under 6% of the height:
- * they need 12 mm strokes, which on a 12 in letter is 4% and on a 6 in letter 8%. Every other
- * configuration only gets a quiet note when its own minimum stroke would force a letter over 24 in.
+ * The informative note about thin strokes, or null when none is due. Exact now that the sign has a real size:
+ * the artwork's average stroke is its stroke-to-height ratio times its real height, compared with the configuration's own
+ * minimum stroke. LP 11-N and 11-C (tube / conical) are called out strongly (they look wrong with thin art); every other
+ * configuration gets a quieter note. `lines` is the number of typed lines (1 for an uploaded file): the letters a visitor
+ * means by "letter height" are one line of the artwork's total height.
  */
-export function thinStrokeAdvice(config: StrokeRules, ratio: number | null): StrokeAdvice | null {
-  const neededMm = neededLetterHeightMm(config.minStrokeMm, ratio);
-  if (neededMm === null || ratio === null) return null;
+export function thinStrokeAdvice(config: StrokeRules, ratio: number | null, artworkHeightMm: number | null = null, lines = 1): StrokeAdvice | null {
+  if (ratio === null || !(ratio > 0) || artworkHeightMm === null || !(artworkHeightMm > 0)) return null;
+  const strokeMm = ratio * artworkHeightMm;
+  if (strokeMm >= config.minStrokeMm) return null;
+  const stack = lineStackFactor(lines);
+  const neededMm = config.minStrokeMm / ratio / stack; // the letter height (one line) at which the strokes reach the minimum
   const minStroke = formatDepth(config.minStrokeMm);
   const needed = formatNeededHeight(neededMm);
+  const have = formatInches(artworkHeightMm / stack / MM_PER_INCH);
   const profiled = config.profile === "tube" || config.profile === "conical";
-  if (profiled && ratio < THIN_STROKE_RATIO) {
-    return {
-      severity: "strong",
-      neededMm,
-      message: `This artwork has thin strokes. ${config.code} needs strokes of at least ${minStroke}, so the letters (or logo) would need to be at least about ${needed} tall. A bolder typeface or heavier line art works best.`,
-    };
-  }
-  if (!profiled && neededMm > MAX_REASONABLE_HEIGHT_MM) {
-    return {
-      severity: "subtle",
-      neededMm,
-      message: `Thin strokes: to keep the ${minStroke} minimum stroke of ${config.code}, this artwork would need to be at least about ${needed} tall.`,
-    };
-  }
-  return null;
+  const strokeText = strokeMm < 10 ? `${Math.round(strokeMm * 10) / 10} mm` : `${Math.round(strokeMm)} mm`;
+  return {
+    severity: profiled ? "strong" : "subtle",
+    neededMm,
+    message: profiled
+      ? `Thin strokes: at about ${have} tall this artwork's strokes are only about ${strokeText}, and ${config.code} needs at least ${minStroke}. Make the letters (or logo) at least about ${needed} tall, or use a bolder typeface or heavier line art.`
+      : `Thin strokes: at about ${have} tall this artwork's strokes are about ${strokeText}; ${config.code} needs at least ${minStroke}, which takes letters of about ${needed} or taller.`,
+  };
 }
 
 const smoothstep = (lo: number, hi: number, x: number) => {

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import * as THREE from "three";
-import { BACKGROUNDS, DEFAULT_BACKGROUND, getBackground } from "../backgrounds";
+import { BACKGROUNDS, DEFAULT_BACKGROUND, backgroundAtScale, getBackground } from "../backgrounds";
 import { makeWallLook, wallLookAt } from "../wallLook";
 import { makeTileableNoise, mulberry32 } from "../wallNoise";
 
@@ -118,5 +118,17 @@ describe("makeTileableNoise", () => {
     expect(Math.max(...values)).toBeLessThanOrEqual(1);
     expect(Math.max(...values) - Math.min(...values)).toBeGreaterThan(0.3);
     expect(makeTileableNoise(8, 4)(0.31, 0.62)).not.toBeCloseTo(noise(0.31, 0.62), 3);
+  });
+});
+
+describe("backgroundAtScale", () => {
+  it("makes the wall texture's tiles smaller on a bigger sign and bigger on a smaller one, leaving everything else alone", () => {
+    const brick = getBackground("brick");
+    const big = backgroundAtScale(brick, 100 / 300);
+    expect(big.tile.w).toBeCloseTo(brick.tile.w / 3, 9);
+    expect(big.tile.h).toBeCloseTo(brick.tile.h / 3, 9);
+    expect(big.day).toBe(brick.day);
+    expect(backgroundAtScale(brick, 1)).toBe(brick);
+    expect(brick.tile.w).toBeGreaterThan(0); // the original is not mutated
   });
 });

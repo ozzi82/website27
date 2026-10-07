@@ -7,8 +7,6 @@ import {
   neededLetterHeightMm,
   strokeHeightRatio,
   thinStrokeAdvice,
-  THIN_STROKE_RATIO,
-  MAX_REASONABLE_HEIGHT_MM,
 } from "../strokeGuard";
 
 const rect = (w: number, h: number) =>
@@ -87,34 +85,47 @@ describe("thinStrokeAdvice", () => {
   const cone = { code: "LP 11-C", profile: "conical" as const, minStrokeMm: 12 };
   const steel = { code: "LP 5", profile: "standard" as const, minStrokeMm: 15 };
 
-  it("warns strongly for faux neon and conical letters when strokes are under 6% of the height", () => {
-    expect(THIN_STROKE_RATIO).toBe(0.06);
-    const advice = thinStrokeAdvice(tube, 0.03)!;
+  it("is exact now: it compares the real stroke (ratio x real height) with the configuration's minimum", () => {
+    // strokes 3% of a 305 mm (12 in) tall artwork = 9.15 mm, under the 12 mm minimum
+    const advice = thinStrokeAdvice(tube, 0.03, 305)!;
     expect(advice.severity).toBe("strong");
     expect(advice.message).toMatch(/thin strokes/i);
     expect(advice.message).toContain("0.47″ (12 mm)");
-    expect(advice.message).toContain("16″"); // 12 mm / 0.03 = 400 mm = 15.7 in
-    expect(thinStrokeAdvice(cone, 0.059)?.severity).toBe("strong");
+    expect(advice.message).toContain("16″"); // 12 mm / 0.03 = 400 mm = 15.7 in tall letters needed
+    expect(advice.message).toContain("12″"); // and the artwork is 12 in tall now
+    expect(thinStrokeAdvice(cone, 0.03, 305)?.severity).toBe("strong");
   });
 
-  it("stays quiet for tubes and cones with sturdy strokes", () => {
-    expect(thinStrokeAdvice(tube, 0.06)).toBeNull();
-    expect(thinStrokeAdvice(cone, 0.2)).toBeNull();
+  it("goes away when the sign is made bigger: the same artwork at twice the height has strokes twice as thick", () => {
+    expect(thinStrokeAdvice(tube, 0.03, 305)).not.toBeNull(); // 9 mm
+    expect(thinStrokeAdvice(tube, 0.03, 610)).toBeNull(); // 18 mm
   });
 
-  it("only gives a subtle note for other configurations, and only when the needed height is unreasonable", () => {
-    expect(MAX_REASONABLE_HEIGHT_MM).toBeCloseTo(24 * 25.4, 6);
-    // 15 mm / 0.04 = 375 mm (about 15 in): perfectly reasonable, no note
-    expect(thinStrokeAdvice(steel, 0.04)).toBeNull();
-    // 15 mm / 0.01 = 1500 mm (about 59 in): subtle
-    const subtle = thinStrokeAdvice(steel, 0.01)!;
+  it("is quiet when the strokes are thick enough for the configuration", () => {
+    expect(thinStrokeAdvice(tube, 0.06, 305)).toBeNull(); // 18 mm
+    expect(thinStrokeAdvice(cone, 0.2, 100)).toBeNull(); // 20 mm
+  });
+
+  it("gives other configurations a subtle note, in the same exact way", () => {
+    // 1% strokes on a 600 mm tall artwork = 6 mm, under LP 5's 15 mm
+    const subtle = thinStrokeAdvice(steel, 0.01, 600)!;
     expect(subtle.severity).toBe("subtle");
-    expect(subtle.neededMm).toBeCloseTo(1500, 6);
+    expect(subtle.neededMm).toBeCloseTo(1500, 6); // 15 mm / 0.01
     expect(subtle.message).toContain("LP 5");
+    expect(thinStrokeAdvice(steel, 0.04, 600)).toBeNull(); // 24 mm
   });
 
-  it("gives no advice when the ratio is unknown", () => {
-    expect(thinStrokeAdvice(tube, null)).toBeNull();
+  it("measures typed text against one line: strokes stay the artwork's, but the letter height is one line of it", () => {
+    // two lines, artwork 610 mm tall: one line about 244 mm (stack factor 2.5); ratio 0.03 -> 18 mm strokes: fine
+    expect(thinStrokeAdvice(tube, 0.03, 610, 2)).toBeNull();
+    const thin = thinStrokeAdvice(tube, 0.01, 610, 2)!; // 6 mm strokes
+    expect(thin.neededMm).toBeCloseTo(12 / 0.01 / 2.5, 6);
+  });
+
+  it("gives no advice when the ratio or the size is unknown", () => {
+    expect(thinStrokeAdvice(tube, null, 305)).toBeNull();
+    expect(thinStrokeAdvice(tube, 0.03, null)).toBeNull();
+    expect(thinStrokeAdvice(tube, 0.03)).toBeNull();
   });
 });
 

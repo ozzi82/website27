@@ -69,3 +69,12 @@ export const BACKGROUNDS: readonly BackgroundDef[] = [
 export function getBackground(id: BackgroundId): BackgroundDef {
   return BACKGROUNDS.find((b) => b.id === id) ?? BACKGROUNDS[0];
 }
+
+/**
+ * The wall's texture is a real piece of concrete or brick, so at another sign size it covers a different share of the
+ * (always 2.4 unit wide) picture: a 12" sign sits on a few big tiles, a 20 ft one on many small ones. The tiles above are
+ * drawn for the 100" default; `scale` is 100 / the real size.
+ */
+export function backgroundAtScale(def: BackgroundDef, scale: number): BackgroundDef {
+  return scale === 1 ? def : { ...def, tile: { w: def.tile.w * scale, h: def.tile.h * scale } };
+}

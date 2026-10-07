@@ -21,16 +21,14 @@ function curvedShape(scale = 1): THREE.Shape {
 }
 
 describe("useSignGeometry", () => {
-  it("extrudes to depthRatio times the shapes' bounding height (same as a ShapeGeometry box)", () => {
-    const shapes = [curvedShape()];
-    const reference = new THREE.ShapeGeometry(shapes);
-    reference.computeBoundingBox();
-    const height = reference.boundingBox!.max.y - reference.boundingBox!.min.y;
-
-    const { result } = renderHook(() => useSignGeometry(shapes, 0.25));
-    result.current.computeBoundingBox();
-    const bb = result.current.boundingBox!;
-    expect(bb.max.z - bb.min.z).toBeCloseTo(height * 0.25, 6);
+  it("extrudes to exactly the depth it is given, in world units (true scale: the depth does not follow the artwork's height)", () => {
+    for (const scale of [1, 4]) {
+      const shapes = [curvedShape(scale)];
+      const { result } = renderHook(() => useSignGeometry(shapes, 0.03));
+      result.current.computeBoundingBox();
+      const bb = result.current.boundingBox!;
+      expect(bb.max.z - bb.min.z).toBeCloseTo(0.03, 6);
+    }
   });
 
   it("disposes the geometry on unmount", () => {
@@ -76,7 +74,7 @@ describe("useSignGeometry", () => {
     it("treats flat like standard: a plain thin extrusion", () => {
       const shapes = [curvedShape()];
       const height = boundsOf(shapes).max.y - boundsOf(shapes).min.y;
-      const { result } = renderHook(() => useSignGeometry(shapes, 0.02, "flat"));
+      const { result } = renderHook(() => useSignGeometry(shapes, 0.02 * height, "flat"));
       result.current.computeBoundingBox();
       const bb = result.current.boundingBox!;
       expect(bb.min.z).toBeCloseTo(0, 6);
@@ -86,7 +84,7 @@ describe("useSignGeometry", () => {
     it("conical: front face lands at the full depth and is visibly smaller than the base", () => {
       const shapes = [curvedShape()];
       const height = boundsOf(shapes).max.y - boundsOf(shapes).min.y;
-      const { result } = renderHook(() => useSignGeometry(shapes, 0.2, "conical"));
+      const { result } = renderHook(() => useSignGeometry(shapes, 0.2 * height, "conical"));
       const geometry = result.current;
       geometry.computeBoundingBox();
       const depth = height * 0.2;
@@ -99,7 +97,8 @@ describe("useSignGeometry", () => {
 
     it("conical: the taper below the wall plane is hidden behind the wall, never in front of it", () => {
       const shapes = [curvedShape()];
-      const { result } = renderHook(() => useSignGeometry(shapes, 0.2, "conical"));
+      const height = boundsOf(shapes).max.y - boundsOf(shapes).min.y;
+      const { result } = renderHook(() => useSignGeometry(shapes, 0.2 * height, "conical"));
       result.current.computeBoundingBox();
       expect(result.current.boundingBox!.min.z).toBeLessThan(0);
     });
@@ -107,8 +106,8 @@ describe("useSignGeometry", () => {
     it("tube: occupies exactly z in [0, depth] with a rounded (multi-segment) bevel", () => {
       const shapes = [curvedShape()];
       const height = boundsOf(shapes).max.y - boundsOf(shapes).min.y;
-      const standard = renderHook(() => useSignGeometry(shapes, 0.2, "standard")).result.current;
-      const { result } = renderHook(() => useSignGeometry(shapes, 0.2, "tube"));
+      const standard = renderHook(() => useSignGeometry(shapes, 0.2 * height, "standard")).result.current;
+      const { result } = renderHook(() => useSignGeometry(shapes, 0.2 * height, "tube"));
       result.current.computeBoundingBox();
       const bb = result.current.boundingBox!;
       expect(bb.min.z).toBeCloseTo(0, 6);
@@ -141,8 +140,8 @@ describe("useSignGeometry", () => {
 
       it("degrades the tube to a plain straight extrusion rather than folding the outline", () => {
         const shapes = [hairlineRing()];
-        const tube = renderHook(() => useSignGeometry(shapes, 0.2, "tube")).result.current;
-        const standard = renderHook(() => useSignGeometry(shapes, 0.2, "standard")).result.current;
+        const tube = renderHook(() => useSignGeometry(shapes, 0.4, "tube")).result.current;
+        const standard = renderHook(() => useSignGeometry(shapes, 0.4, "standard")).result.current;
         expect(tube.attributes.position.count).toBe(standard.attributes.position.count);
         tube.computeBoundingBox();
         expect(tube.boundingBox!.min.z).toBeCloseTo(0, 6);
@@ -150,7 +149,7 @@ describe("useSignGeometry", () => {
 
       it("degrades the cone to a straight extrusion too (no taper behind the wall)", () => {
         const shapes = [hairlineRing()];
-        const cone = renderHook(() => useSignGeometry(shapes, 0.2, "conical")).result.current;
+        const cone = renderHook(() => useSignGeometry(shapes, 0.4, "conical")).result.current;
         cone.computeBoundingBox();
         expect(cone.boundingBox!.min.z).toBeCloseTo(0, 6);
         expect(cone.boundingBox!.max.z).toBeCloseTo(0.4, 6);

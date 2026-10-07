@@ -4,6 +4,7 @@ import type { SummaryRow } from "./quoteStorage";
 import { getLp1Finish, isLp1 } from "./lp1Materials";
 import { DISCLAIMER_TEXT } from "./disclaimer";
 import { emitsLight, formatDepth, type ConfiguratorState } from "./types";
+import { formatSize } from "./realSize";
 
 /** Where the sign's shapes came from, for the quote summary. */
 export type ArtworkInfo =
@@ -13,6 +14,8 @@ export type ArtworkInfo =
 export interface SummaryExtras {
   /** One extra sentence for the sales team, e.g. the thin-stroke note. */
   note?: string;
+  /** Width over height of the artwork: with it the summary states the size in inches and millimetres. */
+  aspect?: number;
 }
 
 function describeArtwork(artwork: ArtworkInfo): string {
@@ -39,6 +42,7 @@ export function configSummaryRows(
   const lit = emitsLight(config);
   const rows: SummaryRow[] = [
     { label: "Configuration", value: `${config.code} ${config.subtitle}` },
+    ...(extras.aspect ? [{ label: "Size", value: formatSize(state.sizeIn, extras.aspect) }] : []),
     { label: "Depth", value: formatDepth(state.depthMm) },
     { label: "Mounting", value: state.mounting === "standoff" ? "Standoff spacers (clear plastic tubes, 1″ long, 0.4″ diameter)" : "Flush to the wall" },
   ];

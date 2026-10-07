@@ -84,3 +84,13 @@ describe("configSummaryRows", () => {
     expect(rows.find((r) => r.label === "Glow color")).toMatchObject({ swatch: "#fff4f0" });
   });
 });
+
+describe("size in the summary", () => {
+  it("states the real size in inches and millimetres when the artwork's proportions are known", () => {
+    const config = configurations.find((c) => c.id === "lp-11-b-back-lit")!;
+    const state = { ...defaultStateFor(config), sizeIn: 60 };
+    const text = formatConfigSummary(state, config, null, { aspect: 4 });
+    expect(text).toContain("Size: 60″ × 15″ (1524 × 381 mm)");
+    expect(formatConfigSummary(state, config, null)).not.toContain("Size:");
+  });
+});

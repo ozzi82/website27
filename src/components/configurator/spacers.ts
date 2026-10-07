@@ -1,14 +1,11 @@
 import * as THREE from "three";
-import { NOMINAL_LETTER_HEIGHT_MM } from "./renderMath";
+import { mmToWorld } from "./realSize";
 
 /** The standoff spacers Sunlite uses: clear plastic tubes, 1" long and 0.4" in diameter (owner, 2026-10-05). */
 export const SPACER_LENGTH_MM = 25.4;
 export const SPACER_DIAMETER_MM = 10.16;
 
 const CURVE_SEGMENTS = 12;
-
-/** Millimetres to world units, with the letter's own height standing for the nominal 12" (300 mm) letter. */
-export const mmToWorld = (mm: number, heightWorld: number) => (mm / NOMINAL_LETTER_HEIGHT_MM) * heightWorld;
 
 export interface SpacerPoint {
   x: number;
@@ -20,8 +17,8 @@ export interface SpacerPoint {
  * spread out. Takes the centre of each triangle of the letter's triangulation (they always lie inside the letter), keeps
  * those whose inscribed circle can hold a tube, and picks the biggest ones that are not too close to each other.
  */
-export function spacerPoints(shapes: THREE.Shape[], heightWorld: number, max = 6): SpacerPoint[] {
-  const radius = mmToWorld(SPACER_DIAMETER_MM, heightWorld) / 2;
+export function spacerPoints(shapes: THREE.Shape[], heightWorld: number, sizeIn: number, max = 6): SpacerPoint[] {
+  const radius = mmToWorld(SPACER_DIAMETER_MM, sizeIn) / 2;
   const candidates: { x: number; y: number; area: number }[] = [];
   for (const shape of shapes) {
     const { shape: outline, holes } = shape.extractPoints(CURVE_SEGMENTS);

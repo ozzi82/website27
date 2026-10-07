@@ -22,7 +22,8 @@ import { DEFAULT_BACKGROUND, type BackgroundId } from "../components/configurato
 import { formatConfigSummary, configSummaryRows, type ArtworkInfo } from "../components/configurator/configSummary";
 import { saveQuote, quoteFileId, type ArtworkFileMeta, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 import { clearArtworkFile, saveArtworkFile } from "../components/configurator/artworkFileStorage";
-import { lineStackFactor, strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
+import { strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
+import { MM_PER_INCH, aspectOf, clampSizeIn, dimensionsIn } from "../components/configurator/realSize";
 import ThinStrokeNotice from "../components/configurator/ThinStrokeNotice";
 import ConfiguratorDisclaimer from "../components/configurator/ConfiguratorDisclaimer";
 import { isLp1, isLp1FinishId } from "../components/configurator/lp1Materials";
@@ -48,6 +49,8 @@ function initialState(params: URLSearchParams): ConfiguratorState | null {
   const config = findConfig(params.get("config")); // an unknown id falls back to the chooser
   if (!config) return null;
   let state = defaultStateFor(config);
+  const size = Number(params.get("size"));
+  if (params.get("size") && Number.isFinite(size) && size > 0) state = { ...state, sizeIn: clampSizeIn(size) };
   const mount = params.get("mount");
   if ((mount === "flush" || mount === "standoff") && config.mounts.includes(mount)) state = { ...state, mounting: mount };
   if (isLp1(config)) {
@@ -86,11 +89,11 @@ export default function ConfiguratorPage() {
     }
   }, [shapes, source]);
   const lineCount = text.split("\n").filter((l) => l.trim()).length;
-  // Typed text is measured against one line's letters, not the whole stack of lines.
-  const strokeRatio = useMemo(() => {
-    const ratio = shapes ? strokeHeightRatio(shapes) : null;
-    return ratio !== null && source === "text" ? ratio * lineStackFactor(lineCount) : ratio;
-  }, [shapes, source, lineCount]);
+  // Average stroke over the artwork's height; the thin-stroke note compares it with the real size (see strokeGuard.ts).
+  const strokeRatio = useMemo(() => (shapes ? strokeHeightRatio(shapes) : null), [shapes]);
+  const aspect = useMemo(() => aspectOf(shapes ?? []), [shapes]);
+  const letterLines = source === "text" ? Math.max(1, lineCount) : 1;
+  const artworkHeightMm = state ? dimensionsIn(state.sizeIn, aspect).height * MM_PER_INCH : null;
 
   // The wall is a scene preference, not part of a configuration: it survives picking another one.
   const background = useRef<BackgroundId>(DEFAULT_BACKGROUND);
@@ -106,7 +109,7 @@ export default function ConfiguratorPage() {
     background.current = next.background;
     // What visitors adjust, for the analytics (one event per changed option, no personal data).
     if (state) {
-      for (const key of ["dayNight", "mounting", "depthMm", "glowColor", "color", "background", "finish", "build", "variant"] as const) {
+      for (const key of ["dayNight", "mounting", "depthMm", "sizeIn", "glowColor", "color", "background", "finish", "build", "variant"] as const) {
         if (next[key] !== state[key]) trackEvent("configurator_option", { option: key, value: String(next[key]), configuration: state.configId });
       }
     }
@@ -154,7 +157,7 @@ export default function ConfiguratorPage() {
         : uploadShapes
           ? { kind: "upload", fileName: uploadFile?.name || "uploaded artwork" }
           : null;
-    const extras = { note: thinStrokeAdvice(config, strokeRatio)?.message };
+    const extras = { note: thinStrokeAdvice(config, strokeRatio, artworkHeightMm, letterLines)?.message, aspect };
     return {
       v: 1,
       summary: formatConfigSummary(state, config, artwork, extras),
@@ -230,7 +233,7 @@ export default function ConfiguratorPage() {
               <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
                 <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} />
               </ErrorBoundary>
-              <ThinStrokeNotice config={config} strokeRatio={strokeRatio} />
+              <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
               {!shapes && (
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
                   <span className="rounded-full bg-black/55 px-4 py-2 text-sm text-white/90">Type your text to see your sign here.</span>
@@ -270,7 +273,7 @@ export default function ConfiguratorPage() {
               />
             )}
 
-            <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} adviceInPreview />
+            <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview />
 
             <ConfiguratorDisclaimer />
 

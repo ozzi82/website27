@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Download, Pause, Play, RotateCcw, X } from "lucide-react";
 import * as THREE from "three";
@@ -6,6 +6,7 @@ import BuildingScene from "./BuildingScene";
 import { NightProvider } from "./NightContext";
 import { SnapshotBridge, type CaptureSnapshot } from "./SignPreview";
 import { BUILDING_SECONDS, SCENE_SHARE, cameraPoseAt, timeOfDay } from "./buildingTime";
+import { aspectOf, formatSize } from "./realSize";
 import { trackEvent } from "../../lib/tracking";
 import type { ConfiguratorState } from "./types";
 import type { LightConfig } from "../../data/configurations";
@@ -45,6 +46,7 @@ export default function BuildingView({ shapes, config, state, onClose }: Buildin
   const [t, setT] = useState(clock.current);
   const [playing, setPlaying] = useState(!still.current);
   const closeButton = useRef<HTMLButtonElement>(null);
+  const sizeText = useMemo(() => formatSize(state.sizeIn, aspectOf(shapes)), [state.sizeIn, shapes]);
 
   useEffect(() => {
     trackEvent("configurator_building_view", { configuration: config.id });
@@ -158,7 +160,7 @@ export default function BuildingView({ shapes, config, state, onClose }: Buildin
           </button>
         </div>
         <p className="mx-auto max-w-3xl text-center text-[11px] text-white/60">
-          Illustration. The sign is drawn about 100 in (2.5 m) wide on a typical lobby entrance; the glow you see on site depends on the surroundings.
+          Illustration. The sign is drawn at the size you entered ({sizeText}) on a typical lobby entrance; the glow you see on site depends on the surroundings.
         </p>
       </div>
     </div>

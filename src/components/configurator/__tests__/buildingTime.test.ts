@@ -93,4 +93,15 @@ describe("building time of day", () => {
   it("leaves the overview alone until the close-up starts", () => {
     expect(framedPose(SCENE_SHARE, 1.8, { w: 2.4, h: 0.7 })).toEqual(fitToAspect(cameraPoseAt(1), 1.8));
   });
+
+  it("moves the opening shot out for a bigger sign and back in for a smaller one, and agrees once the camera has pulled back", () => {
+    const sign = { w: 2.4, h: 0.7 };
+    const base = framedPose(0, 1.8, sign);
+    const big = framedPose(0, 1.8, sign, 3);
+    const small = framedPose(0, 1.8, sign, 0.5);
+    const dist = (p: { position: number[]; target: number[] }) => Math.hypot(p.position[0] - p.target[0], p.position[1] - p.target[1], p.position[2] - p.target[2]);
+    expect(dist(big)).toBeCloseTo(3 * dist(base), 6);
+    expect(dist(small)).toBeCloseTo(0.5 * dist(base), 6);
+    expect(framedPose(0.5, 1.8, sign, 3)).toEqual(framedPose(0.5, 1.8, sign));
+  });
 });

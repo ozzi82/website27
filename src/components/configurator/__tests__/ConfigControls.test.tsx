@@ -151,10 +151,11 @@ describe("ConfigControls brightness", () => {
 });
 
 describe("ConfigControls guidance", () => {
-  it("has no letter height input and no below-minimum warning", () => {
+  it("has width and height inputs in inches (no separate letter height) and no below-minimum warning", () => {
     setup("lp-3-1-standoff-halo");
     expect(screen.queryByLabelText(/letter height/i)).not.toBeInTheDocument();
-    expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
+    expect(screen.getByRole("spinbutton", { name: "Width in inches" })).toHaveValue(100);
+    expect(screen.getByRole("spinbutton", { name: "Height in inches" })).toHaveValue(100); // aspect 1 until artwork is known
     expect(screen.queryByRole("status")).not.toBeInTheDocument();
     expect(screen.queryByRole("note")).not.toBeInTheDocument();
   });
@@ -174,16 +175,16 @@ describe("ConfigControls guidance", () => {
     expect(screen.getByText(/minimum stroke width/i)).toHaveTextContent("0.47″ (12 mm)");
   });
 
-  it("says depth is shown relative to a nominal 12 inch letter, tucked into the collapsed notes", () => {
+  it("says the preview is drawn to the entered size, tucked into the collapsed notes", () => {
     setup("lp-3-1-standoff-halo");
-    const text = screen.getByText(/nominal 12″ letter/i);
+    const text = screen.getByText(/drawn to the size you enter/i);
     expect(text.closest("details")).not.toHaveAttribute("open");
   });
 });
 
 describe("ConfigControls thin-stroke note", () => {
   it("shows a prominent amber note for thin art on the faux neon, with the height it would need", () => {
-    setup("lp-11-n-faux-neon", {}, 0.03);
+    setup("lp-11-n-faux-neon", { sizeIn: 12 }, 0.03); // 3% strokes on a 12" tall artwork: about 9 mm
     const note = screen.getByRole("note");
     expect(note).toHaveTextContent(/thin strokes/i);
     expect(note).toHaveTextContent("LP 11-N");
@@ -192,7 +193,7 @@ describe("ConfigControls thin-stroke note", () => {
   });
 
   it("does the same for the conical profile", () => {
-    setup("lp-11-c-conical", {}, 0.02);
+    setup("lp-11-c-conical", { sizeIn: 12 }, 0.02);
     expect(screen.getByRole("note")).toHaveTextContent("LP 11-C");
   });
 
@@ -206,14 +207,19 @@ describe("ConfigControls thin-stroke note", () => {
     expect(screen.queryByRole("note")).not.toBeInTheDocument();
   });
 
-  it("gives other configurations only a subtle note when the letter would have to be taller than 24 inches", () => {
+  it("gives other configurations a subtle note when the strokes are under their own minimum at the entered size", () => {
     const { unmount } = render(
-      <ConfigControls config={byId("lp-5-trimless-face-lit")} state={defaultStateFor(byId("lp-5-trimless-face-lit"))} onChange={vi.fn()} strokeRatio={0.04} />
+      <ConfigControls config={byId("lp-5-trimless-face-lit")} state={{ ...defaultStateFor(byId("lp-5-trimless-face-lit")), sizeIn: 12 }} onChange={vi.fn()} strokeRatio={0.08} />
     );
-    expect(screen.queryByRole("note")).not.toBeInTheDocument();
+    expect(screen.queryByRole("note")).not.toBeInTheDocument(); // about 24 mm
     unmount();
-    setup("lp-5-trimless-face-lit", {}, 0.01);
+    setup("lp-5-trimless-face-lit", { sizeIn: 12 }, 0.01);
     expect(screen.getByRole("note")).toHaveTextContent(/thin strokes/i);
+  });
+
+  it("the same artwork needs no note once the sign is bigger", () => {
+    setup("lp-11-n-faux-neon", { sizeIn: 48 }, 0.03); // about 37 mm
+    expect(screen.queryByRole("note")).not.toBeInTheDocument();
   });
 });
 
@@ -331,5 +337,64 @@ describe("ConfigControls LP 1 finish and build", () => {
     expect(screen.queryByRole("group", { name: "Acrylic color" })).not.toBeInTheDocument();
     rerender(<ConfigControls config={lp1} state={{ ...defaultStateFor(lp1), finish: "acrylic-colored" }} onChange={vi.fn()} />);
     expect(screen.getByRole("group", { name: "Acrylic color" })).toBeInTheDocument();
+  });
+});
+
+describe("ConfigControls size", () => {
+  it("shows the width and height of the artwork at the chosen size, both editable", () => {
+    const config = byId("lp-11-b-back-lit");
+    render(<ConfigControls config={config} state={{ ...defaultStateFor(config), sizeIn: 100 }} onChange={vi.fn()} aspect={4} />);
+    expect(screen.getByRole("spinbutton", { name: "Width in inches" })).toHaveValue(100);
+    expect(screen.getByRole("spinbutton", { name: "Height in inches" })).toHaveValue(25);
+    expect(screen.getByText(/2540 × 635 mm/)).toBeInTheDocument();
+  });
+
+  it("typing a width sets the larger side once the field is left, keeping the artwork's proportions", async () => {
+    const user = userEvent.setup();
+    const config = byId("lp-11-b-back-lit");
+    const onChange = vi.fn();
+    render(<ConfigControls config={config} state={defaultStateFor(config)} onChange={onChange} aspect={4} />);
+    const width = screen.getByRole("spinbutton", { name: "Width in inches" });
+    await user.clear(width);
+    await user.type(width, "60");
+    await user.tab();
+    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ sizeIn: 60 }));
+  });
+
+  it("typing a height works the other way round", async () => {
+    const user = userEvent.setup();
+    const config = byId("lp-11-b-back-lit");
+    const onChange = vi.fn();
+    render(<ConfigControls config={config} state={defaultStateFor(config)} onChange={onChange} aspect={4} />);
+    const height = screen.getByRole("spinbutton", { name: "Height in inches" });
+    await user.clear(height);
+    await user.type(height, "12");
+    await user.tab();
+    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ sizeIn: 48 }));
+  });
+
+  it("clamps absurd sizes and ignores an empty field", async () => {
+    const user = userEvent.setup();
+    const config = byId("lp-11-b-back-lit");
+    const onChange = vi.fn();
+    render(<ConfigControls config={config} state={defaultStateFor(config)} onChange={onChange} aspect={1} />);
+    const width = screen.getByRole("spinbutton", { name: "Width in inches" });
+    await user.clear(width);
+    await user.type(width, "9999");
+    await user.tab();
+    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ sizeIn: 600 }));
+    onChange.mockClear();
+    await user.clear(width);
+    await user.tab();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it("offers a few common widths as buttons", async () => {
+    const user = userEvent.setup();
+    const config = byId("lp-11-b-back-lit");
+    const onChange = vi.fn();
+    render(<ConfigControls config={config} state={defaultStateFor(config)} onChange={onChange} aspect={2} />);
+    await user.click(screen.getByRole("button", { name: "Set the width to 48 inches" }));
+    expect(onChange).toHaveBeenLastCalledWith(expect.objectContaining({ sizeIn: 48 }));
   });
 });

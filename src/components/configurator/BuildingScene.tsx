@@ -5,6 +5,7 @@ import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import * as THREE from "three";
 import { BUILDING_SECONDS, framedPose, timeOfDay, type TimeOfDay } from "./buildingTime";
 import ConfigScene from "./ConfigScene";
+import { DEFAULT_SIZE_IN } from "./realSize";
 import { emitsLight, type ConfiguratorState } from "./types";
 import type { LightConfig } from "../../data/configurations";
 
@@ -183,7 +184,7 @@ function useGlowTexture() {
 }
 
 /** The block, entrance and street around the sign. */
-function Tower({ shared, lobby }: { shared: Shared; lobby: MutableRefObject<TimeOfDay> }) {
+function Tower({ shared, lobby, headerHeight }: { shared: Shared; lobby: MutableRefObject<TimeOfDay>; headerHeight: number }) {
   const stone = useRef<THREE.MeshStandardMaterial>(null);
   const door = useRef<THREE.MeshBasicMaterial>(null);
   const pool = useRef<THREE.MeshBasicMaterial>(null);
@@ -208,7 +209,7 @@ function Tower({ shared, lobby }: { shared: Shared; lobby: MutableRefObject<Time
       <GlassBlock position={[0, base + towerH / 2, towerZ]} size={[TOWER_SIZE, towerH, TOWER_SIZE]} cells={[12, 37]} seed={1} shared={shared} />
       {/* Stone header over the entrance, which the sign's panel is fixed to. */}
       <mesh position={[0, 0, HEADER_FRONT_Z - 0.6]}>
-        <boxGeometry args={[TOWER_SIZE + 0.8, 3.4, 1.2]} />
+        <boxGeometry args={[TOWER_SIZE + 0.8, headerHeight, 1.2]} />
         <meshStandardMaterial ref={stone} color="#2a2c30" roughness={0.55} metalness={0.1} />
       </mesh>
       {/* Entrance doors, with the lobby light behind them. */}
@@ -277,11 +278,14 @@ export default function BuildingScene({ shapes, config, state, clock, playing, o
   const lastPose = useRef(-1);
   const lastReported = useRef(-1);
   const dark = emitsLight(config);
+  // The sign is drawn to its true size: one building unit is about 42 in, and the sign scene's own unit stands for sizeIn / 2.4 in.
+  const g = state.sizeIn / DEFAULT_SIZE_IN;
   const signSize = useMemo(() => {
     const box = new THREE.Box2();
     for (const shape of shapes) for (const p of shape.getPoints(8)) box.expandByPoint(p);
-    return box.isEmpty() ? { w: 2.4, h: 0.7 } : { w: box.max.x - box.min.x, h: box.max.y - box.min.y };
-  }, [shapes]);
+    return box.isEmpty() ? { w: 2.4 * g, h: 0.7 * g } : { w: (box.max.x - box.min.x) * g, h: (box.max.y - box.min.y) * g };
+  }, [shapes, g]);
+  const fascia = useMemo(() => ({ w: Math.max(5.6, signSize.w + 1.6), h: Math.max(2.2, signSize.h + 1.3) }), [signSize]);
 
   useFrame((_, delta) => {
     if (playing) {
@@ -317,7 +321,7 @@ export default function BuildingScene({ shapes, config, state, clock, playing, o
 
     if (playing || lastPose.current !== t) {
       lastPose.current = t;
-      const pose = framedPose(t, size.width / size.height, signSize);
+      const pose = framedPose(t, size.width / size.height, signSize, Math.min(4, Math.max(0.4, g)));
       camera.position.set(...pose.position);
       controls.current?.target.set(...pose.target);
       controls.current?.update();
@@ -335,8 +339,10 @@ export default function BuildingScene({ shapes, config, state, clock, playing, o
       <ambientLight ref={ambient} intensity={0.3} />
       <directionalLight ref={key} position={[-2.5, 3, 6]} intensity={0.7} />
       <Environment files="/configurator/studio.hdr" />
-      <Tower shared={shared} lobby={tod} />
-      <ConfigScene shapes={shapes} config={config} state={state} facadeWidth={5.6} />
+      <Tower shared={shared} lobby={tod} headerHeight={Math.min(4.4, Math.max(3.4, fascia.h + 0.8))} />
+      <group scale={g}>
+        <ConfigScene shapes={shapes} config={config} state={state} facade={{ width: fascia.w / g, height: fascia.h / g }} />
+      </group>
       <OrbitControls
         ref={controls}
         enabled={!playing}

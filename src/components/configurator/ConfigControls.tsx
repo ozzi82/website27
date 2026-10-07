@@ -1,4 +1,4 @@
-import { useId, type ReactNode } from "react";
+import { useEffect, useId, useState, type ReactNode } from "react";
 import { AlertTriangle, Info } from "lucide-react";
 import type { LightConfig } from "../../data/configurations";
 import { BACKGROUNDS } from "./backgrounds";
@@ -9,6 +9,7 @@ import { thinStrokeAdvice } from "./strokeGuard";
 import { depthOptionsFor, effectiveConfig, emitsLight, formatDepth, withBuild, withFinish, withVariant, type ConfiguratorState } from "./types";
 import { MOUNT_LABEL } from "../../data/configurations";
 import { LP1_FINISHES, getLp1Finish, isLp1, type Lp1Build } from "./lp1Materials";
+import { MAX_SIZE_IN, MIN_SIZE_IN, MM_PER_INCH, dimensionsIn, sizeFromHeightIn, sizeFromWidthIn } from "./realSize";
 
 interface ConfigControlsProps {
   config: LightConfig;
@@ -18,6 +19,10 @@ interface ConfigControlsProps {
   strokeRatio?: number | null;
   /** The thin-stroke advice is shown over the 3D preview instead of here (see ThinStrokeNotice). */
   adviceInPreview?: boolean;
+  /** Width over height of the artwork, for the size inputs (1 when unknown). */
+  aspect?: number;
+  /** Typed lines in the artwork (1 for an uploaded file): letter height is one line of the artwork's height. */
+  lines?: number;
 }
 
 /** Bigger, easier to see segments for the choices that matter most (depth, mounting, lighting, build). */
@@ -94,7 +99,75 @@ function DepthLabel({ mm }: { mm: number }) {
   );
 }
 
-export default function ConfigControls({ config, state, onChange, strokeRatio = null, adviceInPreview = false }: ConfigControlsProps) {
+const SIZE_PRESETS_IN = [24, 48, 100, 200];
+
+/** Width and height in inches, editable either way (the artwork's proportions stay), plus a few common widths. */
+function SizeInputs({ sizeIn, aspect, onSize }: { sizeIn: number; aspect: number; onSize: (sizeIn: number) => void }) {
+  const { width, height } = dimensionsIn(sizeIn, aspect);
+  const show = (n: number) => String(n >= 10 ? Math.round(n) : Math.round(n * 10) / 10);
+  const [w, setW] = useState(show(width));
+  const [h, setH] = useState(show(height));
+  useEffect(() => {
+    setW(show(width));
+    setH(show(height));
+  }, [width, height]);
+
+  const commitWidth = () => {
+    const n = parseFloat(w);
+    if (Number.isFinite(n) && n > 0) {
+      const next = sizeFromWidthIn(n, aspect);
+      if (next !== sizeIn) onSize(next);
+      else setW(show(width)); // clamped back to the same size: show the real number
+    } else setW(show(width));
+  };
+  const commitHeight = () => {
+    const n = parseFloat(h);
+    if (Number.isFinite(n) && n > 0) {
+      const next = sizeFromHeightIn(n, aspect);
+      if (next !== sizeIn) onSize(next);
+      else setH(show(height));
+    } else setH(show(height));
+  };
+  const field = "w-[4.4rem] rounded-md border border-border bg-background px-2 py-1 text-sm tabular-nums focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
+  const key = (commit: () => void) => (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") commit();
+  };
+  return (
+    <div className="space-y-1.5">
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+        <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          Width
+          <input type="number" inputMode="decimal" aria-label="Width in inches" min={MIN_SIZE_IN} max={MAX_SIZE_IN} step="any" value={w} onChange={(e) => setW(e.target.value)} onBlur={commitWidth} onKeyDown={key(commitWidth)} className={field} />
+          <span aria-hidden="true">″</span>
+        </label>
+        <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          Height
+          <input type="number" inputMode="decimal" aria-label="Height in inches" min={MIN_SIZE_IN} max={MAX_SIZE_IN} step="any" value={h} onChange={(e) => setH(e.target.value)} onBlur={commitHeight} onKeyDown={key(commitHeight)} className={field} />
+          <span aria-hidden="true">″</span>
+        </label>
+      </div>
+      <div className="flex flex-wrap items-center gap-1.5">
+        {SIZE_PRESETS_IN.map((p) => (
+          <button
+            key={p}
+            type="button"
+            onClick={() => onSize(sizeFromWidthIn(p, aspect))}
+            aria-label={`Set the width to ${p} inches`}
+            aria-pressed={Math.round(width) === p}
+            className="rounded-full border border-border px-2 py-0.5 text-[11px] text-muted-foreground hover:text-foreground aria-pressed:border-primary aria-pressed:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+          >
+            {p}″
+          </button>
+        ))}
+        <span className="text-[11px] text-muted-foreground">
+          {Math.round(width * MM_PER_INCH)} × {Math.round(height * MM_PER_INCH)} mm
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export default function ConfigControls({ config, state, onChange, strokeRatio = null, adviceInPreview = false, aspect = 1, lines = 1 }: ConfigControlsProps) {
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
 
   const brightnessId = useId();
@@ -106,7 +179,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
   const hasPaint = flat ? finish.usesPaint : true;
   const depthOptions = depthOptionsFor(config, state);
   const illustrative = config.profile === "tube" || config.profile === "conical";
-  const advice = thinStrokeAdvice(config, strokeRatio);
+  const advice = thinStrokeAdvice(config, strokeRatio, dimensionsIn(state.sizeIn, aspect).height * MM_PER_INCH, lines);
   const singleDepth = depthOptions.length === 1;
 
   return (
@@ -187,6 +260,10 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           />
         </Row>
       )}
+
+      <Row label="Size" labelId="size-label">
+        <SizeInputs sizeIn={state.sizeIn} aspect={aspect} onSize={(sizeIn) => set({ sizeIn })} />
+      </Row>
 
       <Row label="Depth" labelId="depth-label">
         <SegmentedControl
@@ -297,7 +374,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           About this preview
         </summary>
         <div className="mt-1.5 space-y-1">
-          <p>Depth is drawn against a nominal 12″ letter, so the preview is illustrative.</p>
+          <p>The preview is drawn to the size you enter: depth, spacers and the lit band are true to scale, and the wall texture is real-size too.</p>
           {singleDepth && <p>This is the only standard depth for this configuration.</p>}
           {config.customDepth && <p>Custom depths available — ask us.</p>}
           {illustrative && <p>Illustrative preview — this profile is approximated.</p>}

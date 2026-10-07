@@ -18,9 +18,8 @@ function smoothed(geometry: THREE.ExtrudeGeometry): THREE.ExtrudeGeometry {
 /**
  * Builds one ExtrudeGeometry from the parsed artwork shapes, with ExtrudeGeometry's own two
  * material groups: index 0 = the front and back caps (the "face"), index 1 = the extruded
- * side walls. Depth is expressed as a fraction of the combined shapes' bounding-box height
- * (see depthRatioFor), not an absolute unit, so the proportions hold whatever the artwork's
- * own scale.
+ * side walls. Depth is in world units (see depthWorldFor): the real millimetres at the size
+ * the visitor entered, so the proportions of the letter are true.
  *
  * The visible letter always spans z in [0, depth] (back against the wall at z = 0), whatever
  * the profile:
@@ -34,8 +33,10 @@ function smoothed(geometry: THREE.ExtrudeGeometry): THREE.ExtrudeGeometry {
  */
 export function useSignGeometry(
   shapes: THREE.Shape[],
-  depthRatio: number,
-  profile: Profile = "standard"
+  depth: number,
+  profile: Profile = "standard",
+  /** How far the faux-neon routing tool reaches (0.5"), in world units at the current size. */
+  neonToolWorld = 0.012
 ): THREE.ExtrudeGeometry {
   const geometry = useMemo(() => {
     // Same points ShapeGeometry would triangulate (curveSegments 12), without
@@ -48,7 +49,6 @@ export function useSignGeometry(
       return { outline, holes };
     });
     const height = box.max.y - box.min.y || 1;
-    const depth = height * depthRatio;
     // Thin art cannot carry a tube or cone profile: scale the rounding down with the stroke width and
     // fall back to a straight extrusion for hairlines, so it degrades gracefully instead of folding over.
     const halfStroke = estimateHalfStroke(rings);
@@ -78,7 +78,7 @@ export function useSignGeometry(
     if (profile === "tube" && rounded) {
       // The extrusion is symmetric (a bevel at both ends); the back one is squashed flat against the wall plane below,
       // so only the front edge is round.
-      const r = neonRoundRadius(depth, height, halfStroke) * strength;
+      const r = neonRoundRadius(depth, halfStroke, neonToolWorld) * strength;
       if (r > 0) {
         const extruded = new THREE.ExtrudeGeometry(shapes, {
           depth: depth - r,
@@ -103,7 +103,7 @@ export function useSignGeometry(
         curveSegments: CURVE_SEGMENTS,
       })
     );
-  }, [shapes, depthRatio, profile]);
+  }, [shapes, depth, profile, neonToolWorld]);
 
   // Free GPU buffers when the geometry is replaced or the scene unmounts.
   // Safe under StrictMode: dispose() only releases GPU resources, and three

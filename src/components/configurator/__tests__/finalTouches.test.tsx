@@ -110,7 +110,8 @@ describe("disclaimer", () => {
   });
 });
 
-import { SPACER_DIAMETER_MM, SPACER_LENGTH_MM, mmToWorld, spacerPoints } from "../spacers";
+import { SPACER_DIAMETER_MM, SPACER_LENGTH_MM, spacerPoints } from "../spacers";
+import { mmToWorld } from "../realSize";
 import { wallGapFor } from "../renderMath";
 
 describe("standoff spacers", () => {
@@ -123,12 +124,12 @@ describe("standoff spacers", () => {
   it("are clear 1 inch tubes, 0.4 inch across, and the standoff gap is exactly one tube long", () => {
     expect(SPACER_LENGTH_MM).toBeCloseTo(25.4, 6);
     expect(SPACER_DIAMETER_MM).toBeCloseTo(10.16, 6);
-    expect(wallGapFor("standoff", 2.4)).toBeCloseTo(mmToWorld(SPACER_LENGTH_MM, 2.4), 9);
+    expect(wallGapFor("standoff", 100)).toBeCloseTo(mmToWorld(SPACER_LENGTH_MM, 100), 9);
   });
 
   it("go inside thick parts of the letter, spread out, and never onto a stroke too thin to hold a tube", () => {
     const thick = [block(0, 0, 3, 2.4)];
-    const pts = spacerPoints(thick, 2.4);
+    const pts = spacerPoints(thick, 2.4, 100);
     expect(pts.length).toBeGreaterThan(1);
     for (const p of pts) {
       expect(p.x).toBeGreaterThan(0);
@@ -137,7 +138,7 @@ describe("standoff spacers", () => {
       expect(p.y).toBeLessThan(2.4);
     }
     const hairline = [block(0, 0, 3, 0.01)];
-    expect(spacerPoints(hairline, 2.4)).toEqual([]);
+    expect(spacerPoints(hairline, 2.4, 100)).toEqual([]);
   });
 });
 
@@ -157,11 +158,12 @@ import ThinStrokeNotice from "../ThinStrokeNotice";
 describe("thin-stroke notice", () => {
   it("is a visible note over the preview for thin artwork, and absent for sturdy artwork", () => {
     const neon = byId("lp-11-n-faux-neon");
-    const { container, rerender } = render(<ThinStrokeNotice config={neon} strokeRatio={0.03} />);
+    // 3% strokes on a 12" (305 mm) tall artwork are about 9 mm: under the 12 mm minimum of the faux neon
+    const { container, rerender } = render(<ThinStrokeNotice config={neon} strokeRatio={0.03} heightMm={305} />);
     const note = screen.getByRole("note");
     expect(note.textContent).toMatch(/thin strokes/i);
     expect(note.className).toMatch(/absolute/);
-    rerender(<ThinStrokeNotice config={neon} strokeRatio={0.3} />);
+    rerender(<ThinStrokeNotice config={neon} strokeRatio={0.3} heightMm={305} />);
     expect(container.querySelector('[role="note"]')).toBeNull();
   });
 });

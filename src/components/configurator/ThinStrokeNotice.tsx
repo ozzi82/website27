@@ -6,8 +6,8 @@ import { thinStrokeAdvice } from "./strokeGuard";
  * The thin-stroke advice, laid over the top-left corner of the 3D preview where it cannot be missed (the zoom buttons
  * are on the right). Renders nothing when the artwork is fine.
  */
-export default function ThinStrokeNotice({ config, strokeRatio }: { config: LightConfig; strokeRatio: number | null }) {
-  const advice = thinStrokeAdvice(config, strokeRatio);
+export default function ThinStrokeNotice({ config, strokeRatio, heightMm = null, lines = 1 }: { config: LightConfig; strokeRatio: number | null; heightMm?: number | null; lines?: number }) {
+  const advice = thinStrokeAdvice(config, strokeRatio, heightMm, lines);
   if (!advice) return null;
   const strong = advice.severity === "strong";
   return (

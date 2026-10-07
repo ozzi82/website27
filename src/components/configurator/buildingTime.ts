@@ -143,9 +143,17 @@ export function closeUpPose(aspect: number, sign: { w: number; h: number }): Cam
   return { position: [distance * 0.14, distance * 0.02, distance * 0.99], target: [0, 0, 0] };
 }
 
-/** The camera at film time `t` for this screen and sign: the day-to-night move, then the zoom onto the sign over the last seconds. */
-export function framedPose(t: number, aspect: number, sign: { w: number; h: number }): CameraPose {
-  const overview = fitToAspect(cameraPoseAt(t), aspect);
+/**
+ * The camera at film time `t` for this screen and sign: the day-to-night move, then the zoom onto the sign over the last seconds.
+ * `startScale` (the sign's true size against the 100 in default) moves the opening shot in or out so the sign still fills the frame.
+ */
+export function framedPose(t: number, aspect: number, sign: { w: number; h: number }, startScale = 1): CameraPose {
+  let overview = fitToAspect(cameraPoseAt(t), aspect);
+  const settle = easeInOut(clamp01(sceneTime(t) / 0.42)); // 0 at the opening shot, 1 once the camera has pulled back
+  const f = lerp(startScale, 1, settle);
+  const [tx, ty, tz] = overview.target;
+  const [px, py, pz] = overview.position;
+  overview = { target: overview.target, position: [tx + (px - tx) * f, ty + (py - ty) * f, tz + (pz - tz) * f] };
   if (t <= SCENE_SHARE) return overview;
   const k = easeInOut((t - SCENE_SHARE) / (1 - SCENE_SHARE));
   const close = closeUpPose(aspect, sign);

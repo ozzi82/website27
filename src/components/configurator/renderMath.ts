@@ -1,33 +1,27 @@
 import type { Mount } from "../../data/configurations";
+import { DEFAULT_SIZE_IN, mmToWorld } from "./realSize";
 
-export const MM_PER_INCH = 25.4;
-export const MIN_DEPTH_RATIO = 0.01;
-export const MAX_DEPTH_RATIO = 0.6;
+/** Smallest depth drawn, in world units, so a very thin sign on a very large size still has a visible edge. */
+export const MIN_DEPTH_WORLD = 0.0015;
+/** Deepest drawing, in world units: a deep letter on a tiny sign must still fit the picture. */
+export const MAX_DEPTH_WORLD = 2.4;
 
-/**
- * The preview has no letter-height input (it made deeper-looking letters thinner), so depth is
- * drawn against one fixed, illustrative letter height: about 12 inches.
- */
-export const NOMINAL_LETTER_HEIGHT_MM = 300;
-
-/** Share of the (nominal) letter height that the extrusion depth takes. Clamped so extreme depths stay renderable. */
-export function depthRatioFor(depthMm: number): number {
-  const ratio = depthMm / NOMINAL_LETTER_HEIGHT_MM;
-  if (Number.isNaN(ratio)) return MIN_DEPTH_RATIO;
-  return Math.min(MAX_DEPTH_RATIO, Math.max(MIN_DEPTH_RATIO, ratio));
+/** The letter's depth in world units at this size: the real millimetres, converted (see realSize.ts). */
+export function depthWorldFor(depthMm: number, sizeIn: number): number {
+  const world = mmToWorld(depthMm, sizeIn);
+  if (Number.isNaN(world)) return MIN_DEPTH_WORLD;
+  return Math.min(MAX_DEPTH_WORLD, Math.max(MIN_DEPTH_WORLD, world));
 }
 
-/** Nominal exposed acrylic band on partially side-lit letters (the brochure's standard is 10 mm). */
-const BAND_MM = 10;
+/** Exposed acrylic band on partially side-lit letters (the brochure's standard is 10 mm). */
+export const BAND_MM = 10;
 
 /**
- * World-unit thickness of the glowing band on a partial side-lit wall: the
- * 10 mm exposed acrylic scaled to the nominal letter, kept between 15% and 40% of the
- * depth so it reads as a band (not a hairline, not the whole wall).
+ * World-unit thickness of the glowing band on a partial side-lit wall: the real 10 mm exposed acrylic, kept between
+ * 15% and 40% of the depth so it reads as a band (not a hairline, not the whole wall).
  */
-export function sideBandThickness(depthWorld: number, heightWorld: number): number {
-  const raw = (BAND_MM / NOMINAL_LETTER_HEIGHT_MM) * heightWorld;
-  return Math.min(depthWorld * 0.4, Math.max(depthWorld * 0.15, raw));
+export function sideBandThickness(depthWorld: number, bandWorld: number): number {
+  return Math.min(depthWorld * 0.4, Math.max(depthWorld * 0.15, bandWorld));
 }
 
 interface Rings {
@@ -75,17 +69,16 @@ export function estimateHalfStroke(shapes: Rings[]): number {
 export const NEON_MAX_ROUND_MM = 12.7;
 
 /**
- * Radius of LP 11-N's rounded FRONT edge in world units: at most 0.5" (scaled to the nominal letter), never more
- * than half the thickness, and under the half-stroke so the front cap survives thin strokes.
+ * Radius of LP 11-N's rounded FRONT edge in world units: at most 0.5" (`toolWorld`, the tool's reach at this size), never
+ * more than half the thickness, and under the half-stroke so the front cap survives thin strokes.
  */
-export function neonRoundRadius(depthWorld: number, heightWorld: number, halfStroke: number): number {
-  const byTool = (NEON_MAX_ROUND_MM / NOMINAL_LETTER_HEIGHT_MM) * heightWorld;
-  return Math.max(0, Math.min(byTool, depthWorld / 2, halfStroke * 0.85));
+export function neonRoundRadius(depthWorld: number, halfStroke: number, toolWorld: number): number {
+  return Math.max(0, Math.min(toolWorld, depthWorld / 2, halfStroke * 0.85));
 }
 
-/** World-unit thickness of the lit side band: `fraction` of the depth when the configuration says so, else the nominal brochure band. */
-export function litBandThickness(depthWorld: number, heightWorld: number, fraction?: number): number {
-  return fraction === undefined ? sideBandThickness(depthWorld, heightWorld) : depthWorld * Math.min(1, Math.max(0, fraction));
+/** World-unit thickness of the lit side band: `fraction` of the depth when the configuration says so, else the real 10 mm band. */
+export function litBandThickness(depthWorld: number, sizeIn: number, fraction?: number): number {
+  return fraction === undefined ? sideBandThickness(depthWorld, mmToWorld(BAND_MM, sizeIn)) : depthWorld * Math.min(1, Math.max(0, fraction));
 }
 
 /** How much narrower the front face of a conical letter is than its base, per side. */
@@ -97,9 +90,9 @@ export function conicalInset(heightWorld: number, halfStroke: number): number {
 const STANDOFF_MM = 25.4;
 
 /**
- * Distance between the back of the letter and the wall behind it, in world units: flush sits against the wall, standoff
- * is one spacer length (1") off it. `heightWorld` is the artwork height, standing for the nominal 12" letter.
+ * Distance between the back of the letter and the wall behind it, in world units: flush sits (almost) against the wall,
+ * standoff is one real spacer length (1") off it, at this size.
  */
-export function wallGapFor(mount: Mount, heightWorld = 2.4): number {
-  return mount === "standoff" ? (STANDOFF_MM / NOMINAL_LETTER_HEIGHT_MM) * heightWorld : 0.012;
+export function wallGapFor(mount: Mount, sizeIn = DEFAULT_SIZE_IN): number {
+  return mount === "standoff" ? mmToWorld(STANDOFF_MM, sizeIn) : 0.012;
 }

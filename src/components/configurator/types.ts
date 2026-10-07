@@ -1,6 +1,7 @@
 import { defaultMount, type LightConfig, type Mount } from "../../data/configurations";
 import { DEFAULT_BACKGROUND, type BackgroundId } from "./backgrounds";
 import { DEFAULT_BRIGHTNESS } from "./brightness";
+import { DEFAULT_SIZE_IN } from "./realSize";
 import {
   DEFAULT_LP1_BUILD,
   DEFAULT_LP1_FINISH,
@@ -37,6 +38,8 @@ export interface ConfiguratorState {
   finish: Lp1FinishId;
   /** LP 1 only: solid (thinner) or fabricated (hollow, thicker). */
   build: Lp1Build;
+  /** Real size of the artwork's larger side, in inches (see realSize.ts). The preview is drawn to this scale. */
+  sizeIn: number;
 }
 
 /** The depths offered for this configuration and state: LP 1 follows its build, the rest their brochure list. */
@@ -71,6 +74,7 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
     variant: false,
     finish: DEFAULT_LP1_FINISH,
     build: DEFAULT_LP1_BUILD,
+    sizeIn: DEFAULT_SIZE_IN,
   };
 }
 
@@ -105,6 +109,7 @@ export function switchConfig(prev: ConfiguratorState, next: LightConfig): Config
     brightness: prev.brightness,
     dayNight: prev.dayNight,
     background: prev.background,
+    sizeIn: prev.sizeIn,
   };
 }
 
