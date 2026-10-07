@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
-import { makeWallLook, wallLookAt, type BackgroundDef } from "./backgrounds";
+import type { BackgroundDef } from "./backgrounds";
+import { makeWallLook, wallLookAt } from "./wallLook";
 import { useNightEffect } from "./NightContext";
 import type { WallTexture } from "./wallTextures";
 

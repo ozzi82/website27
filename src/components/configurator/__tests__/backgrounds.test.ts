@@ -1,12 +1,7 @@
 import { describe, it, expect } from "vitest";
 import * as THREE from "three";
-import {
-  BACKGROUNDS,
-  DEFAULT_BACKGROUND,
-  getBackground,
-  makeWallLook,
-  wallLookAt,
-} from "../backgrounds";
+import { BACKGROUNDS, DEFAULT_BACKGROUND, getBackground } from "../backgrounds";
+import { makeWallLook, wallLookAt } from "../wallLook";
 import { makeTileableNoise, mulberry32 } from "../wallNoise";
 
 const luminance = (c: THREE.Color) => 0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b;

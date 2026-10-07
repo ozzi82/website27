@@ -33,6 +33,14 @@ const { render, getPrerenderRoutes, CONFIGURATOR_META, configuratorJsonLd, getSi
 // Without JavaScript the entrance animations (framer-motion starts at opacity 0) would leave the hero invisible.
 const NOSCRIPT_STYLE = '<noscript><style>[style*="opacity:0"]{opacity:1!important;transform:none!important}</style></noscript>';
 
+// Preload the two fonts every page needs at once (headings and body text), so they download alongside the stylesheet instead of after it.
+const assetsDir = path.join(distDir, "assets");
+const FONT_PRELOADS = ["barlow-condensed-latin-700-normal-", "barlow-latin-400-normal-"]
+  .map((prefix) => fs.readdirSync(assetsDir).find((f) => f.startsWith(prefix) && f.endsWith(".woff2")))
+  .filter(Boolean)
+  .map((f) => `<link rel="preload" href="/assets/${f}" as="font" type="font/woff2" crossorigin>`)
+  .join("\n    ");
+
 const escapeAttr = (s) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
 /** The template minus everything a prerendered page must not carry twice (default SEO tags, title, noscript). */
@@ -62,7 +70,7 @@ const written = [];
 for (const route of routes) {
   const { html, head } = render(route);
   const page = stripped
-    .replace("</head>", () => `    ${head}\n    ${NOSCRIPT_STYLE}\n  </head>`)
+    .replace("</head>", () => `    ${FONT_PRELOADS}\n    ${head}\n    ${NOSCRIPT_STYLE}\n  </head>`)
     // data-prerender-path lets main.tsx hydrate only when this HTML belongs to the URL being viewed.
     .replace('<div id="root"></div>', () => `<div id="root" data-prerender-path="${route}">${html}</div>`);
   write(outFile(route), page);
