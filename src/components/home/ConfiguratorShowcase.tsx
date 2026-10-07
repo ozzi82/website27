@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import SectionHeader from "../SectionHeader";
 import { SecondaryCta } from "../CtaButton";
 import { CONFIGURATOR_PATH, CONFIGURATOR_TAGLINE } from "../../lib/configuratorMeta";
+import Picture from "../Picture";
 
 const POSTER = "/images/configurator-demo-poster.webp";
 const SIZE = { width: 720, height: 548 };
@@ -92,13 +93,12 @@ export default function ConfiguratorShowcase() {
               <source src="/images/configurator-demo.mp4" type="video/mp4" />
             </video>
           ) : (
-            <img
+            <Picture
               src={POSTER}
               alt="The configurator preview: the letters Sunlite glowing cyan at night on a concrete wall"
               width={SIZE.width}
               height={SIZE.height}
-              loading="lazy"
-              decoding="async"
+              sizes="(min-width: 1024px) 50vw, 100vw"
               className="w-full h-auto block"
             />
           )}

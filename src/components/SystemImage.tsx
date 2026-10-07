@@ -2,6 +2,7 @@ import { useState } from "react";
 import SegmentedControl from "./configurator/SegmentedControl";
 import { emitsLight } from "./configurator/types";
 import type { LightConfig } from "../data/configurations";
+import Picture from "./Picture";
 
 type Time = "day" | "night";
 
@@ -16,10 +17,11 @@ export default function SystemImage({ config }: { config: LightConfig }) {
   const dims = { width: 1200, height: 900 };
   return (
     <figure className="rounded-xl overflow-hidden border border-border bg-card self-start">
-      <img
+      <Picture
         src={src}
         alt={`${config.title} ${config.subtitle}: sample letter${hasDay ? `, ${time === "night" ? "lit at night" : "by day"}` : ""}`}
         {...dims}
+        sizes="(min-width: 1024px) 50vw, 100vw"
         className="w-full h-auto object-cover"
         loading="eager"
       />

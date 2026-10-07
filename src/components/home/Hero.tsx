@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLink, PrimaryCta, SecondaryCta } from "../CtaButton";
 import { CTA_LINKS, CTA_SECONDARY } from "../../lib/cta";
+import Picture from "../Picture";
 
 const POSTER = { src: "/images/hero-loop-poster.jpg", width: 1600, height: 900 };
 /** About 2.4 MB, silent, 19 seconds of the production floor; the phone and the desktop use the same file. */
@@ -38,21 +39,12 @@ export default function Hero() {
   return (
     <section className="relative min-h-[88vh] flex flex-col overflow-hidden border-b border-border">
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <img
-          src={POSTER.src}
-          width={POSTER.width}
-          height={POSTER.height}
-          alt=""
-          decoding="async"
-          className="absolute inset-0 w-full h-full object-cover"
-          {...{ fetchpriority: "high" }}
-        />
+        <Picture src={POSTER.src} width={POSTER.width} height={POSTER.height} alt="" priority className="absolute inset-0 w-full h-full object-cover" />
         {allowVideo && (
           <video
             ref={video}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${videoReady ? "opacity-100" : "opacity-0"}`}
             src={VIDEO_SRC}
-            poster={POSTER.src}
             autoPlay
             muted
             loop

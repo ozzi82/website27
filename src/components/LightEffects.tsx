@@ -5,6 +5,7 @@ import { configurations } from "../data/configurations";
 import SectionHeader from "./SectionHeader";
 import { ArrowLink } from "./CtaButton";
 import { CTA_LINKS } from "../lib/cta";
+import Picture from "./Picture";
 
 export default function LightEffects() {
   return (
@@ -27,7 +28,7 @@ export default function LightEffects() {
           {configurations.map((c) => (
             <Link key={c.id} to={`/light-effects/${c.id}`} className="group bg-card flex flex-col rounded-xl overflow-hidden border border-border hover:border-primary/60 transition-colors">
               <div className="aspect-[4/3] overflow-hidden relative">
-                <img src={c.img} alt={`${c.title} — ${c.subtitle}`} loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
+                <Picture src={c.img} alt={`${c.title} — ${c.subtitle}`} sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" className="w-full h-full object-cover group-hover:scale-105 transition duration-700" />
                 <span className="absolute top-3 left-3 mono-label bg-background/90 px-2 py-1 rounded-md">{c.code}</span>
               </div>
               <div className="p-4 flex items-start justify-between gap-2">

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import SectionHeader from "../SectionHeader";
 import { productCategories, type ProductCategory } from "../../data/products";
+import Picture from "../Picture";
 
 function ProductCta({ product }: { product: ProductCategory }) {
   // The label is the link; its ::after covers the whole card so the card is clickable without nesting links.
@@ -20,13 +21,12 @@ function FeaturedProduct({ product }: { product: ProductCategory }) {
   return (
     <article data-product={product.id} className="group relative flex flex-col lg:grid lg:grid-cols-[2fr_3fr] border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-7 lg:row-span-3">
       <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:min-h-[28rem]">
-        <img
+        <Picture
           src={product.image.src}
           alt={product.image.alt}
           width={product.image.width}
           height={product.image.height}
-          loading="lazy"
-          decoding="async"
+          sizes="(min-width: 1024px) 40vw, 100vw"
           className="absolute inset-0 w-full h-full object-cover object-[52%_50%] transition-transform duration-700 group-hover:scale-[1.03]"
         />
         <span className="absolute top-4 left-4 mono-label bg-background/90 px-2.5 py-1.5">{product.number}</span>
@@ -45,13 +45,12 @@ function ProductRow({ product }: { product: ProductCategory }) {
   return (
     <article data-product={product.id} className="group relative grid grid-cols-[7.5rem_1fr] sm:grid-cols-[11rem_1fr] border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-5">
       <div className="relative overflow-hidden min-h-[8.5rem]">
-        <img
+        <Picture
           src={product.image.src}
           alt={product.image.alt}
           width={product.image.width}
           height={product.image.height}
-          loading="lazy"
-          decoding="async"
+          sizes="(min-width: 640px) 11rem, 7.5rem"
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
         />
       </div>

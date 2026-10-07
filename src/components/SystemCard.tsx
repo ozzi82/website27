@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowLink } from "./CtaButton";
+import Picture from "./Picture";
 
 export interface SystemCardProps {
   /** "LP 11-FS" */
@@ -21,7 +22,7 @@ export default function SystemCard({ code, title, img, alt, text, rows, links }:
       <div className="relative overflow-hidden sm:aspect-[4/3] max-sm:min-h-[8rem] max-sm:border-r sm:border-b border-border bg-card">
         {/* The picture opens the system's detail page (the first link below), like the "View system" link. */}
         <Link to={links[0]?.to ?? "#"} tabIndex={-1} className="absolute inset-0 block">
-          <img src={img} alt={alt} width={1200} height={900} loading="lazy" decoding="async" className="h-full w-full object-cover object-[50%_50%] transition-transform duration-500 hover:scale-[1.03]" />
+          <Picture src={img} alt={alt} width={1200} height={900} sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 8rem" className="h-full w-full object-cover object-[50%_50%] transition-transform duration-500 hover:scale-[1.03]" />
         </Link>
         <span className="pointer-events-none absolute top-2 left-2 sm:top-3 sm:left-3 mono-label bg-background/90 px-1.5 sm:px-2 py-1">{code}</span>
       </div>

@@ -1,4 +1,5 @@
 import { configurations } from "../../data/configurations";
+import Picture from "../Picture";
 
 interface ConfigChooserProps {
   onSelect: (configId: string) => void;
@@ -19,10 +20,10 @@ export default function ConfigChooser({ onSelect }: ConfigChooserProps) {
             onClick={() => onSelect(c.id)}
             className="group flex h-full flex-col justify-start text-left rounded-xl border border-border bg-card overflow-hidden hover:border-primary/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary transition-colors"
           >
-            <img
+            <Picture
               src={c.img}
               alt=""
-              loading="lazy"
+              sizes="(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw"
               className="w-full shrink-0 aspect-[16/10] object-cover object-center bg-background"
             />
             <span className="block p-5">

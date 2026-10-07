@@ -35,6 +35,7 @@ import {
 import { projectsForProduct } from "../data/projects";
 import { CTA_LINKS } from "../lib/cta";
 import { SITE_URL, absoluteUrl, breadcrumbJsonLd, type Crumb } from "../lib/seo";
+import Picture from "../components/Picture";
 
 const PATH = `/services/${ULTRA_SLIM_ID}`;
 const crumbs: Crumb[] = [
@@ -298,7 +299,7 @@ export default function UltraSlimPage() {
             {classicSystems.map((s) => (
               <li key={s.id}>
                 <Link to={s.page} className="group grid grid-cols-[7.5rem_minmax(0,1fr)] h-full border border-border bg-card/50 hover:border-primary/60 transition-colors">
-                  <img src={s.img} alt={`${s.code} ${s.subtitle}: sample letter, lit at night`} width={1200} height={900} loading="lazy" decoding="async" className="w-full h-full min-h-[8.5rem] object-cover" />
+                  <Picture src={s.img} alt={`${s.code} ${s.subtitle}: sample letter, lit at night`} width={1200} height={900} sizes="7.5rem" className="w-full h-full min-h-[8.5rem] object-cover" />
                   <div className="p-5 border-l border-border flex flex-col min-w-0">
                     <p className="mono-label text-primary">{s.code}</p>
                     <h3 className="text-xl mt-1 leading-tight">{s.subtitle}</h3>

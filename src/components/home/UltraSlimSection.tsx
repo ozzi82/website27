@@ -4,6 +4,7 @@ import DepthComparison from "../DepthComparison";
 import { ArrowLink } from "../CtaButton";
 import { CTA_LINKS } from "../../lib/cta";
 import { lp11Variants, ultraSlimAttributes as attributes } from "../../data/ultraSlim";
+import Picture from "../Picture";
 
 /**
  * The homepage hero product: Sunlite Ultra-Slim = the EdgeLuxe LP 11 series (cast block acrylic). Header and depth
@@ -58,13 +59,12 @@ export default function UltraSlimSection() {
               <li key={v.id}>
                 <Link to={v.page} className="group block border border-border bg-card/50 hover:border-primary/60 transition-colors h-full">
                   <div className="relative overflow-hidden aspect-[4/3] border-b border-border bg-card">
-                    <img
+                    <Picture
                       src={v.img}
                       alt={`${v.code} ${v.subtitle}: sample letter, lit at night`}
                       width={1200}
                       height={900}
-                      loading="lazy"
-                      decoding="async"
+                      sizes="(min-width: 1024px) 300px, (min-width: 640px) 33vw, 50vw"
                       className="absolute inset-0 w-full h-full object-cover object-[50%_50%] transition-transform duration-700 group-hover:scale-[1.04]"
                     />
                   </div>

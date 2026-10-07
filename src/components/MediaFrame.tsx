@@ -2,6 +2,7 @@ import { useState, type ReactNode } from "react";
 import { Play } from "lucide-react";
 import { cn } from "@project/lib/utils";
 import type { MediaImage, MediaVideo } from "../data/production";
+import Picture from "./Picture";
 
 interface MediaFrameProps {
   image?: MediaImage;
@@ -14,6 +15,8 @@ interface MediaFrameProps {
   placeholder?: ReactNode;
   className?: string;
   imgClassName?: string;
+  /** How wide the frame is drawn at each screen size, so phones fetch a small copy. Default suits a card in a 3-column grid. */
+  sizes?: string;
 }
 
 /**
@@ -21,7 +24,7 @@ interface MediaFrameProps {
  * The video file is never requested until the visitor presses play (poster + play button facade),
  * so future production videos cost nothing on page load.
  */
-export default function MediaFrame({ image, video, aspect = "aspect-[16/10]", priority = false, placeholder, className, imgClassName }: MediaFrameProps) {
+export default function MediaFrame({ image, video, aspect = "aspect-[16/10]", priority = false, placeholder, className, imgClassName, sizes = "(min-width: 1024px) 400px, (min-width: 640px) 50vw, 100vw" }: MediaFrameProps) {
   const [playing, setPlaying] = useState(false);
   const still = video?.poster ?? image;
 
@@ -42,13 +45,13 @@ export default function MediaFrame({ image, video, aspect = "aspect-[16/10]", pr
         </video>
       ) : still ? (
         <>
-          <img
+          <Picture
             src={still.src}
             alt={still.alt}
             width={still.width}
             height={still.height}
-            loading={priority ? "eager" : "lazy"}
-            decoding="async"
+            sizes={sizes}
+            priority={priority}
             className={cn("absolute inset-0 w-full h-full object-cover", imgClassName)}
           />
           {video && (

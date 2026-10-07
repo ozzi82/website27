@@ -1,0 +1,647 @@
+{
+ "/images/custom-blade-sign-jaxen-grey-lit.jpg": {
+  "w": 900,
+  "h": 1600,
+  "widths": [
+   480,
+   900
+  ]
+ },
+ "/images/custom-blade-sign-jaxen-grey-unlit.jpg": {
+  "w": 1280,
+  "h": 1280,
+  "widths": [
+   480,
+   960,
+   1280
+  ]
+ },
+ "/images/custom-cabinet-sign-lit.jpg": {
+  "w": 1600,
+  "h": 1600,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/custom-cabinet-sign-unlit-front.jpg": {
+  "w": 1600,
+  "h": 1600,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/custom-cabinet-sign-unlit-side.jpg": {
+  "w": 1600,
+  "h": 1600,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/custom-hockey-display-back.jpg": {
+  "w": 1600,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/custom-hockey-display-detail.jpg": {
+  "w": 1600,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/custom-hockey-display-front.jpg": {
+  "w": 1600,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/edgeluxe/lp-1-flat-cutout-gold.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-b-back-lit-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-b-back-lit-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-bs-back-side-lit-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-bs-back-side-lit-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-c-conical-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-c-conical-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-f-face-lit-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-f-face-lit-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-fb-face-halo-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-fb-face-halo-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-fs-front-side-lit-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-fs-front-side-lit-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-n-faux-neon-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-n-faux-neon-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-s-side-lit-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-11-s-side-lit-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-3-1-standoff-halo-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-3-1-standoff-halo-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-3-2-flush-mount-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-3-2-flush-mount-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-5-trimless-face-lit-day.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/edgeluxe/lp-5-trimless-face-lit-night.jpg": {
+  "w": 1200,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1200
+  ]
+ },
+ "/images/hero-loop-poster.jpg": {
+  "w": 1600,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/hero-production-poster.jpg": {
+  "w": 1600,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1785345075402-x1ttofrm.png": {
+  "w": 1070,
+  "h": 1022,
+  "widths": [
+   480,
+   960,
+   1070
+  ]
+ },
+ "/images/pasted-image-1786570375809-rwu26du4.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570375947-h0wyc0wv.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570376134-up4s1wdz.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570376266-cgc3d31k.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570376374-6us1e90k.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570376502-qxjiefjq.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570410342-oxxnjk57.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570410480-uma8xz77.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570410639-6pavqage.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786570410759-tip5fu80.jpg": {
+  "w": 1400,
+  "h": 1050,
+  "widths": [
+   480,
+   960,
+   1400
+  ]
+ },
+ "/images/pasted-image-1786571168082-g326u0k5.png": {
+  "w": 1536,
+  "h": 1024,
+  "widths": [
+   480,
+   960,
+   1536
+  ]
+ },
+ "/images/pasted-image-1786571168465-hoggarou.png": {
+  "w": 1254,
+  "h": 1254,
+  "widths": [
+   480,
+   960,
+   1254
+  ]
+ },
+ "/images/pasted-image-1786571174777-ihzwikss.jpg": {
+  "w": 709,
+  "h": 945,
+  "widths": [
+   480,
+   709
+  ]
+ },
+ "/images/pasted-image-1786571178138-56b8eh5p.jpg": {
+  "w": 1920,
+  "h": 1440,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1786571527961-nvve6zo0.jpg": {
+  "w": 1260,
+  "h": 945,
+  "widths": [
+   480,
+   960,
+   1260
+  ]
+ },
+ "/images/pasted-image-1787166590601-hr7ca0em.jpeg": {
+  "w": 1600,
+  "h": 1200,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1787166590730-o61irwkk.jpeg": {
+  "w": 1600,
+  "h": 1200,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1787166590805-pvuw1j0d.jpeg": {
+  "w": 1600,
+  "h": 1200,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1787166590876-4gqe7y4j.jpeg": {
+  "w": 900,
+  "h": 900,
+  "widths": [
+   480,
+   900
+  ]
+ },
+ "/images/pasted-image-1787166590951-kao0m19c.jpeg": {
+  "w": 1600,
+  "h": 1200,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1787166591040-2vakze8k.jpeg": {
+  "w": 1080,
+  "h": 1079,
+  "widths": [
+   480,
+   960,
+   1080
+  ]
+ },
+ "/images/pasted-image-1787683159993-jg0ymerg.png": {
+  "w": 1536,
+  "h": 1024,
+  "widths": [
+   480,
+   960,
+   1536
+  ]
+ },
+ "/images/pasted-image-1787683165508-erx4nd1w.jpg": {
+  "w": 1280,
+  "h": 1792,
+  "widths": [
+   480,
+   960,
+   1280
+  ]
+ },
+ "/images/pasted-image-1787683170345-8s9whs6f.jpg": {
+  "w": 1920,
+  "h": 1440,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1787683185061-7qvr07qi.jpeg": {
+  "w": 1920,
+  "h": 1440,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1787683199236-jg9mjykl.jpg": {
+  "w": 1600,
+  "h": 1200,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1787684052162-akn1dsaq.jpg": {
+  "w": 1260,
+  "h": 945,
+  "widths": [
+   480,
+   960,
+   1260
+  ]
+ },
+ "/images/pasted-image-1787755199271-ob18hn5t.png": {
+  "w": 1920,
+  "h": 1298,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/pasted-image-1787755330414-fxpkbj9m.png": {
+  "w": 1744,
+  "h": 1352,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/production-electrical.jpg": {
+  "w": 1280,
+  "h": 866,
+  "widths": [
+   480,
+   960,
+   1280
+  ]
+ },
+ "/images/production-hand-assembly.jpg": {
+  "w": 1280,
+  "h": 720,
+  "widths": [
+   480,
+   960,
+   1280
+  ]
+ },
+ "/images/production-packaging.jpg": {
+  "w": 1280,
+  "h": 720,
+  "widths": [
+   480,
+   960,
+   1280
+  ]
+ },
+ "/images/production-quality-control.jpg": {
+  "w": 1280,
+  "h": 720,
+  "widths": [
+   480,
+   960,
+   1280
+  ]
+ },
+ "/images/production-ready-for-freight.jpg": {
+  "w": 1600,
+  "h": 900,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/project-olympus-flat.jpg": {
+  "w": 1600,
+  "h": 1200,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/project-olympus-layout.jpg": {
+  "w": 1600,
+  "h": 1200,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/project-piada.jpg": {
+  "w": 1280,
+  "h": 1706,
+  "widths": [
+   480,
+   960,
+   1280
+  ]
+ },
+ "/images/project-quarrix.jpg": {
+  "w": 1280,
+  "h": 1707,
+  "widths": [
+   480,
+   960,
+   1280
+  ]
+ }
+}

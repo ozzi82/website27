@@ -117,6 +117,14 @@ describe("generated site files", () => {
     expect(withStudy).toBe(`# Site\n\n- [A](${ORIGIN}/a): x\n- [Study X](${ORIGIN}/projects/x): What it was.\n- [B](${ORIGIN}/b): y\n`);
   });
 
+  it("nginx caches photos, videos and the 3D lighting file for a month, and the built code for a year", () => {
+    const nginx = read("nginx.conf");
+    for (const dir of ["images", "videos", "configurator"]) {
+      expect(nginx).toMatch(new RegExp(`location /${dir}/ \\{[^}]*expires 30d;`));
+    }
+    expect(nginx).toMatch(/location \/assets\/ \{[^}]*expires 1y;/);
+  });
+
   it("the nginx snippet sends X-Robots-Tag only for noindex builds, and nginx.conf / Dockerfile are wired to it", () => {
     expect(nginxRobotsHeader(true)).toMatch(/add_header X-Robots-Tag "noindex, nofollow" always;/);
     expect(nginxRobotsHeader(false)).not.toContain("add_header");

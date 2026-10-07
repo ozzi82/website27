@@ -48,6 +48,7 @@ import { productCategories } from "../data/products";
 import { projectsByIds, projectsForProduct } from "../data/projects";
 import { CTA_LINKS, CTA_SECONDARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl, breadcrumbJsonLd, type Crumb } from "../lib/seo";
+import Picture from "../components/Picture";
 
 const crumbs: Crumb[] = [
   { label: "Home", to: "/" },
@@ -170,13 +171,12 @@ export default function ChannelLettersPage() {
       <section id="signature" aria-label="Ultra-slim letters" className="border-b border-border scroll-mt-20">
         <div className="max-w-7xl mx-auto px-6 py-10 md:py-14 grid md:grid-cols-[0.8fr_1.2fr] gap-6 md:gap-12 items-center">
           <div className="relative overflow-hidden aspect-[5/4] md:aspect-square border border-border bg-card">
-            <img
+            <Picture
               src={ultraSlimCard.image.src}
               alt={ultraSlimCard.image.alt}
               width={ultraSlimCard.image.width}
               height={ultraSlimCard.image.height}
-              loading="lazy"
-              decoding="async"
+              sizes="(min-width: 768px) 40vw, 100vw"
               className="absolute inset-0 w-full h-full object-cover"
             />
           </div>

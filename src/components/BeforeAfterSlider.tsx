@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from "react";
+import Picture from "./Picture";
 
 export default function BeforeAfterSlider({ dayImg, nightImg }: { dayImg: string; nightImg: string }) {
   const [position, setPosition] = useState(50);
@@ -35,9 +36,9 @@ export default function BeforeAfterSlider({ dayImg, nightImg }: { dayImg: string
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
     >
-      <img src={nightImg} alt="Night" className="absolute inset-0 w-full h-full object-cover" />
+      <Picture src={nightImg} alt="Night" sizes="(min-width: 1024px) 50vw, 100vw" className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0" style={{ clipPath: `inset(0 ${100 - position}% 0 0)` }}>
-        <img src={dayImg} alt="Day" className="w-full h-full object-cover" />
+        <Picture src={dayImg} alt="Day" sizes="(min-width: 1024px) 50vw, 100vw" className="w-full h-full object-cover" />
       </div>
       <div className="absolute top-0 bottom-0 w-0.5 bg-white shadow-lg" style={{ left: `${position}%` }}>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center">
