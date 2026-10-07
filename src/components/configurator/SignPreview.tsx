@@ -53,7 +53,22 @@ function SceneAtmosphere({ dark, background }: { dark: boolean; background: Back
       {/* Explicit background: the canvas is otherwise transparent, and the bloom pass lets the page behind it bleed through as a grey haze. */}
       <color ref={backdrop} attach="background" args={["#2b3242"]} />
       <ambientLight ref={ambient} intensity={0.04} />
-      <directionalLight ref={directional} position={[3, 5, 4]} intensity={0.35} />
+      {/* The key light casts the letters' shadow onto the wall: the contact shadow that makes a sign look mounted, not pasted. */}
+      <directionalLight
+        ref={directional}
+        position={[3, 5, 4]}
+        intensity={0.35}
+        castShadow
+        shadow-mapSize={[2048, 2048]}
+        shadow-camera-left={-3}
+        shadow-camera-right={3}
+        shadow-camera-top={3}
+        shadow-camera-bottom={-3}
+        shadow-camera-near={0.5}
+        shadow-camera-far={18}
+        shadow-bias={-0.0004}
+        shadow-normalBias={0.004}
+      />
       {/* Always mounted (intensity 0 when off): adding/removing a light recompiles every material. */}
       <pointLight ref={point} position={[-1.8, 1.5, 1.8]} intensity={9} />
       <Environment files="/configurator/studio.hdr" />
@@ -128,7 +143,7 @@ export default function SignPreview({ shapes, config, state, captureRef }: SignP
       onReset={() => camera.current?.reset()}
       onRotate={(dTheta, dPhi) => camera.current?.rotate(dTheta, dPhi)}
     >
-      <Canvas camera={CAMERA} dpr={DPR}>
+      <Canvas shadows camera={CAMERA} dpr={DPR}>
         <NightProvider isNight={isNight}>
           <SceneAtmosphere dark={dark} background={getBackground(state.background)} />
           <ConfigScene shapes={shapes} config={config} state={state} />

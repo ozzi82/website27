@@ -45,7 +45,7 @@ export default function BackdropWall({ gap, background, wall, size = WALL_SIZE }
 
   const map = wall?.texture;
   return (
-    <mesh position={[0, 0, -gap]} geometry={geometry}>
+    <mesh position={[0, 0, -gap]} geometry={geometry} receiveShadow>
       {/* The same canvas serves as colour, relief and (faintly) self-lit texture, so the wall keeps its character in the dark. */}
       <meshStandardMaterial
         ref={material}

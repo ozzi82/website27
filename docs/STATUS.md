@@ -140,3 +140,7 @@ Coolify "Redirect to non-www", Google Ads clean-up (Final URLs, search terms, co
 - PDF import is limited (overlapping shapes extrude as stacked solids; stroke-only art and images are skipped).
 
 Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design.md` (Revisions 2-6 at the end).
+
+## Realism round 2 (shadows)
+- Sign now casts a soft contact shadow on the wall (directional light shadow map 2048, bias -0.0004).
+- Still open: satin/brushed metal and clear-coat tuning, acrylic edge glow, wall photo textures (need owner photos of white boards / concrete).

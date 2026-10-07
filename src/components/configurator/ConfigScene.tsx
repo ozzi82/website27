@@ -109,7 +109,7 @@ function SignScene({ shapes, config, state, facade }: ConfigSceneProps) {
 
   return (
     <>
-      <mesh key={config.id} geometry={geometry}>
+      <mesh key={config.id} geometry={geometry} castShadow>
         {sides}
         {face}
       </mesh>
