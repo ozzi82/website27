@@ -28,8 +28,8 @@ interface ConfigSceneProps {
 // Light on the wall behind the letter, by how it gets there (see WallSpill). `scale` is pushed above 1 so it reads as
 // light and feeds the bloom; `spread` is its reach around the outline in world units.
 const WALL_SPILL: Record<Exclude<WallSpill, "none">, { scale: number; spread: number }> = {
-  standoff: { scale: 1.1, spread: 1.5 },
-  flush: { scale: 1.5, spread: 0.6 },
+  standoff: { scale: 1.7, spread: 0.8 },
+  flush: { scale: 4.2, spread: 0.4 },
 };
 
 /**
@@ -76,7 +76,7 @@ function SignScene({ shapes, config, state, facade }: ConfigSceneProps) {
   const spill = WALL_SPILL[parts.wallSpill === "none" ? "flush" : parts.wallSpill];
   const haloColor = useMemo(() => glowColor.clone().multiplyScalar(spill.scale), [glowColor, spill]);
   // The light's reach on the wall is a distance in millimetres, so it is a bigger share of a small sign and a smaller one of a large sign.
-  const haloSpread = Math.min(5, Math.max(0.25, spill.spread * (DEFAULT_SIZE_IN / sizeIn)));
+  const haloSpread = Math.min(5, Math.max(0.1, spill.spread * (DEFAULT_SIZE_IN / sizeIn)));
 
   // material-0 = front/back caps = the face; material-1 = extruded sides —
   // ExtrudeGeometry's own default group convention (see useSignGeometry.ts).

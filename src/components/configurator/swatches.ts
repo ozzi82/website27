@@ -16,10 +16,12 @@ export const PAINT_SWATCHES: Swatch[] = [
 ];
 
 // Glow colours are a fixed set (no free colour picker): four LED white temperatures and six colours.
+// The whites are what an LED of that temperature looks like on a screen next to the photos of the real signs: the eye adapts
+// to a lit sign, so a "3000 K" LED reads as a soft cream, not the saturated orange a black-body calculation gives.
 export const GLOW_SWATCHES: Swatch[] = [
-  { name: "3000 K warm white", hex: "#ffb46b" },
-  { name: "4000 K white", hex: "#ffd6aa" },
-  { name: "5000 K cool white", hex: "#ffeadb" },
+  { name: "3000 K warm white", hex: "#ffdab5" },
+  { name: "4000 K white", hex: "#ffebd4" },
+  { name: "5000 K cool white", hex: "#fff3e8" },
   { name: "6000 K daylight white", hex: "#fff4f0" },
   { name: "Yellow", hex: "#ffd400" },
   { name: "Orange", hex: "#ff8a1a" },

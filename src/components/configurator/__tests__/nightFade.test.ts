@@ -91,12 +91,12 @@ describe("atmosphereFor", () => {
 describe("bloomIntensityFor", () => {
   it("scales the bloom with the night amount for letters that glow", () => {
     expect(bloomIntensityFor(0, true)).toBe(0);
-    expect(bloomIntensityFor(1, true)).toBeCloseTo(0.55, 6);
-    expect(bloomIntensityFor(0.5, true)).toBeCloseTo(0.275, 6);
+    expect(bloomIntensityFor(1, true)).toBeCloseTo(0.35, 6);
+    expect(bloomIntensityFor(0.5, true)).toBeCloseTo(0.175, 6);
   });
 
   it("follows the dimmer: half level is half the bloom, and none at all at 0", () => {
-    expect(bloomIntensityFor(1, true, 0.25)).toBeCloseTo(0.1375, 6);
+    expect(bloomIntensityFor(1, true, 0.25)).toBeCloseTo(0.0875, 6);
     expect(bloomIntensityFor(1, true, 0)).toBe(0);
   });
 

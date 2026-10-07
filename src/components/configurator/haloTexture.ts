@@ -1,6 +1,8 @@
 import * as THREE from "three";
 
-const PX_PER_UNIT = 100;
+const PX_PER_UNIT = 200;
+/** Longest side of the glow canvas in pixels: bigger glows (tiny signs) are drawn at a lower resolution. */
+const MAX_CANVAS_PX = 1800;
 
 // Three box-blur passes approximate a gaussian. Never writes into `src`: the
 // six ping-pong passes would otherwise land the result back in the caller's
@@ -48,8 +50,9 @@ export function createHaloGlow(shapes: THREE.Shape[], spread: number) {
   const size = box.getSize(new THREE.Vector2());
   const width = size.x + spread * 2;
   const height = size.y + spread * 2;
-  const w = Math.ceil(width * PX_PER_UNIT);
-  const h = Math.ceil(height * PX_PER_UNIT);
+  const px = Math.min(PX_PER_UNIT, MAX_CANVAS_PX / Math.max(width, height));
+  const w = Math.ceil(width * px);
+  const h = Math.ceil(height * px);
 
   const canvas = document.createElement("canvas");
   canvas.width = w;
@@ -59,8 +62,8 @@ export function createHaloGlow(shapes: THREE.Shape[], spread: number) {
   ctx.beginPath();
   for (const ring of rings) {
     ring.forEach((p, i) => {
-      const x = (p.x - center.x + width / 2) * PX_PER_UNIT;
-      const y = (center.y - p.y + height / 2) * PX_PER_UNIT;
+      const x = (p.x - center.x + width / 2) * px;
+      const y = (center.y - p.y + height / 2) * px;
       if (i === 0) ctx.moveTo(x, y);
       else ctx.lineTo(x, y);
     });
@@ -72,8 +75,8 @@ export function createHaloGlow(shapes: THREE.Shape[], spread: number) {
   const rgba = ctx.getImageData(0, 0, w, h).data;
   const mask = new Float32Array(w * h);
   for (let i = 0; i < mask.length; i++) mask[i] = rgba[i * 4 + 3] / 255;
-  const wide = gaussianBlur(mask, w, h, spread * 0.1 * PX_PER_UNIT);
-  const tight = gaussianBlur(mask, w, h, spread * 0.035 * PX_PER_UNIT);
+  const wide = gaussianBlur(mask, w, h, spread * 0.1 * px);
+  const tight = gaussianBlur(mask, w, h, spread * 0.035 * px);
 
   const data = new Uint16Array(w * h * 4);
   const one = THREE.DataUtils.toHalfFloat(1);
