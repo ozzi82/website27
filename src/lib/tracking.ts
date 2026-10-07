@@ -31,6 +31,31 @@ export const TRACKING = {
 
 let started = false;
 
+const WAKE_EVENTS = ["pointerdown", "touchstart", "keydown", "scroll", "mousemove"] as const;
+
+/**
+ * Runs `start` once: on the visitor's first sign of life (touch, click, key, scroll, mouse move) or `maxWaitMs` after the page
+ * finished loading, whichever comes first. Google's tag scripts weigh about 500 KB and run for a long time, so they
+ * are kept out of the way of the first paint; events pushed to the dataLayer meanwhile are processed once they load.
+ */
+export function onFirstInteraction(start: () => void, maxWaitMs = 8000): void {
+  let done = false;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const go = () => {
+    if (done) return;
+    done = true;
+    clearTimeout(timer);
+    for (const e of WAKE_EVENTS) window.removeEventListener(e, go);
+    start();
+  };
+  for (const e of WAKE_EVENTS) window.addEventListener(e, go, { once: true, passive: true });
+  const arm = () => {
+    timer = setTimeout(go, maxWaitMs);
+  };
+  if (document.readyState === "complete") arm();
+  else window.addEventListener("load", arm, { once: true });
+}
+
 function ensureGtag(): void {
   window.dataLayer = window.dataLayer || [];
   // Google's tags read `arguments` objects from the dataLayer, so this must be a plain function using `arguments`.
@@ -77,15 +102,17 @@ export function initTracking(): void {
   window.addEventListener(CONSENT_EVENT, (e) => applyConsent((e as CustomEvent<ConsentChoice>).detail));
 
   if (TRACKING.gtmId) {
-    window.dataLayer!.push({ "gtm.start": Date.now(), event: "gtm.js" });
-    loadScript(`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(TRACKING.gtmId)}`);
+    onFirstInteraction(() => {
+      window.dataLayer!.push({ "gtm.start": Date.now(), event: "gtm.js" });
+      loadScript(`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(TRACKING.gtmId)}`);
+    });
   } else if (TRACKING.ga4Id || TRACKING.adsId) {
     const first = TRACKING.ga4Id || TRACKING.adsId;
-    loadScript(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(first)}`);
     window.gtag!("js", new Date());
     // Page views are sent by trackPageView (single-page site), so the automatic one is off.
     if (TRACKING.ga4Id) window.gtag!("config", TRACKING.ga4Id, { send_page_view: false });
     if (TRACKING.adsId) window.gtag!("config", TRACKING.adsId);
+    onFirstInteraction(() => loadScript(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(first)}`));
   }
 }
 

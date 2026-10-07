@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { CONSENT_EVENT, clearConsent, getConsent, setConsent } from "../consent";
 
 beforeEach(() => {
@@ -78,5 +78,32 @@ describe("live chat", () => {
     expect(script.src).toBe(`https://js-na1.hs-scripts.com/${HUBSPOT_PORTAL_ID}.js`);
     loadChat();
     expect(document.querySelectorAll("#hs-script-loader")).toHaveLength(1);
+  });
+});
+
+describe("onFirstInteraction", () => {
+  afterEach(() => vi.useRealTimers());
+
+  it("starts on the first sign of life, once", async () => {
+    const { onFirstInteraction } = await import("../tracking");
+    const start = vi.fn();
+    onFirstInteraction(start);
+    expect(start).not.toHaveBeenCalled();
+    window.dispatchEvent(new Event("scroll"));
+    window.dispatchEvent(new Event("keydown"));
+    expect(start).toHaveBeenCalledTimes(1);
+  });
+
+  it("starts by itself after the wait once the page has loaded, and not before", async () => {
+    vi.useFakeTimers();
+    const { onFirstInteraction } = await import("../tracking");
+    const start = vi.fn();
+    onFirstInteraction(start, 5000);
+    vi.advanceTimersByTime(4999);
+    expect(start).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(2);
+    expect(start).toHaveBeenCalledTimes(1);
+    window.dispatchEvent(new Event("pointerdown"));
+    expect(start).toHaveBeenCalledTimes(1);
   });
 });
