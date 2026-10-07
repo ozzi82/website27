@@ -47,11 +47,14 @@ export function atmosphereFor(n: number, dark: boolean): Atmosphere {
 }
 
 const NIGHT_BLOOM = 0.35;
+export const NIGHT_BLOOM_DEFAULT = NIGHT_BLOOM;
+/** Letters whose face is the light (LP 5, LP 11-F, ...) glow into the air around them, like an illuminated sign photographed at night. */
+export const FACE_BLOOM = 1.2;
 
 /**
  * Bloom stays mounted and only its strength follows the fade; an unlit letter never blooms.
  * `level` is the dimmer (0-1): at 0 there is no bloom at all, so a switched-off sign shows no halo artefacts.
  */
-export function bloomIntensityFor(n: number, lit: boolean, level = 1): number {
-  return lit ? NIGHT_BLOOM * n * level : 0;
+export function bloomIntensityFor(n: number, lit: boolean, level = 1, strength = NIGHT_BLOOM): number {
+  return lit ? strength * n * level : 0;
 }

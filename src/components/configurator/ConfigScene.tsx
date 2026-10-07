@@ -8,6 +8,7 @@ import NightEffects from "./NightEffects";
 import { backgroundAtScale, getBackground } from "./backgrounds";
 import { useWallTexture } from "./useWallTexture";
 import { GlowMaterial, PaintedMaterial, SideLitMaterial } from "./SceneMaterials";
+import { FACE_BLOOM } from "./nightFade";
 import { NEON_MAX_ROUND_MM, depthWorldFor, litBandThickness, wallGapFor } from "./renderMath";
 import { DEFAULT_SIZE_IN, mmToWorld } from "./realSize";
 import { brightnessFactor } from "./brightness";
@@ -120,7 +121,7 @@ function SignScene({ shapes, config, state, facade }: ConfigSceneProps) {
         <HaloGlow shapes={shapes} z={-gap + 0.003} color={haloColor} spread={haloSpread} background={background} wall={wall} level={level} />
       )}
 
-      <NightEffects lit={lit} level={level} />
+      <NightEffects lit={lit} level={level} bloom={parts.face ? FACE_BLOOM : undefined} />
     </>
   );
 }

@@ -3,6 +3,7 @@ import {
   FADE_SECONDS,
   atmosphereFor,
   bloomIntensityFor,
+  FACE_BLOOM,
   easeInOut,
   lerp,
   stepProgress,
@@ -85,6 +86,16 @@ describe("atmosphereFor", () => {
     const a = atmosphereFor(0.5, true);
     expect(a.point).toBeCloseTo(4.5, 6);
     expect(a.directional).toBeCloseTo(0.475, 6);
+  });
+});
+
+describe("bloom strength", () => {
+  it("face-lit letters get a stronger glow than the others, and it still scales with night and the dimmer", () => {
+    expect(FACE_BLOOM).toBeGreaterThan(bloomIntensityFor(1, true));
+    expect(bloomIntensityFor(1, true, 1, FACE_BLOOM)).toBeCloseTo(FACE_BLOOM, 6);
+    expect(bloomIntensityFor(0.5, true, 1, FACE_BLOOM)).toBeCloseTo(FACE_BLOOM / 2, 6);
+    expect(bloomIntensityFor(1, true, 0, FACE_BLOOM)).toBe(0);
+    expect(bloomIntensityFor(1, false, 1, FACE_BLOOM)).toBe(0);
   });
 });
 

@@ -3,20 +3,20 @@ import type { BloomEffect } from "postprocessing";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { DayNightToneMapping } from "./DayNightToneMapping";
 import { useNightEffect } from "./NightContext";
-import { bloomIntensityFor } from "./nightFade";
+import { bloomIntensityFor, NIGHT_BLOOM_DEFAULT } from "./nightFade";
 
 /**
  * Bloom and tone mapping, mounted for day and night alike so a change never pops a pass in
  * or out: the fade drives the bloom intensity and the tone mapper's day-to-night crossfade.
  * EffectComposer replaces the renderer's own tone mapping, hence the explicit one.
  */
-export default function NightEffects({ lit, level = 1 }: { lit: boolean; level?: number }) {
+export default function NightEffects({ lit, level = 1, bloom: strength = NIGHT_BLOOM_DEFAULT }: { lit: boolean; level?: number; /** Peak bloom strength at night (face-lit letters use a stronger glow). */ bloom?: number }) {
   const bloom = useRef<BloomEffect>(null);
   const toneMapping = useMemo(() => new DayNightToneMapping(), []);
 
   useNightEffect((n) => {
     // The wrapper types its ref as the effect class rather than an instance, so `bloom` is cast below.
-    if (bloom.current) bloom.current.intensity = bloomIntensityFor(n, lit, level);
+    if (bloom.current) bloom.current.intensity = bloomIntensityFor(n, lit, level, strength);
     toneMapping.night = n;
   });
 
