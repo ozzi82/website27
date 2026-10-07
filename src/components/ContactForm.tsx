@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import { getAttribution, trackLead } from "../lib/tracking";
-import { attachFilesToInput, clearFileInput, findFileInput, formDocuments, holdsFiles } from "./hubspotFile";
+import { attachFilesToInput, clearFileInput, fillHiddenFields, findFileInput, formDocuments, holdsFiles } from "./hubspotFile";
 import { CTA_PRIMARY } from "../lib/cta";
 
 declare global {
@@ -158,13 +158,7 @@ export default function HubSpotForm({ prefill = null, aboveForm, attachments = N
   const applyAttribution = useCallback(() => {
     const root = containerRef.current;
     if (!root) return;
-    for (const [name, value] of Object.entries(getAttribution())) {
-      const field = root.querySelector<HTMLInputElement>(`input[name="${name}"]`);
-      if (!field || !value) continue;
-      field.value = value;
-      field.dispatchEvent(new Event("input", { bubbles: true }));
-      field.dispatchEvent(new Event("change", { bubbles: true }));
-    }
+    fillHiddenFields(root, getAttribution());
   }, []);
 
   useEffect(() => {

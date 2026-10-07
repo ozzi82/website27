@@ -16,6 +16,30 @@ export function formDocuments(root: HTMLElement): Document[] {
   return docs;
 }
 
+/**
+ * Writes the visit's campaign tags (gclid, utm_source, ...) into the form's hidden fields of the same names. HubSpot draws
+ * the form in a same-origin iframe, so every document that may hold the fields is searched; values are written the way the
+ * field's own window would (its own Event class), and "input"/"change" are fired so HubSpot's form state picks them up.
+ * Returns the names of the fields that were filled.
+ */
+export function fillHiddenFields(root: HTMLElement, values: Record<string, string | undefined>): string[] {
+  const filled: string[] = [];
+  for (const doc of formDocuments(root)) {
+    const scope: ParentNode = doc === root.ownerDocument ? root : doc;
+    for (const [name, value] of Object.entries(values)) {
+      if (!value) continue;
+      const field = scope.querySelector<HTMLInputElement>(`input[name="${name}"]`);
+      if (!field || filled.includes(name)) continue;
+      field.value = value;
+      const win = field.ownerDocument.defaultView ?? window;
+      field.dispatchEvent(new win.Event("input", { bubbles: true }));
+      field.dispatchEvent(new win.Event("change", { bubbles: true }));
+      filled.push(name);
+    }
+  }
+  return filled;
+}
+
 const FILE_FIELD_NAME = "upload_your_file_here";
 
 /** The form's file field: the one named `upload_your_file_here`, otherwise the only file input there is. */

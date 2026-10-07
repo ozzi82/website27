@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { attachFileToInput, clearFileInput, findFileInput, isSameFile } from "../hubspotFile";
+import { attachFileToInput, clearFileInput, fillHiddenFields, findFileInput, isSameFile } from "../hubspotFile";
 import { FakeDataTransfer, makeFileInput } from "./helpers/fakeFileInput";
 
 const svg = (name = "logo.svg") => new File(["<svg/>"], name, { type: "image/svg+xml", lastModified: 5 });
@@ -144,5 +144,50 @@ describe("findFileInput", () => {
     const only = makeFileInput(document, "attachment");
     root.appendChild(only);
     expect(findFileInput(root)).toBe(only);
+  });
+});
+
+describe("fillHiddenFields", () => {
+  const hidden = (doc: Document, name: string) => {
+    const i = doc.createElement("input");
+    i.type = "hidden";
+    i.name = name;
+    return i;
+  };
+
+  it("fills hidden fields that sit directly in the container", () => {
+    const root = document.createElement("div");
+    document.body.appendChild(root);
+    const g = hidden(document, "gclid");
+    const m = hidden(document, "utm_medium");
+    root.append(g, m);
+    expect(fillHiddenFields(root, { gclid: "TEST1", utm_medium: "cpc", utm_term: "x" }).sort()).toEqual(["gclid", "utm_medium"]);
+    expect(g.value).toBe("TEST1");
+    expect(m.value).toBe("cpc");
+  });
+
+  it("fills hidden fields inside the iframe HubSpot draws the form in, and tells the form about it", () => {
+    const root = document.createElement("div");
+    document.body.appendChild(root);
+    const frame = document.createElement("iframe");
+    root.appendChild(frame);
+    const doc = frame.contentDocument!;
+    const field = hidden(doc, "utm_source");
+    doc.body.appendChild(field);
+    const events: string[] = [];
+    field.addEventListener("input", () => events.push("input"));
+    field.addEventListener("change", () => events.push("change"));
+    expect(fillHiddenFields(root, { utm_source: "google" })).toEqual(["utm_source"]);
+    expect(field.value).toBe("google");
+    expect(events).toEqual(["input", "change"]);
+  });
+
+  it("skips empty values and names the form does not have", () => {
+    const root = document.createElement("div");
+    document.body.appendChild(root);
+    const g = hidden(document, "gclid");
+    root.appendChild(g);
+    expect(fillHiddenFields(root, { gclid: "", utm_source: "google" })).toEqual([]);
+    expect(g.value).toBe("");
   });
 });
