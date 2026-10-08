@@ -4,9 +4,9 @@ import type { LightConfig } from "../../data/configurations";
 import { BACKGROUNDS } from "./backgrounds";
 import DayNightToggle from "./DayNightToggle";
 import SegmentedControl from "./SegmentedControl";
-import { BRUSHED_SWATCH, GLOW_SWATCHES, PAINT_SWATCHES, VINYL_SWATCHES, type Swatch } from "./swatches";
+import { BRUSHED_SWATCH, GLOW_SWATCHES, PAINT_SWATCHES, type Swatch } from "./swatches";
 import { thinStrokeAdvice } from "./strokeGuard";
-import { depthOptionsFor, effectiveConfig, emitsLight, formatDepth, hasFaceVinyl, withBuild, withFinish, withVariant, type ConfiguratorState } from "./types";
+import { depthOptionsFor, effectiveConfig, emitsLight, formatDepth, withBuild, withFinish, withVariant, type ConfiguratorState } from "./types";
 import { MOUNT_LABEL } from "../../data/configurations";
 import { LP1_FINISHES, getLp1Finish, isLp1, type Lp1Build } from "./lp1Materials";
 import { MAX_SIZE_IN, MIN_SIZE_IN, MM_PER_INCH, dimensionsIn, sizeFromHeightIn, sizeFromWidthIn } from "./realSize";
@@ -35,13 +35,13 @@ const BIG = "[&_label]:py-1.5 [&_label]:text-sm [&_label]:font-semibold";
 /** One compact row: a short label on the left, the control on the right. */
 function Row({ label, htmlFor, labelId, children }: { label: string; htmlFor?: string; labelId?: string; children: ReactNode }) {
   return (
-    <div className="grid grid-cols-[5.25rem_minmax(0,1fr)] items-center gap-x-3">
+    <div className="grid grid-cols-[5.25rem_minmax(0,1fr)] items-center gap-x-3 lg:grid-cols-1 lg:gap-y-2">
       {htmlFor ? (
-        <label htmlFor={htmlFor} className="text-sm font-medium">
+        <label htmlFor={htmlFor} className="text-sm font-medium lg:font-normal lg:text-muted-foreground">
           {label}
         </label>
       ) : (
-        <span id={labelId} className="text-sm font-medium">
+        <span id={labelId} className="text-sm font-medium lg:font-normal lg:text-muted-foreground">
           {label}
         </span>
       )}
@@ -66,18 +66,22 @@ function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true
   const labelId = useId();
   return (
     <Row label={label} labelId={labelId}>
-      <div role="group" aria-label={legend} className="flex flex-wrap items-center gap-1.5 lg:gap-2.5">
+      <div role="group" aria-label={legend} className="flex flex-wrap items-start gap-1.5 lg:gap-x-4 lg:gap-y-3">
         {swatches.map((s) => (
-          <button
-            key={s.hex}
-            type="button"
-            title={s.name}
-            aria-label={`${legend}: ${s.name}`}
-            aria-pressed={value.toLowerCase() === s.hex}
-            onClick={() => onChange(s.hex)}
-            style={s.look ? { background: s.look } : { backgroundColor: s.hex }}
-            className="h-6 w-6 rounded-full border border-border lg:h-8 lg:w-8 aria-pressed:ring-2 aria-pressed:ring-primary aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-          />
+          <div key={s.hex} className="flex flex-col items-center gap-1.5 lg:w-[4.25rem]">
+            <button
+              type="button"
+              title={s.name}
+              aria-label={`${legend}: ${s.name}`}
+              aria-pressed={value.toLowerCase() === s.hex}
+              onClick={() => onChange(s.hex)}
+              style={s.look ? { background: s.look } : { backgroundColor: s.hex }}
+              className="h-6 w-6 rounded-full border border-border lg:h-10 lg:w-10 aria-pressed:ring-2 aria-pressed:ring-brand aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+            />
+            <span aria-hidden="true" className="hidden text-center text-[11px] leading-tight text-muted-foreground lg:block">
+              {s.name}
+            </span>
+          </div>
         ))}
         {allowCustom && <input
           type="color"
@@ -88,9 +92,6 @@ function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true
           className="h-6 w-8 cursor-pointer rounded border border-border bg-transparent p-0.5"
         />}
       </div>
-      <p aria-hidden="true" className="mt-2 hidden text-xs text-muted-foreground lg:block">
-        {swatches.find((s) => s.hex === value.toLowerCase())?.name ?? value}
-      </p>
     </Row>
   );
 }
@@ -135,22 +136,22 @@ function SizeInputs({ sizeIn, aspect, onSize }: { sizeIn: number; aspect: number
       else setH(show(height));
     } else setH(show(height));
   };
-  const field = "w-[4.4rem] rounded-md border border-border bg-background px-2 py-1 text-sm tabular-nums focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
+  const field = "w-[4.4rem] rounded-md border border-input bg-card px-2 py-1 text-sm tabular-nums focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring lg:h-11 lg:w-full lg:rounded-xl lg:px-3 lg:text-base";
   const key = (commit: () => void) => (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") commit();
   };
   return (
     <div className="space-y-1.5">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-        <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          Width
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 lg:grid lg:grid-cols-2 lg:gap-3">
+        <label className="flex items-center gap-1.5 text-xs text-muted-foreground lg:flex-col lg:items-stretch lg:gap-1.5 lg:text-sm">
+          <span>Width<span className="hidden lg:inline"> (inches)</span></span>
           <input type="number" inputMode="decimal" aria-label="Width in inches" min={MIN_SIZE_IN} max={MAX_SIZE_IN} step="any" value={w} onChange={(e) => setW(e.target.value)} onBlur={commitWidth} onKeyDown={key(commitWidth)} className={field} />
-          <span aria-hidden="true">″</span>
+          <span aria-hidden="true" className="lg:hidden">″</span>
         </label>
-        <label className="flex items-center gap-1.5 text-xs text-muted-foreground">
-          Height
+        <label className="flex items-center gap-1.5 text-xs text-muted-foreground lg:flex-col lg:items-stretch lg:gap-1.5 lg:text-sm">
+          <span>Height<span className="hidden lg:inline"> (inches)</span></span>
           <input type="number" inputMode="decimal" aria-label="Height in inches" min={MIN_SIZE_IN} max={MAX_SIZE_IN} step="any" value={h} onChange={(e) => setH(e.target.value)} onBlur={commitHeight} onKeyDown={key(commitHeight)} className={field} />
-          <span aria-hidden="true">″</span>
+          <span aria-hidden="true" className="lg:hidden">″</span>
         </label>
       </div>
       <div className="flex flex-wrap items-center gap-1.5">
@@ -316,17 +317,6 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         />
       )}
 
-      {hasFaceVinyl(config) && g("colour") && (
-        <ColorRow
-          label="Vinyl"
-          legend="Front vinyl"
-          value={state.faceVinyl}
-          swatches={VINYL_SWATCHES}
-          onChange={(hex) => set({ faceVinyl: hex })}
-          allowCustom={false}
-        />
-      )}
-
       {lights && g("light") && (
         <Row label="Brightness" htmlFor={brightnessId}>
           <div className="flex items-center gap-2">
@@ -339,7 +329,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
               value={state.brightness}
               onChange={(e) => set({ brightness: Number(e.target.value) })}
               aria-valuetext={`${state.brightness} percent`}
-              className="h-5 min-w-0 flex-1 cursor-pointer accent-[hsl(var(--primary))]"
+              className="h-5 min-w-0 flex-1 cursor-pointer accent-[hsl(var(--brand))]"
             />
             <span aria-hidden="true" className="w-10 text-right text-xs tabular-nums text-muted-foreground">
               {state.brightness}%

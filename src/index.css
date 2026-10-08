@@ -71,6 +71,10 @@
 
     --radius: 0.875rem;
 
+    /* Sunlite orange: the one accent that stays orange when a section re-points --primary (see .cfg-light). */
+    --brand: 25 88% 55%;
+    --brand-foreground: 0 0% 100%;
+
     --chart-1: 25 88% 55%;
     --chart-2: 22 55% 45%;
     --chart-3: 210 16% 55%;
@@ -109,6 +113,49 @@
 }
 
 @layer base {
+  /*
+   * The 3D configurator is a light, app-like surface inside the dark site. Re-pointing the tokens here lets every existing
+   * component follow: deep charcoal navy for text, icons and selected controls (--primary), white cards on an off-white page,
+   * and orange kept for the primary action, selected swatches and sliders only (--brand).
+   */
+  .cfg-light {
+    --background: 40 14% 97%;
+    --foreground: 225 26% 12%;
+    --muted: 220 14% 95%;
+    --muted-foreground: 222 10% 40%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 26% 12%;
+    --border: 220 13% 89%;
+    --input: 220 13% 85%;
+    --card: 0 0% 100%;
+    --card-foreground: 225 26% 12%;
+    --primary: 225 26% 12%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 95%;
+    --secondary-foreground: 225 26% 12%;
+    --accent: 220 14% 93%;
+    --accent-foreground: 225 26% 12%;
+    --ring: 225 26% 12%;
+    --shadow-color: #171b27;
+    --shadow-opacity: 0.08;
+    color-scheme: light;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+  }
+  .cfg-light h1, .cfg-light h2, .cfg-light h3, .cfg-light h4 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+  .cfg-light .mono-label {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+  }
   * {
     @apply border-border outline-ring/50;
   }

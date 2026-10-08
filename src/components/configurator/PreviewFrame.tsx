@@ -14,6 +14,10 @@ interface PreviewFrameProps {
   onDownload?: () => Promise<void>;
   /** Hide the "Drag to rotate" hint (desktop shows the scene bar there instead). */
   hideHint?: boolean;
+  /** Drop the zoom / reset buttons at the top right (desktop puts them in the floating bar). */
+  hideControls?: boolean;
+  /** A floating bar along the bottom edge. */
+  bar?: ReactNode;
   children: ReactNode;
 }
 
@@ -25,7 +29,7 @@ const BUTTON =
  * and arrow / plus / minus / 0 keys while it has focus. Dragging and pinching are handled by
  * the camera controls inside the canvas.
  */
-export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, onDownload, hideHint, children }: PreviewFrameProps) {
+export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, onDownload, hideHint, hideControls, bar, children }: PreviewFrameProps) {
   const [downloading, setDownloading] = useState(false);
   async function handleDownload() {
     if (!onDownload || downloading) return;
@@ -77,7 +81,7 @@ export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, o
       className="relative h-full min-h-[220px] w-full cursor-grab overflow-hidden rounded-xl border border-border bg-card active:cursor-grabbing focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
     >
       {children}
-      <div className="absolute right-3 top-3 flex flex-col gap-1.5">
+      {!hideControls && <div className="absolute right-3 top-3 flex flex-col gap-1.5">
         <button type="button" aria-label="Zoom in" title="Zoom in" onClick={onZoomIn} className={BUTTON}>
           <ZoomIn aria-hidden="true" className="h-4 w-4" />
         </button>
@@ -88,7 +92,8 @@ export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, o
           <RotateCcw aria-hidden="true" className="h-4 w-4" />
         </button>
 
-      </div>
+      </div>}
+      {bar && <div className="absolute bottom-3 left-3 right-40 z-10 flex justify-center">{bar}</div>}
       {onDownload && (
         <button
           type="button"

@@ -191,3 +191,9 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - Desktop: "Your sign" panel (collapsible sections), text box + font dropdown side by side, bigger swatches with the selected name, sign-type dropdown on the preview, floating bar (Day/Night + wall-material circles), slim summary strip with the disclaimer, vignette on the preview.
 - Not done: photo-real render button (see conversation), Save design.
 - Home photo strip: separated from the trust bar (own section with a 'Recent installs' label, rounded photos with gaps, faded edges, slow drift).
+
+## Configurator light redesign (owner's white mockup, brand colours)
+- The configurator is a light, app-like surface: own slim header (logo, 3D Configurator, phone, Back to website), no site header/footer, `.cfg-light` token set in index.css (navy --primary for text/selected controls, orange --brand only for the main button, selected swatches and sliders).
+- Desktop: big preview with sign-type dropdown and a floating bar (Day/Night, wall material, Reset, zoom), current-configuration card with a thumbnail under it, grey "Make it yours" panel (Your artwork, Size and build, Colour and finish, Lighting), Preview on a building + orange Request wholesale pricing.
+- Tablet/phone: same light styling, preview on top, bottom tab bar.
+- The face-vinyl option (LP 11-FS) was removed (confusing; a coloured vinyl never matched a different glow colour).

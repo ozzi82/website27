@@ -1,7 +1,7 @@
 import NotFoundPage from "./pages/NotFoundPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import { lazy, Suspense } from "react";
-import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route, useLocation } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import CookieBanner from "./components/CookieBanner";
@@ -27,9 +27,11 @@ const ConfiguratorPage = lazy(() => import("./pages/ConfiguratorPage"));
  * (inside StaticRouter, see entry-server.tsx).
  */
 export function AppRoutes() {
+  // The configurator brings its own slim header and no footer: it is an app-like screen.
+  const app = useLocation().pathname === "/configurator";
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
+      {!app && <Header />}
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -60,7 +62,7 @@ export function AppRoutes() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <Footer />
+      {!app && <Footer />}
       <CookieBanner />
       <ChatLauncher />
       <TrackingListener />

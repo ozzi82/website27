@@ -26,8 +26,6 @@ export interface ConfiguratorState {
   color: string;
   /** Hex colour of the light-emitting parts. */
   glowColor: string;
-  /** Front-side-lit letters (LP 11-FS): colour of the vinyl on the lit face; NO_VINYL leaves the face the glow colour. */
-  faceVinyl: string;
   dayNight: DayNight;
   /** LED dimmer, 0-100 percent (only meaningful for configurations that emit light). */
   brightness: number;
@@ -59,16 +57,6 @@ const PREFERRED_DEPTH_MM: Record<LightConfig["family"], number> = {
   "Block acrylic": 30,
 };
 
-export const NO_VINYL = "#ffffff";
-export const DEFAULT_FACE_VINYL = "#ff1a1a";
-
-/** The glowing face is covered with coloured vinyl so the light visibly comes out of the front as well as the edge. */
-export const hasFaceVinyl = (config: LightConfig): boolean => config.light.face === "glow" && config.light.side === "partial-front";
-
-/** Colour the lit face shows: the vinyl when there is one, otherwise the glow colour. */
-export const faceColorOf = (config: LightConfig, state: ConfiguratorState): string =>
-  hasFaceVinyl(config) && state.faceVinyl.toLowerCase() !== NO_VINYL ? state.faceVinyl : state.glowColor;
-
 export function defaultStateFor(config: LightConfig): ConfiguratorState {
   const preferred = isLp1(config) ? lp1DefaultDepth(DEFAULT_LP1_BUILD) : PREFERRED_DEPTH_MM[config.family];
   const options = isLp1(config) ? lp1DepthOptions(DEFAULT_LP1_BUILD) : config.depthOptionsMm;
@@ -80,7 +68,6 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
     depthMm,
     color: config.family === "Stainless steel" ? BRUSHED_HEX : DEFAULT_PAINT_COLOR,
     glowColor: DEFAULT_GLOW_COLOR,
-    faceVinyl: hasFaceVinyl(config) ? DEFAULT_FACE_VINYL : NO_VINYL,
     dayNight: "day",
     brightness: DEFAULT_BRIGHTNESS,
     background: DEFAULT_BACKGROUND,
@@ -121,7 +108,6 @@ export function switchConfig(prev: ConfiguratorState, next: LightConfig): Config
     // Brushed stainless only exists on the stainless-steel letters: other families fall back to their own default colour.
     color: prev.color.toLowerCase() === BRUSHED_HEX && next.family !== "Stainless steel" ? fresh.color : prev.color,
     glowColor: prev.glowColor,
-    faceVinyl: fresh.faceVinyl,
     brightness: prev.brightness,
     dayNight: prev.dayNight,
     background: prev.background,

@@ -7,7 +7,7 @@ describe("ArtworkSourceToggle", () => {
   it("is a labelled radio group with 'Upload logo' and 'Type text'", () => {
     render(<ArtworkSourceToggle value="upload" onChange={() => {}} />);
     expect(screen.getByRole("radiogroup", { name: /artwork/i })).toBeInTheDocument();
-    expect(screen.getAllByRole("radio").map((r) => r.getAttribute("value"))).toEqual(["upload", "text"]);
+    expect(screen.getAllByRole("radio").map((r) => r.getAttribute("value"))).toEqual(["text", "upload"]);
     expect(screen.getByRole("radio", { name: "Upload logo" })).toBeChecked();
     expect(screen.getByRole("radio", { name: "Type text" })).not.toBeChecked();
   });

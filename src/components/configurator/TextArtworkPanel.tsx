@@ -20,7 +20,7 @@ interface TextArtworkPanelProps {
   compact?: boolean;
 }
 
-const FIELD = "w-full rounded-lg border-2 border-primary bg-card px-4 py-2.5 text-xl font-semibold shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
+const FIELD = "w-full rounded-xl border border-input bg-card px-4 py-3 text-lg font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring";
 
 /** Typed-text artwork: a small multi-line box plus a picker of the bundled fonts, each shown in its own face. */
 export default function TextArtworkPanel({
@@ -46,10 +46,10 @@ export default function TextArtworkPanel({
   const used = Array.from(text.replace(/\n/g, "")).length;
 
   return (
-    <section aria-label="Text artwork" className={compact ? "grid grid-cols-[minmax(0,1fr)_12rem] items-start gap-x-3 gap-y-2" : "space-y-2"}>
+    <section aria-label="Text artwork" className={compact ? "space-y-4" : "space-y-2"}>
       <div className="space-y-1">
-        <label className="mono-label block text-primary" htmlFor={textId}>
-          Type your text
+        <label className="block text-sm font-semibold" htmlFor={textId}>
+          Your text
         </label>
         <textarea
           id={textId}
@@ -85,7 +85,7 @@ export default function TextArtworkPanel({
 
       {compact ? (
         <div className="space-y-1">
-          <label className="mono-label block text-primary" htmlFor={fontName}>
+          <label className="mb-1 block text-sm font-semibold" htmlFor={fontName}>
             Font
           </label>
           <select
@@ -93,7 +93,7 @@ export default function TextArtworkPanel({
             value={fontId}
             onChange={(e) => onFontChange(e.target.value)}
             style={{ fontFamily: `"${(fonts.find((f) => f.id === fontId) ?? fonts[0]).cssFamily}", sans-serif` }}
-            className="h-[3.25rem] w-full rounded-lg border-2 border-border bg-card px-3 text-lg font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+            className="h-12 w-full rounded-xl border border-input bg-card px-4 text-lg font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
           >
             {fonts.map((f) => (
               <option key={f.id} value={f.id} style={{ fontFamily: `"${f.cssFamily}", sans-serif` }}>

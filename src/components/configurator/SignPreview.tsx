@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, type MutableRefObject } from "react";
+import { useEffect, useMemo, useRef, type MutableRefObject, type ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment } from "@react-three/drei";
 import * as THREE from "three";
@@ -23,6 +23,8 @@ interface SignPreviewProps {
   /** Filled with the snapshot function while the preview is mounted (used by "Get a Quote"). */
   captureRef?: MutableRefObject<CaptureSnapshot | null>;
   hideHint?: boolean;
+  /** Desktop: a floating bar over the preview, given the camera commands. */
+  renderBar?: (api: { zoomIn: () => void; zoomOut: () => void; reset: () => void }) => ReactNode;
 }
 
 // Hoisted so the props are referentially stable across re-renders (a fresh
@@ -193,7 +195,7 @@ export function SnapshotBridge({ captureRef, width, quality }: { captureRef: Mut
   return null;
 }
 
-export default function SignPreview({ shapes, config, state, captureRef, hideHint }: SignPreviewProps) {
+export default function SignPreview({ shapes, config, state, captureRef, hideHint, renderBar }: SignPreviewProps) {
   const isNight = state.dayNight === "night";
   // At night the room goes dark so the lit parts carry the picture. An unlit
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
@@ -222,6 +224,8 @@ export default function SignPreview({ shapes, config, state, captureRef, hideHin
       onRotate={(dTheta, dPhi) => camera.current?.rotate(dTheta, dPhi)}
       onDownload={download}
       hideHint={hideHint}
+      hideControls={Boolean(renderBar)}
+      bar={renderBar?.({ zoomIn: () => camera.current?.zoomIn(), zoomOut: () => camera.current?.zoomOut(), reset: () => camera.current?.reset() })}
     >
       <Canvas shadows camera={CAMERA} dpr={DPR}>
         <NightProvider isNight={isNight}>

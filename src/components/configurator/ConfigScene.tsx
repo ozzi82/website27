@@ -12,7 +12,7 @@ import { FACE_BLOOM, FACE_HALO_BLOOM } from "./nightFade";
 import { NEON_MAX_ROUND_MM, depthWorldFor, litBandThickness, wallGapFor } from "./renderMath";
 import { DEFAULT_SIZE_IN, mmToWorld } from "./realSize";
 import { brightnessFactor } from "./brightness";
-import { emitsLight, faceColorOf, type ConfiguratorState } from "./types";
+import { emitsLight, type ConfiguratorState } from "./types";
 import Lp1Material from "./Lp1Material";
 import { isLp1 } from "./lp1Materials";
 import Spacers from "./Spacers";
@@ -90,7 +90,7 @@ function SignScene({ shapes, config, state, facade, bare }: ConfigSceneProps) {
   const face = flat ? (
     <Lp1Material attach="material-0" finish={state.finish} color={state.color} part="front" />
   ) : parts.face ? (
-      <GlowMaterial attach="material-0" glow={faceColorOf(config, state)} level={level} />
+      <GlowMaterial attach="material-0" glow={state.glowColor} level={level} />
     ) : (
       <PaintedMaterial attach="material-0" color={state.color} />
     );

@@ -17,10 +17,10 @@ export default function ArtworkSourceToggle({ value, onChange }: ArtworkSourceTo
       onChange={onChange}
       fill
       options={[
-        { value: "upload", label: (<><ImageUp aria-hidden="true" className="h-5 w-5" />Upload logo</>) },
-        { value: "text", label: (<><Type aria-hidden="true" className="h-5 w-5" />Type text</>) },
+        { value: "text", label: (<><Type aria-hidden="true" className="h-4 w-4" />Type text</>) },
+        { value: "upload", label: (<><ImageUp aria-hidden="true" className="h-4 w-4" />Upload logo</>) },
       ]}
-      className="w-full border-2 border-primary [&_label]:gap-2 [&_label]:py-2.5 [&_label]:text-sm [&_label]:font-bold [&_label]:uppercase [&_label]:tracking-wide"
+      className="w-full rounded-xl bg-card p-1 [&_label]:gap-2 [&_label]:rounded-lg [&_label]:py-2.5 [&_label]:text-sm [&_label]:font-semibold"
     />
   );
 }

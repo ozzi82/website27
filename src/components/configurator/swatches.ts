@@ -47,14 +47,3 @@ export function describeColor(hex: string, swatches: Swatch[]): string {
   const match = swatches.find((s) => s.hex === h);
   return match ? `${match.name} (${h})` : h;
 }
-
-/** Vinyl over the lit face of front-side-lit letters. White = no vinyl. */
-export const VINYL_SWATCHES: Swatch[] = [
-  { name: "No vinyl", hex: "#ffffff" },
-  { name: "Red", hex: "#ff1a1a" },
-  { name: "Orange", hex: "#ff8a1a" },
-  { name: "Yellow", hex: "#ffd400" },
-  { name: "Green", hex: "#20e060" },
-  { name: "Blue", hex: "#2d5bff" },
-  { name: "Pink", hex: "#ff4fb8" },
-];

@@ -13,11 +13,12 @@ import { generateTextArtworkFile } from "../components/configurator/textArtwork"
 import { DEFAULT_FONT_ID, TEXT_FONTS, fontsFor, usableFontId } from "../components/configurator/textFonts";
 import ConfigControls from "../components/configurator/ConfigControls";
 import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
+import ConfiguratorHeader from "../components/configurator/ConfiguratorHeader";
 import SceneBar from "../components/configurator/SceneBar";
 import ConfigSummaryCard from "../components/configurator/ConfigSummaryCard";
 import { useDesktop } from "../components/configurator/useDesktop";
 import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
-import { Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
+import { ArrowRight, Building2, Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
 import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
@@ -68,7 +69,7 @@ function initialState(params: URLSearchParams): ConfiguratorState | null {
   return state;
 }
 
-export default function ConfiguratorPage() {
+function ConfiguratorPageInner() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [state, setState] = useState<ConfiguratorState | null>(() => initialState(searchParams));
@@ -94,6 +95,16 @@ export default function ConfiguratorPage() {
       trackEvent("configurator_artwork", { source }); // "text" or "upload": someone actually saw a sign built from their input
     }
   }, [shapes, source]);
+  const desktop = useDesktop();
+  const [thumb, setThumb] = useState<string | null>(null);
+  // A small picture of the current sign for the summary card, refreshed once things settle.
+  useEffect(() => {
+    if (!desktop || !shapes) return;
+    const t = setTimeout(() => {
+      void capture.current?.().then((url) => url && setThumb(url));
+    }, 1600);
+    return () => clearTimeout(t);
+  }, [desktop, shapes, state]);
   const lineCount = text.split("\n").filter((l) => l.trim()).length;
   // Average stroke over the artwork's height; the thin-stroke note compares it with the real size (see strokeGuard.ts).
   const strokeRatio = useMemo(() => (shapes ? strokeHeightRatio(shapes) : null), [shapes]);
@@ -105,7 +116,6 @@ export default function ConfiguratorPage() {
   const background = useRef<BackgroundId>(DEFAULT_BACKGROUND);
   const capture = useRef<CaptureSnapshot | null>(null);
   const [quoting, setQuoting] = useState(false);
-  const desktop = useDesktop();
   const [building, setBuilding] = useState(false);
   const openBuilding = useCallback(() => setBuilding(true), []);
   const closeBuilding = useCallback(() => setBuilding(false), []);
@@ -116,7 +126,7 @@ export default function ConfiguratorPage() {
     background.current = next.background;
     // What visitors adjust, for the analytics (one event per changed option, no personal data).
     if (state) {
-      for (const key of ["dayNight", "mounting", "depthMm", "sizeIn", "glowColor", "faceVinyl", "color", "background", "finish", "build", "variant"] as const) {
+      for (const key of ["dayNight", "mounting", "depthMm", "sizeIn", "glowColor", "color", "background", "finish", "build", "variant"] as const) {
         if (next[key] !== state[key]) trackEvent("configurator_option", { option: key, value: String(next[key]), configuration: state.configId });
       }
     }
@@ -242,22 +252,18 @@ export default function ConfiguratorPage() {
       <div className="mx-auto max-w-[1700px] px-3 pb-2 pt-2 sm:px-5 lg:pb-3 lg:pt-3">
         {seo}
         <h1 className="sr-only">{CONFIGURATOR_NAME}</h1>
-        <div className="flex h-[calc(100svh-136px)] min-h-[420px] flex-col gap-2 lg:h-[calc(100svh-117px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
+        <div className="flex h-[calc(100svh-128px)] min-h-[420px] flex-col gap-2 lg:h-[calc(100svh-88px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
           {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
           <div className="flex min-h-[200px] min-w-0 flex-1 flex-col gap-3">
             {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
             <div className="relative min-h-0 w-full flex-1">
               <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} />
+                <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} renderBar={desktop ? (camera) => <SceneBar state={state} onChange={handleChange} camera={camera} /> : undefined} />
               </ErrorBoundary>
-              {desktop && <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-xl [box-shadow:inset_0_0_140px_rgba(0,0,0,0.5)]" />}
               {desktop && (
                 <>
                   <div className="absolute left-3 top-3 z-10 w-[min(24rem,70%)] rounded-xl border border-border bg-background/85 p-1.5 backdrop-blur">
                     <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
-                  </div>
-                  <div className="absolute bottom-3 left-3 right-40 z-10">
-                    <SceneBar state={state} onChange={handleChange} />
                   </div>
                 </>
               )}
@@ -268,13 +274,14 @@ export default function ConfiguratorPage() {
                 </div>
               )}
             </div>
-            {desktop && state && <ConfigSummaryCard items={summaryItems} />}
+            {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} />}
           </div>
 
-          <aside className="flex min-w-0 flex-col lg:w-[460px] lg:shrink-0 lg:min-h-0 xl:w-[540px] 2xl:w-[600px]">
+          <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-6 xl:w-[520px]">
             {desktop && (
-              <div className="mb-3 shrink-0">
-                <h2 className="text-2xl font-semibold leading-none">Your sign</h2>
+              <div className="mb-4 shrink-0">
+                <h2 className="text-3xl font-semibold">Make it yours</h2>
+                <p className="mt-1 text-sm text-muted-foreground">Configure your sign in real time.</p>
               </div>
             )}
             <ConfiguratorPanel
@@ -341,12 +348,14 @@ export default function ConfiguratorPage() {
               ]}
               action={
                 <>
-                  <Button type="button" variant="outline" disabled={!shapes} onClick={openBuilding} className="h-14 min-w-0 whitespace-normal px-3 text-sm font-bold uppercase leading-tight tracking-wider sm:text-base">
-                    See it on the building
+                  <Button type="button" variant="outline" disabled={!shapes} onClick={openBuilding} className="h-14 min-w-0 flex-1 gap-2 whitespace-normal rounded-xl border-input bg-card px-3 text-sm font-semibold leading-tight hover:bg-card sm:text-base">
+                    <Building2 aria-hidden="true" className="h-5 w-5 shrink-0" />
+                    Preview on a building
                   </Button>
-                  <Button asChild className="h-14 min-w-0 whitespace-normal px-3 text-sm font-bold sm:text-base">
-                    <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="text-center uppercase leading-tight tracking-wider">
+                  <Button asChild className="h-14 min-w-0 flex-[1.3] whitespace-normal rounded-xl bg-brand px-3 text-sm font-bold text-brand-foreground hover:bg-brand/90 sm:text-base">
+                    <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="gap-2 text-center leading-tight">
                       {CTA_PRIMARY.label}
+                      <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" />
                     </Link>
                   </Button>
                 </>
@@ -394,6 +403,18 @@ export default function ConfiguratorPage() {
           <UploadDropzone onParsed={handleParsed} />
         </>
       )}
+    </div>
+  );
+}
+
+/** The configurator is its own light, app-like surface: its own slim header instead of the site's, and the light token set. */
+export default function ConfiguratorPage() {
+  return (
+    <div className="cfg-light flex min-h-screen flex-col">
+      <ConfiguratorHeader />
+      <div className="flex-1">
+        <ConfiguratorPageInner />
+      </div>
     </div>
   );
 }
