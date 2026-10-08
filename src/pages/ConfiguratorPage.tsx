@@ -13,6 +13,8 @@ import { generateTextArtworkFile } from "../components/configurator/textArtwork"
 import { DEFAULT_FONT_ID, TEXT_FONTS, fontsFor, usableFontId } from "../components/configurator/textFonts";
 import ConfigControls from "../components/configurator/ConfigControls";
 import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
+import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
+import { Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
 import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
@@ -222,12 +224,12 @@ export default function ConfiguratorPage() {
   // Preview stage: the 3D preview and every option side by side, sized to the viewport so nothing needs scrolling.
   if (config && state && (source === "text" || uploadShapes)) {
     return (
-      <div className="mx-auto max-w-[1700px] px-3 pb-10 pt-3 sm:px-5 lg:pb-3">
+      <div className="mx-auto max-w-[1700px] px-3 pb-2 pt-2 sm:px-5 lg:pb-3 lg:pt-3">
         {seo}
         <h1 className="sr-only">{CONFIGURATOR_NAME}</h1>
-        <div className="flex flex-col gap-3 lg:h-[calc(100svh-117px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
+        <div className="flex h-[calc(100svh-136px)] min-h-[420px] flex-col gap-2 lg:h-[calc(100svh-117px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
           {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
-          <div className="sticky top-[65px] z-10 -mx-3 h-[36svh] min-h-[230px] bg-background px-3 pb-2 sm:-mx-5 sm:px-5 lg:static lg:z-auto lg:m-0 lg:h-auto lg:min-w-0 lg:flex-1 lg:bg-transparent lg:p-0">
+          <div className="min-h-[200px] min-w-0 flex-1">
             {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
             <div className="relative h-full w-full">
               <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
@@ -242,7 +244,15 @@ export default function ConfiguratorPage() {
             </div>
           </div>
 
-          <aside aria-label="Sign options" className="flex min-w-0 flex-col gap-2 [&>*]:shrink-0 [@media(min-height:830px)]:gap-4 lg:w-[440px] lg:shrink-0 lg:overflow-y-auto lg:pr-1">
+          <aside className="flex min-w-0 flex-col lg:w-[440px] lg:shrink-0 lg:min-h-0">
+            <ConfiguratorPanel
+              tabs={[
+                {
+                  id: "text",
+                  label: "Text",
+                  icon: <Type />,
+                  content: (
+                    <>
             <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
 
             <ArtworkSourceToggle value={source} onChange={setSource} />
@@ -273,19 +283,37 @@ export default function ConfiguratorPage() {
               />
             )}
 
-            <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview />
-
+                    </>
+                  ),
+                },
+                { id: "size", label: "Size", icon: <Ruler />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
+                { id: "colour", label: "Colour", icon: <Palette />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
+                { id: "light", label: "Light", icon: <Lightbulb />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
+                {
+                  id: "look",
+                  label: "Look",
+                  icon: <Mountain />,
+                  content: (
+                    <>
+                      <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
             <ConfiguratorDisclaimer />
 
             <Button type="button" variant="outline" size="lg" disabled={!shapes} onClick={openBuilding} className="w-full shrink-0 uppercase tracking-wider font-semibold">
               See it on the building!
             </Button>
 
-            <Button asChild size="lg" className="sticky bottom-2 z-20 mt-auto w-full shrink-0 shadow-lg lg:static lg:shadow-none">
+                    </>
+                  ),
+                },
+              ]}
+              action={
+            <Button asChild size="lg" className="h-full w-full shrink-0">
               <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="uppercase tracking-wider font-semibold">
                 {CTA_PRIMARY.label}
               </Link>
             </Button>
+              }
+            />
           </aside>
         </div>
         {building && shapes && (

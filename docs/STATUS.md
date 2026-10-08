@@ -176,3 +176,9 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 
 ## Home product tiles
 - Products section: compact 2x2 horizontal cards (photo left, title, two-line summary, orange link; whole card clickable; first keeps the Signature product label). One column on phones.
+
+## Configurator app layout
+- Options are now tabs (Text, Size, Colour, Light, Look) in ConfiguratorPanel.tsx; ConfigControls takes a `group` prop that renders only that tab's controls. All tabs stay mounted (inactive ones hidden by CSS).
+- Desktop (lg+): tab row on top of the 440 px side column, active tab's controls below, Get a Quote pinned under them.
+- Tablet / phone: preview fills the screen; controls open as a short sheet under it, tab bar at the bottom with the quote button beside it (icons only on phones); tapping the active tab folds the sheet away.
+- Day/night, background and "See it on the building" are in the Look tab.

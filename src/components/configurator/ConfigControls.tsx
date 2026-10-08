@@ -23,7 +23,11 @@ interface ConfigControlsProps {
   aspect?: number;
   /** Typed lines in the artwork (1 for an uploaded file): letter height is one line of the artwork's height. */
   lines?: number;
+  /** Show only one tab's controls (the tabbed layout); "all" shows everything. */
+  group?: ControlGroup;
 }
+
+export type ControlGroup = "all" | "size" | "colour" | "light" | "look";
 
 /** Bigger, easier to see segments for the choices that matter most (depth, mounting, lighting, build). */
 const BIG = "[&_label]:py-1.5 [&_label]:text-sm [&_label]:font-semibold";
@@ -167,7 +171,8 @@ function SizeInputs({ sizeIn, aspect, onSize }: { sizeIn: number; aspect: number
   );
 }
 
-export default function ConfigControls({ config, state, onChange, strokeRatio = null, adviceInPreview = false, aspect = 1, lines = 1 }: ConfigControlsProps) {
+export default function ConfigControls({ config, state, onChange, strokeRatio = null, adviceInPreview = false, aspect = 1, lines = 1, group = "all" }: ConfigControlsProps) {
+  const g = (...names: ControlGroup[]) => group === "all" || names.includes(group);
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
 
   const brightnessId = useId();
@@ -185,10 +190,10 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
   return (
     <div className="space-y-2 [@media(min-height:830px)]:space-y-4">
       {/* The choices that change what is built (and the price): kept together in one highlighted block. */}
-      <section aria-label="Size and mounting" className="space-y-2.5 rounded-xl border border-primary/40 bg-primary/5 p-3">
-      <p className="mono-label text-primary">Size · mounting</p>
-      {flat && (
-        <>
+      {g("size", "colour") && (
+      <section aria-label="Size and mounting" className={group === "all" ? "space-y-2.5 rounded-xl border border-primary/40 bg-primary/5 p-3" : "space-y-3"}>
+      {group === "all" && <p className="mono-label text-primary">Size · mounting</p>}
+      {flat && g("colour") && (
           <Row label="Finish" labelId="finish-label">
             <div role="radiogroup" aria-label="Finish" className="flex flex-wrap items-center gap-1.5">
               {LP1_FINISHES.map((f) => (
@@ -214,6 +219,8 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
               </span>
             </div>
           </Row>
+      )}
+      {flat && g("size") && (
           <Row label="Build" labelId="build-label">
             <SegmentedControl<Lp1Build>
               label="Build"
@@ -227,10 +234,9 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
               ]}
             />
           </Row>
-        </>
       )}
 
-      {config.variant && (
+      {config.variant && g("size") && (
         <Row label="Lighting" labelId="variant-label">
           <SegmentedControl<"face" | "face-halo">
             label="Lighting"
@@ -245,7 +251,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         </Row>
       )}
 
-      {mounts.length > 1 && (
+      {mounts.length > 1 && g("size") && (
         <Row label="Mounting" labelId="mounting-label">
           <SegmentedControl
             label="Mounting"
@@ -261,6 +267,8 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         </Row>
       )}
 
+      {g("size") && (
+      <>
       <Row label="Depth" labelId="depth-label">
         <SegmentedControl
           label="Depth"
@@ -279,9 +287,12 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         <SizeInputs sizeIn={state.sizeIn} aspect={aspect} onSize={(sizeIn) => set({ sizeIn })} />
       </Row>
 
+      </>
+      )}
       </section>
+      )}
 
-      {hasPaint && (
+      {hasPaint && g("colour") && (
         <ColorRow
           label={flat ? "Colour" : "Paint"}
           legend={flat ? "Acrylic color" : "Paint color"}
@@ -291,7 +302,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         />
       )}
 
-      {lights && (
+      {lights && g("light") && (
         <ColorRow
           label="Glow"
           legend="Glow color"
@@ -302,7 +313,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         />
       )}
 
-      {hasFaceVinyl(config) && (
+      {hasFaceVinyl(config) && g("colour") && (
         <ColorRow
           label="Vinyl"
           legend="Front vinyl"
@@ -313,7 +324,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         />
       )}
 
-      {lights && (
+      {lights && g("light") && (
         <Row label="Brightness" htmlFor={brightnessId}>
           <div className="flex items-center gap-2">
             <input
@@ -334,6 +345,8 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         </Row>
       )}
 
+      {g("look") && (
+      <>
       <Row label="Background" labelId="bg-label">
         <div role="radiogroup" aria-label="Background" className="grid grid-cols-4 gap-1.5">
           {BACKGROUNDS.map((b) => (
@@ -360,8 +373,12 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
       </Row>
 
       <DayNightToggle value={state.dayNight} onChange={(dayNight) => set({ dayNight })} />
+      </>
+      )}
 
-      {advice && !adviceInPreview && (
+      {group === "light" && !lights && <p className="text-sm text-muted-foreground">This sign is not illuminated, so there is nothing to set here. Use the Look tab to see it by day or in the evening.</p>}
+
+      {g("size") && advice && !adviceInPreview && (
         <p
           role="note"
           className={
@@ -375,10 +392,13 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         </p>
       )}
 
+      {g("size") && (
       <p className="text-[11px] leading-snug text-muted-foreground">
         Minimum letter height {formatDepth(config.minHeightMm)} · minimum stroke width {formatDepth(config.minStrokeMm)}
       </p>
+      )}
 
+      {g("size") && (
       <details className="group text-[11px] leading-snug text-muted-foreground">
         <summary className="flex cursor-pointer list-none items-center gap-1 hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
           <Info aria-hidden="true" className="h-3.5 w-3.5" />
@@ -402,6 +422,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           )}
         </div>
       </details>
+      )}
     </div>
   );
 }
