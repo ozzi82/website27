@@ -152,3 +152,10 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 ## Hi-res render (realism step 3)
 - Preview toolbar has a Download image button: re-renders the current view at ~2800 px (HiResBridge in SignPreview.tsx) and saves a JPEG named sunlite-sign-day/night.jpg. Shadow edges are still slightly soft-blocky at that size (shadow map 2048): bump to 4096 for the capture if it bothers anyone.
 - Realism round 2: paint is less metallic with a clear-coat; day environment brighter (nightFade DAY).
+
+## See it on your own building (realism step 2)
+- Configurator button "See it on your own building" opens PhotoView (lazy). The visitor's photo is read in the browser only (never uploaded), drawn as the wall in a normal r3f scene, with the sign in front: same materials, glow, bloom and shadow as the main preview.
+- Day/Night, drag to place, Angle (yaw) and Tilt (roll), Download picture (2000 px JPEG).
+- "Set true size": tap two ends of something of known length, type its length in inches; the sign is then drawn at its real size on the photo (photoMath.ts). Without it the visitor sizes by eye (slider).
+- photoTone.ts bakes the photo through the inverse ACES curve so the composer's tone mapper leaves the photo's colours alone in day mode; night dims/cools the photo plane.
+- Not done: perspective from a measured plane (only an Angle slider), automatic wall/horizon detection, saving the composite with the quote.

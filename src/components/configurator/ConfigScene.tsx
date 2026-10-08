@@ -24,6 +24,8 @@ interface ConfigSceneProps {
   state: ConfiguratorState;
   /** Mount the sign on a fascia panel of this size (in the scene's own units) instead of an endless wall. */
   facade?: { width: number; height: number };
+  /** Leave out the wall (and its light spill modulation): the sign is drawn over something else, such as the customer's photo. */
+  bare?: boolean;
 }
 
 // Light on the wall behind the letter, by how it gets there (see WallSpill). `scale` is pushed above 1 so it reads as
@@ -54,7 +56,7 @@ function EmptyScene({ config, state }: ConfigSceneProps) {
   );
 }
 
-function SignScene({ shapes, config, state, facade }: ConfigSceneProps) {
+function SignScene({ shapes, config, state, facade, bare }: ConfigSceneProps) {
   const { light, profile } = config;
   const { sizeIn } = state;
   const geometry = useSignGeometry(shapes, depthWorldFor(state.depthMm, sizeIn), profile, mmToWorld(NEON_MAX_ROUND_MM, sizeIn));
@@ -114,7 +116,7 @@ function SignScene({ shapes, config, state, facade }: ConfigSceneProps) {
         {face}
       </mesh>
 
-      <BackdropWall gap={gap} background={background} wall={wall} size={facade ? { w: facade.width, h: facade.height } : undefined} />
+      {!bare && <BackdropWall gap={gap} background={background} wall={wall} size={facade ? { w: facade.width, h: facade.height } : undefined} />}
       {state.mounting === "standoff" && <Spacers shapes={shapes} height={height} sizeIn={sizeIn} />}
 
       {wallSpill && (
