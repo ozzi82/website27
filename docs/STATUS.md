@@ -173,3 +173,6 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 ## Round 4
 - LP 1: brushed steel now has fine vertical grain on light silver (matches the owner's reference swatch); mirror gold and new mirror rose gold use a smooth gradient studio (getMirrorEnvironment) so they read as polished mirror, not striped/brushed.
 - "See it on your own building" button removed from the configurator for now (PhotoView.tsx, PhotoScene.tsx, photoMath.ts, photoTone.ts stay in the repo, unused, to pick up later).
+
+## Home product tiles
+- Products section is now four equal photo tiles (title over the photo, orange full-width button, hover lift/glow, whole tile clickable); first tile keeps the Signature product badge. Mobile: one column.
