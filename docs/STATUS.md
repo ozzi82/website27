@@ -148,3 +148,7 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 ## Visible photos (round 1)
 - Home: new PhotoStrip (6 real installed signs) under the capability strip; process steps carry line illustrations (components/home/ProcessIllustration.tsx), not photos.
 - Ideas not yet done: day/night pairs on product cards, full-bleed photo bands, visible galleries, projects wall, team/shipping photos (need owner photos).
+
+## Hi-res render (realism step 3)
+- Preview toolbar has a Download image button: re-renders the current view at ~2800 px (HiResBridge in SignPreview.tsx) and saves a JPEG named sunlite-sign-day/night.jpg. Shadow edges are still slightly soft-blocky at that size (shadow map 2048): bump to 4096 for the capture if it bothers anyone.
+- Realism round 2: paint is less metallic with a clear-coat; day environment brighter (nightFade DAY).

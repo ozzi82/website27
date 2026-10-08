@@ -76,6 +76,70 @@ function SceneAtmosphere({ dark, background }: { dark: boolean; background: Back
   );
 }
 
+/** Resolves to a large JPEG data URL of the current view (rendered at a higher pixel ratio), or null. */
+export type RenderHiRes = () => Promise<string | null>;
+
+const HIRES_WIDTH = 2800;
+const HIRES_SETTLE_FRAMES = 4;
+
+/**
+ * Renders the current view at ~2800 px wide: raises the pixel ratio, waits a few frames for the composer and
+ * shadow map to settle, reads the frame, then restores the live resolution.
+ */
+export function HiResBridge({ renderRef }: { renderRef: MutableRefObject<RenderHiRes | null> }) {
+  const gl = useThree((s) => s.gl);
+  const setDpr = useThree((s) => s.setDpr);
+  const job = useRef<{ frames: number; prevDpr: number; done: (url: string | null) => void } | null>(null);
+
+  useFrame(() => {
+    const j = job.current;
+    if (!j) return;
+    if (j.frames-- > 0) return;
+    job.current = null;
+    let url: string | null = null;
+    try {
+      url = gl.domElement.toDataURL("image/jpeg", 0.92);
+    } catch {
+      url = null;
+    }
+    setDpr(j.prevDpr);
+    j.done(url);
+  }, 2);
+
+  useEffect(() => {
+    renderRef.current = () =>
+      new Promise((resolve) => {
+        if (job.current) return resolve(null);
+        const el = gl.domElement;
+        const prevDpr = gl.getPixelRatio();
+        const cssWidth = el.clientWidth || el.width / prevDpr;
+        const maxPx = Math.min(HIRES_WIDTH, gl.capabilities.maxTextureSize);
+        const target = Math.max(prevDpr, maxPx / cssWidth);
+        const timer = setTimeout(() => {
+          if (job.current) {
+            setDpr(job.current.prevDpr);
+            job.current = null;
+          }
+          resolve(null);
+        }, 8000);
+        job.current = {
+          frames: HIRES_SETTLE_FRAMES,
+          prevDpr,
+          done: (url) => {
+            clearTimeout(timer);
+            resolve(url);
+          },
+        };
+        setDpr(target);
+      });
+    return () => {
+      renderRef.current = null;
+    };
+  }, [renderRef, gl, setDpr]);
+
+  return null;
+}
+
 const SNAPSHOT_WIDTH = 720;
 
 /** Downscales the WebGL canvas into a small JPEG. Must run in the same task as the render that filled the drawing buffer. */
@@ -135,6 +199,19 @@ export default function SignPreview({ shapes, config, state, captureRef }: SignP
   const dark = emitsLight(config);
 
   const camera = useRef<CameraApi>(null);
+  const hiRes = useRef<RenderHiRes | null>(null);
+
+  // The busy state lives in PreviewFrame: re-rendering this component would make r3f reset the pixel ratio mid-capture.
+  async function download() {
+    const url = await hiRes.current?.();
+    if (!url) return;
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `sunlite-sign-${isNight ? "night" : "day"}.jpg`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
 
   return (
     <PreviewFrame
@@ -142,6 +219,7 @@ export default function SignPreview({ shapes, config, state, captureRef }: SignP
       onZoomOut={() => camera.current?.zoomOut()}
       onReset={() => camera.current?.reset()}
       onRotate={(dTheta, dPhi) => camera.current?.rotate(dTheta, dPhi)}
+      onDownload={download}
     >
       <Canvas shadows camera={CAMERA} dpr={DPR}>
         <NightProvider isNight={isNight}>
@@ -149,6 +227,7 @@ export default function SignPreview({ shapes, config, state, captureRef }: SignP
           <ConfigScene shapes={shapes} config={config} state={state} />
           <CameraRig ref={camera} />
           {captureRef && <SnapshotBridge captureRef={captureRef} />}
+          <HiResBridge renderRef={hiRes} />
         </NightProvider>
       </Canvas>
     </PreviewFrame>

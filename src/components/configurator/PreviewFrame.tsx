@@ -1,5 +1,5 @@
-import type { KeyboardEvent, ReactNode } from "react";
-import { RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
+import { useState, type KeyboardEvent, type ReactNode } from "react";
+import { Download, RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
 
 /** Radians the camera turns per arrow-key press. */
 export const KEY_ROTATE_STEP = (6 * Math.PI) / 180;
@@ -10,6 +10,8 @@ interface PreviewFrameProps {
   onReset: () => void;
   /** Orbit by (azimuth, polar) radians. */
   onRotate: (dTheta: number, dPhi: number) => void;
+  /** When given, adds a "Download image" button (a high-resolution still of the current view). */
+  onDownload?: () => Promise<void>;
   children: ReactNode;
 }
 
@@ -21,7 +23,18 @@ const BUTTON =
  * and arrow / plus / minus / 0 keys while it has focus. Dragging and pinching are handled by
  * the camera controls inside the canvas.
  */
-export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, children }: PreviewFrameProps) {
+export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, onDownload, children }: PreviewFrameProps) {
+  const [downloading, setDownloading] = useState(false);
+  async function handleDownload() {
+    if (!onDownload || downloading) return;
+    setDownloading(true);
+    try {
+      await onDownload();
+    } finally {
+      setDownloading(false);
+    }
+  }
+
   function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
     if (e.ctrlKey || e.metaKey || e.altKey) return; // leave browser shortcuts (page zoom, back) alone
     switch (e.key) {
@@ -72,6 +85,11 @@ export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, c
         <button type="button" aria-label="Reset view" title="Reset view" onClick={onReset} className={BUTTON}>
           <RotateCcw aria-hidden="true" className="h-4 w-4" />
         </button>
+        {onDownload && (
+          <button type="button" aria-label="Download image" title="Download a high-resolution image" onClick={handleDownload} disabled={downloading} className={`${BUTTON} disabled:opacity-50`}>
+            <Download aria-hidden="true" className="h-4 w-4" />
+          </button>
+        )}
       </div>
       <p className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/45 px-2.5 py-1 text-xs text-white/90">
         Drag to rotate · scroll or pinch to zoom

@@ -90,3 +90,27 @@ describe("PreviewFrame keyboard", () => {
     expect(h.onZoomOut).not.toHaveBeenCalled();
   });
 });
+
+describe("PreviewFrame download", () => {
+  it("shows no download button unless a handler is given", () => {
+    setup();
+    expect(screen.queryByRole("button", { name: "Download image" })).toBeNull();
+  });
+
+  it("calls the handler and is disabled while it runs", async () => {
+    const user = userEvent.setup();
+    let finish!: () => void;
+    const onDownload = vi.fn(() => new Promise<void>((r) => (finish = r)));
+    render(
+      <PreviewFrame onZoomIn={vi.fn()} onZoomOut={vi.fn()} onReset={vi.fn()} onRotate={vi.fn()} onDownload={onDownload}>
+        <div />
+      </PreviewFrame>
+    );
+    const btn = screen.getByRole("button", { name: "Download image" });
+    await user.click(btn);
+    expect(onDownload).toHaveBeenCalledTimes(1);
+    expect(btn).toBeDisabled();
+    finish();
+    await vi.waitFor(() => expect(btn).not.toBeDisabled());
+  });
+});
