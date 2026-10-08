@@ -103,6 +103,20 @@ German-engineered ultra-slim cast acrylic letters and classic trimless channel l
 - *[Image: JenTower lettering with a warm halo above an entrance]* — JenTower
 - *[Image: Illuminated vertical lettering on a blue column panel in a large interior concourse]* — Ticketmaster (concourse column)
 - *[Image: Illuminated acorn and laurel crest on a wood-slat wall]* — Acorn crest
+- heller
+- Tradebyte
+- Inspire
+- Shake It Up
+- Stroh + Scheuerpflug
+- ARGO-HYTOS
+- Arch logo
+- itonics
+- MACS
+- OATLY Booth
+- Interior wall graphic
+- JenTower
+- Ticketmaster (concourse column)
+- Acorn crest
 
 What we build
 

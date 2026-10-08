@@ -247,3 +247,11 @@
   left: 0 !important;
   right: auto !important;
 }
+
+/* Home photo strip: a slow, endless drift (the list is rendered twice, so -50% lands exactly on the start). */
+@keyframes photo-marquee {
+  to { transform: translateX(-50%); }
+}
+.photo-marquee {
+  animation: photo-marquee 120s linear infinite;
+}
