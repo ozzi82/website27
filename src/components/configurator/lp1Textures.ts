@@ -53,20 +53,6 @@ function woodPainter(): (u: number, v: number) => Rgb {
   };
 }
 
-// Brushed stainless: fine VERTICAL grain, light silver, with long brighter and darker hairlines (the noise varies fast across u and barely along v).
-function brushedPainter(): (u: number, v: number) => Rgb {
-  const coarse = makeTileableNoise(3, 21);
-  const fine = makeTileableNoise(5, 23);
-  const hair = mulberry32(24);
-  const lines = Array.from({ length: SIZE }, () => hair());
-  return (u, v) => {
-    const col = lines[Math.floor(u * SIZE) % SIZE];
-    const streak = (col - 0.5) * 0.2 + (fine(u * 90, v) - 0.5) * 0.14 + (coarse(u * 40, v) - 0.5) * 0.12;
-    const l = 0.74 + streak;
-    return [l * 0.98, l * 0.985, l];
-  };
-}
-
 // Corten: blotchy oxidised browns and oranges with dark pitting.
 function cortenPainter(): (u: number, v: number) => Rgb {
   const blotch = makeFbm(4, 5, 31);
@@ -82,16 +68,6 @@ function cortenPainter(): (u: number, v: number) => Rgb {
   };
 }
 
-// Roughness variation for brushed steel: the vertical grain scatters the highlight, so it smears along the lines instead of mirroring.
-function streakRoughness(): (u: number, v: number) => Rgb {
-  const coarse = makeTileableNoise(3, 41);
-  const fine = makeTileableNoise(5, 43);
-  return (u, v) => {
-    const r = 0.6 + (coarse(u * 40, v) - 0.5) * 0.14 + (fine(u * 90, v) - 0.5) * 0.12;
-    return [r, r, r];
-  };
-}
-
 export interface Lp1Textures {
   map: THREE.CanvasTexture | null;
   roughnessMap: THREE.CanvasTexture | null;
@@ -103,7 +79,7 @@ export function makeLp1Textures(finish: Lp1FinishId): Lp1Textures {
     case "wood":
       return { map: paint(woodPainter(), THREE.SRGBColorSpace), roughnessMap: null };
     case "brushed-steel":
-      return { map: paint(brushedPainter(), THREE.SRGBColorSpace), roughnessMap: paint(streakRoughness(), THREE.NoColorSpace) };
+      return { map: null, roughnessMap: null }; // now the smooth silver metallic look: no grain texture
     case "corten":
       return { map: paint(cortenPainter(), THREE.SRGBColorSpace), roughnessMap: null };
     default:

@@ -7,7 +7,7 @@ import { lerp } from "./nightFade";
 import { makeLp1Textures } from "./lp1Textures";
 import type { Lp1FinishId } from "./lp1Materials";
 
-const MIRROR = new Set<Lp1FinishId>(["mirror-gold", "mirror-rose-gold"]);
+const MIRROR = new Set<Lp1FinishId>(["mirror-gold", "mirror-rose-gold", "brushed-steel"]);
 const REFLECTIVE = new Set<Lp1FinishId>(["mirror-gold", "mirror-rose-gold", "brushed-steel", "acrylic-clear", "acrylic-clear-painted", "acrylic-colored"]);
 
 interface Lp1MaterialProps {
@@ -39,7 +39,7 @@ export default function Lp1Material({ attach, finish, color, part }: Lp1Material
   // reflections fade down with it.
   const gl = useThree((t) => t.gl);
   const envMap = useMemo(() => (REFLECTIVE.has(finish) ? (MIRROR.has(finish) ? getMirrorEnvironment(gl) : getRoomEnvironment(gl)) : null), [finish, gl]);
-  const envBase = finish === "mirror-gold" || finish === "mirror-rose-gold" ? 1 : finish === "brushed-steel" ? 1.5 : 0.4;
+  const envBase = finish === "mirror-gold" || finish === "mirror-rose-gold" ? 1.35 : finish === "brushed-steel" ? 1.0 : 0.4;
   const material = useRef<THREE.MeshPhysicalMaterial>(null);
   useNightEffect((n) => {
     if (material.current) material.current.envMapIntensity = lerp(envBase, envBase * 0.2, n);
@@ -50,11 +50,12 @@ export default function Lp1Material({ attach, finish, color, part }: Lp1Material
     case "wood":
       return <meshPhysicalMaterial attach={attach} map={textures.map} color="#ffffff" roughness={0.7} metalness={0} />;
     case "mirror-gold":
-      return <meshPhysicalMaterial {...env} attach={attach} color="#f0c15a" metalness={1} roughness={0.08} />;
+      return <meshPhysicalMaterial {...env} attach={attach} color="#f7b82e" metalness={1} roughness={0.02} />;
     case "mirror-rose-gold":
-      return <meshPhysicalMaterial {...env} attach={attach} color="#e8a592" metalness={1} roughness={0.08} />;
+      return <meshPhysicalMaterial {...env} attach={attach} color="#e88f7c" metalness={1} roughness={0.02} />;
     case "brushed-steel":
-      return <meshPhysicalMaterial {...env} attach={attach} map={textures.map} roughnessMap={textures.roughnessMap} color="#ffffff" metalness={1} roughness={1} />;
+      // Silver metallic: smooth satin metal, a soft gradient of reflections rather than a grain.
+      return <meshPhysicalMaterial {...env} attach={attach} color="#e4e7ea" metalness={1} roughness={0.26} />;
     case "corten":
       return <meshPhysicalMaterial attach={attach} map={textures.map} color="#ffffff" metalness={0.35} roughness={0.85} />;
     case "acrylic-clear":

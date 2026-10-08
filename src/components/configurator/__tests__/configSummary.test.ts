@@ -42,7 +42,7 @@ describe("formatConfigSummary", () => {
   it("names the LP 1 finish and build, and the colour only where the finish takes one", () => {
     const lp1 = byId("lp-1-flat-cutout");
     const steel = formatConfigSummary({ ...defaultStateFor(lp1), finish: "brushed-steel", build: "fabricated", depthMm: 50 }, lp1, null);
-    expect(steel).toContain("Finish: Brushed stainless steel");
+    expect(steel).toContain("Finish: Silver metallic stainless steel");
     expect(steel).toContain("Build: Fabricated (hollow)");
     expect(steel).not.toContain("color:");
     const acrylic = formatConfigSummary({ ...defaultStateFor(lp1), finish: "acrylic-colored", color: "#b4332a" }, lp1, null);

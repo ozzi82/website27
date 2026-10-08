@@ -35,7 +35,7 @@ export const LP1_FINISHES: Lp1Finish[] = [
   { id: "wood", label: "Wood", short: "Wood", builds: ["solid"], swatch: "linear-gradient(90deg,#9c6b3f,#7a4f2a,#a87a4a)", usesPaint: false },
   { id: "mirror-gold", label: "Mirror gold stainless steel", short: "Gold mirror", builds: ["solid", "fabricated"], swatch: "linear-gradient(135deg,#f7e08a,#b8862a,#f3d57a)", usesPaint: false },
   { id: "mirror-rose-gold", label: "Mirror rose gold stainless steel", short: "Rose gold mirror", builds: ["solid", "fabricated"], swatch: "linear-gradient(135deg,#f5cdbf,#c9806c,#efb9a8)", usesPaint: false },
-  { id: "brushed-steel", label: "Brushed stainless steel", short: "Brushed steel", builds: ["solid", "fabricated"], swatch: "linear-gradient(90deg,#c9ccd0,#9da1a6,#d6d9dc)", usesPaint: false },
+  { id: "brushed-steel", label: "Silver metallic stainless steel", short: "Silver metallic", builds: ["solid", "fabricated"], swatch: "linear-gradient(135deg,#f4f6f8,#9aa0a6,#e8ebee)", usesPaint: false },
   { id: "corten", label: "Corten finish", short: "Corten", builds: ["solid", "fabricated"], swatch: "linear-gradient(135deg,#8a4524,#5e2d16,#a2562c)", usesPaint: false },
   { id: "acrylic-clear", label: "Clear acrylic", short: "Clear acrylic", builds: ["solid"], swatch: "linear-gradient(135deg,#eaf4f8,#bcd3dc,#f6fbfd)", usesPaint: false },
   { id: "acrylic-clear-painted", label: "Clear acrylic, coloured or painted front", short: "Clear + colour front", builds: ["solid"], swatch: "linear-gradient(90deg,#eaf4f8 50%,#b4332a 50%)", usesPaint: true },

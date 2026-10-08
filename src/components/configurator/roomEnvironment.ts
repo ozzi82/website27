@@ -29,30 +29,41 @@ const softCache = new WeakMap<THREE.WebGLRenderer, THREE.Texture>();
 export function getMirrorEnvironment(gl: THREE.WebGLRenderer): THREE.Texture {
   let texture = softCache.get(gl);
   if (!texture) {
+    const W = 512;
+    const H = 256;
     const canvas = document.createElement("canvas");
-    canvas.width = 4;
-    canvas.height = 256;
+    canvas.width = W;
+    canvas.height = H;
     const ctx = canvas.getContext("2d")!;
-    const g = ctx.createLinearGradient(0, 0, 0, 256);
-    g.addColorStop(0, "#ffffff");
-    g.addColorStop(0.45, "#e8e8e8");
-    g.addColorStop(0.55, "#9a9a9a");
-    g.addColorStop(1, "#3a3a3a");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, 4, 256);
+    const img = ctx.createImageData(W, H);
+    // Brightness = a vertical sky/floor profile times a broad light-and-dark sweep around the dome (3 cycles). A polished face
+    // sees only a slice of it, so the letters get a smooth bright-to-dark sweep with a hot highlight: the look of a mirror.
+    const profile = (v: number) => (v < 0.45 ? 0.75 + 0.25 * (1 - v / 0.45) : v < 0.62 ? 1 : Math.max(0.03, 1 - (v - 0.62) / 0.14));
+    for (let y = 0; y < H; y++) {
+      const v = y / (H - 1);
+      for (let x = 0; x < W; x++) {
+        const wave = Math.pow(0.5 + 0.5 * Math.cos((x / W) * Math.PI * 6 + 1.4), 1.6);
+        const k = Math.min(1, profile(v) * (0.2 + 1.3 * wave));
+        const c = Math.round(Math.pow(k, 1 / 2.2) * 255);
+        const i = (y * W + x) * 4;
+        img.data[i] = img.data[i + 1] = img.data[i + 2] = c;
+        img.data[i + 3] = 255;
+      }
+    }
+    ctx.putImageData(img, 0, 0);
     const map = new THREE.CanvasTexture(canvas);
     map.colorSpace = THREE.SRGBColorSpace;
     const scene = new THREE.Scene();
     const dome = new THREE.Mesh(new THREE.SphereGeometry(20, 32, 16), new THREE.MeshBasicMaterial({ map, side: THREE.BackSide }));
     scene.add(dome);
-    for (const x of [-9, 9]) {
-      const panel = new THREE.Mesh(new THREE.PlaneGeometry(9, 12), new THREE.MeshBasicMaterial({ color: new THREE.Color().setScalar(3.2), side: THREE.DoubleSide }));
-      panel.position.set(x, 3, 6);
+    for (const [x, y, w, h, k] of [[-10, 4, 7, 14, 6], [11, 2, 5, 12, 5], [0, 12, 16, 4, 4]] as const) {
+      const panel = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color().setScalar(k), side: THREE.DoubleSide }));
+      panel.position.set(x, y, 7);
       panel.lookAt(0, 0, 0);
       scene.add(panel);
     }
     const pmrem = new THREE.PMREMGenerator(gl);
-    texture = pmrem.fromScene(scene, 0.12).texture;
+    texture = pmrem.fromScene(scene, 0.02).texture;
     pmrem.dispose();
     map.dispose();
     softCache.set(gl, texture);
