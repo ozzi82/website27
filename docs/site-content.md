@@ -122,17 +122,13 @@ What we build
 
 #### Built for the jobs your shop wins.
 
-Pick a product to see the options, sizes and examples.
-
 *[Image: Vertical lettering with glowing white outlines mounted on a blue panel in a concrete concourse]*
 
-01Signature product
+01· Signature product
 
 ##### Ultra-Slim Letters
 
-EdgeLuxe LP 11 series · cast block acrylic · 10–30 mm
-
-Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 10–30 mm deep. Eight configurations: face, halo, face + halo, side, faux neon and conical.
+EdgeLuxe LP 11 series · cast block acrylic · 10–30 mm. Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 10–30 mm deep. Eight configurations: face, halo, face + halo, side, faux neon and conical.
 
 [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
 
@@ -142,9 +138,7 @@ Our signature product: cast block acrylic letters with embedded LEDs, epoxy-seal
 
 ##### Classic Trimless Letters
 
-EdgeLuxe LP 5, LP 3.1, LP 3.2 · fabricated stainless steel
-
-Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2, in depths from 30 to 100 mm.
+EdgeLuxe LP 5, LP 3.1, LP 3.2 · fabricated stainless steel. Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2, in depths from 30 to 100 mm.
 
 [View Classic Letters](/services/channel-letters)
 
@@ -154,9 +148,7 @@ Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo
 
 ##### Non-Illuminated Flat Cutout Letters
 
-EdgeLuxe LP 1 · unlit
-
-Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.
+EdgeLuxe LP 1 · unlit. Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.
 
 [View Flat Cutouts](/light-effects/lp-1-flat-cutout)
 
@@ -166,9 +158,7 @@ Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acryli
 
 ##### Custom Sign Fabrication
 
-Made to your drawings
-
-Custom work to your drawings, including blade signs, push-through cabinet signs, illuminated logos and custom letter projects.
+Made to your drawings. Custom work to your drawings, including blade signs, push-through cabinet signs, illuminated logos and custom letter projects.
 
 [See Custom Fabrication](/services/custom-sign-fabrication)
 

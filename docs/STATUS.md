@@ -175,4 +175,4 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - "See it on your own building" button removed from the configurator for now (PhotoView.tsx, PhotoScene.tsx, photoMath.ts, photoTone.ts stay in the repo, unused, to pick up later).
 
 ## Home product tiles
-- Products section is now four equal photo tiles (title over the photo, orange full-width button, hover lift/glow, whole tile clickable); first tile keeps the Signature product badge. Mobile: one column.
+- Products section: compact 2x2 horizontal cards (photo left, title, two-line summary, orange link; whole card clickable; first keeps the Signature product label). One column on phones.
