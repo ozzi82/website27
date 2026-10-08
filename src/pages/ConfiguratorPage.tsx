@@ -13,6 +13,7 @@ import { generateTextArtworkFile } from "../components/configurator/textArtwork"
 import { DEFAULT_FONT_ID, TEXT_FONTS, fontsFor, usableFontId } from "../components/configurator/textFonts";
 import ConfigControls from "../components/configurator/ConfigControls";
 import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
+import { useDesktop } from "../components/configurator/useDesktop";
 import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
 import { Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
 import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
@@ -101,6 +102,7 @@ export default function ConfiguratorPage() {
   const background = useRef<BackgroundId>(DEFAULT_BACKGROUND);
   const capture = useRef<CaptureSnapshot | null>(null);
   const [quoting, setQuoting] = useState(false);
+  const desktop = useDesktop();
   const [building, setBuilding] = useState(false);
   const openBuilding = useCallback(() => setBuilding(true), []);
   const closeBuilding = useCallback(() => setBuilding(false), []);
@@ -229,9 +231,9 @@ export default function ConfiguratorPage() {
         <h1 className="sr-only">{CONFIGURATOR_NAME}</h1>
         <div className="flex h-[calc(100svh-136px)] min-h-[420px] flex-col gap-2 lg:h-[calc(100svh-117px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
           {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
-          <div className="min-h-[200px] min-w-0 flex-1">
+          <div className="flex min-h-[200px] min-w-0 flex-1 flex-col gap-3">
             {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
-            <div className="relative h-full w-full">
+            <div className="relative min-h-0 w-full flex-1">
               <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
                 <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} />
               </ErrorBoundary>
@@ -242,14 +244,21 @@ export default function ConfiguratorPage() {
                 </div>
               )}
             </div>
+            {desktop && (
+              <section aria-label="Scene" className="shrink-0 space-y-3 rounded-xl border border-border bg-card/50 p-4">
+                <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
+                <ConfiguratorDisclaimer />
+              </section>
+            )}
           </div>
 
-          <aside className="flex min-w-0 flex-col lg:w-[440px] lg:shrink-0 lg:min-h-0">
+          <aside className="flex min-w-0 flex-col lg:w-[560px] lg:shrink-0 lg:min-h-0 xl:w-[620px]">
             <ConfiguratorPanel
               tabs={[
                 {
                   id: "text",
                   label: "Text",
+                  heading: "Your artwork",
                   icon: <Type />,
                   content: (
                     <>
@@ -286,22 +295,24 @@ export default function ConfiguratorPage() {
                     </>
                   ),
                 },
-                { id: "size", label: "Size", icon: <Ruler />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
-                { id: "colour", label: "Colour", icon: <Palette />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
-                { id: "light", label: "Light", icon: <Lightbulb />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
+                { id: "size", label: "Size", heading: "Size and build", icon: <Ruler />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
+                { id: "colour", label: "Colour", heading: "Colour and finish", icon: <Palette />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
+                { id: "light", label: "Light", heading: "Lighting", icon: <Lightbulb />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
+                ...(desktop ? [] : [
                 {
-                  id: "look",
-                  label: "Look",
-                  icon: <Mountain />,
-                  content: (
-                    <>
-                      <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
-            <ConfiguratorDisclaimer />
-
-
-                    </>
-                  ),
-                },
+                    id: "look",
+                    label: "Look",
+                    icon: <Mountain />,
+                    content: (
+                      <>
+                        <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
+              <ConfiguratorDisclaimer />
+  
+  
+                      </>
+                    ),
+                  },
+                  ]),
               ]}
               action={
                 <>

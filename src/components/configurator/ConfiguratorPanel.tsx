@@ -4,6 +4,8 @@ import { cn } from "@project/lib/utils";
 export interface PanelTab {
   id: string;
   label: string;
+  /** Section heading shown on desktop, where every section is on screen at once. */
+  heading?: string;
   icon: ReactNode;
   content: ReactNode;
 }
@@ -36,12 +38,13 @@ export default function ConfiguratorPanel({ tabs, action }: ConfiguratorPanelPro
     <div className="grid min-h-0 grid-cols-1 gap-y-2 lg:h-full lg:grid-rows-[minmax(0,1fr)_auto] lg:gap-y-3">
       <div
         className={cn(
-          "order-1 max-h-[40svh] min-h-0 overflow-y-auto rounded-xl border border-border bg-card/70 p-3 lg:order-1 lg:max-h-none lg:border-0 lg:bg-transparent lg:p-0 lg:pr-1",
+          "order-1 max-h-[40svh] min-h-0 overflow-y-auto rounded-xl border border-border bg-card/70 p-3 lg:order-1 lg:max-h-none lg:flex lg:flex-col lg:gap-8 lg:border-0 lg:bg-transparent lg:p-0 lg:pr-2 lg:pt-1",
           !open && "max-lg:hidden"
         )}
       >
         {tabs.map((t) => (
-          <div key={t.id} id={`panel-${t.id}`} role="group" aria-label={t.label} className={cn("space-y-3", t.id !== active && "hidden lg:block")}>
+          <div key={t.id} id={`panel-${t.id}`} role="group" aria-label={t.label} className={cn("space-y-3 lg:space-y-4", t.id !== active && "hidden lg:block")}>
+            <h3 className="mono-label hidden border-b border-border pb-2 pt-1 leading-relaxed text-primary lg:block">{t.heading ?? t.label}</h3>
             {t.content}
           </div>
         ))}

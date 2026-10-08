@@ -182,3 +182,6 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - Desktop (lg+): no tabs: every section stacked in the side column (scrolls), Get a Quote pinned under it. (Owner disliked the tabbed desktop version.)
 - Tablet / phone: preview fills the screen; controls open as a short sheet under it, tab bar at the bottom with the quote button beside it (icons only on phones); tapping the active tab folds the sheet away.
 - Day/night, background and "See it on the building" are in the Look tab.
+
+## Configurator desktop spacing pass
+- Desktop: options column widened (560 px, 620 px on xl) with section headings (Your artwork, Size and build, Colour and finish, Lighting); background and day/night moved out of it into a scene strip under a shorter preview (useDesktop.ts decides, so the Look tab only exists on tablet/phone).
