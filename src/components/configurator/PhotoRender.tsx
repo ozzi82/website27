@@ -42,6 +42,12 @@ function Driver({ ready, running, onSamples, onDone, onError }: DriverProps) {
       t.bounces = 5;
       t.renderScale = 1;
       t.tiles.set(2, 2);
+      // Show only the path-traced image: no rasterised stand-in frame, no cross-fade, no low-resolution preview.
+      t.rasterizeScene = false;
+      t.dynamicLowRes = false;
+      t.minSamples = 1;
+      t.fadeDuration = 0;
+      t.renderDelay = 0;
       t.setScene(scene, camera);
       tracer.current = t;
     } catch (e) {
@@ -164,7 +170,7 @@ export default function PhotoRender({ shapes, config, state, pose, onClose }: Ph
               <Canvas
                 dpr={1}
                 camera={{ fov: 35, near: 0.03, far: 200 }}
-                gl={{ antialias: false, preserveDrawingBuffer: true, powerPreference: "high-performance" }}
+                gl={{ antialias: false, alpha: false, preserveDrawingBuffer: true, powerPreference: "high-performance" }}
                 style={{ width: "100%", height: "100%" }}
               >
                 <PathTraceScene shapes={shapes} config={config} state={state} pose={pose} onReady={onReady} />
