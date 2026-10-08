@@ -13,10 +13,10 @@ export default function Header() {
   const close = () => setOpen(false);
 
   return <>
-    <div className="bg-primary text-primary-foreground text-xs py-1.5 text-center tracking-wide hidden md:block">
+    <div data-site-chrome className="bg-primary text-primary-foreground text-xs py-1.5 text-center tracking-wide hidden md:block">
       Wholesale manufacturing partner for sign companies · Trade only
     </div>
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
+    <header data-site-chrome className="sticky top-0 z-50 bg-background/95 backdrop-blur border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-6 flex items-center justify-between gap-4 h-16 w-full">
         <Link to="/" onClick={close} aria-label="Sunlite Signs, home" className="flex items-center shrink-0">
           <Logo className="h-6 sm:h-7 w-auto text-foreground" />

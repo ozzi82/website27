@@ -23,7 +23,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="bg-secondary py-12 border-t border-border">
+      <footer data-site-chrome className="bg-secondary py-12 border-t border-border">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-start gap-8 mb-8">
             <div className="space-y-3 max-w-md">

@@ -112,8 +112,14 @@
   }
 }
 
+/* Full-screen configurator: while a product is being configured, the site's own header and footer step aside (see ConfiguratorPage). */
+html.cfg-app [data-site-chrome] {
+  display: none !important;
+}
+
 @layer base {
   /*
+   * Unused for now: a light token set for the configurator (the owner chose the dark site colours for it). Kept for a later light option.
    * The 3D configurator is a light, app-like surface inside the dark site. Re-pointing the tokens here lets every existing
    * component follow: deep charcoal navy for text, icons and selected controls (--primary), white cards on an off-white page,
    * and orange kept for the primary action, selected swatches and sliders only (--brand).

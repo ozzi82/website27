@@ -197,3 +197,6 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - Desktop: big preview with sign-type dropdown and a floating bar (Day/Night, wall material, Reset, zoom), current-configuration card with a thumbnail under it, grey "Make it yours" panel (Your artwork, Size and build, Colour and finish, Lighting), Preview on a building + orange Request wholesale pricing.
 - Tablet/phone: same light styling, preview on top, bottom tab bar.
 - The face-vinyl option (LP 11-FS) was removed (confusing; a coloured vinyl never matched a different glow colour).
+
+## Configurator: dark, and only full-screen once a product is picked
+- /configurator (Build your sign) shows the chooser in the normal site design (site header and footer). Picking a product opens the full-screen configurator: the site header/footer are hidden via `html.cfg-app [data-site-chrome]` (set by AppChrome in ConfiguratorPage) and the slim ConfiguratorHeader takes over. The light token set (.cfg-light) is unused for now; the configurator uses the site's dark colours.

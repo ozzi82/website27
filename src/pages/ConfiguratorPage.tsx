@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
+import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import * as THREE from "three";
@@ -40,6 +40,20 @@ import { trackEvent } from "../lib/tracking";
 import { SITE_URL } from "../lib/seo";
 import { CONFIGURATOR_META, CONFIGURATOR_NAME, configuratorJsonLd } from "../lib/configuratorMeta";
 
+/** While a product is being configured the page is a full-screen app: the site's header and footer step aside and the configurator's own slim header takes over. */
+function AppChrome({ children }: { children: ReactNode }) {
+  useLayoutEffect(() => {
+    document.documentElement.classList.add("cfg-app");
+    return () => document.documentElement.classList.remove("cfg-app");
+  }, []);
+  return (
+    <>
+      <ConfiguratorHeader />
+      {children}
+    </>
+  );
+}
+
 const BuildingView = lazy(() => import("../components/configurator/BuildingView"));
 
 /** Building a sign starts with text, and this word, so there is something lit to look at straight away. */
@@ -69,7 +83,7 @@ function initialState(params: URLSearchParams): ConfiguratorState | null {
   return state;
 }
 
-function ConfiguratorPageInner() {
+export default function ConfiguratorPage() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [state, setState] = useState<ConfiguratorState | null>(() => initialState(searchParams));
@@ -249,126 +263,128 @@ function ConfiguratorPageInner() {
       ...(emitsLight(config) ? [{ label: "Lighting", value: glowName }] : []),
     ].filter((i) => i.value);
     return (
-      <div className="mx-auto max-w-[1700px] px-3 pb-2 pt-2 sm:px-5 lg:pb-3 lg:pt-3">
-        {seo}
-        <h1 className="sr-only">{CONFIGURATOR_NAME}</h1>
-        <div className="flex h-[calc(100svh-128px)] min-h-[420px] flex-col gap-2 lg:h-[calc(100svh-88px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
-          {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
-          <div className="flex min-h-[200px] min-w-0 flex-1 flex-col gap-3">
-            {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
-            <div className="relative min-h-0 w-full flex-1">
-              <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} renderBar={desktop ? (camera) => <SceneBar state={state} onChange={handleChange} camera={camera} /> : undefined} />
-              </ErrorBoundary>
-              {desktop && (
-                <>
-                  <div className="absolute left-3 top-3 z-10 w-[min(24rem,70%)] rounded-xl border border-border bg-background/85 p-1.5 backdrop-blur">
-                    <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
+      <AppChrome>
+        <div className="mx-auto max-w-[1700px] px-3 pb-2 pt-2 sm:px-5 lg:pb-3 lg:pt-3">
+          {seo}
+          <h1 className="sr-only">{CONFIGURATOR_NAME}</h1>
+          <div className="flex h-[calc(100svh-128px)] min-h-[420px] flex-col gap-2 lg:h-[calc(100svh-88px)] lg:min-h-[500px] lg:flex-row lg:gap-5">
+            {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
+            <div className="flex min-h-[200px] min-w-0 flex-1 flex-col gap-3">
+              {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
+              <div className="relative min-h-0 w-full flex-1">
+                <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
+                  <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} renderBar={desktop ? (camera) => <SceneBar state={state} onChange={handleChange} camera={camera} /> : undefined} />
+                </ErrorBoundary>
+                {desktop && (
+                  <>
+                    <div className="absolute left-3 top-3 z-10 w-[min(24rem,70%)] rounded-xl border border-border bg-background/85 p-1.5 backdrop-blur">
+                      <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
+                    </div>
+                  </>
+                )}
+                <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
+                {!shapes && (
+                  <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
+                    <span className="rounded-full bg-black/55 px-4 py-2 text-sm text-white/90">Type your text to see your sign here.</span>
                   </div>
-                </>
-              )}
-              <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
-              {!shapes && (
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
-                  <span className="rounded-full bg-black/55 px-4 py-2 text-sm text-white/90">Type your text to see your sign here.</span>
+                )}
+              </div>
+              {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} />}
+            </div>
+
+            <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-6 xl:w-[520px]">
+              {desktop && (
+                <div className="mb-4 shrink-0">
+                  <h2 className="text-3xl font-semibold">Make it yours</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">Configure your sign in real time.</p>
                 </div>
               )}
-            </div>
-            {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} />}
-          </div>
-
-          <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-6 xl:w-[520px]">
-            {desktop && (
-              <div className="mb-4 shrink-0">
-                <h2 className="text-3xl font-semibold">Make it yours</h2>
-                <p className="mt-1 text-sm text-muted-foreground">Configure your sign in real time.</p>
-              </div>
-            )}
-            <ConfiguratorPanel
-              tabs={[
-                {
-                  id: "text",
-                  label: "Text",
-                  heading: "Your artwork",
-                  icon: <Type />,
-                  content: (
-                    <>
-            {!desktop && <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />}
-
-            <ArtworkSourceToggle value={source} onChange={setSource} />
-
-            {source === "upload" && uploadShapes && (
-              <p className="flex items-center justify-between gap-2 text-[11px] text-muted-foreground">
-                <span className="min-w-0 truncate">{uploadFile?.name}</span>
-                <button
-                  type="button"
-                  onClick={clearUpload}
-                  className="shrink-0 underline hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-                >
-                  Use a different file
-                </button>
-              </p>
-            )}
-
-            {source === "text" && (
-              <TextArtworkPanel
-                text={text}
-                onTextChange={setText}
-                fontId={fontId}
-                fonts={fontsFor(config)}
-                compact={desktop}
-                onFontChange={setFontId}
-                error={textArtwork.error}
-                skipped={textArtwork.skipped}
-                announcement={textArtwork.announcement}
-              />
-            )}
-
-                    </>
-                  ),
-                },
-                { id: "size", label: "Size", heading: "Size and build", icon: <Ruler />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
-                { id: "colour", label: "Colour", heading: "Colour and finish", icon: <Palette />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
-                { id: "light", label: "Light", heading: "Lighting", icon: <Lightbulb />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
-                ...(desktop ? [] : [
-                {
-                    id: "look",
-                    label: "Look",
-                    icon: <Mountain />,
+              <ConfiguratorPanel
+                tabs={[
+                  {
+                    id: "text",
+                    label: "Text",
+                    heading: "Your artwork",
+                    icon: <Type />,
                     content: (
                       <>
-                        <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
-              <ConfiguratorDisclaimer />
-  
-  
+              {!desktop && <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />}
+
+              <ArtworkSourceToggle value={source} onChange={setSource} />
+
+              {source === "upload" && uploadShapes && (
+                <p className="flex items-center justify-between gap-2 text-[11px] text-muted-foreground">
+                  <span className="min-w-0 truncate">{uploadFile?.name}</span>
+                  <button
+                    type="button"
+                    onClick={clearUpload}
+                    className="shrink-0 underline hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                  >
+                    Use a different file
+                  </button>
+                </p>
+              )}
+
+              {source === "text" && (
+                <TextArtworkPanel
+                  text={text}
+                  onTextChange={setText}
+                  fontId={fontId}
+                  fonts={fontsFor(config)}
+                  compact={desktop}
+                  onFontChange={setFontId}
+                  error={textArtwork.error}
+                  skipped={textArtwork.skipped}
+                  announcement={textArtwork.announcement}
+                />
+              )}
+
                       </>
                     ),
                   },
-                  ]),
-              ]}
-              action={
-                <>
-                  <Button type="button" variant="outline" disabled={!shapes} onClick={openBuilding} className="h-14 min-w-0 flex-1 gap-2 whitespace-normal rounded-xl border-input bg-card px-3 text-sm font-semibold leading-tight hover:bg-card sm:text-base">
-                    <Building2 aria-hidden="true" className="h-5 w-5 shrink-0" />
-                    Preview on a building
-                  </Button>
-                  <Button asChild className="h-14 min-w-0 flex-[1.3] whitespace-normal rounded-xl bg-brand px-3 text-sm font-bold text-brand-foreground hover:bg-brand/90 sm:text-base">
-                    <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="gap-2 text-center leading-tight">
-                      {CTA_PRIMARY.label}
-                      <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" />
-                    </Link>
-                  </Button>
-                </>
-              }
-            />
-          </aside>
+                  { id: "size", label: "Size", heading: "Size and build", icon: <Ruler />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
+                  { id: "colour", label: "Colour", heading: "Colour and finish", icon: <Palette />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
+                  { id: "light", label: "Light", heading: "Lighting", icon: <Lightbulb />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
+                  ...(desktop ? [] : [
+                  {
+                      id: "look",
+                      label: "Look",
+                      icon: <Mountain />,
+                      content: (
+                        <>
+                          <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
+                <ConfiguratorDisclaimer />
+  
+  
+                        </>
+                      ),
+                    },
+                    ]),
+                ]}
+                action={
+                  <>
+                    <Button type="button" variant="outline" disabled={!shapes} onClick={openBuilding} className="h-14 min-w-0 flex-1 gap-2 whitespace-normal rounded-xl border-input bg-card px-3 text-sm font-semibold leading-tight hover:bg-card sm:text-base">
+                      <Building2 aria-hidden="true" className="h-5 w-5 shrink-0" />
+                      Preview on a building
+                    </Button>
+                    <Button asChild className="h-14 min-w-0 flex-[1.3] whitespace-normal rounded-xl bg-brand px-3 text-sm font-bold text-brand-foreground hover:bg-brand/90 sm:text-base">
+                      <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="gap-2 text-center leading-tight">
+                        {CTA_PRIMARY.label}
+                        <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" />
+                      </Link>
+                    </Button>
+                  </>
+                }
+              />
+            </aside>
+          </div>
+          {building && shapes && (
+            <Suspense fallback={null}>
+              <BuildingView shapes={shapes} config={config} state={state} onClose={closeBuilding} />
+            </Suspense>
+          )}
         </div>
-        {building && shapes && (
-          <Suspense fallback={null}>
-            <BuildingView shapes={shapes} config={config} state={state} onClose={closeBuilding} />
-          </Suspense>
-        )}
-      </div>
+      </AppChrome>
     );
   }
 
@@ -403,18 +419,6 @@ function ConfiguratorPageInner() {
           <UploadDropzone onParsed={handleParsed} />
         </>
       )}
-    </div>
-  );
-}
-
-/** The configurator is its own light, app-like surface: its own slim header instead of the site's, and the light token set. */
-export default function ConfiguratorPage() {
-  return (
-    <div className="cfg-light flex min-h-screen flex-col">
-      <ConfiguratorHeader />
-      <div className="flex-1">
-        <ConfiguratorPageInner />
-      </div>
     </div>
   );
 }
