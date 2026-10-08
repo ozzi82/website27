@@ -179,6 +179,6 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 
 ## Configurator app layout
 - Options are now tabs (Text, Size, Colour, Light, Look) in ConfiguratorPanel.tsx; ConfigControls takes a `group` prop that renders only that tab's controls. All tabs stay mounted (inactive ones hidden by CSS).
-- Desktop (lg+): tab row on top of the 440 px side column, active tab's controls below, Get a Quote pinned under them.
+- Desktop (lg+): no tabs: every section stacked in the side column (scrolls), Get a Quote pinned under it. (Owner disliked the tabbed desktop version.)
 - Tablet / phone: preview fills the screen; controls open as a short sheet under it, tab bar at the bottom with the quote button beside it (icons only on phones); tapping the active tab folds the sheet away.
 - Day/night, background and "See it on the building" are in the Look tab.
