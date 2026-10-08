@@ -67,25 +67,29 @@ describe("lerp", () => {
   });
 });
 
+const expectClose = (a: Record<string, number>, b: Record<string, number>) => {
+  for (const k of Object.keys(b)) expect(a[k]).toBeCloseTo(b[k], 9);
+};
+
 describe("atmosphereFor", () => {
   it("is the current daylight look at n = 0, whatever the configuration", () => {
     for (const dark of [true, false]) {
-      expect(atmosphereFor(0, dark)).toEqual({ ambient: 0.04, directional: 0.35, point: 9, environment: 0.15 });
+      expect(atmosphereFor(0, dark)).toEqual({ ambient: 0.05, directional: 0.4, point: 9, environment: 0.3 });
     }
   });
 
   it("is the current dark-room look at n = 1 for letters that glow (the key point light is off)", () => {
-    expect(atmosphereFor(1, true)).toEqual({ ambient: 0.15, directional: 0.6, point: 0, environment: 0.05 });
+    expectClose(atmosphereFor(1, true), { ambient: 0.15, directional: 0.6, point: 0, environment: 0.05 });
   });
 
   it("keeps a dim key light at n = 1 for an unlit letter so it stays readable", () => {
-    expect(atmosphereFor(1, false)).toEqual({ ambient: 0.06, directional: 0.25, point: 6, environment: 0.08 });
+    expectClose(atmosphereFor(1, false), { ambient: 0.06, directional: 0.25, point: 6, environment: 0.08 });
   });
 
   it("blends halfway at n = 0.5", () => {
     const a = atmosphereFor(0.5, true);
     expect(a.point).toBeCloseTo(4.5, 6);
-    expect(a.directional).toBeCloseTo(0.475, 6);
+    expect(a.directional).toBeCloseTo(0.5, 6);
   });
 });
 
