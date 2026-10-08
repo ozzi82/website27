@@ -23,6 +23,8 @@ interface SignPreviewProps {
   /** Filled with the snapshot function while the preview is mounted (used by "Get a Quote"). */
   captureRef?: MutableRefObject<CaptureSnapshot | null>;
   hideHint?: boolean;
+  /** Photo render requested from the current view. */
+  onRender?: (pose: { position: [number, number, number]; target: [number, number, number] }) => void;
   /** Desktop: a floating bar over the preview, given the camera commands. */
   renderBar?: (api: { zoomIn: () => void; zoomOut: () => void; reset: () => void }) => ReactNode;
 }
@@ -195,7 +197,7 @@ export function SnapshotBridge({ captureRef, width, quality }: { captureRef: Mut
   return null;
 }
 
-export default function SignPreview({ shapes, config, state, captureRef, hideHint, renderBar }: SignPreviewProps) {
+export default function SignPreview({ shapes, config, state, captureRef, hideHint, renderBar, onRender }: SignPreviewProps) {
   const isNight = state.dayNight === "night";
   // At night the room goes dark so the lit parts carry the picture. An unlit
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
@@ -224,6 +226,7 @@ export default function SignPreview({ shapes, config, state, captureRef, hideHin
       onRotate={(dTheta, dPhi) => camera.current?.rotate(dTheta, dPhi)}
       onDownload={download}
       hideHint={hideHint}
+      onRender={onRender ? () => camera.current && onRender(camera.current.getPose()) : undefined}
       hideControls={Boolean(renderBar)}
       bar={renderBar?.({ zoomIn: () => camera.current?.zoomIn(), zoomOut: () => camera.current?.zoomOut(), reset: () => camera.current?.reset() })}
     >

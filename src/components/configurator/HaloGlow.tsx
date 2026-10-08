@@ -51,7 +51,13 @@ void main() {
 // Soft light spill on the wall around the artwork outline; fades in with the night amount.
 export default function HaloGlow({ shapes, z, color, spread = 1.4, background, wall, level = 1 }: HaloGlowProps) {
   const glow = useMemo(() => createHaloGlow(shapes, spread), [shapes, spread]);
-  useEffect(() => () => glow?.texture.dispose(), [glow]);
+  useEffect(
+    () => () => {
+      glow?.texture.dispose();
+      glow?.alphaTexture.dispose();
+    },
+    [glow]
+  );
   const mesh = useRef<THREE.Mesh>(null);
   const uniforms = useMemo(
     () => ({

@@ -40,7 +40,10 @@
     "react-router-dom": "^6.29.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "three": "^0.186.1"
+    "three": "^0.186.1",
+    "three-gpu-pathtracer": "^0.0.27",
+    "three-mesh-bvh": "^0.9.16",
+    "xatlas-web": "^0.1.0"
   },
   "devDependencies": {
     "@fontsource/arvo": "^5.3.0",
@@ -70,5 +73,8 @@
     "typescript": "~5.7.3",
     "vite": "^6.1.0",
     "vitest": "^5.0.3"
+  },
+  "overrides": {
+    "three-mesh-bvh": "$three-mesh-bvh"
   }
 }

@@ -25,6 +25,8 @@ export interface CameraApi {
   zoomOut: () => void;
   reset: () => void;
   rotate: (dTheta: number, dPhi: number) => void;
+  /** Where the camera is looking from and at, for renders that start from the current view. */
+  getPose: () => { position: [number, number, number]; target: [number, number, number] };
 }
 
 const ZOOM_STEP = 0.78;
@@ -56,6 +58,10 @@ const CameraRig = forwardRef<CameraApi>(function CameraRig(_props, ref) {
         goalTarget.current = VIEW_TARGET.clone();
       },
       rotate: (dTheta, dPhi) => (goal.current = rotateView(base(), dTheta, dPhi)),
+      getPose: () => ({
+        position: [camera.position.x, camera.position.y, camera.position.z],
+        target: [target().x, target().y, target().z],
+      }),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [camera]

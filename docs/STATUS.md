@@ -209,3 +209,10 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 
 ## Upload logo inside the configurator
 - Choosing Upload logo now stays in the full-screen configurator: a dashed drop box in the Your artwork section (UploadDropzone compact), the preview shows an empty wall until a file is parsed, then the sign. Formats are still vector only (SVG, PDF, AI); PNG/JPG would need tracing, not built.
+
+## Photo render (realism step 3, option 1: path tracing in the browser)
+- "Photo render" button on the preview (next to Download image) opens PhotoRender (lazy chunk, ~220 KB, loads only on click): the current sign and view are rebuilt from plain physical materials (PathTraceScene) and path traced on the visitor's graphics card with three-gpu-pathtracer (WebGLPathTracer, deprecated upstream in favour of WebGPU but works in every WebGL 2 browser). Stops by itself at 320 samples (TARGET_SAMPLES), "Stop here" any time, Download picture saves the canvas as JPEG. Nothing is uploaded.
+- Needs WebGL 2 + EXT_color_buffer_float (canPathTrace); otherwise a friendly message.
+- Approximations: halo is an emissive plane with the same blurred silhouette as the live preview; side-lit letters glow on the whole side at night; the brushed finish, wall texture and studio HDR are the live ones.
+- package.json: three-gpu-pathtracer, three-mesh-bvh (override pinned to the direct dependency), xatlas-web (peer).
+- Could only be tested here on a CPU software renderer (about 1 sample per second at 486x272): works, but real speed and look on a GPU are untested.

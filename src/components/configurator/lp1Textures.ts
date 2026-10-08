@@ -32,6 +32,7 @@ function paint(painter: (u: number, v: number) => Rgb, colorSpace: string): THRE
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(LP1_TEXTURE_REPEAT, LP1_TEXTURE_REPEAT);
+  texture.updateMatrix(); // a path tracer reads the matrix directly, so it must be current
   texture.colorSpace = colorSpace as THREE.ColorSpace;
   texture.anisotropy = 4;
   return texture;
@@ -83,6 +84,8 @@ export function makeBrushedTextures(): Lp1Textures {
   // Grain this fine needs a small tile, or it reads as broad bands across a letter.
   map?.repeat.set(1.4, 1.4);
   roughnessMap?.repeat.set(1.4, 1.4);
+  map?.updateMatrix();
+  roughnessMap?.updateMatrix();
   return { map, roughnessMap };
 }
 

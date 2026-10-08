@@ -78,6 +78,7 @@ export function createHaloGlow(shapes: THREE.Shape[], spread: number) {
   const wide = gaussianBlur(mask, w, h, spread * 0.1 * px);
   const tight = gaussianBlur(mask, w, h, spread * 0.035 * px);
 
+  const alpha = new Uint8Array(w * h * 4);
   const data = new Uint16Array(w * h * 4);
   const one = THREE.DataUtils.toHalfFloat(1);
   for (let y = 0; y < h; y++) {
@@ -86,10 +87,17 @@ export function createHaloGlow(shapes: THREE.Shape[], spread: number) {
       const o = ((h - 1 - y) * w + x) * 4;
       data[o] = data[o + 1] = data[o + 2] = v;
       data[o + 3] = one;
+      const a = Math.round(Math.min(1, wide[y * w + x] * 1.2 + tight[y * w + x] * 0.8) * 255);
+      alpha[o] = alpha[o + 1] = alpha[o + 2] = a;
+      alpha[o + 3] = 255;
     }
   }
   const texture = new THREE.DataTexture(data, w, h, THREE.RGBAFormat, THREE.HalfFloatType);
   texture.minFilter = texture.magFilter = THREE.LinearFilter;
   texture.needsUpdate = true;
-  return { texture, width, height, center };
+  /** The same glow as an 8-bit RGBA texture (value in every channel): what a path tracer can use as an alpha map. */
+  const alphaTexture = new THREE.DataTexture(alpha, w, h, THREE.RGBAFormat, THREE.UnsignedByteType);
+  alphaTexture.minFilter = alphaTexture.magFilter = THREE.LinearFilter;
+  alphaTexture.needsUpdate = true;
+  return { texture, alphaTexture, width, height, center };
 }

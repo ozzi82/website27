@@ -16,6 +16,7 @@ import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
 import ConfiguratorHeader from "../components/configurator/ConfiguratorHeader";
 import SceneBar from "../components/configurator/SceneBar";
 import ConfigSummaryCard from "../components/configurator/ConfigSummaryCard";
+import type { RenderPose } from "../components/configurator/PathTraceScene";
 import { useDesktop } from "../components/configurator/useDesktop";
 import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
 import { ArrowRight, Building2, Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
@@ -54,6 +55,7 @@ function AppChrome({ children }: { children: ReactNode }) {
   );
 }
 
+const PhotoRender = lazy(() => import("../components/configurator/PhotoRender"));
 const BuildingView = lazy(() => import("../components/configurator/BuildingView"));
 
 /** Building a sign starts with text, and this word, so there is something lit to look at straight away. */
@@ -109,6 +111,7 @@ export default function ConfiguratorPage() {
       trackEvent("configurator_artwork", { source }); // "text" or "upload": someone actually saw a sign built from their input
     }
   }, [shapes, source]);
+  const [renderPose, setRenderPose] = useState<RenderPose | null>(null);
   const desktop = useDesktop();
   const [thumb, setThumb] = useState<string | null>(null);
   // A small picture of the current sign for the summary card, refreshed once things settle.
@@ -273,7 +276,7 @@ export default function ConfiguratorPage() {
               {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
               <div className="relative min-h-0 w-full flex-1">
                 <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                  <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} renderBar={desktop ? (camera) => <SceneBar state={state} onChange={handleChange} camera={camera} /> : undefined} />
+                  <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} onRender={shapes ? setRenderPose : undefined} hideHint={desktop} renderBar={desktop ? (camera) => <SceneBar state={state} onChange={handleChange} camera={camera} /> : undefined} />
                 </ErrorBoundary>
                 {desktop && (
                   <>
@@ -380,6 +383,11 @@ export default function ConfiguratorPage() {
               />
             </aside>
           </div>
+          {renderPose && shapes && (
+            <Suspense fallback={null}>
+              <PhotoRender shapes={shapes} config={config} state={state} pose={renderPose} onClose={() => setRenderPose(null)} />
+            </Suspense>
+          )}
           {building && shapes && (
             <Suspense fallback={null}>
               <BuildingView shapes={shapes} config={config} state={state} onClose={closeBuilding} />
