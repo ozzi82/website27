@@ -34,7 +34,6 @@ import { SITE_URL } from "../lib/seo";
 import { CONFIGURATOR_META, CONFIGURATOR_NAME, configuratorJsonLd } from "../lib/configuratorMeta";
 
 const BuildingView = lazy(() => import("../components/configurator/BuildingView"));
-const PhotoView = lazy(() => import("../components/configurator/PhotoView"));
 
 /** Building a sign starts with text, and this word, so there is something lit to look at straight away. */
 const PRESET_TEXT = "SUNLITE";
@@ -103,9 +102,6 @@ export default function ConfiguratorPage() {
   const [building, setBuilding] = useState(false);
   const openBuilding = useCallback(() => setBuilding(true), []);
   const closeBuilding = useCallback(() => setBuilding(false), []);
-  const [photoView, setPhotoView] = useState(false);
-  const openPhoto = useCallback(() => setPhotoView(true), []);
-  const closePhoto = useCallback(() => setPhotoView(false), []);
 
   const webglSupported = useWebglSupported();
 
@@ -284,9 +280,6 @@ export default function ConfiguratorPage() {
             <Button type="button" variant="outline" size="lg" disabled={!shapes} onClick={openBuilding} className="w-full shrink-0 uppercase tracking-wider font-semibold">
               See it on the building!
             </Button>
-            <Button type="button" variant="outline" size="lg" disabled={!shapes} onClick={openPhoto} className="w-full shrink-0 uppercase tracking-wider font-semibold">
-              See it on your own building
-            </Button>
 
             <Button asChild size="lg" className="sticky bottom-2 z-20 mt-auto w-full shrink-0 shadow-lg lg:static lg:shadow-none">
               <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="uppercase tracking-wider font-semibold">
@@ -295,11 +288,6 @@ export default function ConfiguratorPage() {
             </Button>
           </aside>
         </div>
-        {photoView && shapes && (
-          <Suspense fallback={null}>
-            <PhotoView shapes={shapes} config={config} state={state} onSizeChange={(sizeIn) => handleChange({ ...state, sizeIn })} onClose={closePhoto} />
-          </Suspense>
-        )}
         {building && shapes && (
           <Suspense fallback={null}>
             <BuildingView shapes={shapes} config={config} state={state} onClose={closeBuilding} />

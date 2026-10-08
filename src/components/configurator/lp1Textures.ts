@@ -53,17 +53,17 @@ function woodPainter(): (u: number, v: number) => Rgb {
   };
 }
 
-// Brushed steel: long, fine, near-horizontal grain lines (the noise barely varies along u, a lot across v), plus a soft broad sheen.
+// Brushed stainless: fine VERTICAL grain, light silver, with long brighter and darker hairlines (the noise varies fast across u and barely along v).
 function brushedPainter(): (u: number, v: number) => Rgb {
   const coarse = makeTileableNoise(3, 21);
   const fine = makeTileableNoise(5, 23);
   const hair = mulberry32(24);
   const lines = Array.from({ length: SIZE }, () => hair());
   return (u, v) => {
-    const row = lines[Math.floor(v * SIZE) % SIZE];
-    const grain = (coarse(u, v * 40) - 0.5) * 0.12 + (fine(u, v * 90) - 0.5) * 0.1 + (row - 0.5) * 0.1;
-    const l = 0.8 + grain;
-    return [l * 0.97, l * 0.98, l];
+    const col = lines[Math.floor(u * SIZE) % SIZE];
+    const streak = (col - 0.5) * 0.2 + (fine(u * 90, v) - 0.5) * 0.14 + (coarse(u * 40, v) - 0.5) * 0.12;
+    const l = 0.74 + streak;
+    return [l * 0.98, l * 0.985, l];
   };
 }
 
@@ -82,12 +82,12 @@ function cortenPainter(): (u: number, v: number) => Rgb {
   };
 }
 
-// Roughness variation for brushed steel: the grain lines scatter the highlight, so it smears along them instead of mirroring.
+// Roughness variation for brushed steel: the vertical grain scatters the highlight, so it smears along the lines instead of mirroring.
 function streakRoughness(): (u: number, v: number) => Rgb {
   const coarse = makeTileableNoise(3, 41);
   const fine = makeTileableNoise(5, 43);
   return (u, v) => {
-    const r = 0.42 + (coarse(u, v * 40) - 0.5) * 0.14 + (fine(u, v * 90) - 0.5) * 0.12;
+    const r = 0.6 + (coarse(u * 40, v) - 0.5) * 0.14 + (fine(u * 90, v) - 0.5) * 0.12;
     return [r, r, r];
   };
 }

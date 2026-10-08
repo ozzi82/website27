@@ -169,3 +169,7 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - docs/CONFIGURATOR-ANALYTICS.md: how to count configurator users in GA4 (consented visitors only).
 - Photos sent inline mid-turn (Fan Store x2, A1 round sign, element, sun logo, Baxter) did not arrive as files: re-attach them to add.
 - NOTE: `npx tsc --noEmit -p .` does not typecheck src (project references); the gate is `npm run build`.
+
+## Round 4
+- LP 1: brushed steel now has fine vertical grain on light silver (matches the owner's reference swatch); mirror gold and new mirror rose gold use a smooth gradient studio (getMirrorEnvironment) so they read as polished mirror, not striped/brushed.
+- "See it on your own building" button removed from the configurator for now (PhotoView.tsx, PhotoScene.tsx, photoMath.ts, photoTone.ts stay in the repo, unused, to pick up later).

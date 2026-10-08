@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useRef } from "react";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { getRoomEnvironment } from "./roomEnvironment";
+import { getMirrorEnvironment, getRoomEnvironment } from "./roomEnvironment";
 import { useNightEffect } from "./NightContext";
 import { lerp } from "./nightFade";
 import { makeLp1Textures } from "./lp1Textures";
 import type { Lp1FinishId } from "./lp1Materials";
 
-const REFLECTIVE = new Set<Lp1FinishId>(["mirror-gold", "brushed-steel", "acrylic-clear", "acrylic-clear-painted", "acrylic-colored"]);
+const MIRROR = new Set<Lp1FinishId>(["mirror-gold", "mirror-rose-gold"]);
+const REFLECTIVE = new Set<Lp1FinishId>(["mirror-gold", "mirror-rose-gold", "brushed-steel", "acrylic-clear", "acrylic-clear-painted", "acrylic-colored"]);
 
 interface Lp1MaterialProps {
   attach: string;
@@ -37,8 +38,8 @@ export default function Lp1Material({ attach, finish, color, part }: Lp1Material
   // The polished finishes reflect a procedural studio (see roomEnvironment.ts); in the night view the room is dark, so the
   // reflections fade down with it.
   const gl = useThree((t) => t.gl);
-  const envMap = useMemo(() => (REFLECTIVE.has(finish) ? getRoomEnvironment(gl) : null), [finish, gl]);
-  const envBase = finish === "mirror-gold" ? 1 : finish === "brushed-steel" ? 1.1 : 0.4;
+  const envMap = useMemo(() => (REFLECTIVE.has(finish) ? (MIRROR.has(finish) ? getMirrorEnvironment(gl) : getRoomEnvironment(gl)) : null), [finish, gl]);
+  const envBase = finish === "mirror-gold" || finish === "mirror-rose-gold" ? 1 : finish === "brushed-steel" ? 1.5 : 0.4;
   const material = useRef<THREE.MeshPhysicalMaterial>(null);
   useNightEffect((n) => {
     if (material.current) material.current.envMapIntensity = lerp(envBase, envBase * 0.2, n);
@@ -50,6 +51,8 @@ export default function Lp1Material({ attach, finish, color, part }: Lp1Material
       return <meshPhysicalMaterial attach={attach} map={textures.map} color="#ffffff" roughness={0.7} metalness={0} />;
     case "mirror-gold":
       return <meshPhysicalMaterial {...env} attach={attach} color="#f0c15a" metalness={1} roughness={0.08} />;
+    case "mirror-rose-gold":
+      return <meshPhysicalMaterial {...env} attach={attach} color="#e8a592" metalness={1} roughness={0.08} />;
     case "brushed-steel":
       return <meshPhysicalMaterial {...env} attach={attach} map={textures.map} roughnessMap={textures.roughnessMap} color="#ffffff" metalness={1} roughness={1} />;
     case "corten":
