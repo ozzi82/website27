@@ -2,6 +2,7 @@ import { defaultMount, type LightConfig, type Mount } from "../../data/configura
 import { DEFAULT_BACKGROUND, type BackgroundId } from "./backgrounds";
 import { DEFAULT_BRIGHTNESS } from "./brightness";
 import { DEFAULT_SIZE_IN } from "./realSize";
+import { BRUSHED_HEX } from "./swatches";
 import {
   DEFAULT_LP1_BUILD,
   DEFAULT_LP1_FINISH,
@@ -77,7 +78,7 @@ export function defaultStateFor(config: LightConfig): ConfiguratorState {
   return {
     configId: config.id,
     depthMm,
-    color: DEFAULT_PAINT_COLOR,
+    color: config.family === "Stainless steel" ? BRUSHED_HEX : DEFAULT_PAINT_COLOR,
     glowColor: DEFAULT_GLOW_COLOR,
     faceVinyl: hasFaceVinyl(config) ? DEFAULT_FACE_VINYL : NO_VINYL,
     dayNight: "day",
@@ -117,7 +118,8 @@ export function switchConfig(prev: ConfiguratorState, next: LightConfig): Config
     variant: false,
     finish: prev.finish,
     build: prev.build,
-    color: prev.color,
+    // Brushed stainless only exists on the stainless-steel letters: other families fall back to their own default colour.
+    color: prev.color.toLowerCase() === BRUSHED_HEX && next.family !== "Stainless steel" ? fresh.color : prev.color,
     glowColor: prev.glowColor,
     faceVinyl: fresh.faceVinyl,
     brightness: prev.brightness,

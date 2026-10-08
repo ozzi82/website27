@@ -80,7 +80,7 @@ describe("configSummaryRows", () => {
     const config = byId("lp-5-trimless-face-lit");
     const rows = configSummaryRows(defaultStateFor(config), config, null);
     expect(rows[0]).toMatchObject({ label: "Configuration" });
-    expect(rows.find((r) => r.label === "Paint color")).toMatchObject({ swatch: "#4b5059" });
+    expect(rows.find((r) => r.label === "Paint color")).toMatchObject({ swatch: "#c9ced4" });
     expect(rows.find((r) => r.label === "Glow color")).toMatchObject({ swatch: "#fff4f0" });
   });
 });

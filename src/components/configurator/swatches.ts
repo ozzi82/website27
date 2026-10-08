@@ -1,7 +1,17 @@
 export interface Swatch {
   name: string;
   hex: string;
+  /** CSS background for the swatch button when a flat colour does not show it (brushed metal). */
+  look?: string;
 }
+
+/** The "Brushed stainless" paint choice: stands for the bare metal, not a paint colour. Fabricated stainless letters only. */
+export const BRUSHED_HEX = "#c9ced4";
+export const BRUSHED_SWATCH: Swatch = {
+  name: "Brushed stainless",
+  hex: BRUSHED_HEX,
+  look: "linear-gradient(135deg,#f4f6f8,#9aa0a6 45%,#e4e7ea 55%,#8d9399)",
+};
 
 // The brochure paints in "any PMS color", so these are just quick picks next to a free colour input.
 export const PAINT_SWATCHES: Swatch[] = [

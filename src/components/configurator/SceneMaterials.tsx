@@ -1,8 +1,12 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
 import type { SideLight } from "../../data/configurations";
 import { useNightEffect } from "./NightContext";
 import { lerp } from "./nightFade";
+import { BRUSHED_HEX } from "./swatches";
+import { makeBrushedTextures } from "./lp1Textures";
+import { getRoomEnvironment } from "./roomEnvironment";
 
 // Painted metal / painted acrylic: slightly metallic with a soft clearcoat.
 const PAINT = { metalness: 0.12, roughness: 0.36, clearcoat: 0.55, clearcoatRoughness: 0.22 } as const;
@@ -34,7 +38,27 @@ interface Attach {
 }
 
 export function PaintedMaterial({ attach, color }: Attach & { color: string }) {
+  if (color.toLowerCase() === BRUSHED_HEX) return <BrushedMaterial attach={attach} />;
   return <meshPhysicalMaterial attach={attach} color={color} {...PAINT} />;
+}
+
+/** Bare brushed stainless: grain texture, a roughness map that smears the highlights along the grain, and a studio to reflect. */
+function BrushedMaterial({ attach }: Attach) {
+  const gl = useThree((t) => t.gl);
+  const textures = useMemo(() => makeBrushedTextures(), []);
+  useEffect(
+    () => () => {
+      textures.map?.dispose();
+      textures.roughnessMap?.dispose();
+    },
+    [textures]
+  );
+  const envMap = useMemo(() => getRoomEnvironment(gl), [gl]);
+  const material = useRef<THREE.MeshPhysicalMaterial>(null);
+  useNightEffect((n) => {
+    if (material.current) material.current.envMapIntensity = lerp(1.3, 0.25, n);
+  });
+  return <meshPhysicalMaterial ref={material} attach={attach} map={textures.map} roughnessMap={textures.roughnessMap} envMap={envMap} envMapIntensity={1.3} color="#ffffff" metalness={1} roughness={1} />;
 }
 
 interface GlowMaterialProps extends Attach {

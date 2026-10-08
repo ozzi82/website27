@@ -185,3 +185,8 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 
 ## Configurator desktop spacing pass
 - Desktop: options column widened (560 px, 620 px on xl) with section headings (Your artwork, Size and build, Colour and finish, Lighting); background and day/night moved out of it into a scene strip under a shorter preview (useDesktop.ts decides, so the Look tab only exists on tablet/phone).
+
+## Configurator redesign toward the owner's dark mockups
+- Brushed stainless is now a paint choice (BRUSHED_HEX in swatches.ts, BrushedMaterial in SceneMaterials.tsx; horizontal fine grain, default on stainless-steel families, falls back on other families).
+- Desktop: "Your sign" panel (collapsible sections), text box + font dropdown side by side, bigger swatches with the selected name, sign-type dropdown on the preview, floating bar (Day/Night + wall-material circles), slim summary strip with the disclaimer, vignette on the preview.
+- Not done: photo-real render button (see conversation), Save design.

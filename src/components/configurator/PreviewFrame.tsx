@@ -12,6 +12,8 @@ interface PreviewFrameProps {
   onRotate: (dTheta: number, dPhi: number) => void;
   /** When given, adds a "Download image" button (a high-resolution still of the current view). */
   onDownload?: () => Promise<void>;
+  /** Hide the "Drag to rotate" hint (desktop shows the scene bar there instead). */
+  hideHint?: boolean;
   children: ReactNode;
 }
 
@@ -23,7 +25,7 @@ const BUTTON =
  * and arrow / plus / minus / 0 keys while it has focus. Dragging and pinching are handled by
  * the camera controls inside the canvas.
  */
-export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, onDownload, children }: PreviewFrameProps) {
+export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, onDownload, hideHint, children }: PreviewFrameProps) {
   const [downloading, setDownloading] = useState(false);
   async function handleDownload() {
     if (!onDownload || downloading) return;
@@ -100,9 +102,9 @@ export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, o
           <span>{downloading ? "Rendering…" : "Download image"}</span>
         </button>
       )}
-      <p className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/45 px-2.5 py-1 text-xs text-white/90">
+      {!hideHint && <p className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/45 px-2.5 py-1 text-xs text-white/90">
         Drag to rotate · scroll or pinch to zoom
-      </p>
+      </p>}
     </div>
   );
 }

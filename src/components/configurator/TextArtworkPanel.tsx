@@ -16,9 +16,11 @@ interface TextArtworkPanelProps {
   announcement: string;
   /** The fonts this configuration offers (the single-line neon fonts only go with LP 11-N). */
   fonts?: readonly TextFont[];
+  /** Desktop: the text box and a font dropdown side by side, instead of the font chips. */
+  compact?: boolean;
 }
 
-const FIELD = "w-full rounded-lg border-2 border-primary bg-card px-4 py-3 text-2xl font-semibold shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
+const FIELD = "w-full rounded-lg border-2 border-primary bg-card px-4 py-2.5 text-xl font-semibold shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
 
 /** Typed-text artwork: a small multi-line box plus a picker of the bundled fonts, each shown in its own face. */
 export default function TextArtworkPanel({
@@ -30,6 +32,7 @@ export default function TextArtworkPanel({
   skipped,
   announcement,
   fonts = TEXT_FONTS,
+  compact = false,
 }: TextArtworkPanelProps) {
   const textId = useId();
   const hintId = useId();
@@ -43,7 +46,7 @@ export default function TextArtworkPanel({
   const used = Array.from(text.replace(/\n/g, "")).length;
 
   return (
-    <section aria-label="Text artwork" className="space-y-2">
+    <section aria-label="Text artwork" className={compact ? "grid grid-cols-[minmax(0,1fr)_12rem] items-start gap-x-3 gap-y-2" : "space-y-2"}>
       <div className="space-y-1">
         <label className="mono-label block text-primary" htmlFor={textId}>
           Type your text
@@ -51,7 +54,7 @@ export default function TextArtworkPanel({
         <textarea
           id={textId}
           value={text}
-          rows={2}
+          rows={compact ? 1 : 2}
           placeholder="Your brand"
           spellCheck={false}
           autoComplete="off"
@@ -80,6 +83,26 @@ export default function TextArtworkPanel({
         )}
       </div>
 
+      {compact ? (
+        <div className="space-y-1">
+          <label className="mono-label block text-primary" htmlFor={fontName}>
+            Font
+          </label>
+          <select
+            id={fontName}
+            value={fontId}
+            onChange={(e) => onFontChange(e.target.value)}
+            style={{ fontFamily: `"${(fonts.find((f) => f.id === fontId) ?? fonts[0]).cssFamily}", sans-serif` }}
+            className="h-[3.25rem] w-full rounded-lg border-2 border-border bg-card px-3 text-lg font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+          >
+            {fonts.map((f) => (
+              <option key={f.id} value={f.id} style={{ fontFamily: `"${f.cssFamily}", sans-serif` }}>
+                {f.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      ) : (
       <div role="radiogroup" aria-label="Font" className="grid grid-cols-4 gap-1">
         {fonts.map((f) => (
           <label
@@ -100,7 +123,8 @@ export default function TextArtworkPanel({
             </span>
           </label>
         ))}
-      </div>
+        </div>
+      )}
 
       <p role="status" aria-live="polite" className="sr-only">
         {announcement}

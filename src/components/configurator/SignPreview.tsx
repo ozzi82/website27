@@ -22,6 +22,7 @@ interface SignPreviewProps {
   state: ConfiguratorState;
   /** Filled with the snapshot function while the preview is mounted (used by "Get a Quote"). */
   captureRef?: MutableRefObject<CaptureSnapshot | null>;
+  hideHint?: boolean;
 }
 
 // Hoisted so the props are referentially stable across re-renders (a fresh
@@ -192,7 +193,7 @@ export function SnapshotBridge({ captureRef, width, quality }: { captureRef: Mut
   return null;
 }
 
-export default function SignPreview({ shapes, config, state, captureRef }: SignPreviewProps) {
+export default function SignPreview({ shapes, config, state, captureRef, hideHint }: SignPreviewProps) {
   const isNight = state.dayNight === "night";
   // At night the room goes dark so the lit parts carry the picture. An unlit
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
@@ -220,6 +221,7 @@ export default function SignPreview({ shapes, config, state, captureRef }: SignP
       onReset={() => camera.current?.reset()}
       onRotate={(dTheta, dPhi) => camera.current?.rotate(dTheta, dPhi)}
       onDownload={download}
+      hideHint={hideHint}
     >
       <Canvas shadows camera={CAMERA} dpr={DPR}>
         <NightProvider isNight={isNight}>

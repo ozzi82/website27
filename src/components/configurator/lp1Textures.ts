@@ -53,6 +53,39 @@ function woodPainter(): (u: number, v: number) => Rgb {
   };
 }
 
+// Brushed stainless: fine near-horizontal grain, light silver, with long brighter and darker hairlines.
+function brushedPainter(): (u: number, v: number) => Rgb {
+  const coarse = makeTileableNoise(3, 21);
+  const fine = makeTileableNoise(5, 23);
+  const hair = mulberry32(24);
+  const lines = Array.from({ length: SIZE }, () => hair());
+  return (u, v) => {
+    const row = lines[Math.floor(v * SIZE) % SIZE];
+    const streak = (row - 0.5) * 0.16 + (fine(u, v * 90) - 0.5) * 0.08 + (coarse(u, v * 40) - 0.5) * 0.04;
+    const l = 0.76 + streak;
+    return [l * 0.98, l * 0.985, l];
+  };
+}
+
+function brushedRoughness(): (u: number, v: number) => Rgb {
+  const fine = makeTileableNoise(5, 43);
+  const coarse = makeTileableNoise(3, 41);
+  return (u, v) => {
+    const r = 0.4 + (coarse(u, v * 40) - 0.5) * 0.06 + (fine(u, v * 90) - 0.5) * 0.1;
+    return [r, r, r];
+  };
+}
+
+/** Grain and roughness textures for brushed stainless steel letters (the Brushed stainless paint choice). */
+export function makeBrushedTextures(): Lp1Textures {
+  const map = paint(brushedPainter(), THREE.SRGBColorSpace);
+  const roughnessMap = paint(brushedRoughness(), THREE.NoColorSpace);
+  // Grain this fine needs a small tile, or it reads as broad bands across a letter.
+  map?.repeat.set(1.4, 1.4);
+  roughnessMap?.repeat.set(1.4, 1.4);
+  return { map, roughnessMap };
+}
+
 // Corten: blotchy oxidised browns and oranges with dark pitting.
 function cortenPainter(): (u: number, v: number) => Rgb {
   const blotch = makeFbm(4, 5, 31);

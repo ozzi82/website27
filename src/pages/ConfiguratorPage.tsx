@@ -13,20 +13,23 @@ import { generateTextArtworkFile } from "../components/configurator/textArtwork"
 import { DEFAULT_FONT_ID, TEXT_FONTS, fontsFor, usableFontId } from "../components/configurator/textFonts";
 import ConfigControls from "../components/configurator/ConfigControls";
 import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
+import SceneBar from "../components/configurator/SceneBar";
+import ConfigSummaryCard from "../components/configurator/ConfigSummaryCard";
 import { useDesktop } from "../components/configurator/useDesktop";
 import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
 import { Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
 import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
-import { defaultStateFor, effectiveConfig, switchConfig, withBuild, withFinish } from "../components/configurator/types";
+import { defaultStateFor, effectiveConfig, emitsLight, formatDepth, switchConfig, withBuild, withFinish } from "../components/configurator/types";
 import type { ConfiguratorState } from "../components/configurator/types";
 import { DEFAULT_BACKGROUND, type BackgroundId } from "../components/configurator/backgrounds";
 import { formatConfigSummary, configSummaryRows, type ArtworkInfo } from "../components/configurator/configSummary";
 import { saveQuote, quoteFileId, type ArtworkFileMeta, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 import { clearArtworkFile, saveArtworkFile } from "../components/configurator/artworkFileStorage";
 import { strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
-import { MM_PER_INCH, aspectOf, clampSizeIn, dimensionsIn } from "../components/configurator/realSize";
+import { BRUSHED_SWATCH, GLOW_SWATCHES, PAINT_SWATCHES, describeColor } from "../components/configurator/swatches";
+import { MM_PER_INCH, aspectOf, clampSizeIn, dimensionsIn, formatSize } from "../components/configurator/realSize";
 import ThinStrokeNotice from "../components/configurator/ThinStrokeNotice";
 import ConfiguratorDisclaimer from "../components/configurator/ConfiguratorDisclaimer";
 import { isLp1, isLp1FinishId } from "../components/configurator/lp1Materials";
@@ -225,6 +228,16 @@ export default function ConfiguratorPage() {
 
   // Preview stage: the 3D preview and every option side by side, sized to the viewport so nothing needs scrolling.
   if (config && state && (source === "text" || uploadShapes)) {
+    const paintName = describeColor(state.color, [BRUSHED_SWATCH, ...PAINT_SWATCHES]).replace(/ \(#[0-9a-f]{6}\)$/i, "");
+    const glowName = describeColor(state.glowColor, GLOW_SWATCHES).replace(/ \(#[0-9a-f]{6}\)$/i, "");
+    const summaryItems = [
+      { label: "Text", value: source === "text" ? text.split("\n").filter((l) => l.trim()).join(" / ") || "—" : uploadFile?.name ?? "Uploaded logo" },
+      ...(source === "text" ? [{ label: "Font", value: fontsFor(config).find((f) => f.id === fontId)?.label ?? "" }] : []),
+      { label: "Width × Height", value: formatSize(state.sizeIn, aspect).replace(/ \(.*\)$/, "") },
+      { label: "Depth", value: formatDepth(state.depthMm) },
+      { label: "Colour", value: paintName },
+      ...(emitsLight(config) ? [{ label: "Lighting", value: glowName }] : []),
+    ].filter((i) => i.value);
     return (
       <div className="mx-auto max-w-[1700px] px-3 pb-2 pt-2 sm:px-5 lg:pb-3 lg:pt-3">
         {seo}
@@ -235,8 +248,19 @@ export default function ConfiguratorPage() {
             {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
             <div className="relative min-h-0 w-full flex-1">
               <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} />
+                <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} />
               </ErrorBoundary>
+              {desktop && <div aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-xl [box-shadow:inset_0_0_140px_rgba(0,0,0,0.5)]" />}
+              {desktop && (
+                <>
+                  <div className="absolute left-3 top-3 z-10 w-[min(24rem,70%)] rounded-xl border border-border bg-background/85 p-1.5 backdrop-blur">
+                    <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
+                  </div>
+                  <div className="absolute bottom-3 left-3 right-40 z-10">
+                    <SceneBar state={state} onChange={handleChange} />
+                  </div>
+                </>
+              )}
               <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
               {!shapes && (
                 <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
@@ -244,15 +268,15 @@ export default function ConfiguratorPage() {
                 </div>
               )}
             </div>
-            {desktop && (
-              <section aria-label="Scene" className="shrink-0 space-y-3 rounded-xl border border-border bg-card/50 p-4">
-                <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
-                <ConfiguratorDisclaimer />
-              </section>
-            )}
+            {desktop && state && <ConfigSummaryCard items={summaryItems} />}
           </div>
 
-          <aside className="flex min-w-0 flex-col lg:w-[560px] lg:shrink-0 lg:min-h-0 xl:w-[620px]">
+          <aside className="flex min-w-0 flex-col lg:w-[460px] lg:shrink-0 lg:min-h-0 xl:w-[540px] 2xl:w-[600px]">
+            {desktop && (
+              <div className="mb-3 shrink-0">
+                <h2 className="text-2xl font-semibold leading-none">Your sign</h2>
+              </div>
+            )}
             <ConfiguratorPanel
               tabs={[
                 {
@@ -262,7 +286,7 @@ export default function ConfiguratorPage() {
                   icon: <Type />,
                   content: (
                     <>
-            <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
+            {!desktop && <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />}
 
             <ArtworkSourceToggle value={source} onChange={setSource} />
 
@@ -285,6 +309,7 @@ export default function ConfiguratorPage() {
                 onTextChange={setText}
                 fontId={fontId}
                 fonts={fontsFor(config)}
+                compact={desktop}
                 onFontChange={setFontId}
                 error={textArtwork.error}
                 skipped={textArtwork.skipped}

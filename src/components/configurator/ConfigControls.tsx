@@ -4,7 +4,7 @@ import type { LightConfig } from "../../data/configurations";
 import { BACKGROUNDS } from "./backgrounds";
 import DayNightToggle from "./DayNightToggle";
 import SegmentedControl from "./SegmentedControl";
-import { GLOW_SWATCHES, PAINT_SWATCHES, VINYL_SWATCHES, type Swatch } from "./swatches";
+import { BRUSHED_SWATCH, GLOW_SWATCHES, PAINT_SWATCHES, VINYL_SWATCHES, type Swatch } from "./swatches";
 import { thinStrokeAdvice } from "./strokeGuard";
 import { depthOptionsFor, effectiveConfig, emitsLight, formatDepth, hasFaceVinyl, withBuild, withFinish, withVariant, type ConfiguratorState } from "./types";
 import { MOUNT_LABEL } from "../../data/configurations";
@@ -66,7 +66,7 @@ function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true
   const labelId = useId();
   return (
     <Row label={label} labelId={labelId}>
-      <div role="group" aria-label={legend} className="flex flex-wrap items-center gap-1.5">
+      <div role="group" aria-label={legend} className="flex flex-wrap items-center gap-1.5 lg:gap-2.5">
         {swatches.map((s) => (
           <button
             key={s.hex}
@@ -75,8 +75,8 @@ function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true
             aria-label={`${legend}: ${s.name}`}
             aria-pressed={value.toLowerCase() === s.hex}
             onClick={() => onChange(s.hex)}
-            style={{ backgroundColor: s.hex }}
-            className="h-6 w-6 rounded-full border border-border aria-pressed:ring-2 aria-pressed:ring-primary aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+            style={s.look ? { background: s.look } : { backgroundColor: s.hex }}
+            className="h-6 w-6 rounded-full border border-border lg:h-8 lg:w-8 aria-pressed:ring-2 aria-pressed:ring-primary aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
           />
         ))}
         {allowCustom && <input
@@ -88,6 +88,9 @@ function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true
           className="h-6 w-8 cursor-pointer rounded border border-border bg-transparent p-0.5"
         />}
       </div>
+      <p aria-hidden="true" className="mt-2 hidden text-xs text-muted-foreground lg:block">
+        {swatches.find((s) => s.hex === value.toLowerCase())?.name ?? value}
+      </p>
     </Row>
   );
 }
@@ -297,7 +300,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           label={flat ? "Colour" : "Paint"}
           legend={flat ? "Acrylic color" : "Paint color"}
           value={state.color}
-          swatches={PAINT_SWATCHES}
+          swatches={config.family === "Stainless steel" ? [BRUSHED_SWATCH, ...PAINT_SWATCHES] : PAINT_SWATCHES}
           onChange={(hex) => set({ color: hex })}
         />
       )}

@@ -1,5 +1,7 @@
 import { useState, type ReactNode } from "react";
+import { ChevronDown } from "lucide-react";
 import { cn } from "@project/lib/utils";
+import { useDesktop } from "./useDesktop";
 
 export interface PanelTab {
   id: string;
@@ -25,6 +27,7 @@ interface ConfiguratorPanelProps {
 export default function ConfiguratorPanel({ tabs, action }: ConfiguratorPanelProps) {
   const [active, setActive] = useState(tabs[0].id);
   const [open, setOpen] = useState(true);
+  const desktop = useDesktop();
 
   function choose(id: string) {
     if (id === active) setOpen((o) => !o);
@@ -38,16 +41,25 @@ export default function ConfiguratorPanel({ tabs, action }: ConfiguratorPanelPro
     <div className="grid min-h-0 grid-cols-1 gap-y-2 lg:h-full lg:grid-rows-[minmax(0,1fr)_auto] lg:gap-y-3">
       <div
         className={cn(
-          "order-1 max-h-[40svh] min-h-0 overflow-y-auto rounded-xl border border-border bg-card/70 p-3 lg:order-1 lg:max-h-none lg:flex lg:flex-col lg:gap-8 lg:border-0 lg:bg-transparent lg:p-0 lg:pr-2 lg:pt-1",
+          "order-1 max-h-[40svh] min-h-0 overflow-y-auto rounded-xl border border-border bg-card/70 p-3 lg:order-1 lg:max-h-none lg:flex lg:flex-col lg:gap-4 lg:border-0 lg:bg-transparent lg:p-0 lg:pr-2 lg:pt-1",
           !open && "max-lg:hidden"
         )}
       >
-        {tabs.map((t) => (
-          <div key={t.id} id={`panel-${t.id}`} role="group" aria-label={t.label} className={cn("space-y-3 lg:space-y-4", t.id !== active && "hidden lg:block")}>
-            <h3 className="mono-label hidden border-b border-border pb-2 pt-1 leading-relaxed text-primary lg:block">{t.heading ?? t.label}</h3>
-            {t.content}
-          </div>
-        ))}
+        {desktop
+          ? tabs.map((t) => (
+              <details key={t.id} id={`panel-${t.id}`} open className="group border-b border-border pb-4 last:border-b-0">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-lg font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary [&::-webkit-details-marker]:hidden">
+                  {t.heading ?? t.label}
+                  <ChevronDown aria-hidden="true" className="h-5 w-5 text-muted-foreground transition-transform group-open:rotate-180" />
+                </summary>
+                <div className="space-y-3.5 pt-3">{t.content}</div>
+              </details>
+            ))
+          : tabs.map((t) => (
+              <div key={t.id} id={`panel-${t.id}`} role="group" aria-label={t.label} className={cn("space-y-3", t.id !== active && "hidden")}>
+                {t.content}
+              </div>
+            ))}
       </div>
 
       <nav aria-label="Sign options" className="order-2 flex min-w-0 gap-1 lg:hidden">

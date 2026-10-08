@@ -1,5 +1,5 @@
 import type { LightConfig } from "../../data/configurations";
-import { GLOW_SWATCHES, PAINT_SWATCHES, VINYL_SWATCHES, describeColor } from "./swatches";
+import { BRUSHED_SWATCH, GLOW_SWATCHES, PAINT_SWATCHES, VINYL_SWATCHES, describeColor } from "./swatches";
 import type { SummaryRow } from "./quoteStorage";
 import { getLp1Finish, isLp1 } from "./lp1Materials";
 import { DISCLAIMER_TEXT } from "./disclaimer";
@@ -51,7 +51,7 @@ export function configSummaryRows(
     rows.splice(1, 0, { label: "Finish", value: finish.label }, { label: "Build", value: state.build === "fabricated" ? "Fabricated (hollow)" : "Solid material" });
   }
   if (isLp1(config) ? finish.usesPaint : true) {
-    rows.push({ label: isLp1(config) ? "Acrylic color" : "Paint color", value: describeColor(state.color, PAINT_SWATCHES), swatch: state.color });
+    rows.push({ label: isLp1(config) ? "Acrylic color" : "Paint color", value: describeColor(state.color, [BRUSHED_SWATCH, ...PAINT_SWATCHES]), swatch: state.color });
   }
   if (lit) {
     rows.push({ label: "Glow color", value: describeColor(state.glowColor, GLOW_SWATCHES), swatch: state.glowColor });
