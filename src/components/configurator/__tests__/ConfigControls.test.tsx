@@ -308,9 +308,9 @@ describe("ConfigControls profile note and day/night", () => {
 });
 
 describe("ConfigControls LP 1 finish and build", () => {
-  it("offers the seven finishes only on the flat cutout", () => {
+  it("offers the eight finishes only on the flat cutout", () => {
     setup("lp-1-flat-cutout");
-    expect(within(screen.getByRole("radiogroup", { name: "Finish" })).getAllByRole("radio")).toHaveLength(7);
+    expect(within(screen.getByRole("radiogroup", { name: "Finish" })).getAllByRole("radio")).toHaveLength(8);
     cleanup();
     setup("lp-5-trimless-face-lit");
     expect(screen.queryByRole("radiogroup", { name: "Finish" })).not.toBeInTheDocument();
