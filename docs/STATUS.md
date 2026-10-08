@@ -175,7 +175,7 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - "See it on your own building" button removed from the configurator for now (PhotoView.tsx, PhotoScene.tsx, photoMath.ts, photoTone.ts stay in the repo, unused, to pick up later).
 
 ## Home product tiles
-- Products section: compact 2x2 horizontal cards (photo left, title, two-line summary, orange link; whole card clickable; first keeps the Signature product label). One column on phones.
+- Products section: restored to the original featured card plus three rows (the owner wanted the trust bar and photo strip changed, not the products).
 
 ## Configurator app layout
 - Options are now tabs (Text, Size, Colour, Light, Look) in ConfiguratorPanel.tsx; ConfigControls takes a `group` prop that renders only that tab's controls. All tabs stay mounted (inactive ones hidden by CSS).
@@ -190,3 +190,4 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - Brushed stainless is now a paint choice (BRUSHED_HEX in swatches.ts, BrushedMaterial in SceneMaterials.tsx; horizontal fine grain, default on stainless-steel families, falls back on other families).
 - Desktop: "Your sign" panel (collapsible sections), text box + font dropdown side by side, bigger swatches with the selected name, sign-type dropdown on the preview, floating bar (Day/Night + wall-material circles), slim summary strip with the disclaimer, vignette on the preview.
 - Not done: photo-real render button (see conversation), Save design.
+- Home photo strip: separated from the trust bar (own section with a 'Recent installs' label, rounded photos with gaps, faded edges, slow drift).

@@ -89,6 +89,8 @@ German-engineered ultra-slim cast acrylic letters and classic trimless channel l
 - **3 YR:** LED & power supply warranty
 - **Trade only:** Your customer stays your customer.
 
+Recent installs
+
 - *[Image: Blue illuminated heller logo and lettering with a small white tagline on a dark wall]* — heller
 - *[Image: Tradebyte lettering with a halo glow on a grey wall]* — Tradebyte
 - *[Image: Inspire logo lettering with a glowing halo on an interior wall]* — Inspire
@@ -124,41 +126,43 @@ What we build
 
 *[Image: Vertical lettering with glowing white outlines mounted on a blue panel in a concrete concourse]*
 
-01· Signature product
+01
+
+Signature product · EdgeLuxe LP 11 series · cast block acrylic · 10–30 mm
 
 ##### Ultra-Slim Letters
 
-EdgeLuxe LP 11 series · cast block acrylic · 10–30 mm. Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 10–30 mm deep. Eight configurations: face, halo, face + halo, side, faux neon and conical.
+Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 10–30 mm deep. Eight configurations: face, halo, face + halo, side, faux neon and conical.
 
 [Explore Ultra-Slim](/services/ultra-slim-trimless-channel-letters)
 
 *[Image: Illuminated letters on a building facade at dusk]*
 
-02
+02 · EdgeLuxe LP 5, LP 3.1, LP 3.2 · fabricated stainless steel
 
 ##### Classic Trimless Letters
 
-EdgeLuxe LP 5, LP 3.1, LP 3.2 · fabricated stainless steel. Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2, in depths from 30 to 100 mm.
+Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2, in depths from 30 to 100 mm.
 
 [View Classic Letters](/services/channel-letters)
 
 *[Image: EdgeLuxe LP 1 flat cutout letter S in gold on a concrete wall]*
 
-03
+03 · EdgeLuxe LP 1 · unlit
 
 ##### Non-Illuminated Flat Cutout Letters
 
-EdgeLuxe LP 1 · unlit. Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.
+Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.
 
 [View Flat Cutouts](/light-effects/lp-1-flat-cutout)
 
 *[Image: Illuminated crest logo on a wood-slat wall]*
 
-04
+04 · Made to your drawings
 
 ##### Custom Sign Fabrication
 
-Made to your drawings. Custom work to your drawings, including blade signs, push-through cabinet signs, illuminated logos and custom letter projects.
+Custom work to your drawings, including blade signs, push-through cabinet signs, illuminated logos and custom letter projects.
 
 [See Custom Fabrication](/services/custom-sign-fabrication)
 

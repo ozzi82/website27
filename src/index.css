@@ -253,5 +253,5 @@
   to { transform: translateX(-50%); }
 }
 .photo-marquee {
-  animation: photo-marquee 120s linear infinite;
+  animation: photo-marquee 150s linear infinite;
 }

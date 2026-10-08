@@ -105,9 +105,10 @@ describe("HomePage", () => {
     expect(within(section).getByRole("link", { name: /view classic letters/i })).toHaveAttribute("href", "/services/channel-letters");
     expect(within(section).getByRole("link", { name: /view flat cutouts/i })).toHaveAttribute("href", "/light-effects/lp-1-flat-cutout");
     expect(within(section).getByRole("link", { name: /see custom fabrication/i })).toHaveAttribute("href", "/services/custom-sign-fabrication");
-    // four equal tiles; the first one carries the signature label
+    // the featured card is the first one and carries the signature label
     const cards = [...section.querySelectorAll("article[data-product]")];
     expect(cards.map((c) => c.getAttribute("data-product"))).toEqual(["ultra-slim", "classic-trimless", "flat-cutout", "custom-fabrication"]);
+    expect(cards[0].className).toContain("lg:col-span-7");
     expect(cards[0].textContent).toMatch(/signature product/i);
     expect(cards[0].textContent).toMatch(/LP 11/);
     expect(textOutsideCustomFabrication(section)).not.toMatch(CUSTOM_ONLY_TERMS);
