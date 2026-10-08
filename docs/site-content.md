@@ -200,19 +200,6 @@ Cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and engineer
 
 Illustrative side profiles, not to scale. The conventional letter is a trim-cap channel letter, a type Sunlite does not build; its return depth varies by project.
 
-The LP 11 series · eight configurations
-
-F face · B back · S side · N neon · C conical
-
-- *[Image: LP 11-F Block Acrylic Face-lit: sample letter, lit at night]* — F — Face — (Links to: /light-effects/lp-11-f-face-lit)
-- *[Image: LP 11-B Block Acrylic Back-lit: sample letter, lit at night]* — B — Halo — (Links to: /light-effects/lp-11-b-back-lit)
-- *[Image: LP 11-FB Block Acrylic Face- and Halo-lit Combo: sample letter, lit at night]* — FB — Face + halo — (Links to: /light-effects/lp-11-fb-face-halo)
-- *[Image: LP 11-BS Block Acrylic Partial Back Side-lit: sample letter, lit at night]* — BS — Back side — (Links to: /light-effects/lp-11-bs-back-side-lit)
-- *[Image: LP 11-FS Block Acrylic Face-lit + Partial Front Side-lit: sample letter, lit at night]* — FS — Face + front side — (Links to: /light-effects/lp-11-fs-front-side-lit)
-- *[Image: LP 11-S Block Acrylic Full Side-lit: sample letter, lit at night]* — S — Full side — (Links to: /light-effects/lp-11-s-side-lit)
-- *[Image: LP 11-N Block Acrylic Faux Neon: sample letter, lit at night]* — N — Faux neon — (Links to: /light-effects/lp-11-n-faux-neon)
-- *[Image: LP 11-C Block Acrylic Conical Profile: sample letter, lit at night]* — C — Conical profile — (Links to: /light-effects/lp-11-c-conical)
-
 Build Your Sign · A 3D sign configurator built for sign companies
 
 #### Design it. See it lit. Send it for a quote.

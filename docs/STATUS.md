@@ -205,3 +205,4 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - Configurator panel made more compact: smaller type and spacing; Size, then Depth and Mounting side by side as short controls.
 - Home: four product cards of one size, each with a short photo and a solid orange button (first keeps the Signature product label).
 - Contact page: removed "most quotes are returned within 24 hours" (intro and meta description). It is still on the home trust bar, the three product pages and the FAQ: say if those should go too.
+- Home: removed the LP 11 series row of eight variant cards from the ultra-slim section (they remain on the ultra-slim page).

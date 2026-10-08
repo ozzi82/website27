@@ -116,25 +116,14 @@ describe("HomePage", () => {
     expect(section.textContent).not.toMatch(/trimmed/i);
   });
 
-  it("ultra-slim section represents the LP 11 series: depth drawing, eight variants with real renders, links to the page and the configurator", () => {
+  it("ultra-slim section represents the LP 11 series: depth drawing, links to the page and the configurator, no variant row", () => {
     renderHome();
     const section = document.getElementById("ultra-slim")!;
     expect(within(section).getByRole("img", { name: /conventional trim-cap channel letter.*versus Sunlite Ultra-Slim LP 11/i })).toBeInTheDocument();
     for (const a of ["10–30 mm depth", "Cast block acrylic", "Eight configurations"]) expect(section.textContent).toContain(a);
     expect(section.textContent).toMatch(/cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67/i);
-    const variants = [...section.querySelectorAll('a[href^="/light-effects/lp-11-"]')];
-    expect(variants).toHaveLength(8);
-    expect(variants.map((a) => spacedText(a).trim())).toEqual([
-      "F Face",
-      "B Halo",
-      "FB Face + halo",
-      "BS Back side",
-      "FS Face + front side",
-      "S Full side",
-      "N Faux neon",
-      "C Conical profile",
-    ]);
-    for (const a of variants) expect(a.querySelector("img")!.getAttribute("src")).toMatch(/^\/images\/edgeluxe\/lp-11-/);
+    // The row of the eight variant cards is not on the homepage (they live on the ultra-slim page).
+    expect(section.querySelectorAll('a[href^="/light-effects/lp-11-"]')).toHaveLength(0);
     expect(within(section).getByRole("link", { name: /explore ultra-slim/i })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
     expect(within(section).getByRole("link", { name: /build your sign/i })).toHaveAttribute("href", "/configurator?config=lp-11-f-face-lit");
   });

@@ -1,14 +1,12 @@
-import { Link } from "react-router-dom";
 import SectionHeader from "../SectionHeader";
 import DepthComparison from "../DepthComparison";
 import { ArrowLink } from "../CtaButton";
 import { CTA_LINKS } from "../../lib/cta";
-import { lp11Variants, ultraSlimAttributes as attributes } from "../../data/ultraSlim";
-import Picture from "../Picture";
+import { ultraSlimAttributes as attributes } from "../../data/ultraSlim";
 
 /**
  * The homepage hero product: Sunlite Ultra-Slim = the EdgeLuxe LP 11 series (cast block acrylic). Header and depth
- * drawing on top, then a mini-row of the eight variants with their real brochure renders, each linking to its page.
+ * drawing on top.
  */
 export default function UltraSlimSection() {
   return (
@@ -47,35 +45,6 @@ export default function UltraSlimSection() {
           <div className="corner-marks border border-border bg-background/60 p-3 sm:p-8">
             <DepthComparison />
           </div>
-        </div>
-
-        <div className="mt-14 md:mt-20">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-5 border-b border-border pb-4">
-            <p className="mono-label text-primary">The LP 11 series · eight configurations</p>
-            <p className="mono-label text-muted-foreground">F face · B back · S side · N neon · C conical</p>
-          </div>
-          <ul className="grid grid-cols-4 lg:grid-cols-8 gap-2 sm:gap-3">
-            {lp11Variants.map((v) => (
-              <li key={v.id}>
-                <Link to={v.page} className="group block border border-border bg-card/50 hover:border-primary/60 transition-colors h-full">
-                  <div className="relative overflow-hidden aspect-[4/3] border-b border-border bg-card">
-                    <Picture
-                      src={v.img}
-                      alt={`${v.code} ${v.subtitle}: sample letter, lit at night`}
-                      width={1200}
-                      height={900}
-                      sizes="(min-width: 1024px) 300px, (min-width: 640px) 33vw, 50vw"
-                      className="absolute inset-0 w-full h-full object-cover object-[50%_50%] transition-transform duration-700 group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <div className="p-2 sm:p-3">
-                    <p className="font-heading text-xl sm:text-2xl font-bold leading-none text-primary">{v.suffix}</p>
-                    <p className="text-[11px] sm:text-xs text-muted-foreground mt-1.5 leading-tight">{v.short}</p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
         </div>
       </div>
     </section>
