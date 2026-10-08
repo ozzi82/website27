@@ -159,3 +159,13 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - "Set true size": tap two ends of something of known length, type its length in inches; the sign is then drawn at its real size on the photo (photoMath.ts). Without it the visitor sizes by eye (slider).
 - photoTone.ts bakes the photo through the inverse ACES curve so the composer's tone mapper leaves the photo's colours alone in day mode; night dims/cools the photo plane.
 - Not done: perspective from a measured plane (only an Angle slider), automatic wall/horizon detection, saving the composite with the quote.
+
+## Round 3 (owner feedback)
+- LP 11-FB: restrained halo (tight spread) and lower bloom so the face glow and halo no longer smear into a blur.
+- LP 11-FS: new "Vinyl" colour row; default red vinyl on the lit face (glow comes through the front, white edge band stays), state.faceVinyl / hasFaceVinyl in types.ts. Included in the quote summary.
+- Brushed steel (LP 1): new anisotropic grain texture, brighter base, less mirror-like.
+- Depth now above Size in the options. Download image is a labelled pill at the preview's bottom right.
+- Home: photo strip is now a swipeable, auto-advancing carousel under the trust bar. Added projects: heller, Shake It Up, Arch logo (photos 91-93, EXIF rotation baked in). No systems/depth recorded for them.
+- docs/CONFIGURATOR-ANALYTICS.md: how to count configurator users in GA4 (consented visitors only).
+- Photos sent inline mid-turn (Fan Store x2, A1 round sign, element, sun logo, Baxter) did not arrive as files: re-attach them to add.
+- NOTE: `npx tsc --noEmit -p .` does not typecheck src (project references); the gate is `npm run build`.

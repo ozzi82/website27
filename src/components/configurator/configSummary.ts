@@ -1,9 +1,9 @@
 import type { LightConfig } from "../../data/configurations";
-import { GLOW_SWATCHES, PAINT_SWATCHES, describeColor } from "./swatches";
+import { GLOW_SWATCHES, PAINT_SWATCHES, VINYL_SWATCHES, describeColor } from "./swatches";
 import type { SummaryRow } from "./quoteStorage";
 import { getLp1Finish, isLp1 } from "./lp1Materials";
 import { DISCLAIMER_TEXT } from "./disclaimer";
-import { emitsLight, formatDepth, type ConfiguratorState } from "./types";
+import { emitsLight, formatDepth, hasFaceVinyl, NO_VINYL, type ConfiguratorState } from "./types";
 import { formatSize } from "./realSize";
 
 /** Where the sign's shapes came from, for the quote summary. */
@@ -55,6 +55,9 @@ export function configSummaryRows(
   }
   if (lit) {
     rows.push({ label: "Glow color", value: describeColor(state.glowColor, GLOW_SWATCHES), swatch: state.glowColor });
+    if (hasFaceVinyl(config) && state.faceVinyl.toLowerCase() !== NO_VINYL) {
+      rows.push({ label: "Front vinyl", value: describeColor(state.faceVinyl, VINYL_SWATCHES), swatch: state.faceVinyl });
+    }
     rows.push({ label: "LED brightness", value: `${Math.round(state.brightness)}%` });
   }
   if (artwork) rows.push({ label: "Artwork", value: describeArtwork(artwork) });

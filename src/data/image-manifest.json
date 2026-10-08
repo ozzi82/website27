@@ -608,6 +608,24 @@
    1600
   ]
  },
+ "/images/project-arch-logo.jpg": {
+  "w": 1920,
+  "h": 1080,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
+ "/images/project-heller.jpg": {
+  "w": 1920,
+  "h": 1080,
+  "widths": [
+   480,
+   960,
+   1600
+  ]
+ },
  "/images/project-olympus-flat.jpg": {
   "w": 1600,
   "h": 1200,
@@ -642,6 +660,15 @@
    480,
    960,
    1280
+  ]
+ },
+ "/images/project-shake-it-up.jpg": {
+  "w": 1920,
+  "h": 1080,
+  "widths": [
+   480,
+   960,
+   1600
   ]
  }
 }

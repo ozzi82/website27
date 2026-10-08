@@ -4,9 +4,9 @@ import type { LightConfig } from "../../data/configurations";
 import { BACKGROUNDS } from "./backgrounds";
 import DayNightToggle from "./DayNightToggle";
 import SegmentedControl from "./SegmentedControl";
-import { GLOW_SWATCHES, PAINT_SWATCHES, type Swatch } from "./swatches";
+import { GLOW_SWATCHES, PAINT_SWATCHES, VINYL_SWATCHES, type Swatch } from "./swatches";
 import { thinStrokeAdvice } from "./strokeGuard";
-import { depthOptionsFor, effectiveConfig, emitsLight, formatDepth, withBuild, withFinish, withVariant, type ConfiguratorState } from "./types";
+import { depthOptionsFor, effectiveConfig, emitsLight, formatDepth, hasFaceVinyl, withBuild, withFinish, withVariant, type ConfiguratorState } from "./types";
 import { MOUNT_LABEL } from "../../data/configurations";
 import { LP1_FINISHES, getLp1Finish, isLp1, type Lp1Build } from "./lp1Materials";
 import { MAX_SIZE_IN, MIN_SIZE_IN, MM_PER_INCH, dimensionsIn, sizeFromHeightIn, sizeFromWidthIn } from "./realSize";
@@ -261,10 +261,6 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         </Row>
       )}
 
-      <Row label="Size" labelId="size-label">
-        <SizeInputs sizeIn={state.sizeIn} aspect={aspect} onSize={(sizeIn) => set({ sizeIn })} />
-      </Row>
-
       <Row label="Depth" labelId="depth-label">
         <SegmentedControl
           label="Depth"
@@ -279,6 +275,10 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           className={BIG}
         />
       </Row>
+      <Row label="Size" labelId="size-label">
+        <SizeInputs sizeIn={state.sizeIn} aspect={aspect} onSize={(sizeIn) => set({ sizeIn })} />
+      </Row>
+
       </section>
 
       {hasPaint && (
@@ -298,6 +298,17 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           value={state.glowColor}
           swatches={GLOW_SWATCHES}
           onChange={(hex) => set({ glowColor: hex })}
+          allowCustom={false}
+        />
+      )}
+
+      {hasFaceVinyl(config) && (
+        <ColorRow
+          label="Vinyl"
+          legend="Front vinyl"
+          value={state.faceVinyl}
+          swatches={VINYL_SWATCHES}
+          onChange={(hex) => set({ faceVinyl: hex })}
           allowCustom={false}
         />
       )}

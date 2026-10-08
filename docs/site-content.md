@@ -89,12 +89,20 @@ German-engineered ultra-slim cast acrylic letters and classic trimless channel l
 - **3 YR:** LED & power supply warranty
 - **Trade only:** Your customer stays your customer.
 
+- *[Image: Blue illuminated heller logo and lettering with a small white tagline on a dark wall]* — heller
 - *[Image: Tradebyte lettering with a halo glow on a grey wall]* — Tradebyte
 - *[Image: Inspire logo lettering with a glowing halo on an interior wall]* — Inspire
+- *[Image: Script lettering "Shake It Up" with evenly lit white faces on a black wall]* — Shake It Up
 - *[Image: Stroh + Scheuerpflug logo lettering on a white wall]* — Stroh + Scheuerpflug
 - *[Image: ARGO-HYTOS illuminated lettering on a blue building facade at dusk]* — ARGO-HYTOS
+- *[Image: Two illuminated white arch letters with a dark return, lying on workshop paper templates]* — Arch logo
 - *[Image: itonics lettering on a white wall]* — itonics
 - *[Image: MACS Innovative Companies lettering on a concrete wall]* — MACS
+- *[Image: Large white illuminated lettering with a soft halo above an event stand]* — OATLY Booth
+- *[Image: Illuminated wall graphic in an interior corridor]* — Interior wall graphic
+- *[Image: JenTower lettering with a warm halo above an entrance]* — JenTower
+- *[Image: Illuminated vertical lettering on a blue column panel in a large interior concourse]* — Ticketmaster (concourse column)
+- *[Image: Illuminated acorn and laurel crest on a wood-slat wall]* — Acorn crest
 
 What we build
 
@@ -1014,6 +1022,24 @@ Fig. 26
 - **Product:** EdgeLuxe LP 11-B
 
 [View LP 11-B](/light-effects/lp-11-b-back-lit)
+
+*[Image: Blue illuminated heller logo and lettering with a small white tagline on a dark wall]*
+
+Fig. 27
+
+##### heller
+
+*[Image: Script lettering "Shake It Up" with evenly lit white faces on a black wall]*
+
+Fig. 28
+
+##### Shake It Up
+
+*[Image: Two illuminated white arch letters with a dark return, lying on workshop paper templates]*
+
+Fig. 29
+
+##### Arch logo
 
 Related
 

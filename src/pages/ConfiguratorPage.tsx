@@ -113,7 +113,7 @@ export default function ConfiguratorPage() {
     background.current = next.background;
     // What visitors adjust, for the analytics (one event per changed option, no personal data).
     if (state) {
-      for (const key of ["dayNight", "mounting", "depthMm", "sizeIn", "glowColor", "color", "background", "finish", "build", "variant"] as const) {
+      for (const key of ["dayNight", "mounting", "depthMm", "sizeIn", "glowColor", "faceVinyl", "color", "background", "finish", "build", "variant"] as const) {
         if (next[key] !== state[key]) trackEvent("configurator_option", { option: key, value: String(next[key]), configuration: state.configId });
       }
     }

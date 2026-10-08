@@ -8,11 +8,11 @@ import NightEffects from "./NightEffects";
 import { backgroundAtScale, getBackground } from "./backgrounds";
 import { useWallTexture } from "./useWallTexture";
 import { GlowMaterial, PaintedMaterial, SideLitMaterial } from "./SceneMaterials";
-import { FACE_BLOOM } from "./nightFade";
+import { FACE_BLOOM, FACE_HALO_BLOOM } from "./nightFade";
 import { NEON_MAX_ROUND_MM, depthWorldFor, litBandThickness, wallGapFor } from "./renderMath";
 import { DEFAULT_SIZE_IN, mmToWorld } from "./realSize";
 import { brightnessFactor } from "./brightness";
-import { emitsLight, type ConfiguratorState } from "./types";
+import { emitsLight, faceColorOf, type ConfiguratorState } from "./types";
 import Lp1Material from "./Lp1Material";
 import { isLp1 } from "./lp1Materials";
 import Spacers from "./Spacers";
@@ -34,6 +34,9 @@ const WALL_SPILL: Record<Exclude<WallSpill, "none">, { scale: number; spread: nu
   standoff: { scale: 1.7, spread: 0.8 },
   flush: { scale: 4.2, spread: 0.4 },
 };
+
+// A face that already glows (LP 11-FB) only needs a tight, restrained halo: the face's own bloom does the rest, and a wide one reads as a blur.
+const FACE_HALO_SPILL = { scale: 0.9, spread: 0.32 };
 
 /**
  * One data-driven scene for all 12 configurations. What glows, where, and how
@@ -76,7 +79,7 @@ function SignScene({ shapes, config, state, facade, bare }: ConfigSceneProps) {
   const glowColor = useMemo(() => new THREE.Color(state.glowColor), [state.glowColor]);
   const parts = glowParts(light, profile, state.mounting);
   const band = litBandThickness(depth, sizeIn, parts.sideBand ?? undefined);
-  const spill = WALL_SPILL[parts.wallSpill === "none" ? "flush" : parts.wallSpill];
+  const spill = parts.face && parts.wallSpill !== "none" ? FACE_HALO_SPILL : WALL_SPILL[parts.wallSpill === "none" ? "flush" : parts.wallSpill];
   const haloColor = useMemo(() => glowColor.clone().multiplyScalar(spill.scale), [glowColor, spill]);
   // The light's reach on the wall is a distance in millimetres, so it is a bigger share of a small sign and a smaller one of a large sign.
   const haloSpread = Math.min(5, Math.max(0.1, spill.spread * (DEFAULT_SIZE_IN / sizeIn)));
@@ -87,7 +90,7 @@ function SignScene({ shapes, config, state, facade, bare }: ConfigSceneProps) {
   const face = flat ? (
     <Lp1Material attach="material-0" finish={state.finish} color={state.color} part="front" />
   ) : parts.face ? (
-      <GlowMaterial attach="material-0" glow={state.glowColor} level={level} />
+      <GlowMaterial attach="material-0" glow={faceColorOf(config, state)} level={level} />
     ) : (
       <PaintedMaterial attach="material-0" color={state.color} />
     );
@@ -123,7 +126,7 @@ function SignScene({ shapes, config, state, facade, bare }: ConfigSceneProps) {
         <HaloGlow shapes={shapes} z={-gap + 0.003} color={haloColor} spread={haloSpread} background={background} wall={wall} level={level} />
       )}
 
-      <NightEffects lit={lit} level={level} bloom={parts.face ? FACE_BLOOM : undefined} />
+      <NightEffects lit={lit} level={level} bloom={parts.face ? (wallSpill ? FACE_HALO_BLOOM : FACE_BLOOM) : undefined} />
     </>
   );
 }

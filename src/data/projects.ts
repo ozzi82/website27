@@ -64,6 +64,9 @@ export const projects: Project[] = [
   { id: "concourse-column", title: "Ticketmaster (concourse column)", image: I + "pasted-image-1787683170345-8s9whs6f.jpg", width: 1920, height: 1440, alt: "Illuminated vertical lettering on a blue column panel in a large interior concourse", productType: "Ultra-slim letters", productSlug: "ultra-slim-trimless-channel-letters", systems: ["lp-11-n-faux-neon"] },
   { id: "event-stand", title: "OATLY Booth", image: I + "pasted-image-1787683165508-erx4nd1w.jpg", width: 1280, height: 1792, alt: "Large white illuminated lettering with a soft halo above an event stand", productType: "Ultra-slim letters", productSlug: "ultra-slim-trimless-channel-letters", systems: ["lp-11-fs-front-side-lit"] },
   { id: "itonics", title: "itonics", image: I + "pasted-image-1787166591040-2vakze8k.jpeg", width: 1080, height: 1079, alt: "itonics lettering on a white wall", systems: ["lp-11-b-back-lit"] },
+  { id: "heller", title: "heller", image: I + "project-heller.jpg", width: 1920, height: 1080, alt: "Blue illuminated heller logo and lettering with a small white tagline on a dark wall" },
+  { id: "shake-it-up", title: "Shake It Up", image: I + "project-shake-it-up.jpg", width: 1920, height: 1080, alt: "Script lettering \"Shake It Up\" with evenly lit white faces on a black wall" },
+  { id: "arch-logo", title: "Arch logo", image: I + "project-arch-logo.jpg", width: 1920, height: 1080, alt: "Two illuminated white arch letters with a dark return, lying on workshop paper templates" },
 ];
 
 /** Projects shown on the homepage. */

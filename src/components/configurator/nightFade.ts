@@ -49,6 +49,8 @@ export function atmosphereFor(n: number, dark: boolean): Atmosphere {
 const NIGHT_BLOOM = 0.35;
 export const NIGHT_BLOOM_DEFAULT = NIGHT_BLOOM;
 /** Letters whose face is the light (LP 5, LP 11-F, ...) glow into the air around them, like an illuminated sign photographed at night. */
+/** Face lit and halo on the wall (LP 11-FB): less bloom, or the two glows smear into one blur. */
+export const FACE_HALO_BLOOM = 0.6;
 export const FACE_BLOOM = 1.2;
 
 /**

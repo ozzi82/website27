@@ -38,7 +38,7 @@ export default function Lp1Material({ attach, finish, color, part }: Lp1Material
   // reflections fade down with it.
   const gl = useThree((t) => t.gl);
   const envMap = useMemo(() => (REFLECTIVE.has(finish) ? getRoomEnvironment(gl) : null), [finish, gl]);
-  const envBase = finish === "mirror-gold" || finish === "brushed-steel" ? 1 : 0.4;
+  const envBase = finish === "mirror-gold" ? 1 : finish === "brushed-steel" ? 1.1 : 0.4;
   const material = useRef<THREE.MeshPhysicalMaterial>(null);
   useNightEffect((n) => {
     if (material.current) material.current.envMapIntensity = lerp(envBase, envBase * 0.2, n);

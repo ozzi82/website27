@@ -85,12 +85,21 @@ export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, o
         <button type="button" aria-label="Reset view" title="Reset view" onClick={onReset} className={BUTTON}>
           <RotateCcw aria-hidden="true" className="h-4 w-4" />
         </button>
-        {onDownload && (
-          <button type="button" aria-label="Download image" title="Download a high-resolution image" onClick={handleDownload} disabled={downloading} className={`${BUTTON} disabled:opacity-50`}>
-            <Download aria-hidden="true" className="h-4 w-4" />
-          </button>
-        )}
+
       </div>
+      {onDownload && (
+        <button
+          type="button"
+          aria-label="Download image"
+          title="Download a high-resolution image of this view"
+          onClick={handleDownload}
+          disabled={downloading}
+          className="absolute bottom-3 right-3 flex h-9 items-center gap-1.5 rounded-full border border-border bg-background/80 px-3 text-xs font-semibold text-foreground backdrop-blur transition-colors hover:bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary disabled:opacity-50"
+        >
+          <Download aria-hidden="true" className="h-4 w-4" />
+          <span>{downloading ? "Rendering…" : "Download image"}</span>
+        </button>
+      )}
       <p className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/45 px-2.5 py-1 text-xs text-white/90">
         Drag to rotate · scroll or pinch to zoom
       </p>
