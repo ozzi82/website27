@@ -29,7 +29,7 @@ export interface Atmosphere {
   environment: number;
 }
 
-const DAY: Atmosphere = { ambient: 0.04, directional: 0.35, point: 9, environment: 0.15 };
+const DAY: Atmosphere = { ambient: 0.05, directional: 0.4, point: 9, environment: 0.3 };
 // At night the room goes dark so the lit parts carry the picture...
 const NIGHT_DARK: Atmosphere = { ambient: 0.15, directional: 0.6, point: 0, environment: 0.05 };
 // ...except an unlit letter (LP 1), which keeps a dim key light and stays readable.

@@ -5,7 +5,7 @@ import { useNightEffect } from "./NightContext";
 import { lerp } from "./nightFade";
 
 // Painted metal / painted acrylic: slightly metallic with a soft clearcoat.
-const PAINT = { metalness: 0.35, roughness: 0.42, clearcoat: 0.3, clearcoatRoughness: 0.4 } as const;
+const PAINT = { metalness: 0.12, roughness: 0.36, clearcoat: 0.55, clearcoatRoughness: 0.22 } as const;
 
 // How hard lit acrylic drives the emissive channel at night. Well above 1 so the surface is a light source: the bloom
 // pass spreads it and the neutral tone mapper compresses the hottest part toward a whiter core, while a saturated red
