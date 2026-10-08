@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { GradientEquirectTexture } from "three-gpu-pathtracer";
 import type { LightConfig } from "../../data/configurations";
 import { backgroundAtScale, getBackground } from "./backgrounds";
@@ -61,35 +60,20 @@ export default function PathTraceScene({ shapes, config, state, pose, onReady }:
     camera.updateMatrixWorld();
   }, [camera, pose]);
 
-  // Environment: the studio HDR by day, a dark sky by night. Signalled ready once it is loaded.
+  // Environment: a soft sky by day, a dark one by night. Signalled ready once it is in place.
   useEffect(() => {
-    let cancelled = false;
     scene.background = new THREE.Color(night ? "#05070d" : "#2b3242");
-    if (night) {
-      const sky = new GradientEquirectTexture();
-      sky.topColor.set("#0b1222");
-      sky.bottomColor.set("#05070c");
-      sky.update();
-      scene.environment = sky;
-      scene.environmentIntensity = 1;
-      onReady();
-      return () => {
-        sky.dispose();
-        scene.environment = null;
-      };
-    }
-    let hdr: THREE.Texture | null = null;
-    new RGBELoader().load("/configurator/studio.hdr", (tex) => {
-      if (cancelled) return tex.dispose();
-      tex.mapping = THREE.EquirectangularReflectionMapping;
-      hdr = tex;
-      scene.environment = tex;
-      scene.environmentIntensity = 2.2;
-      onReady();
-    });
+    // A soft sky: bright overhead and a mid-grey ground by day (an overcast afternoon: even light, soft shadows,
+    // metal that shows a gentle gradient instead of a black mirror), nearly black at night.
+    const sky = new GradientEquirectTexture();
+    sky.topColor.set(night ? "#0b1222" : "#eef3fb");
+    sky.bottomColor.set(night ? "#05070c" : "#7d8189");
+    sky.update();
+    scene.environment = sky;
+    scene.environmentIntensity = night ? 1 : 0.85;
+    onReady();
     return () => {
-      cancelled = true;
-      hdr?.dispose();
+      sky.dispose();
       scene.environment = null;
     };
     // onReady is stable by contract
