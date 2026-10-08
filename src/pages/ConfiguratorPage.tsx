@@ -251,11 +251,11 @@ export default function ConfiguratorPage() {
   const seo = <Seo title={CONFIGURATOR_META.title} description={CONFIGURATOR_META.description} path={CONFIGURATOR_META.path} jsonLd={JSON_LD} />;
 
   // Preview stage: the 3D preview and every option side by side, sized to the viewport so nothing needs scrolling.
-  if (config && state && (source === "text" || uploadShapes)) {
+  if (config && state) {
     const paintName = describeColor(state.color, [BRUSHED_SWATCH, ...PAINT_SWATCHES]).replace(/ \(#[0-9a-f]{6}\)$/i, "");
     const glowName = describeColor(state.glowColor, GLOW_SWATCHES).replace(/ \(#[0-9a-f]{6}\)$/i, "");
     const summaryItems = [
-      { label: "Text", value: source === "text" ? text.split("\n").filter((l) => l.trim()).join(" / ") || "—" : uploadFile?.name ?? "Uploaded logo" },
+      { label: source === "text" ? "Text" : "Artwork", value: source === "text" ? text.split("\n").filter((l) => l.trim()).join(" / ") || "—" : uploadFile?.name ?? "Uploaded logo" },
       ...(source === "text" ? [{ label: "Font", value: fontsFor(config).find((f) => f.id === fontId)?.label ?? "" }] : []),
       { label: "Width × Height", value: formatSize(state.sizeIn, aspect).replace(/ \(.*\)$/, "") },
       { label: "Depth", value: formatDepth(state.depthMm) },
@@ -285,7 +285,7 @@ export default function ConfiguratorPage() {
                 <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
                 {!shapes && (
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
-                    <span className="rounded-full bg-black/55 px-4 py-2 text-sm text-white/90">Type your text to see your sign here.</span>
+                    <span className="rounded-full bg-black/55 px-4 py-2 text-sm text-white/90">{source === "upload" ? "Upload your logo to see your sign here." : "Type your text to see your sign here."}</span>
                   </div>
                 )}
               </div>
@@ -311,6 +311,8 @@ export default function ConfiguratorPage() {
               {!desktop && <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />}
 
               <ArtworkSourceToggle value={source} onChange={setSource} />
+
+              {source === "upload" && !uploadShapes && <UploadDropzone onParsed={handleParsed} compact />}
 
               {source === "upload" && uploadShapes && (
                 <p className="flex items-center justify-between gap-2 text-[11px] text-muted-foreground">

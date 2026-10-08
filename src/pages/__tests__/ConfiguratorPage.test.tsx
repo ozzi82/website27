@@ -135,7 +135,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     renderPage("/configurator?config=lp-11-b-back-lit");
 
     expect(screen.queryByRole("button", { name: /EdgeLuxe LP 5/ })).not.toBeInTheDocument();
-    expect(screen.getByText("LP 11-B")).toBeInTheDocument();
+    expect(switcher()).toHaveValue("lp-11-b-back-lit");
     await upload(user);
     const depth = screen.getByRole("radiogroup", { name: "Depth" });
     expect(within(depth).getAllByRole("radio").map((o) => o.getAttribute("value"))).toEqual(["10", "15", "20", "30"]);
@@ -157,8 +157,7 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
 
     await user.click(screen.getByRole("button", { name: /use a different file/i }));
 
-    // Back to the upload step: no preview, no replace button, dropzone is shown.
-    expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
+    // Back to the upload step: the configurator stays, with no replace button and the dropzone shown.
     expect(screen.queryByRole("button", { name: /use a different file/i })).not.toBeInTheDocument();
     expect(screen.getByLabelText(/upload your logo/i)).toBeInTheDocument();
     expect(screen.queryByRole("button", { name: /EdgeLuxe LP 3\.1/ })).not.toBeInTheDocument(); // chooser not shown again
@@ -221,7 +220,8 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     const user = userEvent.setup();
     vi.mocked(parseArtwork).mockResolvedValue([new THREE.Shape()]);
     renderPage("/configurator?config=lp-5-trimless-face-lit");
-    expect(screen.getByRole("button", { name: /change configuration/i })).toBeInTheDocument(); // before artwork: back to the chooser
+    expect(screen.queryByRole("button", { name: /change configuration/i })).not.toBeInTheDocument();
+    expect(switcher()).toBeInTheDocument(); // the switcher is there before any artwork too
     await upload(user);
     expect(screen.queryByRole("button", { name: /change configuration/i })).not.toBeInTheDocument();
     expect(switcher()).toBeInTheDocument();
@@ -251,13 +251,11 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
     expect(screen.getByRole("radio", { name: "Brick" })).toBeChecked();
   });
 
-  it("returning to the chooser before any artwork still works (it starts from the defaults)", async () => {
+  it("switching configuration before any artwork starts from the new configuration's defaults", async () => {
     const user = userEvent.setup();
     renderPage("/configurator?config=lp-5-trimless-face-lit");
-    await user.click(screen.getByRole("button", { name: /change configuration/i }));
-    expect(screen.getAllByRole("button", { name: /EdgeLuxe LP/ })).toHaveLength(12);
-    await user.click(screen.getByRole("button", { name: /EdgeLuxe LP 11-F Block/ }));
-    expect(screen.getByText("LP 11-F")).toBeInTheDocument();
+    await user.selectOptions(switcher(), "lp-11-f-face-lit");
+    expect(switcher()).toHaveValue("lp-11-f-face-lit");
   });
 
   it("only offers 'Use a different file' once a logo has been uploaded", () => {
@@ -544,7 +542,6 @@ describe("ConfiguratorPage end-to-end smoke tests", () => {
       await findPreview();
 
       await user.click(screen.getByRole("radio", { name: "Upload logo" }));
-      expect(screen.queryByTestId("sign-preview-stub")).not.toBeInTheDocument();
       expect(screen.getByLabelText(/upload your logo/i)).toBeInTheDocument();
     });
 

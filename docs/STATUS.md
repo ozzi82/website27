@@ -206,3 +206,6 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - Home: four product cards of one size, each with a short photo and a solid orange button (first keeps the Signature product label).
 - Contact page: removed "most quotes are returned within 24 hours" (intro and meta description). It is still on the home trust bar, the three product pages and the FAQ: say if those should go too.
 - Home: removed the LP 11 series row of eight variant cards from the ultra-slim section (they remain on the ultra-slim page).
+
+## Upload logo inside the configurator
+- Choosing Upload logo now stays in the full-screen configurator: a dashed drop box in the Your artwork section (UploadDropzone compact), the preview shows an empty wall until a file is parsed, then the sign. Formats are still vector only (SVG, PDF, AI); PNG/JPG would need tracing, not built.
