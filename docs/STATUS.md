@@ -144,3 +144,7 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 ## Realism round 2 (shadows)
 - Sign now casts a soft contact shadow on the wall (directional light shadow map 2048, bias -0.0004).
 - Still open: satin/brushed metal and clear-coat tuning, acrylic edge glow, wall photo textures (need owner photos of white boards / concrete).
+
+## Visible photos (round 1)
+- Home: new PhotoStrip (6 real installed signs) under the capability strip; process steps now carry one real photo each (data/process.ts processPhotos).
+- Ideas not yet done: day/night pairs on product cards, full-bleed photo bands, visible galleries, projects wall, team/shipping photos (need owner photos).

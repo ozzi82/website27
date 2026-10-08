@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Hero from "../components/home/Hero";
 import TrustStrip from "../components/home/TrustStrip";
+import PhotoStrip from "../components/home/PhotoStrip";
 import ProductsSection from "../components/home/ProductsSection";
 import TrustBadgeSection from "../components/home/TrustBadgeSection";
 import UltraSlimSection from "../components/home/UltraSlimSection";
@@ -55,6 +56,7 @@ export default function HomePage() {
       />
       <Hero />
       <TrustStrip />
+      <PhotoStrip />
       <ProductsSection />
       <TrustBadgeSection />
       <UltraSlimSection />
