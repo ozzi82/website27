@@ -67,8 +67,8 @@ describe("lerp", () => {
   });
 });
 
-const expectClose = (a: Record<string, number>, b: Record<string, number>) => {
-  for (const k of Object.keys(b)) expect(a[k]).toBeCloseTo(b[k], 9);
+const expectClose = (a: object, b: Record<string, number>) => {
+  for (const k of Object.keys(b)) expect((a as Record<string, number>)[k]).toBeCloseTo(b[k], 9);
 };
 
 describe("atmosphereFor", () => {
