@@ -146,5 +146,5 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - Still open: satin/brushed metal and clear-coat tuning, acrylic edge glow, wall photo textures (need owner photos of white boards / concrete).
 
 ## Visible photos (round 1)
-- Home: new PhotoStrip (6 real installed signs) under the capability strip; process steps now carry one real photo each (data/process.ts processPhotos).
+- Home: new PhotoStrip (6 real installed signs) under the capability strip; process steps carry line illustrations (components/home/ProcessIllustration.tsx), not photos.
 - Ideas not yet done: day/night pairs on product cards, full-bleed photo bands, visible galleries, projects wall, team/shipping photos (need owner photos).

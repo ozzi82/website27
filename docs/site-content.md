@@ -474,12 +474,12 @@ Process
 
 #### From Artwork to Your Dock.
 
-- *[Image: Artwork templates laid out for cutting in the workshop]* — 01 — Send your files
-- *[Image: Installed illuminated lettering, the kind of job we quote]* — 02 — Receive your quote
-- *[Image: Cut sign pieces laid on drawings for approval]* — 03 — Approve drawings
-- *[Image: Technician assembling an illuminated letter at the Sunlite workshop]* — 04 — We fabricate
-- *[Image: Finished letters inspected before packing]* — 05 — Quality control
-- *[Image: Closed plywood shipping crate ready for freight]* — 06 — Crated & shipped
+- 01 — Send your files
+- 02 — Receive your quote
+- 03 — Approve drawings
+- 04 — We fabricate
+- 05 — Quality control
+- 06 — Crated & shipped
 
 #### We don't compete with our partners. We build for them.
 
@@ -726,12 +726,12 @@ Process
 
 #### From Artwork to Your Dock.
 
-- *[Image: Artwork templates laid out for cutting in the workshop]* — 01 — Send your files
-- *[Image: Installed illuminated lettering, the kind of job we quote]* — 02 — Receive your quote
-- *[Image: Cut sign pieces laid on drawings for approval]* — 03 — Approve drawings
-- *[Image: Technician assembling an illuminated letter at the Sunlite workshop]* — 04 — We fabricate
-- *[Image: Finished letters inspected before packing]* — 05 — Quality control
-- *[Image: Closed plywood shipping crate ready for freight]* — 06 — Crated & shipped
+- 01 — Send your files
+- 02 — Receive your quote
+- 03 — Approve drawings
+- 04 — We fabricate
+- 05 — Quality control
+- 06 — Crated & shipped
 
 Company
 
@@ -1847,12 +1847,12 @@ Process
 
 #### From Artwork to Your Dock.
 
-- *[Image: Artwork templates laid out for cutting in the workshop]* — 01 — Send your files
-- *[Image: Installed illuminated lettering, the kind of job we quote]* — 02 — Receive your quote
-- *[Image: Cut sign pieces laid on drawings for approval]* — 03 — Approve drawings
-- *[Image: Technician assembling an illuminated letter at the Sunlite workshop]* — 04 — We fabricate
-- *[Image: Finished letters inspected before packing]* — 05 — Quality control
-- *[Image: Closed plywood shipping crate ready for freight]* — 06 — Crated & shipped
+- 01 — Send your files
+- 02 — Receive your quote
+- 03 — Approve drawings
+- 04 — We fabricate
+- 05 — Quality control
+- 06 — Crated & shipped
 
 Reference projects
 
@@ -2112,12 +2112,12 @@ Process
 
 #### From Artwork to Your Dock.
 
-- *[Image: Artwork templates laid out for cutting in the workshop]* — 01 — Send your files
-- *[Image: Installed illuminated lettering, the kind of job we quote]* — 02 — Receive your quote
-- *[Image: Cut sign pieces laid on drawings for approval]* — 03 — Approve drawings
-- *[Image: Technician assembling an illuminated letter at the Sunlite workshop]* — 04 — We fabricate
-- *[Image: Finished letters inspected before packing]* — 05 — Quality control
-- *[Image: Closed plywood shipping crate ready for freight]* — 06 — Crated & shipped
+- 01 — Send your files
+- 02 — Receive your quote
+- 03 — Approve drawings
+- 04 — We fabricate
+- 05 — Quality control
+- 06 — Crated & shipped
 
 Custom fabrication FAQ
 
