@@ -30,7 +30,7 @@ interface ConfigControlsProps {
 export type ControlGroup = "all" | "size" | "colour" | "light" | "look";
 
 /** Bigger, easier to see segments for the choices that matter most (depth, mounting, lighting, build). */
-const BIG = "[&_label]:py-1.5 [&_label]:text-sm [&_label]:font-semibold";
+const BIG = "[&_label]:py-1.5 [&_label]:text-sm [&_label]:font-semibold lg:[&_label]:py-1 lg:[&_label]:text-[13px]";
 
 /** One compact row: a short label on the left, the control on the right. */
 function Row({ label, htmlFor, labelId, children }: { label: string; htmlFor?: string; labelId?: string; children: ReactNode }) {
@@ -68,7 +68,7 @@ function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true
     <Row label={label} labelId={labelId}>
       <div role="group" aria-label={legend} className="flex flex-wrap items-start gap-1.5 lg:gap-x-4 lg:gap-y-3">
         {swatches.map((s) => (
-          <div key={s.hex} className="flex flex-col items-center gap-1.5 lg:w-[4.25rem]">
+          <div key={s.hex} className="flex flex-col items-center gap-1.5 lg:w-14">
             <button
               type="button"
               title={s.name}
@@ -76,9 +76,9 @@ function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true
               aria-pressed={value.toLowerCase() === s.hex}
               onClick={() => onChange(s.hex)}
               style={s.look ? { background: s.look } : { backgroundColor: s.hex }}
-              className="h-6 w-6 rounded-full border border-border lg:h-10 lg:w-10 aria-pressed:ring-2 aria-pressed:ring-brand aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+              className="h-6 w-6 rounded-full border border-border lg:h-8 lg:w-8 aria-pressed:ring-2 aria-pressed:ring-brand aria-pressed:ring-offset-2 aria-pressed:ring-offset-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
             />
-            <span aria-hidden="true" className="hidden text-center text-[11px] leading-tight text-muted-foreground lg:block">
+            <span aria-hidden="true" className="hidden text-center text-[10px] leading-tight text-muted-foreground lg:block">
               {s.name}
             </span>
           </div>
@@ -102,7 +102,7 @@ function DepthLabel({ mm }: { mm: number }) {
   return (
     <span>
       {inches}
-      <span className="font-normal opacity-75"> ({rest}</span>
+      <span className="font-normal opacity-75 lg:hidden"> ({rest}</span>
     </span>
   );
 }
@@ -136,7 +136,7 @@ function SizeInputs({ sizeIn, aspect, onSize }: { sizeIn: number; aspect: number
       else setH(show(height));
     } else setH(show(height));
   };
-  const field = "w-[4.4rem] rounded-md border border-input bg-card px-2 py-1 text-sm tabular-nums focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring lg:h-11 lg:w-full lg:rounded-xl lg:px-3 lg:text-base";
+  const field = "w-[4.4rem] rounded-md border border-input bg-card px-2 py-1 text-sm tabular-nums focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring lg:h-9 lg:w-full lg:rounded-lg lg:px-3 lg:text-sm";
   const key = (commit: () => void) => (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") commit();
   };
@@ -255,24 +255,13 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         </Row>
       )}
 
-      {mounts.length > 1 && g("size") && (
-        <Row label="Mounting" labelId="mounting-label">
-          <SegmentedControl
-            label="Mounting"
-            className={BIG}
-            value={state.mounting}
-            onChange={(mounting) => set({ mounting })}
-            options={mounts.map((m) => ({
-              value: m,
-              label: MOUNT_LABEL[m],
-              title: m === "flush" ? "Against the wall" : "Held off the wall on spacers",
-            }))}
-          />
-        </Row>
-      )}
-
       {g("size") && (
       <>
+      <Row label="Size" labelId="size-label">
+        <SizeInputs sizeIn={state.sizeIn} aspect={aspect} onSize={(sizeIn) => set({ sizeIn })} />
+      </Row>
+
+      <div className="grid gap-3 lg:grid-cols-2 lg:gap-4">
       <Row label="Depth" labelId="depth-label">
         <SegmentedControl
           label="Depth"
@@ -287,10 +276,22 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           className={BIG}
         />
       </Row>
-      <Row label="Size" labelId="size-label">
-        <SizeInputs sizeIn={state.sizeIn} aspect={aspect} onSize={(sizeIn) => set({ sizeIn })} />
-      </Row>
-
+      {mounts.length > 1 && (
+        <Row label="Mounting" labelId="mounting-label">
+          <SegmentedControl
+            label="Mounting"
+            className={BIG}
+            value={state.mounting}
+            onChange={(mounting) => set({ mounting })}
+            options={mounts.map((m) => ({
+              value: m,
+              label: MOUNT_LABEL[m],
+              title: m === "flush" ? "Against the wall" : "Held off the wall on spacers",
+            }))}
+          />
+        </Row>
+      )}
+      </div>
       </>
       )}
       </section>

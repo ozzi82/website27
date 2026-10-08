@@ -292,7 +292,7 @@ export default function ConfiguratorPage() {
               {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} />}
             </div>
 
-            <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-6 xl:w-[520px]">
+            <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-5 xl:w-[500px]">
               {desktop && (
                 <div className="mb-4 shrink-0">
                   <h2 className="text-3xl font-semibold">Make it yours</h2>
@@ -363,11 +363,11 @@ export default function ConfiguratorPage() {
                 ]}
                 action={
                   <>
-                    <Button type="button" variant="outline" disabled={!shapes} onClick={openBuilding} className="h-14 min-w-0 flex-1 gap-2 whitespace-normal rounded-xl border-input bg-card px-3 text-sm font-semibold leading-tight hover:bg-card sm:text-base">
+                    <Button type="button" variant="outline" disabled={!shapes} onClick={openBuilding} className="h-12 min-w-0 flex-1 gap-2 whitespace-normal rounded-xl border-input bg-card px-3 text-sm font-semibold leading-tight hover:bg-card">
                       <Building2 aria-hidden="true" className="h-5 w-5 shrink-0" />
                       Preview on a building
                     </Button>
-                    <Button asChild className="h-14 min-w-0 flex-[1.3] whitespace-normal rounded-xl bg-brand px-3 text-sm font-bold text-brand-foreground hover:bg-brand/90 sm:text-base">
+                    <Button asChild className="h-12 min-w-0 flex-[1.3] whitespace-normal rounded-xl bg-brand px-3 text-sm font-bold text-brand-foreground hover:bg-brand/90">
                       <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="gap-2 text-center leading-tight">
                         {CTA_PRIMARY.label}
                         <ArrowRight aria-hidden="true" className="h-5 w-5 shrink-0" />

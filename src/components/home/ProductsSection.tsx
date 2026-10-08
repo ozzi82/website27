@@ -4,76 +4,46 @@ import SectionHeader from "../SectionHeader";
 import { productCategories, type ProductCategory } from "../../data/products";
 import Picture from "../Picture";
 
-function ProductCta({ product }: { product: ProductCategory }) {
-  // The label is the link; its ::after covers the whole card so the card is clickable without nesting links.
+/** Four cards of one size: a short photo, the name, a summary and a solid orange button. The whole card is the link. */
+function ProductCard({ product, signature }: { product: ProductCategory; signature?: boolean }) {
   return (
-    <Link
-      to={product.cta.to}
-      className="mono-label mt-auto pt-5 inline-flex items-center gap-2 text-primary group-hover:text-foreground transition-colors after:absolute after:inset-0"
-    >
-      {product.cta.label}
-      <ArrowRight aria-hidden="true" className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" />
-    </Link>
-  );
-}
-
-function FeaturedProduct({ product }: { product: ProductCategory }) {
-  return (
-    <article data-product={product.id} className="group relative flex flex-col lg:grid lg:grid-cols-[2fr_3fr] border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-7 lg:row-span-3">
-      <div className="relative overflow-hidden aspect-[4/3] lg:aspect-auto lg:min-h-[28rem]">
+    <article data-product={product.id} className="group relative flex flex-col border border-border bg-card/60 transition-colors hover:border-primary">
+      <div className="relative aspect-[16/10] overflow-hidden">
         <Picture
           src={product.image.src}
           alt={product.image.alt}
           width={product.image.width}
           height={product.image.height}
-          sizes="(min-width: 1024px) 40vw, 100vw"
-          className="absolute inset-0 w-full h-full object-cover object-[52%_50%] transition-transform duration-700 group-hover:scale-[1.03]"
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
-        <span className="absolute top-4 left-4 mono-label bg-background/90 px-2.5 py-1.5">{product.number}</span>
+        <span className="absolute left-3 top-3 mono-label bg-background/90 px-2 py-1">{product.number}</span>
+        {signature && <span className="absolute right-3 top-3 mono-label bg-primary px-2 py-1 text-primary-foreground">Signature product</span>}
       </div>
-      <div className="p-6 md:p-8 flex flex-col border-t lg:border-t-0 lg:border-l border-border lg:justify-end">
-        <p className="mono-label text-primary leading-relaxed">Signature product · {product.systems}</p>
-        <h3 className="text-4xl md:text-6xl lg:text-5xl xl:text-6xl mt-3">{product.title}</h3>
-        <p className="text-muted-foreground mt-4 max-w-xl">{product.description}</p>
-        <ProductCta product={product} />
-      </div>
-    </article>
-  );
-}
-
-function ProductRow({ product }: { product: ProductCategory }) {
-  return (
-    <article data-product={product.id} className="group relative grid grid-cols-[7.5rem_1fr] sm:grid-cols-[11rem_1fr] border border-border bg-card/50 hover:border-primary/60 transition-colors lg:col-span-5">
-      <div className="relative overflow-hidden min-h-[8.5rem]">
-        <Picture
-          src={product.image.src}
-          alt={product.image.alt}
-          width={product.image.width}
-          height={product.image.height}
-          sizes="(min-width: 640px) 11rem, 7.5rem"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-        />
-      </div>
-      <div className="p-5 flex flex-col border-l border-border">
-        <p className="mono-label text-muted-foreground">{product.number} · {product.systems}</p>
-        <h3 className="text-2xl md:text-3xl mt-1">{product.title}</h3>
-        <p className="text-sm text-muted-foreground mt-2">{product.description}</p>
-        <ProductCta product={product} />
+      <div className="flex flex-1 flex-col gap-2 p-5">
+        <h3 className="text-2xl leading-tight">{product.title}</h3>
+        <p className="mono-label text-primary">{product.systems}</p>
+        <p className="line-clamp-4 text-sm text-muted-foreground">{product.description}</p>
+        <Link
+          to={product.cta.to}
+          className="mt-auto inline-flex items-center justify-between gap-2 bg-primary px-4 py-3 text-sm font-semibold uppercase tracking-wider text-primary-foreground transition-colors after:absolute after:inset-0 group-hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+        >
+          {product.cta.label}
+          <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+        </Link>
       </div>
     </article>
   );
 }
 
 export default function ProductsSection() {
-  const [featured, ...rest] = productCategories;
   return (
-    <section id="products" className="py-14 md:py-28 scroll-mt-20">
+    <section id="products" className="py-14 md:py-20 scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader eyebrow="What we build" title="Built for the jobs your shop wins." />
-        <div className="grid lg:grid-cols-12 gap-5 md:gap-6">
-          <FeaturedProduct product={featured} />
-          {rest.map((p) => (
-            <ProductRow key={p.id} product={p} />
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 md:gap-5">
+          {productCategories.map((p, i) => (
+            <ProductCard key={p.id} product={p} signature={i === 0} />
           ))}
         </div>
       </div>

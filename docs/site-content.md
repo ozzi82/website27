@@ -126,11 +126,11 @@ What we build
 
 *[Image: Vertical lettering with glowing white outlines mounted on a blue panel in a concrete concourse]*
 
-01
-
-Signature product · EdgeLuxe LP 11 series · cast block acrylic · 10–30 mm
+01Signature product
 
 ##### Ultra-Slim Letters
+
+EdgeLuxe LP 11 series · cast block acrylic · 10–30 mm
 
 Our signature product: cast block acrylic letters with embedded LEDs, epoxy-sealed to IP67 and just 10–30 mm deep. Eight configurations: face, halo, face + halo, side, faux neon and conical.
 
@@ -138,9 +138,11 @@ Our signature product: cast block acrylic letters with embedded LEDs, epoxy-seal
 
 *[Image: Illuminated letters on a building facade at dusk]*
 
-02 · EdgeLuxe LP 5, LP 3.1, LP 3.2 · fabricated stainless steel
+02
 
 ##### Classic Trimless Letters
+
+EdgeLuxe LP 5, LP 3.1, LP 3.2 · fabricated stainless steel
 
 Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2, in depths from 30 to 100 mm.
 
@@ -148,9 +150,11 @@ Fabricated stainless steel channel letters with no trim cap: face-lit LP 5, halo
 
 *[Image: EdgeLuxe LP 1 flat cutout letter S in gold on a concrete wall]*
 
-03 · EdgeLuxe LP 1 · unlit
+03
 
 ##### Non-Illuminated Flat Cutout Letters
+
+EdgeLuxe LP 1 · unlit
 
 Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acrylic and more, from 1 mm to 200 mm thick.
 
@@ -158,9 +162,11 @@ Precision-cut non-illuminated letters in wood, aluminum, stainless steel, acryli
 
 *[Image: Illuminated crest logo on a wood-slat wall]*
 
-04 · Made to your drawings
+04
 
 ##### Custom Sign Fabrication
+
+Made to your drawings
 
 Custom work to your drawings, including blade signs, push-through cabinet signs, illuminated logos and custom letter projects.
 
@@ -1078,7 +1084,7 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
 - URL: https://sunlitesigns.com/contact
 - Title: Get Your Wholesale Quote: Channel Letters | Sunlite Signs
-- Meta description: Send artwork, dimensions and project details for a wholesale quote on channel letters and illuminated signage, within 24 to 48 hours (most quotes returned within 24 hours). Trade customers only.
+- Meta description: Send artwork, dimensions and project details for a wholesale quote on channel letters and illuminated signage, within 24 to 48 hours. Trade customers only.
 
 - [Home](/)
 - /Wholesale quote
@@ -1087,7 +1093,7 @@ Wholesale quote
 
 ### Get your wholesale quote
 
-Send your artwork, dimensions and project details. We'll return a quote within 24 to 48 hours; most quotes are returned within 24 hours.
+Send your artwork, dimensions and project details. We'll return a quote within 24 to 48 hours.
 
 Trade customers only · No retail sales
 

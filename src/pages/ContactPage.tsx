@@ -20,9 +20,9 @@ const crumbs: Crumb[] = [
   { label: "Wholesale quote", to: PATH },
 ];
 
-export const contactIntro = "Send your artwork, dimensions and project details. We'll return a quote within 24 to 48 hours; most quotes are returned within 24 hours.";
+export const contactIntro = "Send your artwork, dimensions and project details. We'll return a quote within 24 to 48 hours.";
 export const contactDescription =
-  "Send artwork, dimensions and project details for a wholesale quote on channel letters and illuminated signage, within 24 to 48 hours (most quotes returned within 24 hours). Trade customers only.";
+  "Send artwork, dimensions and project details for a wholesale quote on channel letters and illuminated signage, within 24 to 48 hours. Trade customers only.";
 
 /** What helps us quote fast: every item restates the existing FAQ answer "What files do you need for a quote?". */
 const whatToSend = [

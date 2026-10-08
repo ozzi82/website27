@@ -351,7 +351,7 @@ describe("ContactPage wholesale quote page (brief section 10)", () => {
     const h1 = screen.getByRole("heading", { level: 1 });
     expect(h1.textContent!.replace(/\s+/g, " ").trim()).toMatch(/^get your wholesale quote$/i);
     expect(h1.className).toMatch(/uppercase/);
-    expect(screen.getByText("Send your artwork, dimensions and project details. We'll return a quote within 24 to 48 hours; most quotes are returned within 24 hours.")).toBeInTheDocument();
+    expect(screen.getByText("Send your artwork, dimensions and project details. We'll return a quote within 24 to 48 hours.")).toBeInTheDocument();
     expect(screen.getByText(/trade customers only · no retail sales/i)).toBeVisible();
     expect(screen.queryByText(/get in touch|request a quote|get a quote|start your project/i)).not.toBeInTheDocument();
   });

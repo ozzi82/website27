@@ -20,7 +20,7 @@ interface TextArtworkPanelProps {
   compact?: boolean;
 }
 
-const FIELD = "w-full rounded-xl border border-input bg-card px-4 py-3 text-lg font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring";
+const FIELD = "w-full rounded-xl border border-input bg-card px-3.5 py-2 text-base font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring";
 
 /** Typed-text artwork: a small multi-line box plus a picker of the bundled fonts, each shown in its own face. */
 export default function TextArtworkPanel({
@@ -46,7 +46,7 @@ export default function TextArtworkPanel({
   const used = Array.from(text.replace(/\n/g, "")).length;
 
   return (
-    <section aria-label="Text artwork" className={compact ? "space-y-4" : "space-y-2"}>
+    <section aria-label="Text artwork" className={compact ? "space-y-2.5" : "space-y-2"}>
       <div className="space-y-1">
         <label className="block text-sm font-semibold" htmlFor={textId}>
           Your text
@@ -93,7 +93,7 @@ export default function TextArtworkPanel({
             value={fontId}
             onChange={(e) => onFontChange(e.target.value)}
             style={{ fontFamily: `"${(fonts.find((f) => f.id === fontId) ?? fonts[0]).cssFamily}", sans-serif` }}
-            className="h-12 w-full rounded-xl border border-input bg-card px-4 text-lg font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
+            className="h-10 w-full rounded-xl border border-input bg-card px-3.5 text-base font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring"
           >
             {fonts.map((f) => (
               <option key={f.id} value={f.id} style={{ fontFamily: `"${f.cssFamily}", sans-serif` }}>
