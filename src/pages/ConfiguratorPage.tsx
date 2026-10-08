@@ -298,20 +298,22 @@ export default function ConfiguratorPage() {
                       <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
             <ConfiguratorDisclaimer />
 
-            <Button type="button" variant="outline" size="lg" disabled={!shapes} onClick={openBuilding} className="w-full shrink-0 uppercase tracking-wider font-semibold">
-              See it on the building!
-            </Button>
 
                     </>
                   ),
                 },
               ]}
               action={
-            <Button asChild size="lg" className="h-full w-full shrink-0">
-              <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="uppercase tracking-wider font-semibold">
-                {CTA_PRIMARY.label}
-              </Link>
-            </Button>
+                <>
+                  <Button type="button" variant="outline" disabled={!shapes} onClick={openBuilding} className="h-14 min-w-0 whitespace-normal px-3 text-sm font-bold uppercase leading-tight tracking-wider sm:text-base">
+                    See it on the building
+                  </Button>
+                  <Button asChild className="h-14 min-w-0 whitespace-normal px-3 text-sm font-bold sm:text-base">
+                    <Link to={CTA_PRIMARY.to} onClick={handleQuote} aria-busy={quoting || undefined} className="text-center uppercase leading-tight tracking-wider">
+                      {CTA_PRIMARY.label}
+                    </Link>
+                  </Button>
+                </>
               }
             />
           </aside>

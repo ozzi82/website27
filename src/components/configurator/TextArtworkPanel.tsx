@@ -18,7 +18,7 @@ interface TextArtworkPanelProps {
   fonts?: readonly TextFont[];
 }
 
-const FIELD = "w-full rounded-md border-2 border-primary/50 bg-background px-3 py-2 text-base font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
+const FIELD = "w-full rounded-lg border-2 border-primary bg-card px-4 py-3 text-2xl font-semibold shadow-[0_0_0_4px_hsl(var(--primary)/0.15)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
 
 /** Typed-text artwork: a small multi-line box plus a picker of the bundled fonts, each shown in its own face. */
 export default function TextArtworkPanel({
@@ -45,8 +45,8 @@ export default function TextArtworkPanel({
   return (
     <section aria-label="Text artwork" className="space-y-2">
       <div className="space-y-1">
-        <label className="sr-only" htmlFor={textId}>
-          Your text
+        <label className="mono-label block text-primary" htmlFor={textId}>
+          Type your text
         </label>
         <textarea
           id={textId}

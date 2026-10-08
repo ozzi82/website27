@@ -33,10 +33,10 @@ export default function ConfiguratorPanel({ tabs, action }: ConfiguratorPanelPro
   }
 
   return (
-    <div className="grid min-h-0 grid-cols-[minmax(0,1fr)_auto] gap-x-2 gap-y-2 lg:h-full lg:grid-cols-1 lg:grid-rows-[minmax(0,1fr)_auto] lg:gap-y-3">
+    <div className="grid min-h-0 grid-cols-1 gap-y-2 lg:h-full lg:grid-rows-[minmax(0,1fr)_auto] lg:gap-y-3">
       <div
         className={cn(
-          "order-1 col-span-2 max-h-[40svh] min-h-0 overflow-y-auto rounded-xl border border-border bg-card/70 p-3 lg:order-1 lg:col-span-1 lg:max-h-none lg:border-0 lg:bg-transparent lg:p-0 lg:pr-1",
+          "order-1 max-h-[40svh] min-h-0 overflow-y-auto rounded-xl border border-border bg-card/70 p-3 lg:order-1 lg:max-h-none lg:border-0 lg:bg-transparent lg:p-0 lg:pr-1",
           !open && "max-lg:hidden"
         )}
       >
@@ -74,7 +74,7 @@ export default function ConfiguratorPanel({ tabs, action }: ConfiguratorPanelPro
         })}
       </nav>
 
-      <div className="order-3 flex max-w-[56vw] lg:order-2 lg:max-w-none items-stretch sm:max-w-none [&>*]:flex-1 [&_a]:text-center [&_a]:text-xs [&_a]:leading-tight sm:[&_a]:text-sm">{action}</div>
+      <div className="order-3 flex gap-2 lg:order-2 [&>*]:flex-1">{action}</div>
     </div>
   );
 }
