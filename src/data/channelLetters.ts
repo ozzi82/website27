@@ -16,7 +16,7 @@ export const CHANNEL_LETTERS_PATH = "/services/channel-letters";
 export const ULTRA_SLIM_PATH = "/services/ultra-slim-trimless-channel-letters";
 export const CUSTOM_FABRICATION_PATH = "/services/custom-sign-fabrication";
 
-export const channelLettersIntro = "UL 48 listed channel letters fabricated to your drawings and shipped ready to install nationwide.";
+export const channelLettersIntro = "UL 48 listed trimless channel letters fabricated to your drawings and shipped ready to install nationwide.";
 export const channelLettersWho =
   "Sunlite Signs is a trade-only wholesale manufacturer. We build for sign companies and never compete for their customers.";
 export const classicSummary =
@@ -292,9 +292,9 @@ export const channelLetterFaqs: Faq[] = [
 ];
 
 export const channelLettersMeta = {
-  title: "Wholesale Channel Letter Manufacturer | Sunlite Signs",
+  title: "Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs",
   description:
-    "Wholesale channel letter manufacturer for sign companies. Classic trimless stainless steel letters and ultra-slim LP 11, built to your drawings, UL 48 listed, shipped nationwide.",
+    "Wholesale trimless channel letter manufacturer for sign companies. Fabricated stainless steel and ultra-slim cast block acrylic, built to your drawings, UL 48 listed.",
   heroImage: {
     src: "/images/pasted-image-1787166590951-kao0m19c.jpeg",
     alt: "Illuminated letters on a blue building facade at dusk",

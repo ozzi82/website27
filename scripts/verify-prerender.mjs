@@ -14,7 +14,7 @@ export const NOINDEX = site.noindex;
 const MIN_TEXT_CHARS = 500;
 // Pages whose <title> the owner specified verbatim (brief sections 11-12), without the " | Sunlite Signs" suffix.
 const EXACT_TITLES = {
-  "/services/channel-letters": "Wholesale Channel Letter Manufacturer | Sunlite Signs",
+  "/services/channel-letters": "Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs",
   "/services/ultra-slim-trimless-channel-letters": "Ultra-Slim Trimless Channel Letters | 10–30 mm Depth",
 };
 

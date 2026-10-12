@@ -63,12 +63,12 @@ export default function Hero() {
           Wholesale sign manufacturer · Trade only
         </p>
         <h1 className="text-[clamp(1.75rem,8.6vw,2.4rem)] leading-[1.04] sm:text-6xl md:text-7xl lg:text-[5.5rem] max-w-5xl animate-in fade-in slide-in-from-bottom-4 duration-700">
-          Wholesale Channel Letters.<br />
+          Wholesale Trimless Channel Letters.<br />
           <span className="text-primary">Built for Sign Companies.</span>
         </h1>
         <div className="mt-8 md:mt-10 grid md:grid-cols-[1fr_auto] gap-8 items-end animate-in fade-in slide-in-from-bottom-4 duration-1000">
           <p className="text-base md:text-lg text-foreground/80 max-w-xl">
-            German-engineered ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
+            All of our channel letters are trimless: fabricated stainless steel and German-engineered ultra-slim cast block acrylic, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
           </p>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col sm:flex-row gap-3">

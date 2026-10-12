@@ -12,18 +12,18 @@ describe("/services/channel-letters (classic trimless letters)", () => {
     const { main } = renderAt(PATH);
     const h1s = within(main).getAllByRole("heading", { level: 1 });
     expect(h1s).toHaveLength(1);
-    expect(h1s[0].textContent).toBe("Wholesale Channel Lettersfor Sign Companies.");
+    expect(h1s[0].textContent).toBe("Wholesale Trimless Channel Lettersfor Sign Companies.");
     expect(h1s[0].querySelector("br")).not.toBeNull();
-    expect(main.textContent).toContain("UL 48 listed channel letters fabricated to your drawings and shipped ready to install nationwide.");
+    expect(main.textContent).toContain("UL 48 listed trimless channel letters fabricated to your drawings and shipped ready to install nationwide.");
     expect(main.textContent).toMatch(/trade-only wholesale manufacturer/i);
     expect(main.textContent).toMatch(/classic channel letters are trimless fabricated stainless steel/i);
   });
 
   it("sets the exact SEO title, a natural description, canonical and JSON-LD (Service, BreadcrumbList, FAQPage)", async () => {
     renderAt(PATH);
-    await waitFor(() => expect(document.title).toBe("Wholesale Channel Letter Manufacturer | Sunlite Signs"));
+    await waitFor(() => expect(document.title).toBe("Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs"));
     const desc = document.head.querySelector('meta[name="description"]')!.getAttribute("content")!;
-    expect(desc).toMatch(/wholesale channel letter manufacturer/i);
+    expect(desc).toMatch(/wholesale trimless channel letter manufacturer/i);
     expect(desc.length).toBeLessThanOrEqual(180);
     expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe(`${SITE_URL}/services/channel-letters`);
     const ld = [...document.head.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent!));

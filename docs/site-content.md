@@ -69,14 +69,14 @@ Trade customers only. No retail sales. No installation services.
 ## /
 
 - URL: https://sunlitesigns.com/
-- Title: Wholesale Channel Letters for Sign Companies | Sunlite Signs
-- Meta description: Wholesale channel letter manufacturer for sign companies. Ultra-slim cast acrylic letters and classic trimless channel letters built to your drawings, UL 48 listed, shipped nationwide. Trade only.
+- Title: Wholesale Trimless Channel Letters for Sign Companies | Sunlite Signs
+- Meta description: Wholesale trimless channel letter manufacturer for sign companies. Fabricated stainless steel and ultra-slim cast block acrylic letters built to your drawings, UL 48 listed, shipped nationwide. Trade only.
 
 Wholesale sign manufacturer · Trade only
 
-### Wholesale Channel Letters. Built for Sign Companies.
+### Wholesale Trimless Channel Letters. Built for Sign Companies.
 
-German-engineered ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
+All of our channel letters are trimless: fabricated stainless steel and German-engineered ultra-slim cast block acrylic, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
 
 [Request Wholesale Pricing](/contact) · [Explore Products](/#products)
 
@@ -1576,8 +1576,8 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 ## /services/channel-letters
 
 - URL: https://sunlitesigns.com/services/channel-letters
-- Title: Wholesale Channel Letter Manufacturer | Sunlite Signs
-- Meta description: Wholesale channel letter manufacturer for sign companies. Classic trimless stainless steel letters and ultra-slim LP 11, built to your drawings, UL 48 listed, shipped nationwide.
+- Title: Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs
+- Meta description: Wholesale trimless channel letter manufacturer for sign companies. Fabricated stainless steel and ultra-slim cast block acrylic, built to your drawings, UL 48 listed.
 
 - [Home](/)
 - /[Products](/#products)
@@ -1585,9 +1585,9 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 
 Wholesale sign manufacturer · Trade only
 
-### Wholesale Channel Letters for Sign Companies.
+### Wholesale Trimless Channel Letters for Sign Companies.
 
-UL 48 listed channel letters fabricated to your drawings and shipped ready to install nationwide.
+UL 48 listed trimless channel letters fabricated to your drawings and shipped ready to install nationwide.
 
 Our classic channel letters are trimless fabricated stainless steel: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2.
 

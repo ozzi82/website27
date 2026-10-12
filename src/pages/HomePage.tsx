@@ -49,8 +49,8 @@ export default function HomePage() {
   return (
     <>
       <Seo
-        title="Wholesale Channel Letters for Sign Companies"
-        description="Wholesale channel letter manufacturer for sign companies. Ultra-slim cast acrylic letters and classic trimless channel letters built to your drawings, UL 48 listed, shipped nationwide. Trade only."
+        title="Wholesale Trimless Channel Letters for Sign Companies"
+        description="Wholesale trimless channel letter manufacturer for sign companies. Fabricated stainless steel and ultra-slim cast block acrylic letters built to your drawings, UL 48 listed, shipped nationwide. Trade only."
         path="/"
         jsonLd={jsonLd}
       />

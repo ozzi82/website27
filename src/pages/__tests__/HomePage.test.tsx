@@ -30,14 +30,14 @@ describe("HomePage", () => {
     const { container } = renderHome();
     const h1s = screen.getAllByRole("heading", { level: 1 });
     expect(h1s).toHaveLength(1);
-    expect(h1s[0].textContent).toBe("Wholesale Channel Letters.Built for Sign Companies.");
+    expect(h1s[0].textContent).toBe("Wholesale Trimless Channel Letters.Built for Sign Companies.");
     expect(h1s[0].querySelector("br")).not.toBeNull();
     expect(container.textContent).toMatch(/wholesale sign manufacturer · trade only/i);
   });
 
   it("hero body keeps the UL 48, drawings and nationwide wording and offers both CTAs", () => {
     renderHome();
-    expect(screen.getByText(/ultra-slim cast acrylic letters and classic trimless channel letters, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide/i)).toBeInTheDocument();
+    expect(screen.getByText(/all of our channel letters are trimless: fabricated stainless steel and German-engineered ultra-slim cast block acrylic, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide/i)).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /explore products/i })[0]).toHaveAttribute("href", "/#products");
   });
 
