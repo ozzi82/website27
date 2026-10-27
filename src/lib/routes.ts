@@ -1,4 +1,5 @@
 import { configurations } from "../data/configurations";
+import { SELECTION_GUIDE_PATH } from "../data/guides";
 import { caseStudies, caseStudyPath } from "../data/caseStudies";
 import type { SiteIndexLink, SitemapEntry } from "./siteFiles";
 
@@ -19,6 +20,7 @@ export function getPrerenderRoutes(): string[] {
     "/contact",
     "/privacy-policy",
     ...PRODUCT_PAGE_PATHS,
+    SELECTION_GUIDE_PATH,
     ...configurations.map((c) => `/light-effects/${c.id}`),
     // Case studies are data-driven: no entries, no routes (nothing fake ships).
     ...caseStudies.map((c) => caseStudyPath(c.slug)),

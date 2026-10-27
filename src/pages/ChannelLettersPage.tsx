@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import SpecGuide from "../components/SpecGuide";
+import { SELECTION_GUIDE_PATH } from "../data/guides";
 import { Link, useLocation } from "react-router-dom";
 import Seo from "../components/Seo";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -156,6 +157,9 @@ export default function ChannelLettersPage() {
               Our classic channel letters are trimless fabricated stainless steel: <Link to="/light-effects/lp-5-trimless-face-lit" className="underline hover:text-foreground">face-lit LP 5</Link>, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2.
             </p>
             <p className="mt-3 text-sm text-muted-foreground max-w-xl">{channelLettersWho}</p>
+            <p className="mt-3 text-sm text-muted-foreground max-w-xl">
+              Not sure which family fits? <Link to={SELECTION_GUIDE_PATH} className="underline hover:text-foreground">Compare stainless steel and cast acrylic trimless letters</Link>.
+            </p>
             <div className="mt-7 md:mt-9 flex flex-col sm:flex-row gap-3">
               <PrimaryCta />
               <SecondaryCta label={CTA_LINKS.viewSpecs.label} to={CTA_LINKS.viewSpecs.to} />

@@ -17,9 +17,11 @@ import UltraSlimPage from "./pages/UltraSlimPage";
 import CustomFabricationPage from "./pages/CustomFabricationPage";
 import ContactPage from "./pages/ContactPage";
 import ConfigurationPage from "./pages/ConfigurationPage";
+import { SELECTION_GUIDE_PATH } from "./data/guides";
 import { LEGACY_PAGE_REDIRECTS } from "./lib/routes";
 
 // WebGL page: only ever rendered in the browser (never prerendered).
+import GuidePage from "./pages/GuidePage";
 const ConfiguratorPage = lazy(() => import("./pages/ConfiguratorPage"));
 
 /**
@@ -37,6 +39,7 @@ export function AppRoutes() {
           <Route path="/services/ultra-slim-trimless-channel-letters" element={<UltraSlimPage />} />
           <Route path="/services/custom-sign-fabrication" element={<CustomFabricationPage />} />
           <Route path="/light-effects/:id" element={<ConfigurationPage />} />
+          <Route path={SELECTION_GUIDE_PATH} element={<GuidePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/manufacturing" element={<ManufacturingPage />} />
           <Route path="/projects" element={<ProjectsPage />} />

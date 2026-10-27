@@ -8,7 +8,7 @@ Every content page of https://sunlitesigns.com, as plain Markdown, for content r
 - FAQ answers (home, /about, /contact and the channel-letter page) are collapsed accordions on the live page; they are included here from each page's FAQ structured data.
 - Case studies (/projects/<name>) appear here once real ones are added to src/data/caseStudies.ts; none exist yet.
 - Not included: the Build Your Sign 3D configurator (https://sunlitesigns.com/configurator), which is an interactive tool with no static copy, and the embedded HubSpot quote form.
-- 21 pages.
+- 22 pages.
 
 ## Pages
 
@@ -21,6 +21,7 @@ Every content page of https://sunlitesigns.com, as plain Markdown, for content r
 - /services/ultra-slim-trimless-channel-letters
 - /services/channel-letters
 - /services/custom-sign-fabrication
+- /guides/stainless-steel-vs-cast-acrylic-trimless-letters
 - /light-effects/lp-1-flat-cutout
 - /light-effects/lp-3-1-standoff-halo
 - /light-effects/lp-3-2-flush-mount
@@ -1262,6 +1263,8 @@ A cleaner alternative to conventional deep-return channel letters — engineered
 
 Sunlite's signature product: the EdgeLuxe LP 11 series of cast block acrylic letters, with LEDs embedded in the body and epoxy-sealed to IP67.
 
+Need a deeper letter? [Compare cast acrylic with fabricated stainless steel](/guides/stainless-steel-vs-cast-acrylic-trimless-letters).
+
 [Request Wholesale Pricing](/contact) · [See the 8 variants](/services/ultra-slim-trimless-channel-letters#variants)
 
 *[Image: Illuminated vertical lettering in a large interior concourse]*
@@ -1592,6 +1595,8 @@ UL 48 listed trimless channel letters fabricated to your drawings and shipped re
 Our classic channel letters are trimless fabricated stainless steel: [face-lit LP 5](/light-effects/lp-5-trimless-face-lit), halo-lit LP 3.1 on standoffs and flush-mount LP 3.2.
 
 Sunlite Signs is a trade-only wholesale manufacturer. We build for sign companies and never compete for their customers.
+
+Not sure which family fits? [Compare stainless steel and cast acrylic trimless letters](/guides/stainless-steel-vs-cast-acrylic-trimless-letters).
 
 [Request Wholesale Pricing](/contact) · [View Specs](/services/channel-letters#specifications)
 
@@ -2202,6 +2207,61 @@ Letter systems
 - Classic trimless letters — Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2. — Open — (Links to: /services/channel-letters)
 - Flat cutout letters — Non-illuminated LP 1 letters in wood, metal, acrylic and more. — Open — (Links to: /light-effects/lp-1-flat-cutout)
 - Build Your Sign — Preview your logo as a letter system in 3D before you request pricing. — Open — (Links to: /configurator)
+
+#### Have drawings ready? Let's price the job.
+
+Upload your artwork and dimensions and we'll prepare your wholesale quote.
+
+[Request Wholesale Pricing](/contact) · [Or build your sign in 3D first](/configurator)
+
+[hello@sunlitesigns.com](mailto:hello@sunlitesigns.com) · [(689) 294-0912](tel:+16892940912)
+
+## /guides/stainless-steel-vs-cast-acrylic-trimless-letters
+
+- URL: https://sunlitesigns.com/guides/stainless-steel-vs-cast-acrylic-trimless-letters
+- Title: Stainless Steel vs Cast Acrylic Trimless Letters | Sunlite Signs
+- Meta description: Compare Sunlite's two trimless letter families: fabricated stainless steel (LP 5, LP 3.1, LP 3.2) and ultra-slim cast block acrylic (LP 11). Depth, lighting and mounting side by side.
+
+- [Home](/)
+- /Stainless steel vs cast acrylic
+
+Guide
+
+### Stainless steel or cast acrylic? Choosing a trimless letter.
+
+Every Sunlite channel letter is trimless. The choice is between two families: fabricated stainless steel letters, and ultra-slim LP 11 letters in solid cast block acrylic. This page sets the published facts side by side so you can pick the right one for the job.
+
+[Request Wholesale Pricing](/contact)
+
+#### Side by side
+
+[Fabricated stainless steel](/services/channel-letters)LP 5, LP 3.1, LP 3.2[Cast block acrylic](/services/ultra-slim-trimless-channel-letters)LP 11 seriesConstructionThick gauge stainless steel returns and back, welded together, with a step-routed acrylic face and no trim cap (LP 5).Solid cast block acrylic with LEDs embedded in the body, epoxy-sealed to IP67.Depth30, 50, 75 and 100 mm (1.2, 2, 3 and 4 inches), and custom depths.10–30 mm: 30 mm standard, 25 mm for small letters, and LP 11-B also at 10, 15 and 20 mm.LightingFace lit (LP 5), halo lit from the back on standoffs (LP 3.1), and a partial side-lit halo from an exposed acrylic band (LP 3.2).Eight configurations: face, halo, face + halo, back side, face + front side, full side, faux neon and conical.MountingLP 5 and LP 3.2 flush to the wall; LP 3.1 on standoff spacers.Flush, or on standoffs where the halo needs the gap, depending on the configuration.Minimum sizeLetters 2″ (50 mm) tall; stroke width 0.5″ (12.7 mm).Letters 2″ (50 mm) tall; stroke width 0.47″ (12 mm), with exceptions for LP 11-S and LP 11-C.Certification and warrantyUL 48 listed. 3 years on LED modules and power supplies.UL 48 listed. 3 years on LED modules and power supplies.
+
+Both families are trimless. Sunlite does not build trim-capped letters.
+
+#### Choose stainless steel for
+
+- Building façade and canopy signage at larger scale (LP 5).
+- A halo that washes the wall behind the letter, with the letter floating on standoffs (LP 3.1).
+- Letters deeper than 30 mm, including custom depths.
+
+[See the classic trimless systems →](/services/channel-letters)
+
+#### Choose cast acrylic for
+
+- A letter that has to be as shallow as possible, 10–30 mm deep.
+- Small letters, from 2″ tall (LP 11-F).
+- Faux neon, conical or side-lit effects that the steel systems do not offer.
+
+[See the ultra-slim LP 11 series →](/services/ultra-slim-trimless-channel-letters)
+
+Related
+
+#### Keep exploring.
+
+- Classic trimless letters — Fabricated stainless steel: LP 5, LP 3.1 and LP 3.2. — Open — (Links to: /services/channel-letters)
+- Ultra-slim letters — EdgeLuxe LP 11 cast block acrylic, 10–30 mm deep. — Open — (Links to: /services/ultra-slim-trimless-channel-letters)
+- Build your sign — See either family in 3D at your size. — Open — (Links to: /configurator)
 
 #### Have drawings ready? Let's price the job.
 

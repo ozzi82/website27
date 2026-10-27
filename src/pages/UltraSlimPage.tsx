@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import SpecGuide from "../components/SpecGuide";
+import { SELECTION_GUIDE_PATH } from "../data/guides";
 import { Link, useLocation } from "react-router-dom";
 import Seo from "../components/Seo";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -90,6 +91,9 @@ export default function UltraSlimPage() {
             </h1>
             <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-xl">{ultraSlimMeta.intro}</p>
             <p className="mt-3 text-sm text-muted-foreground max-w-xl">{ultraSlimMeta.signature}</p>
+            <p className="mt-3 text-sm text-muted-foreground max-w-xl">
+              Need a deeper letter? <Link to={SELECTION_GUIDE_PATH} className="underline hover:text-foreground">Compare cast acrylic with fabricated stainless steel</Link>.
+            </p>
             <div className="mt-7 md:mt-9 flex flex-col sm:flex-row gap-3">
               <PrimaryCta />
               <SecondaryCta label="See the 8 variants" to={`${PATH}#variants`} />

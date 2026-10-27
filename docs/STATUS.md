@@ -216,3 +216,8 @@ Design/spec history: `docs/superpowers/specs/2026-10-01-sign-configurator-design
 - Approximations: halo is an emissive plane with the same blurred silhouette as the live preview; side-lit letters glow on the whole side at night; the brushed finish, wall texture and studio HDR are the live ones.
 - package.json: three-gpu-pathtracer, three-mesh-bvh (override pinned to the direct dependency), xatlas-web (peer).
 - Could only be tested here on a CPU software renderer (about 1 sample per second at 486x272): works, but real speed and look on a GPU are untested.
+
+## SEO round (audit follow-through)
+- Done: stainless references/strip, LP 5 heading+meta, flush wording, warranty scope, FAQ answers in HTML (forceMount), Organization schema, category breadcrumbs, ultra-slim H1, internal links, 12.7 mm stroke, aluminum line removed.
+- New page: /guides/stainless-steel-vs-cast-acrylic-trimless-letters (data/guides.ts, pages/GuidePage.tsx), linked from the classic and ultra-slim pages, in the sitemap.
+- Not built: project studies (need verified details per job); a separate trimless-vs-trim-cap guide (the classic page already has the 'Trimless by design' section, so it would be a near-duplicate).
