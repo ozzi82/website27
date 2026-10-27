@@ -33,7 +33,7 @@ export const productionStages: ProductionStage[] = [
     id: "cnc-fabrication",
     number: "01",
     title: "CNC Fabrication",
-    description: "Precision-routed aluminum returns, faces and backs, built to your shop drawings.",
+    description: "Precision-routed returns, faces and backs, built to your shop drawings.",
     image: {
       src: "/images/pasted-image-1787755330414-fxpkbj9m.png",
       alt: "Technician programming a CNC machine from a letter layout on screen",

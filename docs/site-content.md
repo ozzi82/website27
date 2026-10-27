@@ -239,7 +239,7 @@ Stage 01
 
 ##### CNC Fabrication
 
-Precision-routed aluminum returns, faces and backs, built to your shop drawings.
+Precision-routed returns, faces and backs, built to your shop drawings.
 
 *[Image: Sunlite Signs team fitting LED strips and wiring into green letter returns at the work table]*
 
@@ -687,7 +687,7 @@ Stage 01
 
 ##### CNC Fabrication
 
-Precision-routed aluminum returns, faces and backs, built to your shop drawings.
+Precision-routed returns, faces and backs, built to your shop drawings.
 
 *[Image: Sunlite Signs team fitting LED strips and wiring into green letter returns at the work table]*
 
