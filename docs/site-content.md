@@ -70,7 +70,7 @@ Trade customers only. No retail sales. No installation services.
 
 - URL: https://sunlitesigns.com/
 - Title: Wholesale Trimless Channel Letters for Sign Companies | Sunlite Signs
-- Meta description: Wholesale trimless channel letter manufacturer for sign companies. Fabricated stainless steel and ultra-slim cast block acrylic letters built to your drawings, UL 48 listed, shipped nationwide. Trade only.
+- Meta description: Trade-only wholesale manufacturer for sign companies: trimless stainless steel channel letters and ultra-slim cast acrylic letters, UL 48 listed.
 
 Wholesale sign manufacturer · Trade only
 
@@ -1576,8 +1576,8 @@ Upload your artwork and dimensions and we'll prepare your wholesale quote.
 ## /services/channel-letters
 
 - URL: https://sunlitesigns.com/services/channel-letters
-- Title: Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs
-- Meta description: Wholesale trimless channel letter manufacturer for sign companies. Fabricated stainless steel and ultra-slim cast block acrylic, built to your drawings, UL 48 listed.
+- Title: Wholesale Trimless Stainless Steel Channel Letters | Sunlite Signs
+- Meta description: Wholesale trimless channel letters in fabricated stainless steel: face-lit LP 5, halo-lit LP 3.1 and flush-mount LP 3.2. Built to your drawings for sign companies.
 
 - [Home](/)
 - /[Products](/#products)
@@ -1780,7 +1780,7 @@ The letter is held off the surface on standoff spacers, leaving a gap: the halo 
 
 - **System:** LP 5 and LP 3.2
 
-The letter sits directly against the surface, with the glow around its edge from an exposed acrylic band.
+The letter sits directly against the surface. LP 5 lights its face; LP 3.2 adds a glow around its edge from an exposed acrylic band.
 
 3D preview
 
@@ -1895,35 +1895,35 @@ Reference projects
 
 [View All Projects](/projects)
 
-*[Image: Stroh + Scheuerpflug logo lettering on a white wall]*
+*[Image: Piada lettering above a dark canopy on a brick storefront]*
 
 Fig. 01
 
-##### Stroh + Scheuerpflug
+##### Piada
 
-- **Product:** EdgeLuxe LP 11-B
+- **Product:** EdgeLuxe LP 5
 
-[View LP 11-B](/light-effects/lp-11-b-back-lit)
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
 
-*[Image: JenTower lettering with a warm halo above an entrance]*
+*[Image: Mustang sign with illuminated lettering on a dark panel]*
 
 Fig. 02
 
-##### JenTower
+##### Mustang
 
-- **Product:** EdgeLuxe LP 11-B
+- **Product:** EdgeLuxe LP 5
 
-[View LP 11-B](/light-effects/lp-11-b-back-lit)
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
 
-*[Image: itonics lettering on a white wall]*
+*[Image: Panther Dome entrance with an illuminated panther emblem at dusk]*
 
 Fig. 03
 
-##### itonics
+##### Panther Dome
 
-- **Product:** EdgeLuxe LP 11-B
+- **Product:** EdgeLuxe LP 5
 
-[View LP 11-B](/light-effects/lp-11-b-back-lit)
+[View LP 5](/light-effects/lp-5-trimless-face-lit)
 
 Channel letter FAQ
 
@@ -2322,7 +2322,7 @@ Fabricated Stainless Steel with Standoffs
 
 - URL: https://sunlitesigns.com/light-effects/lp-3-1-standoff-halo
 - Title: EdgeLuxe LP 3.1 — Fabricated Stainless Steel with Standoffs | Sunlite Signs
-- Meta description: Halo-illuminated fabricated stainless steel letters floating off the wall on standoffs. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Halo-illuminated fabricated stainless steel letters floating off the wall on standoffs. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2412,7 +2412,7 @@ Fabricated Stainless Steel Flush-mount
 
 - URL: https://sunlitesigns.com/light-effects/lp-3-2-flush-mount
 - Title: EdgeLuxe LP 3.2 — Fabricated Stainless Steel Flush-mount | Sunlite Signs
-- Meta description: Flush-mounted stainless steel letters with a partial side-lit halo effect. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Flush-mounted stainless steel letters with a partial side-lit halo effect. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2502,16 +2502,16 @@ Trimless Fabricated Stainless Steel Letters
 ## /light-effects/lp-5-trimless-face-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-5-trimless-face-lit
-- Title: EdgeLuxe LP 5 — Trimless Fabricated Stainless Steel Letters | Sunlite Signs
-- Meta description: Face-lit, trimless stainless steel channel letters for façades and canopies. UL Listed, 3-year warranty, wholesale to the trade.
+- Title: Face-Lit Trimless Stainless Steel Channel Letters (LP 5) | Sunlite Signs
+- Meta description: EdgeLuxe LP 5: face-lit, trimless fabricated stainless steel channel letters with a step-routed acrylic face. Wholesale to sign companies, built to your drawings.
 
 [All 12 letter systems](/#light-effects)
 
 LP 5 / Stainless steel
 
-### EdgeLuxe LP 5
+### Face-Lit Trimless Stainless Steel Channel Letters — LP 5
 
-Trimless Fabricated Stainless Steel Letters
+EdgeLuxe LP 5 — Trimless Fabricated Stainless Steel Letters
 
 Face-lit, trimless stainless steel channel letters for façades and canopies.
 
@@ -2561,20 +2561,6 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-5-trimless-face-lit)
 
-Mounting
-
-#### Standoff or flush mount.
-
-Standoff mount
-
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
-
-Flush mount
-
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
-
-Concept section diagrams, not to scale. LP 5 is mounted flush.
-
 Previous
 
 EdgeLuxe LP 3.2
@@ -2595,7 +2581,7 @@ Block Acrylic Face-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-f-face-lit
 - Title: EdgeLuxe LP 11-F — Block Acrylic Face-lit | Sunlite Signs
-- Meta description: Solid cast block acrylic letters with embedded LEDs for uniform face lighting. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Solid cast block acrylic letters with embedded LEDs for uniform face lighting. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2653,20 +2639,6 @@ Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-f-face-lit)
 
-Mounting
-
-#### Standoff or flush mount.
-
-Standoff mount
-
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
-
-Flush mount
-
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
-
-Concept section diagrams, not to scale. LP 11-F is mounted flush.
-
 Previous
 
 EdgeLuxe LP 5
@@ -2687,7 +2659,7 @@ Block Acrylic Back-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-b-back-lit
 - Title: EdgeLuxe LP 11-B — Block Acrylic Back-lit | Sunlite Signs
-- Meta description: Block acrylic letters with a uniform halo on the wall behind, on standoff spacers. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Block acrylic letters with a uniform halo on the wall behind, on standoff spacers. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2779,7 +2751,7 @@ Block Acrylic Face- and Halo-lit Combo
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-fb-face-halo
 - Title: EdgeLuxe LP 11-FB — Block Acrylic Face- and Halo-lit Combo | Sunlite Signs
-- Meta description: Face-lit and halo-lit in one letter: a glowing face plus a wall halo. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Face-lit and halo-lit in one letter: a glowing face plus a wall halo. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2871,7 +2843,7 @@ Block Acrylic Partial Back Side-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-bs-back-side-lit
 - Title: EdgeLuxe LP 11-BS — Block Acrylic Partial Back Side-lit | Sunlite Signs
-- Meta description: Letters, flush or standoff mounted, with light glowing from the back edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Letters, flush or standoff mounted, with light glowing from the back edge of the side wall. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -2963,7 +2935,7 @@ Block Acrylic Face-lit + Partial Front Side-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-fs-front-side-lit
 - Title: EdgeLuxe LP 11-FS — Block Acrylic Face-lit + Partial Front Side-lit | Sunlite Signs
-- Meta description: Letters, flush or standoff mounted, with a glowing face and a thin band of light along the front edge of the side wall. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Letters, flush or standoff mounted, with a glowing face and a thin band of light along the front edge of the side wall. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -3055,7 +3027,7 @@ Block Acrylic Full Side-lit
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-s-side-lit
 - Title: EdgeLuxe LP 11-S — Block Acrylic Full Side-lit | Sunlite Signs
-- Meta description: Letters whose entire side wall glows, with an opaque painted face. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Letters whose entire side wall glows, with an opaque painted face. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -3147,7 +3119,7 @@ Block Acrylic Faux Neon
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-n-faux-neon
 - Title: EdgeLuxe LP 11-N — Block Acrylic Faux Neon | Sunlite Signs
-- Meta description: Block acrylic with a routed, rounded front edge that simulates a neon glass tube, lit on the face and the front half of the side. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Block acrylic with a routed, rounded front edge that simulates a neon glass tube, lit on the face and the front half of the side. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -3240,7 +3212,7 @@ Block Acrylic Conical Profile
 
 - URL: https://sunlitesigns.com/light-effects/lp-11-c-conical
 - Title: EdgeLuxe LP 11-C — Block Acrylic Conical Profile | Sunlite Signs
-- Meta description: Face-lit letters with a tapered conical profile for narrow strokes and serifs. UL Listed, 3-year warranty, wholesale to the trade.
+- Meta description: Face-lit letters with a tapered conical profile for narrow strokes and serifs. UL Listed, wholesale to the trade.
 
 [All 12 letter systems](/#light-effects)
 
@@ -3297,20 +3269,6 @@ See this system with your logo.
 Upload your artwork or type your text and preview it in 3D, day and night.
 
 [Build Your Sign](/configurator?config=lp-11-c-conical)
-
-Mounting
-
-#### Standoff or flush mount.
-
-Standoff mount
-
-The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: LP 3.1, LP 11-B, LP 11-FB, because the halo needs the gap. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
-
-Flush mount
-
-The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: LP 3.2, LP 5, LP 11-F, LP 11-S, LP 11-N, LP 11-C. Flush or standoff: LP 1, LP 11-BS, LP 11-FS.
-
-Concept section diagrams, not to scale. LP 11-C is mounted flush.
 
 Previous
 

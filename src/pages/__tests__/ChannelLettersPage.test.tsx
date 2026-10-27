@@ -21,9 +21,9 @@ describe("/services/channel-letters (classic trimless letters)", () => {
 
   it("sets the exact SEO title, a natural description, canonical and JSON-LD (Service, BreadcrumbList, FAQPage)", async () => {
     renderAt(PATH);
-    await waitFor(() => expect(document.title).toBe("Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs"));
+    await waitFor(() => expect(document.title).toBe("Wholesale Trimless Stainless Steel Channel Letters | Sunlite Signs"));
     const desc = document.head.querySelector('meta[name="description"]')!.getAttribute("content")!;
-    expect(desc).toMatch(/wholesale trimless channel letter manufacturer/i);
+    expect(desc).toMatch(/wholesale trimless channel letters/i);
     expect(desc.length).toBeLessThanOrEqual(180);
     expect(document.head.querySelector('link[rel="canonical"]')!.getAttribute("href")).toBe(`${SITE_URL}/services/channel-letters`);
     const ld = [...document.head.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent!));

@@ -50,7 +50,7 @@ export default function HomePage() {
     <>
       <Seo
         title="Wholesale Trimless Channel Letters for Sign Companies"
-        description="Wholesale trimless channel letter manufacturer for sign companies. Fabricated stainless steel and ultra-slim cast block acrylic letters built to your drawings, UL 48 listed, shipped nationwide. Trade only."
+        description="Trade-only wholesale manufacturer for sign companies: trimless stainless steel channel letters and ultra-slim cast acrylic letters, UL 48 listed."
         path="/"
         jsonLd={jsonLd}
       />

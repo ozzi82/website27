@@ -119,7 +119,7 @@ export const illuminationPhotos: { projectId: string; caption: string }[] = [
  * (none is until the owner confirms which jobs were which configuration). Different photos from the hero and the
  * illumination strip above, shown as recent production without any category claim.
  */
-export const channelLetterReferenceIds = ["stroh-scheuerpflug", "jentower", "itonics"];
+export const channelLetterReferenceIds = ["piada", "mustang", "panther-dome"];
 
 /**
  * "Why we don't use trim caps": the drawing of a conventional trim-cap letter is a COMPARISON only. Sunlite does not
@@ -182,7 +182,7 @@ export const mountingOptions: MountingOption[] = [
     kind: "flush",
     title: "Flush mount",
     systems: "LP 5 and LP 3.2",
-    text: "The letter sits directly against the surface, with the glow around its edge from an exposed acrylic band.",
+    text: "The letter sits directly against the surface. LP 5 lights its face; LP 3.2 adds a glow around its edge from an exposed acrylic band.",
   },
 ];
 
@@ -292,9 +292,9 @@ export const channelLetterFaqs: Faq[] = [
 ];
 
 export const channelLettersMeta = {
-  title: "Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs",
+  title: "Wholesale Trimless Stainless Steel Channel Letters | Sunlite Signs",
   description:
-    "Wholesale trimless channel letter manufacturer for sign companies. Fabricated stainless steel and ultra-slim cast block acrylic, built to your drawings, UL 48 listed.",
+    "Wholesale trimless channel letters in fabricated stainless steel: face-lit LP 5, halo-lit LP 3.1 and flush-mount LP 3.2. Built to your drawings for sign companies.",
   heroImage: {
     src: "/images/pasted-image-1787166590951-kao0m19c.jpeg",
     alt: "Illuminated letters on a blue building facade at dusk",

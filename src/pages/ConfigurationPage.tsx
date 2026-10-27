@@ -54,8 +54,8 @@ export default function ConfigurationPage() {
   return (
     <div className="pt-28 pb-24">
       <Seo
-        title={`${c.title} — ${c.subtitle}`}
-        description={c.family === "Flat cutout" ? `${c.summary} Wholesale to the trade.` : `${c.summary} UL Listed, 3-year warranty, wholesale to the trade.`}
+        title={c.seo?.title ?? `${c.title} — ${c.subtitle}`}
+        description={c.seo?.description ?? (c.family === "Flat cutout" ? `${c.summary} Wholesale to the trade.` : `${c.summary} UL Listed, wholesale to the trade.`)}
         path={path}
         image={absoluteUrl(c.img)}
         jsonLd={jsonLd}
@@ -67,8 +67,8 @@ export default function ConfigurationPage() {
         <div className="grid lg:grid-cols-[1fr_auto] gap-6 items-end border-b border-border pb-8 mb-10">
           <div>
             <p className="mono-label text-primary mb-4">{c.code} / {c.family}</p>
-            <h1 className="text-5xl md:text-7xl">{c.title}</h1>
-            <p className="text-2xl text-foreground/80 mt-3">{c.subtitle}</p>
+            <h1 className={c.seo ? "text-4xl md:text-6xl" : "text-5xl md:text-7xl"}>{c.seo?.h1 ?? c.title}</h1>
+            <p className="text-2xl text-foreground/80 mt-3">{c.seo ? `${c.title} — ${c.subtitle}` : c.subtitle}</p>
             <p className="text-muted-foreground mt-4 max-w-xl">{c.summary}</p>
             {c.family !== "Flat cutout" && <ULBadge label="UL Listed · 3-year warranty" className="mt-5" />}
           </div>
@@ -153,7 +153,7 @@ export default function ConfigurationPage() {
           </section>
         )}
 
-        {emitsLight(c) && (
+        {(c.light.halo !== "none" || c.light.side !== "none") && (
           <section className="mt-16" aria-labelledby="mount-explainer">
             <p className="mono-label text-primary mb-3">Mounting</p>
             <h2 id="mount-explainer" className="text-3xl md:text-4xl mb-6">Standoff or flush mount.</h2>

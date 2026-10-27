@@ -56,6 +56,8 @@ export interface LightConfig {
   customDepth: boolean;
   minHeightMm: number;
   minStrokeMm: number;
+  /** Page heading, title and meta description when the model name alone is not descriptive enough. */
+  seo?: { h1: string; title: string; description: string };
 }
 
 const IMG = "/images/edgeluxe/";
@@ -194,6 +196,11 @@ const baseConfigurations: LightConfig[] = [
     customDepth: true,
     minHeightMm: 50,
     minStrokeMm: 15,
+    seo: {
+      h1: "Face-Lit Trimless Stainless Steel Channel Letters — LP 5",
+      title: "Face-Lit Trimless Stainless Steel Channel Letters (LP 5)",
+      description: "EdgeLuxe LP 5: face-lit, trimless fabricated stainless steel channel letters with a step-routed acrylic face. Wholesale to sign companies, built to your drawings.",
+    },
   },
   {
     id: "lp-11-f-face-lit",

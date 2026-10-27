@@ -58,8 +58,8 @@ describe("Seo exactTitle", () => {
   });
 
   it("does not duplicate the site name when the title already has it", async () => {
-    wrap(<Seo title="Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs" description="d" path="/x" />);
-    await waitFor(() => expect(document.title).toBe("Wholesale Trimless Channel Letter Manufacturer | Sunlite Signs"));
+    wrap(<Seo title="Wholesale Trimless Stainless Steel Channel Letters | Sunlite Signs" description="d" path="/x" />);
+    await waitFor(() => expect(document.title).toBe("Wholesale Trimless Stainless Steel Channel Letters | Sunlite Signs"));
   });
 });
 
