@@ -12,7 +12,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
   it("routes to the dedicated page with the owner's H1 and body", () => {
     const { main } = renderAt(PATH);
     const h1 = within(main).getByRole("heading", { level: 1 });
-    expect(h1.textContent).toBe("Ultra-Slim Channel Letters.Just 10–30 mm Deep.");
+    expect(h1.textContent).toBe("Ultra-Slim Trimless Cast Acrylic Letters.Just 10–30 mm Deep.");
     expect(h1.querySelector("br")).not.toBeNull();
     expect(main.textContent).toContain(
       "A cleaner alternative to conventional deep-return channel letters — engineered for premium retail, architectural and interior signage applications.",
@@ -171,6 +171,6 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
 
   it("the merged cast-block-acrylic URL lands here", () => {
     const { main } = renderAt("/services/cast-block-acrylic");
-    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe("Ultra-Slim Channel Letters.Just 10–30 mm Deep.");
+    expect(within(main).getByRole("heading", { level: 1 }).textContent).toBe("Ultra-Slim Trimless Cast Acrylic Letters.Just 10–30 mm Deep.");
   });
 });

@@ -76,7 +76,7 @@ Wholesale sign manufacturer · Trade only
 
 ### Wholesale Trimless Channel Letters. Built for Sign Companies.
 
-All of our channel letters are trimless: fabricated stainless steel and German-engineered ultra-slim cast block acrylic, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
+All of our channel letters are trimless: [fabricated stainless steel](/services/channel-letters) and German-engineered [ultra-slim cast block acrylic](/services/ultra-slim-trimless-channel-letters), manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
 
 [Request Wholesale Pricing](/contact) · [Explore Products](/#products)
 
@@ -1256,7 +1256,7 @@ We update this policy when our practices or the law change, and show the date at
 
 Sunlite Ultra-Slim · EdgeLuxe LP 11
 
-### Ultra-Slim Channel Letters. Just 10–30 mm Deep.
+### Ultra-Slim Trimless Cast Acrylic Letters. Just 10–30 mm Deep.
 
 A cleaner alternative to conventional deep-return channel letters — engineered for premium retail, architectural and interior signage applications.
 
@@ -1589,7 +1589,7 @@ Wholesale sign manufacturer · Trade only
 
 UL 48 listed trimless channel letters fabricated to your drawings and shipped ready to install nationwide.
 
-Our classic channel letters are trimless fabricated stainless steel: face-lit LP 5, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2.
+Our classic channel letters are trimless fabricated stainless steel: [face-lit LP 5](/light-effects/lp-5-trimless-face-lit), halo-lit LP 3.1 on standoffs and flush-mount LP 3.2.
 
 Sunlite Signs is a trade-only wholesale manufacturer. We build for sign companies and never compete for their customers.
 
@@ -2334,6 +2334,8 @@ Fabricated Stainless Steel with Standoffs
 
 Halo-illuminated fabricated stainless steel letters floating off the wall on standoffs.
 
+Part of our [classic trimless stainless steel channel letters](/services/channel-letters). Also see [face-lit LP 5](/light-effects/lp-5-trimless-face-lit).
+
 *[Image: UL mark]*
 
 UL Listed · 3-year warranty on LED modules and power supplies
@@ -2423,6 +2425,8 @@ LP 3.2 / Stainless steel
 Fabricated Stainless Steel Flush-mount
 
 Flush-mounted stainless steel letters with a partial side-lit halo effect.
+
+Part of our [classic trimless stainless steel channel letters](/services/channel-letters). Also see [face-lit LP 5](/light-effects/lp-5-trimless-face-lit).
 
 *[Image: UL mark]*
 
@@ -2514,6 +2518,8 @@ LP 5 / Stainless steel
 EdgeLuxe LP 5 — Trimless Fabricated Stainless Steel Letters
 
 Face-lit, trimless stainless steel channel letters for façades and canopies.
+
+Part of our [classic trimless stainless steel channel letters](/services/channel-letters). Also see [halo-lit LP 3.1](/light-effects/lp-3-1-standoff-halo).
 
 *[Image: UL mark]*
 

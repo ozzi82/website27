@@ -21,7 +21,7 @@ import { SITE_NAME, SITE_URL } from "../lib/seo";
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
+  "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
   name: SITE_NAME,
   url: SITE_URL,

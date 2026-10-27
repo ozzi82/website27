@@ -29,6 +29,13 @@ export default function ConfigurationPage() {
   const next = configurations[(idx + 1) % total];
   const path = `/light-effects/${c.id}`;
 
+  const parent =
+    c.family === "Stainless steel"
+      ? { name: "Classic trimless letters", url: absoluteUrl("/services/channel-letters") }
+      : c.family === "Block acrylic"
+        ? { name: "Ultra-slim letters", url: absoluteUrl("/services/ultra-slim-trimless-channel-letters") }
+        : { name: "Letter systems", url: `${SITE_URL}/#light-effects` };
+
   const jsonLd = [
     {
       "@context": "https://schema.org",
@@ -45,7 +52,7 @@ export default function ConfigurationPage() {
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-        { "@type": "ListItem", position: 2, name: "Letter systems", item: `${SITE_URL}/#light-effects` },
+        { "@type": "ListItem", position: 2, name: parent.name, item: parent.url },
         { "@type": "ListItem", position: 3, name: c.title, item: absoluteUrl(path) },
       ],
     },
@@ -70,6 +77,12 @@ export default function ConfigurationPage() {
             <h1 className={c.seo ? "text-4xl md:text-6xl" : "text-5xl md:text-7xl"}>{c.seo?.h1 ?? c.title}</h1>
             <p className="text-2xl text-foreground/80 mt-3">{c.seo ? `${c.title} — ${c.subtitle}` : c.subtitle}</p>
             <p className="text-muted-foreground mt-4 max-w-xl">{c.summary}</p>
+            {c.family === "Stainless steel" && (
+              <p className="text-sm text-muted-foreground mt-3 max-w-xl">
+                Part of our <Link to="/services/channel-letters" className="underline hover:text-foreground">classic trimless stainless steel channel letters</Link>. Also see{" "}
+                {c.id === "lp-5-trimless-face-lit" ? <Link to="/light-effects/lp-3-1-standoff-halo" className="underline hover:text-foreground">halo-lit LP 3.1</Link> : <Link to="/light-effects/lp-5-trimless-face-lit" className="underline hover:text-foreground">face-lit LP 5</Link>}.
+              </p>
+            )}
             {c.family !== "Flat cutout" && <ULBadge label="UL Listed · 3-year warranty on LED modules and power supplies" className="mt-5" />}
           </div>
           <div className="flex flex-col sm:flex-row gap-3">

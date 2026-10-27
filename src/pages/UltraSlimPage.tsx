@@ -85,7 +85,7 @@ export default function UltraSlimPage() {
             <Breadcrumbs items={crumbs} className="mb-8 md:mb-10" />
             <p className="mono-label font-bold text-foreground mb-4 md:mb-5">Sunlite Ultra-Slim · EdgeLuxe LP 11</p>
             <h1 className="text-[clamp(1.75rem,8.6vw,2.4rem)] leading-[1.04] sm:text-5xl lg:text-[3.4rem] xl:text-6xl">
-              Ultra-Slim Channel Letters.<br />
+              Ultra-Slim Trimless Cast Acrylic Letters.<br />
               <span className="text-primary">Just 10–30 mm Deep.</span>
             </h1>
             <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-xl">{ultraSlimMeta.intro}</p>

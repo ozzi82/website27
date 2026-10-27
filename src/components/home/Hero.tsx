@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { ArrowLink, PrimaryCta, SecondaryCta } from "../CtaButton";
 import { CTA_LINKS, CTA_SECONDARY } from "../../lib/cta";
 import Picture from "../Picture";
@@ -68,7 +69,7 @@ export default function Hero() {
         </h1>
         <div className="mt-8 md:mt-10 grid md:grid-cols-[1fr_auto] gap-8 items-end animate-in fade-in slide-in-from-bottom-4 duration-1000">
           <p className="text-base md:text-lg text-foreground/80 max-w-xl">
-            All of our channel letters are trimless: fabricated stainless steel and German-engineered ultra-slim cast block acrylic, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
+            All of our channel letters are trimless: <Link to="/services/channel-letters" className="underline decoration-foreground/40 underline-offset-4 hover:text-foreground">fabricated stainless steel</Link> and German-engineered <Link to="/services/ultra-slim-trimless-channel-letters" className="underline decoration-foreground/40 underline-offset-4 hover:text-foreground">ultra-slim cast block acrylic</Link>, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide.
           </p>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col sm:flex-row gap-3">

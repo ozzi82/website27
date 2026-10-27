@@ -34,7 +34,7 @@ export default function FAQSection({ items = faqs, eyebrow = "FAQ", title = "Fre
           {items.map((f, i) => (
             <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border">
               <AccordionTrigger className="text-left font-medium text-base py-5">{f.q}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground text-sm">{f.a}</AccordionContent>
+              <AccordionContent forceMount className="text-muted-foreground text-sm data-[state=closed]:hidden">{f.a}</AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>

@@ -89,7 +89,7 @@ export function checkPage(route, html, { siteUrl = SITE_URL, noindex = NOINDEX }
   if (twTitle && twTitle !== title) fail(`twitter:title differs from <title>`);
   if (ogUrl && ogUrl !== expectedUrl) fail(`og:url is ${ogUrl}, expected ${expectedUrl}`);
 
-  // JSON-LD: every block must parse; the homepage carries exactly one LocalBusiness.
+  // JSON-LD: every block must parse; the homepage carries exactly one Organization.
   const ldBlocks = doc.querySelectorAll("script").filter((s) => s.getAttribute("type") === "application/ld+json");
   if (ldBlocks.length === 0) fail("no JSON-LD block");
   const ldTypes = [];
@@ -106,7 +106,7 @@ export function checkPage(route, html, { siteUrl = SITE_URL, noindex = NOINDEX }
   });
   const dupTypes = ldTypes.filter((t, i) => ldTypes.indexOf(t) !== i);
   if (dupTypes.length) fail(`duplicate JSON-LD types: ${[...new Set(dupTypes)].join(", ")}`);
-  if (route === "/" && !ldTypes.includes("LocalBusiness")) fail("homepage lacks LocalBusiness JSON-LD");
+  if (route === "/" && !ldTypes.includes("Organization")) fail("homepage lacks Organization JSON-LD");
 
   // Body.
   const rootEl = doc.querySelector("#root");

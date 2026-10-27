@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import SpecGuide from "../components/SpecGuide";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Seo from "../components/Seo";
 import Breadcrumbs from "../components/Breadcrumbs";
 import SectionHeader from "../components/SectionHeader";
@@ -152,7 +152,9 @@ export default function ChannelLettersPage() {
               <span className="text-primary">for Sign Companies.</span>
             </h1>
             <p className="mt-5 md:mt-7 text-base md:text-lg text-foreground/85 max-w-xl">{channelLettersIntro}</p>
-            <p className="mt-3 text-sm text-muted-foreground max-w-xl">{classicSummary}</p>
+            <p className="mt-3 text-sm text-muted-foreground max-w-xl">
+              Our classic channel letters are trimless fabricated stainless steel: <Link to="/light-effects/lp-5-trimless-face-lit" className="underline hover:text-foreground">face-lit LP 5</Link>, halo-lit LP 3.1 on standoffs and flush-mount LP 3.2.
+            </p>
             <p className="mt-3 text-sm text-muted-foreground max-w-xl">{channelLettersWho}</p>
             <div className="mt-7 md:mt-9 flex flex-col sm:flex-row gap-3">
               <PrimaryCta />

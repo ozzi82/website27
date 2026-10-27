@@ -37,7 +37,9 @@ describe("HomePage", () => {
 
   it("hero body keeps the UL 48, drawings and nationwide wording and offers both CTAs", () => {
     renderHome();
-    expect(screen.getByText(/all of our channel letters are trimless: fabricated stainless steel and German-engineered ultra-slim cast block acrylic, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide/i)).toBeInTheDocument();
+    expect(screen.getByText(/all of our channel letters are trimless:/i).textContent).toMatch(/fabricated stainless steel and German-engineered ultra-slim cast block acrylic, manufactured to your drawings — UL 48 listed, ready to install and shipped nationwide/i);
+    expect(screen.getByRole("link", { name: "fabricated stainless steel" })).toHaveAttribute("href", "/services/channel-letters");
+    expect(screen.getByRole("link", { name: "ultra-slim cast block acrylic" })).toHaveAttribute("href", "/services/ultra-slim-trimless-channel-letters");
     expect(screen.getAllByRole("link", { name: /explore products/i })[0]).toHaveAttribute("href", "/#products");
   });
 
