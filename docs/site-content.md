@@ -1711,7 +1711,7 @@ From recent production
 
 - *[Image: Mustang sign with illuminated lettering on a dark panel]* — Lit letter faces glowing on a dark panel
 - *[Image: Tradebyte lettering with a halo glow on a grey wall]* — Halo glow on the wall behind the letters
-- *[Image: Inspire logo lettering with a glowing halo on an interior wall]* — Halo glow around a logo on an interior wall
+- *[Image: Panther Dome entrance with an illuminated panther emblem at dusk]* — A lit emblem at dusk
 
 Trimless by design
 
@@ -1832,7 +1832,7 @@ UL 48 listed · 3-year warranty on LED modules and power supplies
 - **Trim:** Trimless: no trim cap
 - **Depth:** 1.2″ (30 mm), 2″ (50 mm), 3″ (75 mm), 4″ (100 mm) and custom depth
 - **Min. letter height:** 2″ (50 mm)
-- **Min. stroke width:** 0.5″ (15 mm) for stability and even illumination
+- **Min. stroke width:** 0.5″ (12.7 mm) for stability and even illumination
 - **Mounting:** Standoff spacers (LP 3.1) or flush-mount (LP 5 and LP 3.2)
 - **Colors:** Painted in any PMS color; vinyl or pigmented translucent acrylic options
 - **Maintenance:** Serviceable LEDs
@@ -2355,7 +2355,7 @@ Where the light goes · concept section, not to scale
 - **Illumination:** Halo illuminated from the back with standoff spacers; LEDs arranged to avoid reflection of diodes on the mounting surface
 - **Depth:** 1.2" (30 mm), 2" (50 mm), 3" (75 mm), 4" (100 mm) and custom depth
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colorful halo effects.
-- **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
+- **Min. stroke width:** 0.5" (12.7 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
 - **Mounting:** Standoff spacers only: the halo needs the gap to reach the wall
@@ -2446,7 +2446,7 @@ Where the light goes · concept section, not to scale
 - **Depth:** 1.2" (30 mm), 2" (50 mm), 3" (75 mm), 4" (100 mm) and custom depth
 - **Exposed acrylic:** Standard thickness of exposed acrylic is 0.39" (10 mm)
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colorful halo effects.
-- **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
+- **Min. stroke width:** 0.5" (12.7 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
 - **Mounting:** Flush to the wall
@@ -2537,7 +2537,7 @@ Where the light goes · concept section, not to scale
 - **Illumination:** Face-lit
 - **Depth:** 1.2" (30 mm), 2" (50 mm), 3" (75 mm), 4" (100 mm) and custom depth
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored face-lit effects.
-- **Min. stroke width:** 0.5" (15 mm) for stability and even illumination
+- **Min. stroke width:** 0.5" (12.7 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
 - **Mounting:** Flush to the wall
@@ -2691,7 +2691,7 @@ Where the light goes · concept section, not to scale
 
 - **Materials:** 0.39"-1.2" (10-30 mm) cast block acrylic
 - **Illumination:** Embedded LEDs for uniform halo illumination with standoff spacers
-- **Depth:** 0.39" (10 mm), 0.5" (15 mm), 0.78" (20 mm) and 1.2" (30 mm) for durability and optimal light diffusion
+- **Depth:** 0.39" (10 mm), 0.59" (15 mm), 0.78" (20 mm) and 1.2" (30 mm) for durability and optimal light diffusion
 - **Customization:** Painted in any PMS color, with options for vinyls or pigmented translucent acrylics for colored halo effects.
 - **Min. stroke width:** 0.47" (12 mm) for stability and even illumination
 - **Min. height:** 2" (50 mm)

@@ -74,7 +74,7 @@ export const classicSystems: ClassicSystem[] = CLASSIC_SYSTEM_IDS.map((id) => {
     depths: depthList(c),
     text: t.text,
     minHeight: "2″ (50 mm)",
-    minStroke: "0.5″ (15 mm)",
+    minStroke: "0.5″ (12.7 mm)",
     page: `/light-effects/${id}`,
     configurator: `/configurator?config=${id}`,
   };
@@ -111,7 +111,7 @@ export const illuminationTypes: IlluminationType[] = [
 export const illuminationPhotos: { projectId: string; caption: string }[] = [
   { projectId: "mustang", caption: "Lit letter faces glowing on a dark panel" },
   { projectId: "tradebyte", caption: "Halo glow on the wall behind the letters" },
-  { projectId: "inspire", caption: "Halo glow around a logo on an interior wall" },
+  { projectId: "panther-dome", caption: "A lit emblem at dusk" },
 ];
 
 /**
@@ -223,7 +223,7 @@ export const channelLetterSpecs: SpecRow[] = [
   { label: "Trim", value: "Trimless: no trim cap" },
   { label: "Depth", value: "1.2″ (30 mm), 2″ (50 mm), 3″ (75 mm), 4″ (100 mm) and custom depth" },
   { label: "Min. letter height", value: "2″ (50 mm)" },
-  { label: "Min. stroke width", value: "0.5″ (15 mm) for stability and even illumination" },
+  { label: "Min. stroke width", value: "0.5″ (12.7 mm) for stability and even illumination" },
   { label: "Mounting", value: "Standoff spacers (LP 3.1) or flush-mount (LP 5 and LP 3.2)" },
   { label: "Colors", value: "Painted in any PMS color; vinyl or pigmented translucent acrylic options" },
   { label: "Maintenance", value: "Serviceable LEDs" },
