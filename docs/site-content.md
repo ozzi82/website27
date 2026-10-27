@@ -2336,7 +2336,7 @@ Halo-illuminated fabricated stainless steel letters floating off the wall on sta
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-3-1-standoff-halo) · [Request Wholesale Pricing](/contact)
 
@@ -2359,7 +2359,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
 - **Mounting:** Standoff spacers only: the halo needs the gap to reach the wall
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -2426,7 +2426,7 @@ Flush-mounted stainless steel letters with a partial side-lit halo effect.
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-3-2-flush-mount) · [Request Wholesale Pricing](/contact)
 
@@ -2450,7 +2450,7 @@ Where the light goes · concept section, not to scale
 - **Min. height:** 2" (50 mm)
 - **Maintenance:** Serviceable LEDs
 - **Mounting:** Flush to the wall
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -2517,7 +2517,7 @@ Face-lit, trimless stainless steel channel letters for façades and canopies.
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-5-trimless-face-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2542,7 +2542,7 @@ Where the light goes · concept section, not to scale
 - **Maintenance:** Serviceable LEDs
 - **Mounting:** Flush to the wall
 - **Option:** LP 5+3.1: face and halo lit; the back and the front are made of acrylic; standoff mounted (the halo needs the gap to the wall)
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -2595,7 +2595,7 @@ Solid cast block acrylic letters with embedded LEDs for uniform face lighting.
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-11-f-face-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2620,7 +2620,7 @@ Where the light goes · concept section, not to scale
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -2673,7 +2673,7 @@ Block acrylic letters with a uniform halo on the wall behind, on standoff spacer
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-11-b-back-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2698,7 +2698,7 @@ Where the light goes · concept section, not to scale
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Standoff spacers only: the halo needs the gap to reach the wall
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -2765,7 +2765,7 @@ Face-lit and halo-lit in one letter: a glowing face plus a wall halo.
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-11-fb-face-halo) · [Request Wholesale Pricing](/contact)
 
@@ -2790,7 +2790,7 @@ Where the light goes · concept section, not to scale
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Standoff spacers only: the halo needs the gap to reach the wall
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -2857,7 +2857,7 @@ Letters, flush or standoff mounted, with light glowing from the back edge of the
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-11-bs-back-side-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2882,7 +2882,7 @@ Where the light goes · concept section, not to scale
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall or on standoff spacers
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -2949,7 +2949,7 @@ Letters, flush or standoff mounted, with a glowing face and a thin band of light
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-11-fs-front-side-lit) · [Request Wholesale Pricing](/contact)
 
@@ -2974,7 +2974,7 @@ Where the light goes · concept section, not to scale
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall or on standoff spacers
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -3041,7 +3041,7 @@ Letters whose entire side wall glows, with an opaque painted face.
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-11-s-side-lit) · [Request Wholesale Pricing](/contact)
 
@@ -3066,7 +3066,7 @@ Where the light goes · concept section, not to scale
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -3133,7 +3133,7 @@ Block acrylic with a routed, rounded front edge that simulates a neon glass tube
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-11-n-faux-neon) · [Request Wholesale Pricing](/contact)
 
@@ -3159,7 +3159,7 @@ Where the light goes · concept section, not to scale
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB
@@ -3226,7 +3226,7 @@ Face-lit letters with a tapered conical profile for narrow strokes and serifs.
 
 *[Image: UL mark]*
 
-UL Listed · 3-year warranty
+UL Listed · 3-year warranty on LED modules and power supplies
 
 [Build in 3D](/configurator?config=lp-11-c-conical) · [Request Wholesale Pricing](/contact)
 
@@ -3251,7 +3251,7 @@ Where the light goes · concept section, not to scale
 - **Sealing:** Epoxy-sealed for IP67 waterproofing and heat dissipation.
 - **Maintenance:** IP67 water- and dust-proof, low maintenance
 - **Mounting:** Flush to the wall
-- **Warranty:** 3 years
+- **Warranty:** 3 years on LED modules and power supplies
 - **Certification:** UL Listed
 
 Spec guide · PDF · 16 pages · 3.4 MB

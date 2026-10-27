@@ -70,7 +70,7 @@ export default function ConfigurationPage() {
             <h1 className={c.seo ? "text-4xl md:text-6xl" : "text-5xl md:text-7xl"}>{c.seo?.h1 ?? c.title}</h1>
             <p className="text-2xl text-foreground/80 mt-3">{c.seo ? `${c.title} — ${c.subtitle}` : c.subtitle}</p>
             <p className="text-muted-foreground mt-4 max-w-xl">{c.summary}</p>
-            {c.family !== "Flat cutout" && <ULBadge label="UL Listed · 3-year warranty" className="mt-5" />}
+            {c.family !== "Flat cutout" && <ULBadge label="UL Listed · 3-year warranty on LED modules and power supplies" className="mt-5" />}
           </div>
           <div className="flex flex-col sm:flex-row gap-3">
             <BuildYourSignButton size="lg" label="Build in 3D" to={`/configurator?config=${c.id}`} />

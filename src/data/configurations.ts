@@ -62,7 +62,7 @@ export interface LightConfig {
 
 const IMG = "/images/edgeluxe/";
 const COMMON_TAIL = [
-  { label: "Warranty", value: "3 years" },
+  { label: "Warranty", value: "3 years on LED modules and power supplies" },
   { label: "Certification", value: "UL Listed" },
 ];
 const PMS_FACE_LIT =
