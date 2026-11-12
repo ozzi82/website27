@@ -37,11 +37,16 @@ describe("configurator quote → CRM lead", () => {
   it("sends the fields, the campaign tags and both files", () => {
     const art = new File(["<svg/>"], "sunlite-text-sunlite.svg", { type: "image/svg+xml" });
     const pic = new File(["jpg"], "sign-configuration-summary.jpg", { type: "image/jpeg" });
-    const body = leadFormData({ email: "pat@signshop.test", configuration: SUMMARY }, [art, pic], { gclid: "G1", utm_source: "google", other: "x" });
+    const body = leadFormData({ email: "pat@signshop.test", configuration: SUMMARY }, [art, pic], { gclid: "G1", gbraid: "GB1", utm_source: "google", other: "x" });
     expect(body.get("email")).toBe("pat@signshop.test");
     expect(body.get("configuration")).toBe(SUMMARY);
     expect(body.get("source")).toBe("configurator");
     expect(body.get("gclid")).toBe("G1");
+    expect(body.get("gbraid")).toBe("GB1");
+    expect(body.has("ad_consent")).toBe(false); // no choice made yet
+    window.localStorage.setItem("sls.consent.v1", "accepted");
+    expect(leadFormData({ email: "pat@signshop.test", configuration: SUMMARY }, []).get("ad_consent")).toBe("accepted");
+    window.localStorage.removeItem("sls.consent.v1");
     expect(body.get("utm_source")).toBe("google");
     expect(body.has("other")).toBe(false);
     expect((body.getAll("file") as File[]).map((f) => f.name)).toEqual(["sunlite-text-sunlite.svg", "sign-configuration-summary.jpg"]);
