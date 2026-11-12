@@ -10,14 +10,20 @@ interface TechnicalViewProps {
   name: string;
   depthMm?: number;
   className?: string;
+  /** Told when the view opens and closes (the page pauses its own 3D preview meanwhile). */
+  onOpenChange?: (open: boolean) => void;
 }
 
 /**
  * How the chosen product is built: the letter on its own, turning, opening into its numbered parts, and the section
  * drawing to download for the visitor's own drawings. The view loads only when asked for.
  */
-export default function TechnicalView({ code, name, depthMm, className }: TechnicalViewProps) {
-  const [open, setOpen] = useState(false);
+export default function TechnicalView({ code, name, depthMm, className, onOpenChange }: TechnicalViewProps) {
+  const [open, setOpenState] = useState(false);
+  const setOpen = (next: boolean) => {
+    setOpenState(next);
+    onOpenChange?.(next);
+  };
   const view = technicalViewUrl(code, depthMm);
   if (!view) return null;
   return (

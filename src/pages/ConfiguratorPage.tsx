@@ -115,6 +115,7 @@ export default function ConfiguratorPage() {
   const [renderPose, setRenderPose] = useState<RenderPose | null>(null);
   const desktop = useDesktop();
   const [thumb, setThumb] = useState<string | null>(null);
+  const [techOpen, setTechOpen] = useState(false);
   // A small picture of the current sign for the summary card, refreshed once things settle.
   useEffect(() => {
     if (!desktop || !shapes) return;
@@ -277,7 +278,7 @@ export default function ConfiguratorPage() {
               {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
               <div className="relative min-h-0 w-full flex-1">
                 <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                  <SignPreview shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} onRender={shapes ? setRenderPose : undefined} hideHint={desktop} renderBar={desktop ? (camera) => <SceneBar state={state} onChange={handleChange} camera={camera} /> : undefined} />
+                  <SignPreview paused={techOpen} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} onRender={shapes ? setRenderPose : undefined} hideHint={desktop} renderBar={desktop ? (camera) => <SceneBar state={state} onChange={handleChange} camera={camera} /> : undefined} />
                 </ErrorBoundary>
                 {desktop && (
                   <>
@@ -293,7 +294,7 @@ export default function ConfiguratorPage() {
                   </div>
                 )}
               </div>
-              {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} action={<TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} />} />}
+              {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} action={<TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} onOpenChange={setTechOpen} />} />}
             </div>
 
             <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-5 xl:w-[500px]">
@@ -313,7 +314,7 @@ export default function ConfiguratorPage() {
                     content: (
                       <>
               {!desktop && <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />}
-              {!desktop && <TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} className="w-full justify-center" />}
+              {!desktop && <TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} className="w-full justify-center" onOpenChange={setTechOpen} />}
 
               <ArtworkSourceToggle value={source} onChange={setSource} />
 
