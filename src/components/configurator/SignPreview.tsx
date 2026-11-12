@@ -27,6 +27,8 @@ interface SignPreviewProps {
   onRender?: (pose: { position: [number, number, number]; target: [number, number, number] }) => void;
   /** Desktop: a floating bar over the preview, given the camera commands. */
   renderBar?: (api: { zoomIn: () => void; zoomOut: () => void; reset: () => void }) => ReactNode;
+  /** Stop drawing (the picture stays) while something else covers the preview, so it does not compete for the graphics card. */
+  paused?: boolean;
 }
 
 // Hoisted so the props are referentially stable across re-renders (a fresh
@@ -197,7 +199,7 @@ export function SnapshotBridge({ captureRef, width, quality }: { captureRef: Mut
   return null;
 }
 
-export default function SignPreview({ shapes, config, state, captureRef, hideHint, renderBar, onRender }: SignPreviewProps) {
+export default function SignPreview({ shapes, config, state, captureRef, hideHint, renderBar, onRender, paused }: SignPreviewProps) {
   const isNight = state.dayNight === "night";
   // At night the room goes dark so the lit parts carry the picture. An unlit
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
@@ -230,7 +232,7 @@ export default function SignPreview({ shapes, config, state, captureRef, hideHin
       hideControls={Boolean(renderBar)}
       bar={renderBar?.({ zoomIn: () => camera.current?.zoomIn(), zoomOut: () => camera.current?.zoomOut(), reset: () => camera.current?.reset() })}
     >
-      <Canvas shadows camera={CAMERA} dpr={DPR}>
+      <Canvas shadows camera={CAMERA} dpr={DPR} frameloop={paused ? "never" : "always"}>
         <NightProvider isNight={isNight}>
           <SceneAtmosphere dark={dark} background={getBackground(state.background)} />
           <ConfigScene shapes={shapes} config={config} state={state} />
