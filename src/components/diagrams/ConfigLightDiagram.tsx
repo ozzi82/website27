@@ -23,7 +23,7 @@ export function describeLight(config: LightConfig): string {
   if (parts.face) bits.push("light passes through the face toward the viewer");
   if (config.light.halo === "standoff") bits.push("light washes the wall behind the letter, which stands off on spacers");
   if (parts.side === "full") bits.push("the whole side wall glows");
-  if (parts.side === "partial-back") bits.push("a band along the back edge of the side wall glows");
+  if (parts.side === "partial-back") bits.push(parts.sideBand === 0.5 ? "the back half of the side wall glows" : "a band along the back edge of the side wall glows");
   if (parts.side === "partial-front") bits.push(parts.sideBand === 0.5 ? "the front half of the side wall glows" : "a band along the front edge of the side wall glows");
   return bits.join("; ");
 }

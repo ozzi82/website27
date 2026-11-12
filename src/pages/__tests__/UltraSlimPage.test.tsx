@@ -72,10 +72,10 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
     for (const w of ["Face", "Back (halo)", "Side", "Neon", "Conical"]) expect(section.textContent).toContain(w);
   });
 
-  it("describes LP 11-FS as face-lit plus a partial front side band", () => {
+  it("describes LP 11-FS as face-lit plus the front half of the side", () => {
     const { main } = renderAt(PATH);
     const fs = main.querySelector('#variants [data-system="LP 11-FS"]') as HTMLElement;
-    expect(fs.textContent).toMatch(/face glows and a thin band lights the front edge of the side wall/i);
+    expect(fs.textContent).toMatch(/face glows and the front half of the side wall glows with it/i);
     expect(fs.textContent).toContain("Face-lit + Partial Front Side-lit");
     expect(fs.textContent).toContain("Flush or standoff");
   });

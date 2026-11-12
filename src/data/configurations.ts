@@ -4,7 +4,7 @@
 // Dimensions are US-first with metric in parentheses.
 //
 // Lighting codes in the brochure names: F = face, B = back (halo), S = side, N = neon, C = conical.
-// So LP 11-FS lights the face AND a partial band on the front side edge (owner clarification, 2026-10-03).
+// So LP 11-FS lights the face AND the front half of the side wall; LP 11-BS the back half (owner, 2026-11-11).
 
 /** How the face of the letter behaves when lit. */
 export type FaceLight = "none" | "glow";
@@ -23,7 +23,8 @@ export interface LightBehavior {
   side: SideLight;
   /**
    * Share of the side wall's depth (0-1) that glows, for the partial modes. Left out, the brochure's nominal
-   * exposed band applies (LP 3.2 / 11-BS / 11-FS). LP 11-N lights the front half of the side wall: 0.5.
+   * exposed band applies (LP 3.2). LP 11-BS lights the back half of the side wall, LP 11-FS and LP 11-N the front half
+   * (owner, 2026-11-11): 0.5.
    */
   sideBand?: number;
 }
@@ -298,7 +299,7 @@ const baseConfigurations: LightConfig[] = [
     title: "EdgeLuxe LP 11-BS",
     subtitle: "Block Acrylic Partial Back Side-lit",
     family: "Block acrylic",
-    summary: "Letters, flush or standoff mounted, with light glowing from the back edge of the side wall.",
+    summary: "Letters, flush or standoff mounted, with light glowing from the back half of the side wall.",
     description:
       "Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for a uniform partial back side-lit effect: a band of light glows around the back edge of each letter.",
     specs: [
@@ -315,7 +316,7 @@ const baseConfigurations: LightConfig[] = [
     img: IMG + "lp-11-bs-back-side-lit-night.jpg",
     imgDay: IMG + "lp-11-bs-back-side-lit-day.jpg",
     profile: "standard",
-    light: { face: "none", halo: "none", side: "partial-back" },
+    light: { face: "none", halo: "none", side: "partial-back", sideBand: 0.5 },
     mounts: ["standoff", "flush"],
     depthOptionsMm: [30],
     customDepth: false,
@@ -328,9 +329,9 @@ const baseConfigurations: LightConfig[] = [
     title: "EdgeLuxe LP 11-FS",
     subtitle: "Block Acrylic Face-lit + Partial Front Side-lit",
     family: "Block acrylic",
-    summary: "Letters, flush or standoff mounted, with a glowing face and a thin band of light along the front edge of the side wall.",
+    summary: "Letters, flush or standoff mounted, with a glowing face and the front half of the side wall lit.",
     description:
-      "Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and a thin band of light also glows around the front edge of each letter, outlining the face.",
+      "Cast block acrylic letters that mount flush to the wall or on standoffs, with embedded LEDs for uniform face lighting plus a partial front side-lit effect: the face glows and the front half of each letter's side wall glows with it.",
     specs: [
       { label: "Materials", value: '1.2" (30 mm) cast block acrylic' },
       { label: "Illumination", value: "Embedded LEDs for uniform face lighting plus partial front side lighting" },
@@ -345,7 +346,7 @@ const baseConfigurations: LightConfig[] = [
     img: IMG + "lp-11-fs-front-side-lit-night.jpg",
     imgDay: IMG + "lp-11-fs-front-side-lit-day.jpg",
     profile: "standard",
-    light: { face: "glow", halo: "none", side: "partial-front" },
+    light: { face: "glow", halo: "none", side: "partial-front", sideBand: 0.5 },
     mounts: ["standoff", "flush"],
     depthOptionsMm: [30],
     customDepth: false,

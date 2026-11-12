@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, type ReactNode } from "react";
 import { getAttribution, trackLead } from "../lib/tracking";
 import { attachFilesToInput, clearFileInput, fillHiddenFields, findFileInput, formDocuments, holdsFiles } from "./hubspotFile";
 import { CTA_PRIMARY } from "../lib/cta";
+import { readFormValues } from "../lib/crmLead";
 
 declare global {
   interface Window {
@@ -15,6 +16,8 @@ declare global {
           /** Overrides the submit button label set in the HubSpot portal (supported by the v2 embed). */
           submitText?: string;
           onFormReady?: (...args: unknown[]) => void;
+          /** Called when the visitor presses submit, before the form is sent (the fields are still there to read). */
+          onFormSubmit?: (...args: unknown[]) => void;
           onFormSubmitted?: (...args: unknown[]) => void;
         }) => void;
       };
@@ -64,8 +67,8 @@ interface HubSpotFormProps {
   /** Files to attach to the form's file field once the form is up (never replaces files the visitor chose): the artwork first, then the configuration picture. */
   attachments?: File[];
   onAttachmentStatus?: (status: AttachmentStatus) => void;
-  /** HubSpot reported a successful submission. */
-  onSubmitted?: () => void;
+  /** HubSpot reported a successful submission; `values` is what the visitor had typed, by field name. */
+  onSubmitted?: (values: Record<string, string>) => void;
 }
 
 const NO_FILES: File[] = [];
@@ -84,6 +87,8 @@ export default function HubSpotForm({ prefill = null, aboveForm, attachments = N
   statusCallback.current = onAttachmentStatus;
   const submittedCallback = useRef(onSubmitted);
   submittedCallback.current = onSubmitted;
+  // What the form held when the visitor pressed submit: HubSpot swaps the form for its thank-you note afterwards.
+  const submittedValues = useRef<Record<string, string>>({});
   const status = useRef<AttachmentStatus>("none");
   // Each file field gets one attempt: if the visitor later removes our file it stays removed, while a re-rendered
   // (new) field gets the file again.
@@ -179,9 +184,12 @@ export default function HubSpotForm({ prefill = null, aboveForm, attachments = N
             applyPrefill();
             applyAttachment();
           },
+          onFormSubmit: () => {
+            if (containerRef.current) submittedValues.current = readFormValues(containerRef.current);
+          },
           onFormSubmitted: () => {
             trackLead({ has_configurator_quote: Boolean(prefillRef.current) });
-            submittedCallback.current?.();
+            submittedCallback.current?.(submittedValues.current);
           },
         });
       }

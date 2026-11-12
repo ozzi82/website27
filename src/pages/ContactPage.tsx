@@ -12,6 +12,8 @@ import { clearArtworkFile, loadArtworkFile } from "../components/configurator/ar
 import { renderSummaryImage } from "../components/configurator/summaryImage";
 import { EMAIL, PHONE_DISPLAY, PHONE_NUMBER } from "../lib/contact";
 import { CTA_LINKS, CTA_PRIMARY } from "../lib/cta";
+import { leadFields, sendLeadToCrm } from "../lib/crmLead";
+import { getAttribution } from "../lib/tracking";
 import { SITE_URL, absoluteUrl, breadcrumbJsonLd, type Crumb } from "../lib/seo";
 
 const PATH = CTA_PRIMARY.to;
@@ -109,6 +111,16 @@ export default function ContactPage() {
   const prefill = useMemo(() => quote?.summary?.trim() || null, [quote?.summary]);
   const attachments = useMemo(() => [artworkFile, summaryFile].filter((f): f is File => f !== null), [artworkFile, summaryFile]);
 
+  /**
+   * The form went to HubSpot. A configurator quote also goes to the CRM as a lead, with the same details, the artwork
+   * and the picture of the preview; then nothing of this quote lingers for the next visit.
+   */
+  function handleSubmitted(values: Record<string, string>) {
+    const fields = quote ? leadFields(values, quote.summary) : null;
+    if (fields) void sendLeadToCrm(fields, attachments, getAttribution());
+    handleClear();
+  }
+
   function handleClear() {
     clearQuote();
     void clearArtworkFile();
@@ -170,7 +182,7 @@ export default function ContactPage() {
               prefill={prefill}
               attachments={attachments}
               onAttachmentStatus={setAttachStatus}
-              onSubmitted={handleClear} // sent: nothing of this quote should linger for the next visit
+              onSubmitted={handleSubmitted}
               aboveForm={
                 <>
                   {quote && (
