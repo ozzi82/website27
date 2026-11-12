@@ -16,6 +16,7 @@ import ConfigSwitcher from "../components/configurator/ConfigSwitcher";
 import ConfiguratorHeader from "../components/configurator/ConfiguratorHeader";
 import SceneBar from "../components/configurator/SceneBar";
 import ConfigSummaryCard from "../components/configurator/ConfigSummaryCard";
+import TechnicalView from "../components/configurator/TechnicalView";
 import type { RenderPose } from "../components/configurator/PathTraceScene";
 import { useDesktop } from "../components/configurator/useDesktop";
 import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
@@ -292,7 +293,7 @@ export default function ConfiguratorPage() {
                   </div>
                 )}
               </div>
-              {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} />}
+              {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} action={<TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} />} />}
             </div>
 
             <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-5 xl:w-[500px]">
@@ -312,6 +313,7 @@ export default function ConfiguratorPage() {
                     content: (
                       <>
               {!desktop && <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />}
+              {!desktop && <TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} className="w-full justify-center" />}
 
               <ArtworkSourceToggle value={source} onChange={setSource} />
 
