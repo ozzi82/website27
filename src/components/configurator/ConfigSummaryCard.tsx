@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { DISCLAIMER_TEXT } from "./disclaimer";
 
 export interface SummaryItem {
@@ -6,7 +7,7 @@ export interface SummaryItem {
 }
 
 /** The choices so far under the preview, with a small picture of the sign, and the standing caveat. */
-export default function ConfigSummaryCard({ items, thumb }: { items: SummaryItem[]; thumb?: string | null }) {
+export default function ConfigSummaryCard({ items, thumb, action }: { items: SummaryItem[]; thumb?: string | null; /** A button beside the summary (the exploded view). */ action?: ReactNode }) {
   return (
     <section aria-label="Current configuration" className="flex shrink-0 items-center gap-5 rounded-2xl border border-border bg-card px-5 py-4">
       {thumb && <img src={thumb} alt="" width={112} height={76} className="hidden h-[76px] w-28 shrink-0 rounded-lg border border-border object-cover sm:block" />}
@@ -26,6 +27,7 @@ export default function ConfigSummaryCard({ items, thumb }: { items: SummaryItem
           {DISCLAIMER_TEXT}
         </p>
       </div>
+      {action && <div className="shrink-0">{action}</div>}
     </section>
   );
 }
