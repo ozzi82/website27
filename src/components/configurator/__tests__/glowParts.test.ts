@@ -8,8 +8,9 @@ const parts = (id: string) => {
 };
 
 describe("glowParts: what glows in the 3D scene", () => {
-  it("LP 11-FS lights the face AND a partial band on the front side edge, flush (no wall halo)", () => {
-    expect(parts("lp-11-fs-front-side-lit")).toEqual({ face: true, side: "partial-front", sideBand: null, wallSpill: "none" });
+  it("LP 11-FS lights the face AND the front half of the side wall, flush (no wall halo); LP 11-BS the back half", () => {
+    expect(parts("lp-11-fs-front-side-lit")).toEqual({ face: true, side: "partial-front", sideBand: 0.5, wallSpill: "none" });
+    expect(parts("lp-11-bs-back-side-lit")).toMatchObject({ side: "partial-back", sideBand: 0.5 });
   });
 
   it("face, side and wall light are independent: each lighting code adds its own part", () => {

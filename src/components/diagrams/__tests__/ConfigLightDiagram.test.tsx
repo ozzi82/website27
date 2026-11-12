@@ -12,10 +12,12 @@ describe("ConfigLightDiagram", () => {
   it("describes each system's own light paths from its data", () => {
     expect(describeLight(byId("lp-11-f-face-lit"))).toBe("light passes through the face toward the viewer");
     expect(describeLight(byId("lp-11-b-back-lit"))).toMatch(/washes the wall behind the letter, which stands off on spacers/);
-    expect(describeLight(byId("lp-11-fs-front-side-lit"))).toBe("light passes through the face toward the viewer; a band along the front edge of the side wall glows");
+    expect(describeLight(byId("lp-11-fs-front-side-lit"))).toBe("light passes through the face toward the viewer; the front half of the side wall glows");
     expect(describeLight(byId("lp-11-n-faux-neon"))).toBe("light passes through the face toward the viewer; the front half of the side wall glows");
     expect(describeLight(byId("lp-11-s-side-lit"))).toBe("the whole side wall glows");
-    expect(describeLight(byId("lp-11-bs-back-side-lit"))).toBe("a band along the back edge of the side wall glows");
+    expect(describeLight(byId("lp-11-bs-back-side-lit"))).toBe("the back half of the side wall glows");
+    // LP 3.2 keeps its 10 mm band of exposed acrylic at the wall.
+    expect(describeLight(byId("lp-3-2-flush-mount"))).toBe("a band along the back edge of the side wall glows");
   });
 
   it("draws every lit system, with a text alternative, and animates rays and glows", () => {
