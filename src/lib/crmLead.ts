@@ -1,3 +1,4 @@
+import { getConsent } from "./consent";
 /**
  * Sends a submitted configurator quote to the CRM as a lead, next to the HubSpot form it was sent with. The CRM
  * takes the visitor's contact details, the configuration summary and up to three files (the artwork and the
@@ -64,7 +65,10 @@ export function leadFormData(fields: LeadFields, files: File[], attribution: Rec
   for (const [key, value] of Object.entries(fields)) if (value) body.set(key, value);
   body.set("source", "configurator");
   if (typeof window !== "undefined") body.set("referer", window.location.href);
-  for (const key of ["gclid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) if (attribution[key]) body.set(key, attribution[key]!);
+  for (const key of ["gclid", "gbraid", "wbraid", "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"]) if (attribution[key]) body.set(key, attribution[key]!);
+  // The cookie choice travels with the lead: the CRM reports the email to Google Ads (hashed) only after "accepted".
+  const consent = getConsent();
+  if (consent) body.set("ad_consent", consent);
   for (const file of files.slice(0, 3)) body.append("file", file, file.name);
   return body;
 }
