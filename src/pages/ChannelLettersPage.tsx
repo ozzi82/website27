@@ -5,6 +5,8 @@ import { Link, useLocation } from "react-router-dom";
 import Seo from "../components/Seo";
 import Breadcrumbs from "../components/Breadcrumbs";
 import SectionHeader from "../components/SectionHeader";
+import { ConstructionList } from "../components/ProductConstruction";
+import { configurations as allConfigurations } from "../data/configurations";
 import MediaFrame from "../components/MediaFrame";
 import ProjectCard from "../components/ProjectCard";
 import RelatedLinks from "../components/RelatedLinks";
@@ -412,6 +414,14 @@ export default function ChannelLettersPage() {
             <PrimaryCta />
             <SecondaryCta label={CTA_SECONDARY.label} to={CTA_SECONDARY.to} />
           </div>
+        </div>
+      </section>
+
+      <section id="drawings" className="py-14 md:py-24 border-t border-border scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionHeader eyebrow="Drawings and 3D views" title="See how each one is built." titleClassName={sectionTitle} />
+          <p className="max-w-3xl text-muted-foreground mb-8">Open any system into its numbered parts in 3D, and download its section drawing and exploded view for your own drawings and permit sets. Dimensions marked typ. are typical values, confirmed with the order.</p>
+          <ConstructionList configs={allConfigurations.filter((c) => c.family === "Stainless steel")} />
         </div>
       </section>
 
