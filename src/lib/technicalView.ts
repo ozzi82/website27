@@ -19,8 +19,9 @@ export function technicalSlug(code: string): string {
 /** The turning, self-opening view of the product, made to be framed. Empty when the hand-over is switched off. */
 export function technicalViewUrl(code: string, depthMm?: number, base: string = TECHNICAL_BASE): string {
   if (!base) return "";
-  const depth = depthMm && Number.isFinite(depthMm) ? `?depth=${Math.round(depthMm)}` : "";
-  return `${base}/edgeluxe/${technicalSlug(code)}/embed${depth}`;
+  // In the website's own colours, the parts pulled apart, and nothing moving until the visitor presses Play.
+  const depth = depthMm && Number.isFinite(depthMm) ? `&depth=${Math.round(depthMm)}` : "";
+  return `${base}/edgeluxe/${technicalSlug(code)}/embed?theme=site&explode=100&play=0${depth}`;
 }
 
 export type DrawingKind = "section" | "exploded";

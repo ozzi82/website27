@@ -9,8 +9,8 @@ describe("technical view and drawings from the CRM", () => {
   });
 
   it("builds the view and drawing addresses, and none when switched off", () => {
-    expect(technicalViewUrl("LP 11-FS", undefined, "https://crm.test")).toBe("https://crm.test/edgeluxe/lp11-fs/embed");
-    expect(technicalViewUrl("LP 11-FS", 20, "https://crm.test")).toBe("https://crm.test/edgeluxe/lp11-fs/embed?depth=20");
+    expect(technicalViewUrl("LP 11-FS", undefined, "https://crm.test")).toBe("https://crm.test/edgeluxe/lp11-fs/embed?theme=site&explode=100&play=0");
+    expect(technicalViewUrl("LP 11-FS", 20, "https://crm.test")).toBe("https://crm.test/edgeluxe/lp11-fs/embed?theme=site&explode=100&play=0&depth=20");
     expect(drawingUrl("LP 3.1", "dxf", 50, "https://crm.test")).toBe("https://crm.test/edgeluxe/lp3-1/drawing?format=dxf&depth=50");
     expect(drawingUrl("LP 1", "pdf", undefined, "https://crm.test")).toBe("https://crm.test/edgeluxe/lp1/drawing?format=pdf");
     expect(technicalViewUrl("LP 1", 10, "")).toBe("");
