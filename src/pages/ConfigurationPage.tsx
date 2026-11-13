@@ -9,13 +9,12 @@ import { CTA_PRIMARY } from "../lib/cta";
 import { SITE_URL, absoluteUrl } from "../lib/seo";
 import { projectsByIds } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
-import SystemImage from "../components/SystemImage";
 import { BuildYourSignButton } from "../components/CtaButton";
 import ULBadge from "../components/ULBadge";
 import BuildYourSign from "../components/BuildYourSign";
 import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
 import { emitsLight } from "../components/configurator/types";
-import ProductConstruction from "../components/ProductConstruction";
+import ProductMedia from "../components/ProductMedia";
 
 const LP1_PROJECT_IDS = ["macs", "olympus-templates", "olympus-layout"];
 
@@ -95,7 +94,7 @@ export default function ConfigurationPage() {
         </div>
 
         <div className="grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-12">
-          <SystemImage config={c} />
+          <ProductMedia config={c} />
 
           <div>
             <h2 className="text-3xl mb-4">About this system</h2>
@@ -136,8 +135,6 @@ export default function ConfigurationPage() {
             </div>
           </div>
         </div>
-
-        <ProductConstruction config={c} />
 
         {c.family === "Flat cutout" && (
           <section className="mt-16" aria-labelledby="lp1-finishes">
