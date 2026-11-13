@@ -18,6 +18,7 @@ import DiagramCard from "../components/diagrams/DiagramCard";
 import { LightingDiagram } from "../components/diagrams/LetterDiagrams";
 import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
 import { configurations } from "../data/configurations";
+import { ConstructionList } from "../components/ProductConstruction";
 import { ArrowLink, PrimaryCta, SecondaryCta } from "../components/CtaButton";
 import { CHANNEL_LETTERS_PATH, CUSTOM_FABRICATION_PATH, classicSystems } from "../data/channelLetters";
 import {
@@ -244,6 +245,14 @@ export default function UltraSlimPage() {
               </div>
             ))}
           </dl>
+        </div>
+      </section>
+
+      <section id="drawings" className="py-14 md:py-24 border-t border-border scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <SectionHeader eyebrow="Drawings and 3D views" title="See how each one is built." titleClassName={sectionTitle} />
+          <p className="max-w-3xl text-muted-foreground mb-8">Open any configuration into its numbered parts in 3D, and download its section drawing and exploded view for your own drawings and permit sets. Dimensions marked typ. are typical values, confirmed with the order.</p>
+          <ConstructionList configs={configurations.filter((c) => c.family === "Block acrylic")} />
         </div>
       </section>
 

@@ -15,6 +15,7 @@ import ULBadge from "../components/ULBadge";
 import BuildYourSign from "../components/BuildYourSign";
 import ConfigLightDiagram, { StandoffVsFlush } from "../components/diagrams/ConfigLightDiagram";
 import { emitsLight } from "../components/configurator/types";
+import ProductConstruction from "../components/ProductConstruction";
 
 const LP1_PROJECT_IDS = ["macs", "olympus-templates", "olympus-layout"];
 
@@ -135,6 +136,8 @@ export default function ConfigurationPage() {
             </div>
           </div>
         </div>
+
+        <ProductConstruction config={c} />
 
         {c.family === "Flat cutout" && (
           <section className="mt-16" aria-labelledby="lp1-finishes">

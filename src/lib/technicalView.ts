@@ -23,9 +23,17 @@ export function technicalViewUrl(code: string, depthMm?: number, base: string = 
   return `${base}/edgeluxe/${technicalSlug(code)}/embed${depth}`;
 }
 
-/** The section drawing as a file, at the chosen depth. */
-export function drawingUrl(code: string, format: DrawingFormat, depthMm?: number, base: string = TECHNICAL_BASE): string {
+export type DrawingKind = "section" | "exploded";
+
+/** The section drawing (or the exploded view with numbered parts) as a file, at the chosen depth. */
+export function drawingUrl(code: string, format: DrawingFormat, depthMm?: number, base: string = TECHNICAL_BASE, kind: DrawingKind = "section"): string {
   if (!base) return "";
   const depth = depthMm && Number.isFinite(depthMm) ? `&depth=${Math.round(depthMm)}` : "";
-  return `${base}/edgeluxe/${technicalSlug(code)}/drawing?format=${format}${depth}`;
+  return `${base}/edgeluxe/${technicalSlug(code)}/drawing?format=${format}${depth}${kind === "exploded" ? "&drawing=exploded" : ""}`;
+}
+
+/** The drawing as a picture to show on a page (SVG, served inline). */
+export function drawingImageUrl(code: string, depthMm?: number, kind: DrawingKind = "section", base: string = TECHNICAL_BASE): string {
+  const url = drawingUrl(code, "svg", depthMm, base, kind);
+  return url ? `${url}&view=1` : "";
 }
