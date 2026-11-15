@@ -109,7 +109,7 @@ describe("page data", () => {
     const blob = JSON.stringify([channelLetterFaqs, channelLetterSpecs, ultraSlimSpecs, customFaqs, customSpecs]);
     expect(blob).not.toMatch(/light ?box|raceway|remote/i);
     // numeric facts: 24 to 48 hours, 3-4 weeks, 3 years, UL 48, and brochure sizes (depths, heights, strokes, system codes)
-    const allowed = new Set(["48", "24", "3", "4", "3–4", "10–30", "25", "30", "1", "1.2", "2", "50", "75", "100", "0.5", "12.7", "0.59", "15", "10", "12", "20", "0.47", "0.79", "0.12", "0.4", "11", "5", "3.1", "3.2", "67"]);
+    const allowed = new Set(["48", "24", "3", "4", "3–4", "10–30", "25", "30", "1", "1.2", "2", "50", "75", "100", "0.5", "12.7", "0.59", "15", "10", "12", "20", "0.47", "0.79", "0.12", "0.4", "11", "5", "3.1", "3.2", "67", "8"]);
     const numbers = (blob.match(/\d+(?:[–.]\d+)?/g) ?? []).filter((n) => !allowed.has(n));
     expect(numbers).toEqual([]);
     for (const f of [...channelLetterFaqs, ...customFaqs]) {
@@ -129,7 +129,7 @@ describe("page data", () => {
     const depth = (code: string) => lp11Variants.find((v) => v.code === code)!.depth;
     expect(depth("LP 11-F")).toBe("25 or 30 mm");
     expect(depth("LP 11-B")).toBe("10, 15, 20 or 30 mm");
-    expect(depth("LP 11-FS")).toBe("30 mm");
+    expect(depth("LP 11-FS")).toBe("25 or 30 mm");
     expect(lp11Variants.map((v) => v.suffix)).toEqual(["F", "B", "FB", "BS", "FS", "S", "N", "C"]);
     const lp5 = classicSystems.find((s) => s.code === "LP 5")!;
     expect(lp5.depths).toBe("30, 50, 75 or 100 mm, or custom");

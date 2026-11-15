@@ -164,12 +164,12 @@ describe("EdgeLuxe render files", () => {
 });
 
 describe("mounting (owner list, 2026-10-03)", () => {
-  it("LP 3.1, LP 11-B and LP 11-FB are standoff only; LP 1, 11-BS and 11-FS can be either; every other system is flush only", async () => {
+  it("LP 3.1, LP 11-B and LP 11-FB are standoff only; LP 1 can be either; every other system (LP 11-BS and 11-FS too) is flush only", async () => {
     const { configurations, defaultMount } = await import("../configurations");
     const standoffOnly = configurations.filter((c) => c.mounts.length === 1 && c.mounts[0] === "standoff").map((c) => c.id);
     expect(standoffOnly).toEqual(["lp-3-1-standoff-halo", "lp-11-b-back-lit", "lp-11-fb-face-halo"]);
     const either = configurations.filter((c) => c.mounts.length > 1).map((c) => c.id);
-    expect(either).toEqual(["lp-1-flat-cutout", "lp-11-bs-back-side-lit", "lp-11-fs-front-side-lit"]);
+    expect(either).toEqual(["lp-1-flat-cutout"]);
     for (const c of configurations) {
       expect(c.specs.find((r) => r.label === "Mounting"), c.id).toBeTruthy();
       expect(c.mounts).toContain(defaultMount(c));

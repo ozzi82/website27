@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { mmToWorld } from "./realSize";
 
-/** The standoff spacers Sunlite uses: clear plastic tubes, 1" long and 0.4" in diameter (owner, 2026-10-05). */
-export const SPACER_LENGTH_MM = 25.4;
+/** The standoff spacers Sunlite uses: white spacers, 25 mm long and 0.4" in diameter (owner, 2026-11-15). */
+export const SPACER_LENGTH_MM = 25;
 export const SPACER_DIAMETER_MM = 10.16;
 
 const CURVE_SEGMENTS = 12;

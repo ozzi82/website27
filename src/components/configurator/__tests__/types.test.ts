@@ -11,9 +11,9 @@ describe("defaultStateFor", () => {
     }
   });
 
-  it("uses the family's customary depth: 75 mm stainless (clearly thicker than LP 11), 30 mm block acrylic, 5 mm flat cutout", () => {
-    expect(defaultStateFor(byId("lp-5-trimless-face-lit")).depthMm).toBe(75);
-    expect(defaultStateFor(byId("lp-3-1-standoff-halo")).depthMm).toBe(75);
+  it("uses the family's customary depth: 50 mm stainless, 30 mm block acrylic, 5 mm flat cutout", () => {
+    expect(defaultStateFor(byId("lp-5-trimless-face-lit")).depthMm).toBe(50);
+    expect(defaultStateFor(byId("lp-3-1-standoff-halo")).depthMm).toBe(50);
     expect(defaultStateFor(byId("lp-11-f-face-lit")).depthMm).toBe(30);
     expect(defaultStateFor(byId("lp-11-b-back-lit")).depthMm).toBe(30);
     expect(defaultStateFor(byId("lp-1-flat-cutout")).depthMm).toBe(5);
@@ -142,7 +142,8 @@ describe("mounting state", () => {
     expect(defaultStateFor(byId("lp-11-f-face-lit")).mounting).toBe("flush");
     expect(defaultStateFor(byId("lp-11-b-back-lit")).mounting).toBe("standoff");
     const standoff = { ...defaultStateFor(byId("lp-1-flat-cutout")), mounting: "standoff" as const };
-    expect(switchConfig(standoff, byId("lp-11-fs-front-side-lit")).mounting).toBe("standoff");
+    expect(switchConfig(standoff, byId("lp-11-fb-face-halo")).mounting).toBe("standoff");
+    expect(switchConfig(standoff, byId("lp-11-fs-front-side-lit")).mounting).toBe("flush"); // flush only
     expect(switchConfig(standoff, byId("lp-11-s-side-lit")).mounting).toBe("flush"); // flush only
     expect(switchConfig({ ...standoff, mounting: "flush" }, byId("lp-3-1-standoff-halo")).mounting).toBe("standoff");
   });

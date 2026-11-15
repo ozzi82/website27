@@ -33,6 +33,7 @@ import { clearArtworkFile, saveArtworkFile } from "../components/configurator/ar
 import { strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
 import { BRUSHED_SWATCH, GLOW_SWATCHES, PAINT_SWATCHES, describeColor } from "../components/configurator/swatches";
 import { MM_PER_INCH, aspectOf, clampSizeIn, dimensionsIn, formatSize } from "../components/configurator/realSize";
+import { estimateDiodes, formatLedEstimate } from "../components/configurator/ledEstimate";
 import ThinStrokeNotice from "../components/configurator/ThinStrokeNotice";
 import ConfiguratorDisclaimer from "../components/configurator/ConfiguratorDisclaimer";
 import { isLp1, isLp1FinishId } from "../components/configurator/lp1Materials";
@@ -128,6 +129,10 @@ export default function ConfiguratorPage() {
   // Average stroke over the artwork's height; the thin-stroke note compares it with the real size (see strokeGuard.ts).
   const strokeRatio = useMemo(() => (shapes ? strokeHeightRatio(shapes) : null), [shapes]);
   const aspect = useMemo(() => aspectOf(shapes ?? []), [shapes]);
+  // LP 11 only: how many LED diodes the sign takes at this size, and their watts (an estimate for the visitor and the quote).
+  const blockAcrylic = config?.family === "Block acrylic";
+  const sizeInNow = state?.sizeIn;
+  const diodes = useMemo(() => (blockAcrylic && shapes && sizeInNow ? estimateDiodes(shapes, sizeInNow) : 0), [blockAcrylic, shapes, sizeInNow]);
   const letterLines = source === "text" ? Math.max(1, lineCount) : 1;
   const artworkHeightMm = state ? dimensionsIn(state.sizeIn, aspect).height * MM_PER_INCH : null;
 
@@ -193,7 +198,7 @@ export default function ConfiguratorPage() {
         : uploadShapes
           ? { kind: "upload", fileName: uploadFile?.name || "uploaded artwork" }
           : null;
-    const extras = { note: thinStrokeAdvice(config, strokeRatio, artworkHeightMm, letterLines)?.message, aspect };
+    const extras = { note: thinStrokeAdvice(config, strokeRatio, artworkHeightMm, letterLines)?.message, aspect, diodes };
     return {
       v: 1,
       summary: formatConfigSummary(state, config, artwork, extras),
@@ -266,6 +271,7 @@ export default function ConfiguratorPage() {
       { label: "Depth", value: formatDepth(state.depthMm) },
       { label: "Colour", value: paintName },
       ...(emitsLight(config) ? [{ label: "Lighting", value: glowName }] : []),
+      ...(diodes ? [{ label: "LEDs (estimate)", value: formatLedEstimate(diodes) }] : []),
     ].filter((i) => i.value);
     return (
       <AppChrome>

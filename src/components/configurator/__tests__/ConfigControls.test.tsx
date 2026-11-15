@@ -28,7 +28,7 @@ describe("ConfigControls depth", () => {
       "3″ (75 mm)",
       "4″ (100 mm)",
     ]);
-    expect(within(depthGroup()).getByRole("radio", { name: "3″ (75 mm)" })).toBeChecked();
+    expect(within(depthGroup()).getByRole("radio", { name: "2″ (50 mm)" })).toBeChecked();
   });
 
   it("shows different depths for different configurations", () => {
@@ -40,16 +40,16 @@ describe("ConfigControls depth", () => {
   it("reports the chosen depth as millimetres", async () => {
     const user = userEvent.setup();
     const { onChange } = setup("lp-5-trimless-face-lit");
-    await user.click(within(depthGroup()).getByRole("radio", { name: "2″ (50 mm)" }));
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 50 }));
+    await user.click(within(depthGroup()).getByRole("radio", { name: "3″ (75 mm)" }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 75 }));
   });
 
   it("is keyboard operable with the arrow keys", async () => {
     const user = userEvent.setup();
     const { onChange } = setup("lp-5-trimless-face-lit");
-    within(depthGroup()).getByRole("radio", { name: "3″ (75 mm)" }).focus();
+    within(depthGroup()).getByRole("radio", { name: "2″ (50 mm)" }).focus();
     await user.keyboard("{ArrowRight}");
-    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 100 }));
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining({ depthMm: 75 }));
   });
 
   it("says custom depths are available only for configurations that offer them", () => {
@@ -62,13 +62,11 @@ describe("ConfigControls depth", () => {
     expect(screen.queryByText(/custom depths/i)).not.toBeInTheDocument();
   });
 
-  it("still shows a single available depth, but disabled", () => {
+  it("offers LP 11 in the standard 30 mm, and 25 mm for small letters", () => {
     setup("lp-11-s-side-lit");
     const radios = within(depthGroup()).getAllByRole("radio");
-    expect(radios).toHaveLength(1);
-    expect(radios[0]).toBeDisabled();
-    expect(radios[0]).toBeChecked();
-    expect(radios[0]).toHaveAccessibleName("1.2″ (30 mm)");
+    expect(radios.map((r) => r.getAttribute("value"))).toEqual(["25", "30"]);
+    expect(within(depthGroup()).getByRole("radio", { name: "1.2″ (30 mm)" })).toBeChecked();
   });
 });
 

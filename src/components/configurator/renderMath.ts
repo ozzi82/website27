@@ -86,12 +86,12 @@ export function conicalInset(heightWorld: number, halfStroke: number): number {
   return Math.min(heightWorld * 0.035, halfStroke * 0.5);
 }
 
-/** The standoff spacer length: 1" (see spacers.ts). */
-const STANDOFF_MM = 25.4;
+/** The standoff spacer length: 25 mm (see spacers.ts). */
+const STANDOFF_MM = 25;
 
 /**
  * Distance between the back of the letter and the wall behind it, in world units: flush sits (almost) against the wall,
- * standoff is one real spacer length (1") off it, at this size.
+ * standoff is one real spacer length (25 mm) off it, at this size.
  */
 export function wallGapFor(mount: Mount, sizeIn = DEFAULT_SIZE_IN): number {
   return mount === "standoff" ? mmToWorld(STANDOFF_MM, sizeIn) : 0.012;
