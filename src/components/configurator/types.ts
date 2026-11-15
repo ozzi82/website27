@@ -53,7 +53,7 @@ export const DEFAULT_GLOW_COLOR = "#fff4f0"; // 6000 K daylight white
 
 const PREFERRED_DEPTH_MM: Record<LightConfig["family"], number> = {
   "Flat cutout": 5,
-  "Stainless steel": 75,
+  "Stainless steel": 50,
   "Block acrylic": 30,
 };
 

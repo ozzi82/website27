@@ -197,7 +197,7 @@ export function StandoffVsFlush({ className }: { className?: string }) {
         <figcaption className="p-5">
           <p className="mono-label text-primary">Standoff mount</p>
           <p className="text-sm text-muted-foreground mt-2">
-            The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are clear plastic tubes, 1″ long and 0.4″ in diameter. Standoff only: {STANDOFF_ONLY}, because the halo needs the gap. Flush or standoff: {EITHER}.
+            The letter floats off the wall on spacers. Light from the back washes the wall behind it, so a halo shows around the letter. The spacers are white, 25 mm (1″) long. Standoff only: {STANDOFF_ONLY}, because the halo needs the gap.{EITHER ? ` Flush or standoff: ${EITHER}.` : ""}
           </p>
         </figcaption>
       </figure>
@@ -208,7 +208,7 @@ export function StandoffVsFlush({ className }: { className?: string }) {
         <figcaption className="p-5">
           <p className="mono-label text-primary">Flush mount</p>
           <p className="text-sm text-muted-foreground mt-2">
-            The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: {FLUSH_ONLY}. Flush or standoff: {EITHER}.
+            The letter sits against the wall. Light leaves through a band of the side wall instead, as a thin edge of light rather than a wall wash. Flush only: {FLUSH_ONLY}.{EITHER ? ` Flush or standoff: ${EITHER}.` : ""}
           </p>
         </figcaption>
       </figure>

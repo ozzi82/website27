@@ -401,11 +401,12 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         <div className="mt-1.5 space-y-1">
           <p>The preview is drawn to the size you enter: depth, spacers and the lit band are true to scale, and the wall texture is real-size too.</p>
           {singleDepth && <p>This is the only standard depth for this configuration.</p>}
+          {config.family === "Block acrylic" && depthOptions.includes(25) && depthOptions.includes(30) && <p>1.2″ (30 mm) is the standard depth; 1″ (25 mm) is for small letters (8″ and below) with thin strokes.</p>}
           {config.customDepth && <p>Custom depths available — ask us.</p>}
           {illustrative && <p>Illustrative preview — this profile is approximated.</p>}
           <p>Paint color applies to the sides and any face that isn’t lit; glow color is the pigmented acrylic or vinyl.</p>
           <p>The brightness slider dims the LEDs in the night view.</p>
-          {state.mounting === "standoff" && <p>Standoff spacers are clear plastic tubes, 1″ long and 0.4″ in diameter (drawn slightly thicker here so they can be seen).</p>}
+          {state.mounting === "standoff" && <p>Standoff spacers are white, 25 mm (1″) long and 0.4″ in diameter (drawn slightly thicker here so they can be seen).</p>}
           {mounts.length === 1 && <p>This system is mounted on standoff spacers only: the halo needs the gap to reach the wall.</p>}
           {flat && (
             <p>

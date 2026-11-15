@@ -121,8 +121,8 @@ describe("standoff spacers", () => {
     return s;
   };
 
-  it("are clear 1 inch tubes, 0.4 inch across, and the standoff gap is exactly one tube long", () => {
-    expect(SPACER_LENGTH_MM).toBeCloseTo(25.4, 6);
+  it("are white, 25 mm long, 0.4 inch across, and the standoff gap is exactly one tube long", () => {
+    expect(SPACER_LENGTH_MM).toBe(25);
     expect(SPACER_DIAMETER_MM).toBeCloseTo(10.16, 6);
     expect(wallGapFor("standoff", 100)).toBeCloseTo(mmToWorld(SPACER_LENGTH_MM, 100), 9);
   });

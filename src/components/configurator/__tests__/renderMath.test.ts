@@ -107,7 +107,7 @@ describe("wallGapFor", () => {
   it("floats standoff mounts off the wall and keeps flat/flush mounts tight", () => {
     expect(wallGapFor("standoff")).toBeGreaterThan(wallGapFor("flush"));
     expect(wallGapFor("flush")).toBeGreaterThan(0);
-    expect(wallGapFor("standoff", 100)).toBeCloseTo(mmToWorld(25.4, 100), 9); // one real 1" spacer
+    expect(wallGapFor("standoff", 100)).toBeCloseTo(mmToWorld(25, 100), 9); // one real 25 mm spacer
     expect(wallGapFor("standoff", 25)).toBeCloseTo(4 * wallGapFor("standoff", 100), 9); // a bigger share of a small sign
   });
 });

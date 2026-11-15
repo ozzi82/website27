@@ -5,6 +5,7 @@ import { getLp1Finish, isLp1 } from "./lp1Materials";
 import { DISCLAIMER_TEXT } from "./disclaimer";
 import { emitsLight, formatDepth, type ConfiguratorState } from "./types";
 import { formatSize } from "./realSize";
+import { formatLedEstimate } from "./ledEstimate";
 
 /** Where the sign's shapes came from, for the quote summary. */
 export type ArtworkInfo =
@@ -16,6 +17,8 @@ export interface SummaryExtras {
   note?: string;
   /** Width over height of the artwork: with it the summary states the size in inches and millimetres. */
   aspect?: number;
+  /** LP 11 only: the estimated number of LED diodes (see ledEstimate.ts). */
+  diodes?: number;
 }
 
 function describeArtwork(artwork: ArtworkInfo): string {
@@ -44,7 +47,7 @@ export function configSummaryRows(
     { label: "Configuration", value: `${config.code} ${config.subtitle}` },
     ...(extras.aspect ? [{ label: "Size", value: formatSize(state.sizeIn, extras.aspect) }] : []),
     { label: "Depth", value: formatDepth(state.depthMm) },
-    { label: "Mounting", value: state.mounting === "standoff" ? "Standoff spacers (clear plastic tubes, 1″ long, 0.4″ diameter)" : "Flush to the wall" },
+    { label: "Mounting", value: state.mounting === "standoff" ? "Standoff spacers (white, 25 mm long)" : "Flush to the wall" },
   ];
   const finish = getLp1Finish(state.finish);
   if (isLp1(config)) {
@@ -56,6 +59,7 @@ export function configSummaryRows(
   if (lit) {
     rows.push({ label: "Glow color", value: describeColor(state.glowColor, GLOW_SWATCHES), swatch: state.glowColor });
     rows.push({ label: "LED brightness", value: `${Math.round(state.brightness)}%` });
+    if (config.family === "Block acrylic" && extras.diodes) rows.push({ label: "LEDs (estimate)", value: formatLedEstimate(extras.diodes) });
   }
   if (artwork) rows.push({ label: "Artwork", value: describeArtwork(artwork) });
   if (extras.note) rows.push({ label: "Note", value: extras.note });

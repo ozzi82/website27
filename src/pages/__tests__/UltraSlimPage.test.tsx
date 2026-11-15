@@ -77,7 +77,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
     const fs = main.querySelector('#variants [data-system="LP 11-FS"]') as HTMLElement;
     expect(fs.textContent).toMatch(/face glows and the front half of the side wall glows with it/i);
     expect(fs.textContent).toContain("Face-lit + Partial Front Side-lit");
-    expect(fs.textContent).toContain("Flush or standoff");
+    expect(fs.textContent).toContain("Flush-mount");
   });
 
   it("states the brochure depths without contradicting them: 30 mm standard, 25 mm for small letters, LP 11-B thinner", () => {
@@ -95,7 +95,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
     expect(specs).toMatch(/2″ \(50 mm\)/);
     expect(specs).toMatch(/0\.47″ \(12 mm\)/);
     expect(ultraSlimSpecs.find((s) => s.label === "Mounting")!.value).toBe(
-      "Flush-mount: LP 11-F, LP 11-S, LP 11-N and LP 11-C. Standoff spacers: LP 11-B and LP 11-FB, because the halo needs the gap to reach the wall. Flush or standoff: LP 11-BS and LP 11-FS.",
+      "Flush-mount: LP 11-F, LP 11-BS, LP 11-FS, LP 11-S, LP 11-N and LP 11-C. Standoff spacers: LP 11-B and LP 11-FB, because the halo needs the gap to reach the wall.",
     );
   });
 
@@ -126,7 +126,7 @@ describe("/services/ultra-slim-trimless-channel-letters (the EdgeLuxe LP 11 seri
     const text = main.querySelector("#installation")!.textContent!;
     expect(text).toMatch(/printed installation template/);
     expect(text).toMatch(/LP 11-B and LP 11-FB are mounted on standoff spacers/);
-    expect(text).toMatch(/LP 11-BS and LP 11-FS can be flush or on standoffs; LP 11-F, LP 11-S, LP 11-N and LP 11-C mount flush/);
+    expect(text).toMatch(/LP 11-F, LP 11-BS, LP 11-FS, LP 11-S, LP 11-N and LP 11-C mount flush/);
   });
 
   it("shows project photography with real images only, and no side-profile placeholder", () => {
