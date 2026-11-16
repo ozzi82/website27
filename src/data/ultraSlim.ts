@@ -137,7 +137,7 @@ export const ultraSlimSpecs: SpecRow[] = [
   { label: "Sealing", value: spec(first, "Sealing") },
   { label: "Maintenance", value: spec(first, "Maintenance") },
   { label: "Min. letter height", value: spec(first, "Min. height").replace('"', "″") },
-  { label: "Min. stroke width", value: "0.47″ (12 mm) for stability and even illumination. LP 11-S: 0.79″ (20 mm) recommended. LP 11-C: face as narrow as 0.12″ (3 mm)." },
+  { label: "Min. stroke width", value: "0.47″ (12 mm) for stability and even illumination. LP 11-S: 0.79″ (20 mm) recommended, so the LEDs do not show as spots. LP 11-C: face as narrow as 0.12″ (3 mm)." },
   { label: "Colors", value: spec(first, "Customization") },
   {
     label: "Mounting",

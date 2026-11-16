@@ -87,7 +87,7 @@ export function thinStrokeAdvice(config: StrokeRules, ratio: number | null, artw
     neededMm,
     message: profiled
       ? `Thin strokes: at about ${have} tall this artwork's strokes are only about ${strokeText}, and ${config.code} needs at least ${minStroke}. Make the letters (or logo) at least about ${needed} tall, or use a bolder typeface or heavier line art.`
-      : `Thin strokes: at about ${have} tall this artwork's strokes are about ${strokeText}; ${config.code} needs at least ${minStroke}, which takes letters of about ${needed} or taller.`,
+      : `Thin strokes: at about ${have} tall this artwork's strokes are about ${strokeText}; ${config.code} needs at least ${minStroke}${config.code === "LP 11-S" ? " (narrower, the LEDs show as spots through the lit side)" : ""}, which takes letters of about ${needed} or taller.`,
   };
 }
 

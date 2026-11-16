@@ -25,3 +25,16 @@ describe("LP 11 LED estimate", () => {
     expect(formatLedEstimate(100)).toBe("about 100 LEDs, 6.0 W at 24 V");
   });
 });
+
+import { thinStrokeAdvice } from "../strokeGuard";
+import { configurations } from "../../../data/configurations";
+
+describe("LP 11-S stroke width (owner, 2026-11-16)", () => {
+  it("asks for 20 mm strokes so the LEDs do not show as spots", () => {
+    const s = configurations.find((c) => c.id === "lp-11-s-side-lit")!;
+    expect(s.minStrokeMm).toBe(20);
+    expect(s.specs.find((r) => r.label === "Min. stroke width")!.value).toMatch(/20 mm\) recommended, so the LEDs do not show as spots/);
+    // Strokes a tenth of a 6" letter (15 mm): too thin, and why
+    expect(thinStrokeAdvice(s, 0.1, 152.4)!.message).toMatch(/LP 11-S needs at least 0.79″ \(20 mm\) \(narrower, the LEDs show as spots/);
+  });
+});

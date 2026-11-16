@@ -367,7 +367,7 @@ const baseConfigurations: LightConfig[] = [
       { label: "Illumination", value: "Embedded LEDs for uniform full-side illumination" },
       { label: "Depth", value: 'Standard 1.2" (30 mm) for durability and optimal light diffusion; 1" (25 mm) for small letters (8" and below) with thin strokes' },
       { label: "Customization", value: PMS_SIDE_LIT },
-      { label: "Min. stroke width", value: '0.79" (20 mm) recommended for stability and even illumination' },
+      { label: "Min. stroke width", value: '0.79" (20 mm) recommended, so the LEDs do not show as spots through the side' },
       { label: "Min. height", value: '2" (50 mm)' },
       { label: "Sealing", value: ACRYLIC_SEALING },
       { label: "Maintenance", value: ACRYLIC_MAINT },
