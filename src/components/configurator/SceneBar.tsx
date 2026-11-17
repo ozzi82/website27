@@ -1,4 +1,4 @@
-import { Minus, Moon, Plus, RotateCcw, Sun } from "lucide-react";
+import { Download, Minus, Moon, Plus, RotateCcw, Sun } from "lucide-react";
 import { BACKGROUNDS } from "./backgrounds";
 import type { ConfiguratorState, DayNight } from "./types";
 
@@ -6,16 +6,17 @@ interface SceneBarProps {
   state: ConfiguratorState;
   onChange: (state: ConfiguratorState) => void;
   camera: { zoomIn: () => void; zoomOut: () => void; reset: () => void };
+  tools?: { download: () => void; downloading: boolean };
 }
 
-/** Day | Night and the wall behind the sign, as one floating bar over the preview (desktop). */
-export default function SceneBar({ state, onChange, camera }: SceneBarProps) {
+/** The view of the sign, as one toolbar under the preview (desktop): day or night, the wall behind it, the camera, and the picture to download. */
+export default function SceneBar({ state, onChange, camera, tools }: SceneBarProps) {
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
   const btn =
     "flex h-9 items-center justify-center gap-1.5 rounded-full px-3 text-sm font-medium text-foreground hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring";
   const divider = <span aria-hidden="true" className="hidden h-7 w-px bg-border sm:block" />;
   return (
-    <div className="flex max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-3xl border border-border bg-card/95 px-3 py-2 shadow-[0_8px_24px_-12px_rgba(23,27,39,0.35)] backdrop-blur sm:rounded-full">
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
       <div role="radiogroup" aria-label="Day or night" className="flex rounded-full bg-muted p-0.5">
         {(["day", "night"] as DayNight[]).map((v) => (
           <label
@@ -30,7 +31,7 @@ export default function SceneBar({ state, onChange, camera }: SceneBarProps) {
       </div>
       {divider}
       <div role="radiogroup" aria-label="Background" className="flex items-center gap-2">
-        <span aria-hidden="true" className="text-xs text-muted-foreground">Wall material</span>
+        <span aria-hidden="true" className="text-xs text-muted-foreground">Wall</span>
         {BACKGROUNDS.map((b) => (
           <label
             key={b.id}
@@ -45,7 +46,7 @@ export default function SceneBar({ state, onChange, camera }: SceneBarProps) {
       {divider}
       <button type="button" onClick={camera.reset} className={btn}>
         <RotateCcw aria-hidden="true" className="h-4 w-4" />
-        Reset
+        Reset view
       </button>
       <div className="flex items-center rounded-full bg-muted">
         <button type="button" aria-label="Zoom out" onClick={camera.zoomOut} className={`${btn} px-2.5`}>
@@ -55,6 +56,12 @@ export default function SceneBar({ state, onChange, camera }: SceneBarProps) {
           <Plus aria-hidden="true" className="h-4 w-4" />
         </button>
       </div>
+      {tools && (
+        <button type="button" onClick={tools.download} disabled={tools.downloading} title="Download a high-resolution image of this view" className={`${btn} ml-auto border border-border disabled:opacity-60`}>
+          <Download aria-hidden="true" className="h-4 w-4" />
+          {tools.downloading ? "Rendering…" : "Download image"}
+        </button>
+      )}
     </div>
   );
 }

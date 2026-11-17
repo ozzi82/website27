@@ -17,10 +17,9 @@ import ConfiguratorHeader from "../components/configurator/ConfiguratorHeader";
 import SceneBar from "../components/configurator/SceneBar";
 import ConfigSummaryCard from "../components/configurator/ConfigSummaryCard";
 import TechnicalView from "../components/configurator/TechnicalView";
-import type { RenderPose } from "../components/configurator/PathTraceScene";
 import { useDesktop } from "../components/configurator/useDesktop";
 import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
-import { ArrowRight, Building2, Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
+import { ArrowRight, Building2, Layers, Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
 import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
@@ -57,7 +56,6 @@ function AppChrome({ children }: { children: ReactNode }) {
   );
 }
 
-const PhotoRender = lazy(() => import("../components/configurator/PhotoRender"));
 const BuildingView = lazy(() => import("../components/configurator/BuildingView"));
 
 /** Building a sign starts with text, and this word, so there is something lit to look at straight away. */
@@ -113,18 +111,8 @@ export default function ConfiguratorPage() {
       trackEvent("configurator_artwork", { source }); // "text" or "upload": someone actually saw a sign built from their input
     }
   }, [shapes, source]);
-  const [renderPose, setRenderPose] = useState<RenderPose | null>(null);
   const desktop = useDesktop();
-  const [thumb, setThumb] = useState<string | null>(null);
   const [techOpen, setTechOpen] = useState(false);
-  // A small picture of the current sign for the summary card, refreshed once things settle.
-  useEffect(() => {
-    if (!desktop || !shapes) return;
-    const t = setTimeout(() => {
-      void capture.current?.().then((url) => url && setThumb(url));
-    }, 1600);
-    return () => clearTimeout(t);
-  }, [desktop, shapes, state]);
   const lineCount = text.split("\n").filter((l) => l.trim()).length;
   // Average stroke over the artwork's height; the thin-stroke note compares it with the real size (see strokeGuard.ts).
   const strokeRatio = useMemo(() => (shapes ? strokeHeightRatio(shapes) : null), [shapes]);
@@ -284,15 +272,8 @@ export default function ConfiguratorPage() {
               {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
               <div className="relative min-h-0 w-full flex-1">
                 <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                  <SignPreview paused={techOpen} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} onRender={shapes ? setRenderPose : undefined} hideHint={desktop} renderBar={desktop ? (camera) => <SceneBar state={state} onChange={handleChange} camera={camera} /> : undefined} />
+                  <SignPreview paused={techOpen} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} renderBar={desktop ? (camera, tools) => <SceneBar state={state} onChange={handleChange} camera={camera} tools={tools} /> : undefined} />
                 </ErrorBoundary>
-                {desktop && (
-                  <>
-                    <div className="absolute left-3 top-3 z-10 w-[min(24rem,70%)] rounded-xl border border-border bg-background/85 p-1.5 backdrop-blur">
-                      <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
-                    </div>
-                  </>
-                )}
                 <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
                 {!shapes && (
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
@@ -300,27 +281,41 @@ export default function ConfiguratorPage() {
                   </div>
                 )}
               </div>
-              {desktop && state && <ConfigSummaryCard items={summaryItems} thumb={thumb} action={<TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} onOpenChange={setTechOpen} />} />}
+              {desktop && state && <ConfigSummaryCard items={[{ label: "Sign type", value: config.code }, ...summaryItems]} />}
             </div>
 
             <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-5 xl:w-[500px]">
               {desktop && (
                 <div className="mb-4 shrink-0">
-                  <h2 className="text-3xl font-semibold">Make it yours</h2>
-                  <p className="mt-1 text-sm text-muted-foreground">Configure your sign in real time.</p>
+                  <h2 className="text-3xl font-semibold">Build your sign</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">Five short steps. The picture on the left follows every change; when it looks right, ask for your price.</p>
                 </div>
               )}
               <ConfiguratorPanel
                 tabs={[
                   {
+                    id: "type",
+                    label: "Type",
+                    heading: "Sign type",
+                    summary: config.code,
+                    icon: <Layers />,
+                    content: (
+                      <>
+                        <p className="text-sm text-muted-foreground">How the letters are built and where the light comes out. Flip through them: your text stays.</p>
+                        <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />
+                        <p className="text-sm">{(baseConfig ?? config).summary}</p>
+                        <TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} className="w-full justify-center" onOpenChange={setTechOpen} />
+                      </>
+                    ),
+                  },
+                  {
                     id: "text",
                     label: "Text",
-                    heading: "Your artwork",
+                    heading: "Text or logo",
+                    summary: summaryItems[0]?.value,
                     icon: <Type />,
                     content: (
                       <>
-              {!desktop && <ConfigSwitcher value={config.id} onChange={handleSelectConfig} />}
-              {!desktop && <TechnicalView code={config.code} name={config.title} depthMm={state.depthMm} className="w-full justify-center" onOpenChange={setTechOpen} />}
 
               <ArtworkSourceToggle value={source} onChange={setSource} />
 
@@ -356,9 +351,9 @@ export default function ConfiguratorPage() {
                       </>
                     ),
                   },
-                  { id: "size", label: "Size", heading: "Size and build", icon: <Ruler />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
-                  { id: "colour", label: "Colour", heading: "Colour and finish", icon: <Palette />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
-                  { id: "light", label: "Light", heading: "Lighting", icon: <Lightbulb />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
+                  { id: "size", label: "Size", heading: "Size", summary: `${formatSize(state.sizeIn, aspect).replace(/ \(.*\)$/, "")} · ${formatDepth(state.depthMm)} deep`, icon: <Ruler />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
+                  { id: "colour", label: "Colour", heading: "Colour", summary: paintName, icon: <Palette />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
+                  { id: "light", label: "Light", heading: "Light", summary: emitsLight(config) ? glowName : "Not illuminated", icon: <Lightbulb />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
                   ...(desktop ? [] : [
                   {
                       id: "look",
@@ -392,11 +387,6 @@ export default function ConfiguratorPage() {
               />
             </aside>
           </div>
-          {renderPose && shapes && (
-            <Suspense fallback={null}>
-              <PhotoRender shapes={shapes} config={config} state={state} pose={renderPose} onClose={() => setRenderPose(null)} />
-            </Suspense>
-          )}
           {building && shapes && (
             <Suspense fallback={null}>
               <BuildingView shapes={shapes} config={config} state={state} onClose={closeBuilding} />
