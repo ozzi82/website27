@@ -9,9 +9,23 @@ interface ConfigChooserProps {
 export default function ConfigChooser({ onSelect }: ConfigChooserProps) {
   return (
     <div>
-      <p className="text-muted-foreground mb-6 max-w-2xl">
-        Pick a letter configuration, then upload your logo to see it lit.
-      </p>
+      <ol className="mb-8 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          ["Pick a sign type", "Below. You can change it later."],
+          ["Type your text or upload a logo", "You see it as a sign straight away."],
+          ["Set size, colour and light", "By day and by night, on your wall."],
+          ["Ask for your price", "We get your sign exactly as you built it."],
+        ].map(([title, text], i) => (
+          <li key={title} className={`flex gap-3 rounded-xl border p-3 ${i === 0 ? "border-primary/60 bg-primary/5" : "border-border bg-card"}`}>
+            <span aria-hidden="true" className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold ${i === 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>{i + 1}</span>
+            <span>
+              <span className="block font-semibold">{title}</span>
+              <span className="block text-muted-foreground">{text}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+      <h2 className="mb-4 text-2xl font-semibold">1. Pick a sign type</h2>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {configurations.map((c) => (
           <button

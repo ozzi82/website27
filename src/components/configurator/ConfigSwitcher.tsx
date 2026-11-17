@@ -8,7 +8,7 @@ interface ConfigSwitcherProps {
 }
 
 const arrowClass =
-  "inline-flex h-8 w-7 shrink-0 items-center justify-center rounded-md border border-input bg-background text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
+  "inline-flex h-10 w-9 shrink-0 items-center justify-center rounded-md border border-input bg-background text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary";
 
 /** Compact configuration picker at the top of the options panel: a select plus previous/next steppers. */
 export default function ConfigSwitcher({ value, onChange }: ConfigSwitcherProps) {
@@ -29,7 +29,7 @@ export default function ConfigSwitcher({ value, onChange }: ConfigSwitcherProps)
         id={id}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-8 min-w-0 flex-1 truncate rounded-md border border-input bg-background px-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+        className="h-10 min-w-0 flex-1 truncate rounded-md border border-input bg-background px-2 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
       >
         {configurations.map((c) => (
           <option key={c.id} value={c.id}>

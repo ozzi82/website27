@@ -1,5 +1,5 @@
 import { useState, type KeyboardEvent, type ReactNode } from "react";
-import { Download, RotateCcw, Sparkles, ZoomIn, ZoomOut } from "lucide-react";
+import { Download, RotateCcw, ZoomIn, ZoomOut } from "lucide-react";
 
 /** Radians the camera turns per arrow-key press. */
 export const KEY_ROTATE_STEP = (6 * Math.PI) / 180;
@@ -16,10 +16,8 @@ interface PreviewFrameProps {
   hideHint?: boolean;
   /** Drop the zoom / reset buttons at the top right (desktop puts them in the floating bar). */
   hideControls?: boolean;
-  /** Adds a "Photo render" button next to Download. */
-  onRender?: () => void;
-  /** A floating bar along the bottom edge. */
-  bar?: ReactNode;
+  /** A toolbar under the picture (desktop): it gets the download command, and then shows the Download button itself. */
+  bar?: (tools: { download: () => void; downloading: boolean }) => ReactNode;
   children: ReactNode;
 }
 
@@ -31,7 +29,7 @@ const BUTTON =
  * and arrow / plus / minus / 0 keys while it has focus. Dragging and pinching are handled by
  * the camera controls inside the canvas.
  */
-export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, onDownload, onRender, hideHint, hideControls, bar, children }: PreviewFrameProps) {
+export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, onDownload, hideHint, hideControls, bar, children }: PreviewFrameProps) {
   const [downloading, setDownloading] = useState(false);
   async function handleDownload() {
     if (!onDownload || downloading) return;
@@ -75,12 +73,13 @@ export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, o
   }
 
   return (
+    <div className="flex h-full min-h-[220px] w-full flex-col overflow-hidden rounded-xl border border-border bg-card">
     <div
       role="group"
       tabIndex={0}
       aria-label="3D preview. Arrow keys rotate, plus and minus zoom, zero resets the view."
       onKeyDown={handleKeyDown}
-      className="relative h-full min-h-[220px] w-full cursor-grab overflow-hidden rounded-xl border border-border bg-card active:cursor-grabbing focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+      className="relative min-h-0 w-full flex-1 cursor-grab overflow-hidden active:cursor-grabbing focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-primary"
     >
       {children}
       {!hideControls && <div className="absolute right-3 top-3 flex flex-col gap-1.5">
@@ -93,39 +92,25 @@ export default function PreviewFrame({ onZoomIn, onZoomOut, onReset, onRotate, o
         <button type="button" aria-label="Reset view" title="Reset view" onClick={onReset} className={BUTTON}>
           <RotateCcw aria-hidden="true" className="h-4 w-4" />
         </button>
-
       </div>}
-      {bar && <div className="absolute bottom-3 left-3 right-[17rem] z-10 flex justify-center">{bar}</div>}
-      <div className="absolute bottom-3 right-3 z-10 flex items-center gap-2">
-        {onRender && (
-          <button
-            type="button"
-            aria-label="Photo render"
-            title="Render a photorealistic picture of this view (about 30 seconds)"
-            onClick={onRender}
-            className="flex h-9 items-center gap-1.5 rounded-full border border-border bg-background/80 px-3 text-xs font-semibold text-foreground backdrop-blur transition-colors hover:bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
-          >
-            <Sparkles aria-hidden="true" className="h-4 w-4" />
-            <span className="hidden sm:inline">Photo render</span>
-          </button>
-        )}
-      {onDownload && (
+      {onDownload && !bar && (
         <button
           type="button"
           aria-label="Download image"
           title="Download a high-resolution image of this view"
           onClick={handleDownload}
           disabled={downloading}
-          className="flex h-9 items-center gap-1.5 rounded-full border border-border bg-background/80 px-3 text-xs font-semibold text-foreground backdrop-blur transition-colors hover:bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary disabled:opacity-50"
+          className="absolute bottom-3 right-3 z-10 flex h-9 items-center gap-1.5 rounded-full border border-border bg-background/80 px-3 text-xs font-semibold text-foreground backdrop-blur transition-colors hover:bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary disabled:opacity-60"
         >
           <Download aria-hidden="true" className="h-4 w-4" />
           <span>{downloading ? "Rendering…" : "Download image"}</span>
         </button>
       )}
-      </div>
       {!hideHint && <p className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/45 px-2.5 py-1 text-xs text-white/90">
         Drag to rotate · scroll or pinch to zoom
       </p>}
+    </div>
+    {bar && <div className="shrink-0 border-t border-border bg-card px-3 py-2">{bar({ download: () => void handleDownload(), downloading })}</div>}
     </div>
   );
 }
