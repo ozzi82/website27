@@ -99,6 +99,12 @@ async function upload(user: ReturnType<typeof userEvent.setup>) {
   return findPreview();
 }
 
+// Each test starts as a first visit in a fresh tab: no sign kept from the test before, no tour answer.
+beforeEach(() => {
+  sessionStorage.clear();
+  localStorage.clear();
+});
+
 describe("ConfiguratorPage end-to-end smoke tests", () => {
   it("is called Build Your Sign: H1, document title and description", async () => {
     renderPage("/configurator");

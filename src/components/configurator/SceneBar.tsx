@@ -16,7 +16,7 @@ export default function SceneBar({ state, onChange, camera, tools }: SceneBarPro
     "flex h-9 items-center justify-center gap-1.5 rounded-full px-3 text-sm font-medium text-foreground hover:bg-muted focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring";
   const divider = <span aria-hidden="true" className="hidden h-7 w-px bg-border sm:block" />;
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+    <div data-tour="view" className="flex flex-wrap items-center gap-x-3 gap-y-2">
       <div role="radiogroup" aria-label="Day or night" className="flex rounded-full bg-muted p-0.5">
         {(["day", "night"] as DayNight[]).map((v) => (
           <label
