@@ -18,6 +18,8 @@ interface ConfiguratorPanelProps {
   tabs: PanelTab[];
   /** Always-visible primary action (Get a Quote). */
   action: ReactNode;
+  /** Told which step is open (null while the sheet is folded away on a phone), so the preview can show what it is about. */
+  onStep?: (id: string | null) => void;
 }
 
 /**
@@ -29,15 +31,18 @@ interface ConfiguratorPanelProps {
  * action beside it, and tapping the open step again folds the sheet away so the preview gets the whole screen.
  * Every step stays mounted (closed ones are only hidden by CSS), so nothing is lost when switching.
  */
-export default function ConfiguratorPanel({ tabs, action }: ConfiguratorPanelProps) {
+export default function ConfiguratorPanel({ tabs, action, onStep }: ConfiguratorPanelProps) {
   const [active, setActive] = useState(tabs[0].id);
   const [open, setOpen] = useState(true);
   const [seen, setSeen] = useState<string[]>([tabs[0].id]);
   const desktop = useDesktop();
 
   function choose(id: string) {
-    if (id === active) setOpen((o) => !o);
-    else {
+    if (id === active) {
+      onStep?.(open ? null : id);
+      setOpen((o) => !o);
+    } else {
+      onStep?.(id);
       setActive(id);
       setOpen(true);
       setSeen((s) => (s.includes(id) ? s : [...s, id]));

@@ -25,6 +25,8 @@ export interface CameraApi {
   zoomOut: () => void;
   reset: () => void;
   rotate: (dTheta: number, dPhi: number) => void;
+  /** Ease to this view, centred on the sign again (a step of the configurator opened). */
+  goTo: (view: View) => void;
   /** Where the camera is looking from and at, for renders that start from the current view. */
   getPose: () => { position: [number, number, number]; target: [number, number, number] };
 }
@@ -58,6 +60,10 @@ const CameraRig = forwardRef<CameraApi>(function CameraRig(_props, ref) {
         goalTarget.current = VIEW_TARGET.clone();
       },
       rotate: (dTheta, dPhi) => (goal.current = rotateView(base(), dTheta, dPhi)),
+      goTo: (view) => {
+        goal.current = view;
+        goalTarget.current = VIEW_TARGET.clone();
+      },
       getPose: () => ({
         position: [camera.position.x, camera.position.y, camera.position.z],
         target: [target().x, target().y, target().z],
