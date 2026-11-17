@@ -20,7 +20,9 @@ import TechnicalView from "../components/configurator/TechnicalView";
 import { useDesktop } from "../components/configurator/useDesktop";
 import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
 import { ArrowRight, Building2, Layers, Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
-import SignPreview, { type CaptureSnapshot } from "../components/configurator/SignPreview";
+import SignPreview, { type CaptureSnapshot, type StepMarker } from "../components/configurator/SignPreview";
+import type { StepFocus } from "../components/configurator/cameraMath";
+import { TARGET_SIZE } from "../components/configurator/normalizeShapes";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
 import { defaultStateFor, effectiveConfig, emitsLight, formatDepth, switchConfig, withBuild, withFinish } from "../components/configurator/types";
@@ -113,6 +115,24 @@ export default function ConfiguratorPage() {
   }, [shapes, source]);
   const desktop = useDesktop();
   const [techOpen, setTechOpen] = useState(false);
+  // The open step: the preview turns to show what it changes and labels it.
+  const [step, setStep] = useState<StepFocus | null>(null);
+  // Opening "Light" by day shows the sign at night (light is hard to judge in daylight); leaving the step goes back to day,
+  // unless the visitor switched day/night themselves meanwhile.
+  const autoNight = useRef(false);
+  function handleStep(id: string | null) {
+    const next = (id === "type" || id === "text" || id === "size" || id === "colour" || id === "light" ? id : null) as StepFocus | null;
+    setStep(next);
+    if (!state) return;
+    const lit = !!config && emitsLight(config);
+    if (next === "light" && lit && state.dayNight === "day") {
+      autoNight.current = true;
+      setState({ ...state, dayNight: "night" });
+    } else if (next !== "light" && autoNight.current) {
+      autoNight.current = false;
+      if (state.dayNight === "night") setState({ ...state, dayNight: "day" });
+    }
+  }
   const lineCount = text.split("\n").filter((l) => l.trim()).length;
   // Average stroke over the artwork's height; the thin-stroke note compares it with the real size (see strokeGuard.ts).
   const strokeRatio = useMemo(() => (shapes ? strokeHeightRatio(shapes) : null), [shapes]);
@@ -136,6 +156,7 @@ export default function ConfiguratorPage() {
 
   function handleChange(next: ConfiguratorState) {
     background.current = next.background;
+    if (state && next.dayNight !== state.dayNight) autoNight.current = false; // their own choice stays
     // What visitors adjust, for the analytics (one event per changed option, no personal data).
     if (state) {
       for (const key of ["dayNight", "mounting", "depthMm", "sizeIn", "glowColor", "color", "background", "finish", "build", "variant"] as const) {
@@ -261,6 +282,30 @@ export default function ConfiguratorPage() {
       ...(emitsLight(config) ? [{ label: "Lighting", value: glowName }] : []),
       ...(diodes ? [{ label: "LEDs (estimate)", value: formatLedEstimate(diodes) }] : []),
     ].filter((i) => i.value);
+    // Labels on the picture for the open step. The artwork is TARGET_SIZE across its larger side, centred on the origin.
+    const halfW = (aspect >= 1 ? TARGET_SIZE : TARGET_SIZE * aspect) / 2;
+    const halfH = (aspect >= 1 ? TARGET_SIZE / aspect : TARGET_SIZE) / 2;
+    const dims = dimensionsIn(state.sizeIn, aspect);
+    const inches = (v: number) => `${Math.round(v * 10) / 10}″`;
+    const { face, halo, side } = config.light;
+    const lightText = !emitsLight(config)
+      ? ""
+      : [face !== "none" ? "the face" : "", side !== "none" ? "the sides" : "", halo !== "none" ? "a glow on the wall" : ""].filter(Boolean).join(" + ");
+    const markers: StepMarker[] = !shapes
+      ? []
+      : step === "size"
+        ? [
+            { id: "width", at: [0, -halfH, 0.1], text: `↔ ${inches(dims.width)} wide`, side: "below" },
+            { id: "height", at: [-halfW, 0, 0.1], text: `↕ ${inches(dims.height)} high`, side: "left" },
+            { id: "depth", at: [halfW, halfH, 0.05], text: `${formatDepth(state.depthMm)} deep`, side: "above" },
+          ]
+        : step === "colour"
+          ? [{ id: "colour", at: [halfW * 0.55, halfH, 0.1], text: `Colour of the letters: ${paintName}`, side: "above" }]
+          : step === "light" && lightText
+            ? [{ id: "light", at: [-halfW * 0.4, halfH, 0.1], text: `Lights up: ${lightText} · ${glowName}`, side: "above" }]
+            : step === "text"
+              ? [{ id: "text", at: [0, halfH, 0.1], text: source === "text" ? "Your text, as a sign" : "Your logo, as a sign", side: "above" }]
+              : [];
     return (
       <AppChrome>
         <div className="mx-auto max-w-[1700px] px-3 pb-2 pt-2 sm:px-5 lg:pb-3 lg:pt-3">
@@ -272,7 +317,7 @@ export default function ConfiguratorPage() {
               {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
               <div className="relative min-h-0 w-full flex-1">
                 <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                  <SignPreview paused={techOpen} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} renderBar={desktop ? (camera, tools) => <SceneBar state={state} onChange={handleChange} camera={camera} tools={tools} /> : undefined} />
+                  <SignPreview paused={techOpen} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} focus={step} markers={markers} renderBar={desktop ? (camera, tools) => <SceneBar state={state} onChange={handleChange} camera={camera} tools={tools} /> : undefined} />
                 </ErrorBoundary>
                 <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
                 {!shapes && (
@@ -292,6 +337,7 @@ export default function ConfiguratorPage() {
                 </div>
               )}
               <ConfiguratorPanel
+                onStep={handleStep}
                 tabs={[
                   {
                     id: "type",

@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useRef, type MutableRefObject, type ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Environment } from "@react-three/drei";
+import { Environment, Html } from "@react-three/drei";
 import * as THREE from "three";
 import CameraRig, { type CameraApi } from "./CameraRig";
 import ConfigScene from "./ConfigScene";
 import PreviewFrame from "./PreviewFrame";
-import { HOME_POSITION } from "./cameraMath";
+import { HOME_POSITION, STEP_VIEWS, type StepFocus } from "./cameraMath";
 import { NightProvider, useNightEffect } from "./NightContext";
 import { getBackground, type BackgroundDef } from "./backgrounds";
 import { makeWallLook, wallLookAt } from "./wallLook";
@@ -25,6 +25,10 @@ interface SignPreviewProps {
   hideHint?: boolean;
   /** Desktop: a toolbar under the preview, given the camera commands and the image download. */
   renderBar?: (camera: { zoomIn: () => void; zoomOut: () => void; reset: () => void }, tools: { download: () => void; downloading: boolean }) => ReactNode;
+  /** The step of the configurator that is open: the camera eases to the view that shows what it changes. */
+  focus?: StepFocus | null;
+  /** Labels pinned to points of the sign while a step is open (the measures, "this colour", "the light"). Not part of downloads. */
+  markers?: StepMarker[];
   /** Stop drawing (the picture stays) while something else covers the preview, so it does not compete for the graphics card. */
   paused?: boolean;
 }
@@ -77,6 +81,44 @@ function SceneAtmosphere({ dark, background }: { dark: boolean; background: Back
       {/* Always mounted (intensity 0 when off): adding/removing a light recompiles every material. */}
       <pointLight ref={point} position={[-1.8, 1.5, 1.8]} intensity={9} />
       <Environment files="/configurator/studio.hdr" />
+    </>
+  );
+}
+
+/** A label pinned to a point of the sign (world units), with a pointer on the side that faces the sign. */
+export interface StepMarker {
+  id: string;
+  at: [number, number, number];
+  text: string;
+  /** Where the label sits relative to its point. */
+  side: "above" | "below" | "left" | "right";
+}
+
+const MARKER_SHIFT: Record<StepMarker["side"], string> = {
+  above: "translate(-50%, calc(-100% - 10px))",
+  below: "translate(-50%, 10px)",
+  left: "translate(calc(-100% - 10px), -50%)",
+  right: "translate(10px, -50%)",
+};
+const MARKER_POINTER: Record<StepMarker["side"], string> = {
+  above: "left-1/2 top-full -translate-x-1/2 border-x-[6px] border-t-[8px] border-x-transparent border-t-brand",
+  below: "left-1/2 bottom-full -translate-x-1/2 border-x-[6px] border-b-[8px] border-x-transparent border-b-brand",
+  left: "left-full top-1/2 -translate-y-1/2 border-y-[6px] border-l-[8px] border-y-transparent border-l-brand",
+  right: "right-full top-1/2 -translate-y-1/2 border-y-[6px] border-r-[8px] border-y-transparent border-r-brand",
+};
+
+/** The labels live in the page (HTML over the canvas), so they never end up in a downloaded picture or the quote's snapshot. */
+function StepMarkers({ markers }: { markers: StepMarker[] }) {
+  return (
+    <>
+      {markers.map((m) => (
+        <Html key={m.id} position={m.at} zIndexRange={[5, 0]} style={{ pointerEvents: "none" }}>
+          <div data-step-marker={m.id} style={{ transform: MARKER_SHIFT[m.side] }} className="relative whitespace-nowrap rounded-full bg-brand px-3 py-1.5 text-xs font-bold text-brand-foreground shadow-lg motion-safe:animate-[pulse_1.6s_ease-in-out_2]">
+            {m.text}
+            <span aria-hidden="true" className={`absolute h-0 w-0 ${MARKER_POINTER[m.side]}`} />
+          </div>
+        </Html>
+      ))}
     </>
   );
 }
@@ -197,7 +239,7 @@ export function SnapshotBridge({ captureRef, width, quality }: { captureRef: Mut
   return null;
 }
 
-export default function SignPreview({ shapes, config, state, captureRef, hideHint, renderBar, paused }: SignPreviewProps) {
+export default function SignPreview({ shapes, config, state, captureRef, hideHint, renderBar, paused, focus, markers }: SignPreviewProps) {
   const isNight = state.dayNight === "night";
   // At night the room goes dark so the lit parts carry the picture. An unlit
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
@@ -205,6 +247,10 @@ export default function SignPreview({ shapes, config, state, captureRef, hideHin
 
   const camera = useRef<CameraApi>(null);
   const hiRes = useRef<RenderHiRes | null>(null);
+  // A step opened: turn to its view. Dragging the picture afterwards is free (the camera only moves when the step changes).
+  useEffect(() => {
+    if (focus) camera.current?.goTo(STEP_VIEWS[focus]);
+  }, [focus]);
 
   // The busy state lives in PreviewFrame: re-rendering this component would make r3f reset the pixel ratio mid-capture.
   async function download() {
@@ -234,6 +280,7 @@ export default function SignPreview({ shapes, config, state, captureRef, hideHin
           <SceneAtmosphere dark={dark} background={getBackground(state.background)} />
           <ConfigScene shapes={shapes} config={config} state={state} />
           <CameraRig ref={camera} />
+          {markers && markers.length > 0 && <StepMarkers markers={markers} />}
           {captureRef && <SnapshotBridge captureRef={captureRef} />}
           <HiResBridge renderRef={hiRes} />
         </NightProvider>

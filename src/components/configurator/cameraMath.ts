@@ -61,6 +61,21 @@ export function positionFromView(view: View, target: THREE.Vector3 = VIEW_TARGET
 
 export const HOME_VIEW: View = viewFromPosition(new THREE.Vector3(...HOME_POSITION));
 
+/**
+ * Where the camera goes when a step of the configurator opens, so the picture shows what that step changes (owner,
+ * 2026-11-17: "i would love to see the preview moving to show whats next"): the whole sign straight on for the text,
+ * a little further back for the size (room for the measures), close and from the side for the colour (face and
+ * return both in view), from the other side for the light.
+ */
+export type StepFocus = "type" | "text" | "size" | "colour" | "light";
+export const STEP_VIEWS: Record<StepFocus, View> = {
+  type: HOME_VIEW,
+  text: { radius: 5.0, theta: 0, phi: deg(88) },
+  size: { radius: 5.3, theta: deg(10), phi: deg(86) },
+  colour: { radius: 3.5, theta: deg(34), phi: deg(76) },
+  light: { radius: 4.6, theta: -deg(24), phi: deg(82) },
+};
+
 export function clampView(view: View, limits: Limits = VIEW_LIMITS): View {
   return {
     radius: clamp(view.radius, limits.minRadius, limits.maxRadius),
