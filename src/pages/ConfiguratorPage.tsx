@@ -19,7 +19,8 @@ import ConfigSummaryCard from "../components/configurator/ConfigSummaryCard";
 import TechnicalView from "../components/configurator/TechnicalView";
 import { useDesktop } from "../components/configurator/useDesktop";
 import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
-import { ArrowRight, Building2, Layers, Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
+import ConfiguratorTour, { TourOffer, rememberTourAnswer, tourAnswered } from "../components/configurator/ConfiguratorTour";
+import { ArrowRight, Building2, CircleHelp, Layers, Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
 import SignPreview, { type CaptureSnapshot, type StepMarker } from "../components/configurator/SignPreview";
 import type { StepFocus } from "../components/configurator/cameraMath";
 import { TARGET_SIZE } from "../components/configurator/normalizeShapes";
@@ -31,6 +32,7 @@ import { DEFAULT_BACKGROUND, type BackgroundId } from "../components/configurato
 import { formatConfigSummary, configSummaryRows, type ArtworkInfo } from "../components/configurator/configSummary";
 import { saveQuote, quoteFileId, type ArtworkFileMeta, type QuoteSnapshot } from "../components/configurator/quoteStorage";
 import { clearArtworkFile, saveArtworkFile } from "../components/configurator/artworkFileStorage";
+import { clearDraft, loadDraft, saveDraft, type ConfigDraft } from "../components/configurator/configDraft";
 import { strokeHeightRatio, thinStrokeAdvice } from "../components/configurator/strokeGuard";
 import { BRUSHED_SWATCH, GLOW_SWATCHES, PAINT_SWATCHES, describeColor } from "../components/configurator/swatches";
 import { MM_PER_INCH, aspectOf, clampSizeIn, dimensionsIn, formatSize } from "../components/configurator/realSize";
@@ -87,19 +89,48 @@ function initialState(params: URLSearchParams): ConfiguratorState | null {
   return state;
 }
 
+/**
+ * The sign this tab was building before a reload or a trip to the quote form, if it is the one the address asks for
+ * (or the address asks for none). Its options are laid over the configuration's defaults, so a draft from an older
+ * version of the page still opens.
+ */
+function restoredDraft(params: URLSearchParams): ConfigDraft | null {
+  const draft = loadDraft();
+  const config = draft && findConfig(draft.state.configId);
+  if (!draft || !config) return null;
+  const asked = params.get("config");
+  if (asked && asked !== draft.state.configId) return null;
+  return { ...draft, state: { ...defaultStateFor(config), ...draft.state } };
+}
+
 export default function ConfiguratorPage() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const [state, setState] = useState<ConfiguratorState | null>(() => initialState(searchParams));
-  // Text first, with the preset word; `?source=upload` opens on the logo upload instead.
-  const startSource: ArtworkSource = searchParams.get("source") === "upload" ? "upload" : "text";
+  const [draft] = useState(() => restoredDraft(searchParams));
+  const [state, setState] = useState<ConfiguratorState | null>(() => draft?.state ?? initialState(searchParams));
+  // Text first, with the preset word; `?source=upload` opens on the logo upload instead. An uploaded logo cannot be
+  // kept across a reload, so a restored draft that used one opens on the upload again.
+  const startSource: ArtworkSource = draft ? draft.source : searchParams.get("source") === "upload" ? "upload" : "text";
   // Each artwork source keeps its own result, so the sign shown always belongs to the source selected.
   const [source, setSource] = useState<ArtworkSource>(startSource);
   const [uploadShapes, setUploadShapes] = useState<THREE.Shape[] | null>(null);
   // The original file is kept as well as the parsed shapes: it travels to the contact form with the quote.
   const [uploadFile, setUploadFile] = useState<File | null>(null);
-  const [text, setText] = useState(startSource === "text" ? PRESET_TEXT : "");
-  const [pickedFontId, setFontId] = useState(DEFAULT_FONT_ID);
+  const [text, setText] = useState(draft ? draft.text || (startSource === "text" ? PRESET_TEXT : "") : startSource === "text" ? PRESET_TEXT : "");
+  const [pickedFontId, setFontId] = useState(draft?.fontId || DEFAULT_FONT_ID);
+  // Keep the sign for this tab, and the configuration in the address, so a reload or the Back button returns to it.
+  const configId = state?.configId ?? null;
+  useEffect(() => {
+    if (state) saveDraft({ state, source, text, fontId: pickedFontId });
+  }, [state, source, text, pickedFontId]);
+  useEffect(() => {
+    if (searchParams.get("config") === configId || (!configId && !searchParams.get("config"))) return;
+    const next = new URLSearchParams(searchParams);
+    if (configId) next.set("config", configId);
+    else next.delete("config");
+    setSearchParams(next, { replace: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [configId]);
   // As chosen (LP 5 or LP 5+3.1), and the font actually used: the single-line neon fonts only go with LP 11-N.
   const baseConfig = findConfig(state?.configId ?? null);
   const config = baseConfig && state ? effectiveConfig(baseConfig, state) : baseConfig;
@@ -115,6 +146,26 @@ export default function ConfiguratorPage() {
   }, [shapes, source]);
   const desktop = useDesktop();
   const [techOpen, setTechOpen] = useState(false);
+  // First visit: "show me how" or "I know how" (owner, 2026-11-17); the tour can be started again from the preview.
+  const [tourOffer, setTourOffer] = useState(false);
+  const [touring, setTouring] = useState(false);
+  const [goTo, setGoTo] = useState<{ id: string } | null>(null);
+  useEffect(() => {
+    if (!tourAnswered()) setTourOffer(true);
+  }, []);
+  const startTour = () => {
+    rememberTourAnswer("tour");
+    setTourOffer(false);
+    setTouring(true);
+    trackEvent("configurator_tour", { choice: "tour" });
+  };
+  const skipTour = () => {
+    rememberTourAnswer("skip");
+    setTourOffer(false);
+    trackEvent("configurator_tour", { choice: "skip" });
+  };
+  const openPanel = useCallback((id: string) => setGoTo({ id }), []);
+  const endTour = useCallback(() => setTouring(false), []);
   // The open step: the preview turns to show what it changes and labels it.
   const [step, setStep] = useState<StepFocus | null>(null);
   // Opening "Light" by day shows the sign at night (light is hard to judge in daylight); leaving the step goes back to day,
@@ -315,7 +366,14 @@ export default function ConfiguratorPage() {
             {/* Phones: the preview stays pinned under the header while the options scroll beneath it. */}
             <div className="flex min-h-[200px] min-w-0 flex-1 flex-col gap-3">
               {/* The 3D canvas stays mounted while the text is empty or being rebuilt: tearing it down and starting a new WebGL context is what made the preview vanish for a second. */}
-              <div className="relative min-h-0 w-full flex-1">
+              <div data-tour="preview" className="relative min-h-0 w-full flex-1">
+                {tourOffer && !touring && <TourOffer onTour={startTour} onSkip={skipTour} />}
+                {!tourOffer && !touring && (
+                  <button type="button" onClick={startTour} className="absolute left-3 top-3 z-10 flex h-9 items-center gap-1.5 rounded-full border border-border bg-background/80 px-3 text-xs font-semibold text-foreground backdrop-blur hover:bg-background focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary">
+                    <CircleHelp aria-hidden="true" className="h-4 w-4" />
+                    How it works
+                  </button>
+                )}
                 <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
                   <SignPreview paused={techOpen} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} focus={step} markers={markers} renderBar={desktop ? (camera, tools) => <SceneBar state={state} onChange={handleChange} camera={camera} tools={tools} /> : undefined} />
                 </ErrorBoundary>
@@ -338,6 +396,7 @@ export default function ConfiguratorPage() {
               )}
               <ConfiguratorPanel
                 onStep={handleStep}
+                goTo={goTo}
                 tabs={[
                   {
                     id: "type",
@@ -433,6 +492,7 @@ export default function ConfiguratorPage() {
               />
             </aside>
           </div>
+          {touring && <ConfiguratorTour onPanel={openPanel} onClose={endTour} />}
           {building && shapes && (
             <Suspense fallback={null}>
               <BuildingView shapes={shapes} config={config} state={state} onClose={closeBuilding} />
@@ -460,7 +520,10 @@ export default function ConfiguratorPage() {
             <button
               type="button"
               aria-label="Change configuration"
-              onClick={() => setState(null)}
+              onClick={() => {
+                clearDraft();
+                setState(null);
+              }}
               className="text-sm text-muted-foreground hover:text-foreground"
             >
               ← Change configuration

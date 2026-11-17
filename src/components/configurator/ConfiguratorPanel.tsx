@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ArrowRight, Check, ChevronDown } from "lucide-react";
 import { cn } from "@project/lib/utils";
 import { useDesktop } from "./useDesktop";
@@ -20,6 +20,8 @@ interface ConfiguratorPanelProps {
   action: ReactNode;
   /** Told which step is open (null while the sheet is folded away on a phone), so the preview can show what it is about. */
   onStep?: (id: string | null) => void;
+  /** Open this step from outside (the guided tour). A new object each time, so the same step can be asked for again. */
+  goTo?: { id: string } | null;
 }
 
 /**
@@ -31,11 +33,20 @@ interface ConfiguratorPanelProps {
  * action beside it, and tapping the open step again folds the sheet away so the preview gets the whole screen.
  * Every step stays mounted (closed ones are only hidden by CSS), so nothing is lost when switching.
  */
-export default function ConfiguratorPanel({ tabs, action, onStep }: ConfiguratorPanelProps) {
+export default function ConfiguratorPanel({ tabs, action, onStep, goTo }: ConfiguratorPanelProps) {
   const [active, setActive] = useState(tabs[0].id);
   const [open, setOpen] = useState(true);
   const [seen, setSeen] = useState<string[]>([tabs[0].id]);
   const desktop = useDesktop();
+
+  useEffect(() => {
+    if (!goTo || !tabs.some((t) => t.id === goTo.id)) return;
+    onStep?.(goTo.id);
+    setActive(goTo.id);
+    setOpen(true);
+    setSeen((s) => (s.includes(goTo.id) ? s : [...s, goTo.id]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [goTo]);
 
   function choose(id: string) {
     if (id === active) {
@@ -64,7 +75,7 @@ export default function ConfiguratorPanel({ tabs, action, onStep }: Configurator
               const done = !on && seen.includes(t.id);
               const next = tabs[i + 1];
               return (
-                <li key={t.id} className={cn("rounded-xl border bg-card transition-colors", on ? "border-brand/60" : "border-border")}>
+                <li key={t.id} data-tour-step={t.id} className={cn("rounded-xl border bg-card transition-colors", on ? "border-brand/60" : "border-border")}>
                   <button
                     type="button"
                     aria-expanded={on}
@@ -107,7 +118,7 @@ export default function ConfiguratorPanel({ tabs, action, onStep }: Configurator
           </ol>
         ) : (
           tabs.map((t) => (
-            <div key={t.id} id={`panel-${t.id}`} role="group" aria-label={t.label} className={cn("space-y-3", t.id !== active && "hidden")}>
+            <div key={t.id} id={`panel-${t.id}`} data-tour-step={t.id} role="group" aria-label={t.label} className={cn("space-y-3", t.id !== active && "hidden")}>
               {t.content}
             </div>
           ))
@@ -142,7 +153,7 @@ export default function ConfiguratorPanel({ tabs, action, onStep }: Configurator
         })}
       </nav>
 
-      <div className="order-3 flex gap-2 lg:order-2 [&>*]:flex-1">{action}</div>
+      <div data-tour="actions" className="order-3 flex gap-2 lg:order-2 [&>*]:flex-1">{action}</div>
     </div>
   );
 }
