@@ -12,10 +12,10 @@ function rect(wMm: number, hMm: number) {
 }
 
 describe("LP 11 LED estimate", () => {
-  it("counts the 22 mm grid points that keep 5 mm from the edge", () => {
-    // 100 × 56 mm: 5 columns (centred, 6 mm from the sides) × 3 rows (6 mm from top and bottom)
+  it("counts the 12 mm grid points that keep 5 mm from the edge", () => {
+    // 100 × 56 mm on the 12 mm grid (centre to centre; 22 mm until 2026-11-19): the same count as the CRM's 3D view
     const { s, sizeIn } = rect(100, 56);
-    expect(estimateDiodes([s], sizeIn)).toBe(15);
+    expect(estimateDiodes([s], sizeIn)).toBe(21);
   });
   it("leaves out letters too narrow for a diode", () => {
     const { s, sizeIn } = rect(100, 8);
