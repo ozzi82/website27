@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import * as THREE from "three";
 import type { LightConfig } from "../../data/configurations";
 import { useSignGeometry } from "./useSignGeometry";
@@ -20,6 +20,8 @@ import { glowParts, type WallSpill } from "./glowParts";
 
 interface ConfigSceneProps {
   shapes: THREE.Shape[];
+  /** Raceways and cabinets of the visitor's drawing: plain painted boxes between the wall and the letters. */
+  backing?: THREE.Shape[];
   config: LightConfig;
   state: ConfiguratorState;
   /** Mount the sign on a fascia panel of this size (in the scene's own units) instead of an endless wall. */
@@ -59,7 +61,19 @@ function EmptyScene({ config, state }: ConfigSceneProps) {
   );
 }
 
-function SignScene({ shapes, config, state, facade, bare }: ConfigSceneProps) {
+/** A raceway or cabinet: a plain dark box from the wall forward, a third of the letters' depth in front of their backs at most. */
+function Backing({ shapes, gap, depth }: { shapes: THREE.Shape[]; gap: number; depth: number }) {
+  const thick = Math.max(gap, depth * 0.35);
+  const geometry = useMemo(() => new THREE.ExtrudeGeometry(shapes, { depth: thick, bevelEnabled: false, curveSegments: 8 }), [shapes, thick]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  return (
+    <mesh geometry={geometry} position={[0, 0, -gap]} receiveShadow>
+      <meshStandardMaterial color="#3f454d" roughness={0.6} metalness={0.15} />
+    </mesh>
+  );
+}
+
+function SignScene({ shapes, backing, config, state, facade, bare }: ConfigSceneProps) {
   const { light, profile } = config;
   const { sizeIn } = state;
   const geometry = useSignGeometry(shapes, depthWorldFor(state.depthMm, sizeIn), profile, mmToWorld(NEON_MAX_ROUND_MM, sizeIn));
@@ -118,6 +132,8 @@ function SignScene({ shapes, config, state, facade, bare }: ConfigSceneProps) {
         {sides}
         {face}
       </mesh>
+
+      {backing?.length ? <Backing shapes={backing} gap={gap} depth={depth} /> : null}
 
       {!bare && <BackdropWall gap={gap} background={background} wall={wall} size={facade ? { w: facade.width, h: facade.height } : undefined} />}
       {state.mounting === "standoff" && <Spacers shapes={shapes} height={height} sizeIn={sizeIn} />}

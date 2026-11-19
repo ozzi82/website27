@@ -18,6 +18,8 @@ export type CaptureSnapshot = () => Promise<string | null>;
 
 interface SignPreviewProps {
   shapes: THREE.Shape[];
+  /** Raceways and cabinets of the visitor's drawing: plain boxes behind the letters. */
+  backing?: THREE.Shape[];
   config: LightConfig;
   state: ConfiguratorState;
   /** Filled with the snapshot function while the preview is mounted (used by "Get a Quote"). */
@@ -239,7 +241,7 @@ export function SnapshotBridge({ captureRef, width, quality }: { captureRef: Mut
   return null;
 }
 
-export default function SignPreview({ shapes, config, state, captureRef, hideHint, renderBar, paused, focus, markers }: SignPreviewProps) {
+export default function SignPreview({ shapes, backing, config, state, captureRef, hideHint, renderBar, paused, focus, markers }: SignPreviewProps) {
   const isNight = state.dayNight === "night";
   // At night the room goes dark so the lit parts carry the picture. An unlit
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
@@ -278,7 +280,7 @@ export default function SignPreview({ shapes, config, state, captureRef, hideHin
       <Canvas shadows camera={CAMERA} dpr={DPR} frameloop={paused ? "never" : "always"}>
         <NightProvider isNight={isNight}>
           <SceneAtmosphere dark={dark} background={getBackground(state.background)} />
-          <ConfigScene shapes={shapes} config={config} state={state} />
+          <ConfigScene shapes={shapes} backing={backing} config={config} state={state} />
           <CameraRig ref={camera} />
           {markers && markers.length > 0 && <StepMarkers markers={markers} />}
           {captureRef && <SnapshotBridge captureRef={captureRef} />}

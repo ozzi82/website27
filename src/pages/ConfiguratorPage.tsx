@@ -1,3 +1,5 @@
+import { PartPicker } from "../components/configurator/PartPicker";
+import { backingShapes, describeParts, letterShapes, type PartRole } from "../components/configurator/partRoles";
 import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
@@ -136,7 +138,11 @@ export default function ConfiguratorPage() {
   const config = baseConfig && state ? effectiveConfig(baseConfig, state) : baseConfig;
   const fontId = config ? usableFontId(config, pickedFontId) : pickedFontId;
   const textArtwork = useTextArtwork(text, fontId, source === "text");
-  const shapes = source === "text" ? textArtwork.shapes : uploadShapes;
+  // An upload may show more than letters (a raceway, a cabinet, vinyl): the visitor can mark those parts.
+  const [roles, setRoles] = useState<PartRole[]>([]);
+  const shapes = useMemo(() => (source === "text" ? textArtwork.shapes : uploadShapes ? letterShapes(uploadShapes, roles) : uploadShapes), [source, textArtwork.shapes, uploadShapes, roles]);
+  const backing = useMemo(() => (source === "upload" && uploadShapes ? backingShapes(uploadShapes, roles) : NO_SHAPES), [source, uploadShapes, roles]);
+  const partsNote = source === "upload" && uploadShapes ? describeParts(roles, uploadShapes.length) : "";
   const artworkTracked = useRef<string | null>(null);
   useEffect(() => {
     if (shapes && artworkTracked.current !== source) {
@@ -230,11 +236,13 @@ export default function ConfiguratorPage() {
   function handleParsed(parsed: THREE.Shape[], file: File) {
     setUploadFile(file);
     setUploadShapes(parsed);
+    setRoles([]);
   }
 
   function clearUpload() {
     setUploadShapes(null);
     setUploadFile(null);
+    setRoles([]);
   }
 
   /** The artwork as a file for the quote: the visitor's own upload, or an SVG of the typed text. */
@@ -258,7 +266,7 @@ export default function ConfiguratorPage() {
         : uploadShapes
           ? { kind: "upload", fileName: uploadFile?.name || "uploaded artwork" }
           : null;
-    const extras = { note: thinStrokeAdvice(config, strokeRatio, artworkHeightMm, letterLines)?.message, aspect, diodes };
+    const extras = { note: thinStrokeAdvice(config, strokeRatio, artworkHeightMm, letterLines)?.message, aspect, diodes, ...(partsNote ? { parts: partsNote } : {}) };
     return {
       v: 1,
       summary: formatConfigSummary(state, config, artwork, extras),
@@ -375,7 +383,7 @@ export default function ConfiguratorPage() {
                   </button>
                 )}
                 <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                  <SignPreview paused={techOpen} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} focus={step} markers={markers} renderBar={desktop ? (camera, tools) => <SceneBar state={state} onChange={handleChange} camera={camera} tools={tools} /> : undefined} />
+                  <SignPreview paused={techOpen} backing={backing} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} focus={step} markers={markers} renderBar={desktop ? (camera, tools) => <SceneBar state={state} onChange={handleChange} camera={camera} tools={tools} /> : undefined} />
                 </ErrorBoundary>
                 <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
                 {!shapes && (
@@ -438,6 +446,7 @@ export default function ConfiguratorPage() {
                   </button>
                 </p>
               )}
+              {source === "upload" && uploadShapes && uploadShapes.length > 1 && <PartPicker shapes={uploadShapes} roles={roles} onChange={setRoles} />}
 
               {source === "text" && (
                 <TextArtworkPanel
