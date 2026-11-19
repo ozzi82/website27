@@ -19,6 +19,8 @@ export interface SummaryExtras {
   aspect?: number;
   /** LP 11 only: the estimated number of LED diodes (see ledEstimate.ts). */
   diodes?: number;
+  /** Parts of the drawing that are not letters, as the visitor marked them (see partRoles.ts). */
+  parts?: string;
 }
 
 function describeArtwork(artwork: ArtworkInfo): string {
@@ -62,6 +64,7 @@ export function configSummaryRows(
     if (config.family === "Block acrylic" && extras.diodes) rows.push({ label: "LEDs (estimate)", value: formatLedEstimate(extras.diodes) });
   }
   if (artwork) rows.push({ label: "Artwork", value: describeArtwork(artwork) });
+  if (extras.parts) rows.push({ label: "Also in the drawing", value: extras.parts });
   if (extras.note) rows.push({ label: "Note", value: extras.note });
   return rows;
 }
