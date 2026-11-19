@@ -4,8 +4,8 @@ import { worldToMm } from "./realSize";
 /** One LP 11 LED diode on a 24 V system (owner, 2026-11-15). The CRM and SunliteDraw use the same figures. */
 export const DIODE_WATTS = 0.06;
 export const DIODE_VOLTS = 24;
-/** Diodes sit on a 22 mm grid, their centres 5 mm inside the letter's outline (the CRM's layout rule). */
-export const DIODE_PITCH_MM = 22;
+/** Diodes sit on a 12 mm grid (22 mm until 2026-11-19), their centres 5 mm inside the letter's outline (the CRM's layout rule). */
+export const DIODE_PITCH_MM = 12;
 export const DIODE_EDGE_MM = 5;
 
 type P = { x: number; y: number };
@@ -33,7 +33,7 @@ const nearEdge = (p: P, ring: P[], margin: number): boolean => {
 };
 
 /**
- * How many single LED diodes an LP 11 sign of this artwork and size takes: per letter, the points of a 22 mm grid
+ * How many single LED diodes an LP 11 sign of this artwork and size takes: per letter, the points of a 12 mm grid
  * (centred on the letter) that lie inside it and at least 5 mm from its edges. An estimate; the factory's layout decides.
  */
 export function estimateDiodes(shapes: THREE.Shape[], sizeIn: number): number {
