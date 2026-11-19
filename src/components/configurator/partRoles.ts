@@ -7,8 +7,8 @@ export type PartRole = "letter" | "raceway" | "cabinet" | "vinyl" | "ignore";
 
 export const PART_ROLES: { id: PartRole; label: string; hint: string; swatch: string }[] = [
   { id: "letter", label: "Letter", hint: "Part of the sign, built and lit as chosen", swatch: "#f1671c" },
-  { id: "raceway", label: "Raceway", hint: "The box the letters are mounted on", swatch: "#4b5563" },
-  { id: "cabinet", label: "Cabinet", hint: "A sign box or panel behind the letters", swatch: "#1f2937" },
+  { id: "raceway", label: "Raceway", hint: "The box the letters are mounted on", swatch: "#5f6b7a" },
+  { id: "cabinet", label: "Cabinet", hint: "A sign box or panel behind the letters", swatch: "#8b95a5" },
   { id: "vinyl", label: "Vinyl on the face", hint: "Colour applied to a face, not a letter of its own", swatch: "#0f766e" },
   { id: "ignore", label: "Not part of the sign", hint: "A wall, a border, a note: left out", swatch: "#d1d5db" },
 ];
