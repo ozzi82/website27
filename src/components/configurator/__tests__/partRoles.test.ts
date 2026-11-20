@@ -19,6 +19,9 @@ describe("parts of an uploaded drawing", () => {
     expect(backingShapes(shapes, roles)).toEqual([shapes[0]]);
     expect(describeParts(roles, 4)).toBe("1 raceway, 1 area of vinyl on the face, 1 part left out (not part of the sign)");
     expect(describeParts(["cabinet", "cabinet"], 4)).toBe("2 cabinets");
+    // Translucent vinyl is named apart from opaque vinyl, and is no letter either
+    expect(describeParts(["vinylTranslucent", "vinyl"], 2)).toBe("1 area of vinyl on the face, 1 area of translucent vinyl on the face (lights up)");
+    expect(letterShapes(shapes, ["vinylTranslucent"])).toEqual(shapes.slice(1));
   });
 
 });
