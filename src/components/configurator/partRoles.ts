@@ -3,13 +3,14 @@
 // letters are lit and counted, and the quote names the rest.
 import * as THREE from "three";
 
-export type PartRole = "letter" | "raceway" | "cabinet" | "vinyl" | "ignore";
+export type PartRole = "letter" | "raceway" | "cabinet" | "vinyl" | "vinylTranslucent" | "ignore";
 
 export const PART_ROLES: { id: PartRole; label: string; hint: string; swatch: string }[] = [
   { id: "letter", label: "Letter", hint: "Part of the sign, built and lit as chosen", swatch: "#f1671c" },
   { id: "raceway", label: "Raceway", hint: "The box the letters are mounted on", swatch: "#5f6b7a" },
   { id: "cabinet", label: "Cabinet", hint: "A sign box or panel behind the letters", swatch: "#8b95a5" },
-  { id: "vinyl", label: "Vinyl on the face", hint: "Colour applied to a face, not a letter of its own", swatch: "#0f766e" },
+  { id: "vinyl", label: "Vinyl on the face", hint: "Opaque colour applied to a face, not a letter of its own: it blocks the light", swatch: "#0f766e" },
+  { id: "vinylTranslucent", label: "Translucent vinyl", hint: "Colour on a lit face that lets the light through and glows in its own colour", swatch: "#2dd4bf" },
   { id: "ignore", label: "Not part of the sign", hint: "A wall, a border, a note: left out", swatch: "#d1d5db" },
 ];
 
@@ -33,6 +34,7 @@ export function describeParts(roles: readonly PartRole[], count: number): string
     ...some(n("raceway"), "raceway", "raceways"),
     ...some(n("cabinet"), "cabinet", "cabinets"),
     ...some(n("vinyl"), "area of vinyl on the face", "areas of vinyl on the face"),
+    ...some(n("vinylTranslucent"), "area of translucent vinyl on the face (lights up)", "areas of translucent vinyl on the face (light up)"),
     ...some(n("ignore"), "part left out (not part of the sign)", "parts left out (not part of the sign)"),
   ].join(", ");
 }
