@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useFrame } from "@react-three/fiber";
 import type { BackgroundDef } from "./backgrounds";
 import { makeWallLook, wallLookAt } from "./wallLook";
 import { useNightEffect } from "./NightContext";
@@ -11,6 +12,8 @@ interface BackdropWallProps {
   wall: WallTexture | null;
   /** Panel size in world units; the default is a wall big enough to fill any view. */
   size?: { w: number; h: number };
+  /** Hide the wall while the camera is behind it, so the back of the letters can be looked at. */
+  hideFromBehind?: boolean;
 }
 
 /** World size of the wall. */
@@ -19,8 +22,12 @@ export const WALL_SIZE = { w: 120, h: 60 };
 // Big enough that its edges stay out of frame even when the camera is orbited and
 // zoomed out; a smaller plane reads as a floating card. The texture tiles across it,
 // with a tile centred on the origin so tile seams never cross the artwork.
-export default function BackdropWall({ gap, background, wall, size = WALL_SIZE }: BackdropWallProps) {
+export default function BackdropWall({ gap, background, wall, size = WALL_SIZE, hideFromBehind = false }: BackdropWallProps) {
   const material = useRef<THREE.MeshStandardMaterial>(null);
+  const mesh = useRef<THREE.Mesh>(null);
+  useFrame(({ camera }) => {
+    if (mesh.current) mesh.current.visible = !hideFromBehind || camera.position.z > -gap + 0.05;
+  });
   const look = useMemo(makeWallLook, []);
   const { tile } = background;
 
@@ -45,7 +52,7 @@ export default function BackdropWall({ gap, background, wall, size = WALL_SIZE }
 
   const map = wall?.texture;
   return (
-    <mesh position={[0, 0, -gap]} geometry={geometry} receiveShadow>
+    <mesh ref={mesh} position={[0, 0, -gap]} geometry={geometry} receiveShadow>
       {/* The same canvas serves as colour, relief and (faintly) self-lit texture, so the wall keeps its character in the dark. */}
       <meshStandardMaterial
         ref={material}

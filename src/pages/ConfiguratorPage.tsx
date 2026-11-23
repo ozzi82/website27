@@ -1,6 +1,6 @@
 import { PartPicker } from "../components/configurator/PartPicker";
 import { backingShapes, describeParts, letterShapes, type PartRole } from "../components/configurator/partRoles";
-import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { Fragment, lazy, Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import * as THREE from "three";
@@ -24,7 +24,7 @@ import ConfiguratorPanel from "../components/configurator/ConfiguratorPanel";
 import ConfiguratorTour, { TourOffer, rememberTourAnswer, tourAnswered } from "../components/configurator/ConfiguratorTour";
 import { ArrowRight, Building2, CircleHelp, Layers, Lightbulb, Mountain, Palette, Ruler, Type } from "lucide-react";
 import SignPreview, { type CaptureSnapshot, type StepMarker } from "../components/configurator/SignPreview";
-import type { StepFocus } from "../components/configurator/cameraMath";
+import type { PartFocus, StepFocus } from "../components/configurator/cameraMath";
 import { TARGET_SIZE } from "../components/configurator/normalizeShapes";
 import PreviewErrorFallback from "../components/configurator/PreviewErrorFallback";
 import { useWebglSupported } from "../components/configurator/webglSupport";
@@ -177,7 +177,13 @@ export default function ConfiguratorPage() {
   // Opening "Light" by day shows the sign at night (light is hard to judge in daylight); leaving the step goes back to day,
   // unless the visitor switched day/night themselves meanwhile.
   const autoNight = useRef(false);
+  // The new configurator, shown only with ?new=1 until the owner decides (2026-11-23): controls turn the view to the
+  // part they change, the wall hides from behind, and the choices and the size stay on the picture.
+  const fresh = searchParams.get("new") === "1";
+  const [part, setPart] = useState<{ key: PartFocus; at: number } | null>(null);
+  const pointAt = useCallback((key: PartFocus) => setPart((was) => (was?.key === key ? was : { key, at: Date.now() })), []);
   function handleStep(id: string | null) {
+    setPart(null);
     const next = (id === "type" || id === "text" || id === "size" || id === "colour" || id === "light" ? id : null) as StepFocus | null;
     setStep(next);
     if (!state) return;
@@ -352,7 +358,7 @@ export default function ConfiguratorPage() {
       : [face !== "none" ? "the face" : "", side !== "none" ? "the sides" : "", halo !== "none" ? "a glow on the wall" : ""].filter(Boolean).join(" + ");
     const markers: StepMarker[] = !shapes
       ? []
-      : step === "size"
+      : step === "size" || (fresh && step !== "colour" && step !== "light" && step !== "text")
         ? [
             { id: "width", at: [0, -halfH, 0.1], text: `↔ ${inches(dims.width)} wide`, side: "below" },
             { id: "height", at: [-halfW, 0, 0.1], text: `↕ ${inches(dims.height)} high`, side: "left" },
@@ -383,8 +389,22 @@ export default function ConfiguratorPage() {
                   </button>
                 )}
                 <ErrorBoundary FallbackComponent={PreviewErrorFallback} resetKeys={[shapes]}>
-                  <SignPreview paused={techOpen} backing={backing} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} focus={step} markers={markers} renderBar={desktop ? (camera, tools) => <SceneBar state={state} onChange={handleChange} camera={camera} tools={tools} /> : undefined} />
+                  <SignPreview paused={techOpen} part={fresh ? part : null} around={fresh} backing={backing} shapes={shapes ?? NO_SHAPES} config={config} state={state} captureRef={capture} hideHint={desktop} focus={step} markers={markers} renderBar={desktop ? (camera, tools) => <SceneBar state={state} onChange={handleChange} camera={camera} tools={tools} /> : undefined} />
                 </ErrorBoundary>
+                {fresh && desktop && state && (
+                  <section aria-label="Current configuration" data-testid="summary-on-preview" className="pointer-events-none absolute bottom-20 left-3 z-10 w-64 rounded-xl border border-border bg-background/85 p-3 text-xs backdrop-blur">
+                    <h2 className="mono-label text-muted-foreground">Your sign so far</h2>
+                    <p className="mt-0.5 text-base font-semibold">{shapes ? formatSize(state.sizeIn, aspect).replace(/ \(.*\)$/, "") : "Still to choose: your text or logo"}</p>
+                    <dl className="mt-1.5 grid grid-cols-[auto_minmax(0,1fr)] gap-x-3 gap-y-0.5">
+                      {[{ label: "Sign type", value: config.code }, ...summaryItems.filter((i) => i.label !== "Width × Height")].map((i) => (
+                        <Fragment key={i.label}>
+                          <dt className="text-muted-foreground">{i.label}</dt>
+                          <dd className="truncate text-right font-medium" title={i.value}>{i.value}</dd>
+                        </Fragment>
+                      ))}
+                    </dl>
+                  </section>
+                )}
                 <ThinStrokeNotice config={config} strokeRatio={strokeRatio} heightMm={artworkHeightMm} lines={letterLines} />
                 {!shapes && (
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-6 text-center text-muted-foreground">
@@ -392,7 +412,7 @@ export default function ConfiguratorPage() {
                   </div>
                 )}
               </div>
-              {desktop && state && <ConfigSummaryCard items={[{ label: "Sign type", value: config.code }, ...summaryItems]} />}
+              {desktop && state && !fresh && <ConfigSummaryCard items={[{ label: "Sign type", value: config.code }, ...summaryItems]} />}
             </div>
 
             <aside className="flex min-w-0 flex-col lg:min-h-0 lg:w-[460px] lg:shrink-0 lg:rounded-2xl lg:border lg:border-border lg:bg-muted lg:p-5 xl:w-[500px]">
@@ -465,9 +485,9 @@ export default function ConfiguratorPage() {
                       </>
                     ),
                   },
-                  { id: "size", label: "Size", heading: "Size", summary: `${formatSize(state.sizeIn, aspect).replace(/ \(.*\)$/, "")} · ${formatDepth(state.depthMm)} deep`, icon: <Ruler />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
-                  { id: "colour", label: "Colour", heading: "Colour", summary: paintName, icon: <Palette />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
-                  { id: "light", label: "Light", heading: "Light", summary: emitsLight(config) ? glowName : "Not illuminated", icon: <Lightbulb />, content: <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
+                  { id: "size", label: "Size", heading: "Size", summary: `${formatSize(state.sizeIn, aspect).replace(/ \(.*\)$/, "")} · ${formatDepth(state.depthMm)} deep`, icon: <Ruler />, content: <ConfigControls onPart={fresh ? pointAt : undefined} config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="size" /> },
+                  { id: "colour", label: "Colour", heading: "Colour", summary: paintName, icon: <Palette />, content: <ConfigControls onPart={fresh ? pointAt : undefined} config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="colour" /> },
+                  { id: "light", label: "Light", heading: "Light", summary: emitsLight(config) ? glowName : "Not illuminated", icon: <Lightbulb />, content: <ConfigControls onPart={fresh ? pointAt : undefined} config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="light" /> },
                   ...(desktop ? [] : [
                   {
                       id: "look",
@@ -475,7 +495,7 @@ export default function ConfiguratorPage() {
                       icon: <Mountain />,
                       content: (
                         <>
-                          <ConfigControls config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
+                          <ConfigControls onPart={fresh ? pointAt : undefined} config={baseConfig ?? config} state={state} onChange={handleChange} strokeRatio={strokeRatio} aspect={aspect} lines={letterLines} adviceInPreview group="look" />
                 <ConfiguratorDisclaimer />
   
   

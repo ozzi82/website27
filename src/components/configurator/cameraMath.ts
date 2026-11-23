@@ -76,6 +76,25 @@ export const STEP_VIEWS: Record<StepFocus, View> = {
   light: { radius: 4.6, theta: -deg(24), phi: deg(82) },
 };
 
+/**
+ * The new configurator (behind ?new=1): the camera may go all the way round the sign; from behind, the wall is hidden
+ * (owner, 2026-11-23: "if you rotate all the way to the back of the letters, the wall disappears automatically").
+ */
+export const AROUND_LIMITS: Limits = { ...VIEW_LIMITS, minTheta: -Math.PI, maxTheta: Math.PI };
+
+/** What a single control changes on the sign: hovering it turns the camera there and lets that part glow once. */
+export type PartFocus = "size" | "depth" | "mounting" | "paint" | "face" | "light";
+export const PART_VIEWS: Record<PartFocus, View> = {
+  size: { radius: 5.3, theta: 0, phi: deg(88) },
+  depth: { radius: 3.4, theta: deg(62), phi: deg(84) },
+  mounting: { radius: 3.2, theta: deg(74), phi: deg(88) },
+  paint: { radius: 3.6, theta: deg(44), phi: deg(74) },
+  face: { radius: 4.2, theta: deg(12), phi: deg(84) },
+  light: { radius: 4.6, theta: -deg(24), phi: deg(82) },
+};
+/** Which surfaces glow for a part: the face, the sides, or neither (a view only). */
+export const PART_SURFACE: Record<PartFocus, "face" | "sides" | null> = { size: null, depth: "sides", mounting: null, paint: "sides", face: "face", light: null };
+
 export function clampView(view: View, limits: Limits = VIEW_LIMITS): View {
   return {
     radius: clamp(view.radius, limits.minRadius, limits.maxRadius),

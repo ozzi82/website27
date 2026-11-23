@@ -1,5 +1,6 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useFrame } from "@react-three/fiber";
 import type { LightConfig } from "../../data/configurations";
 import { useSignGeometry } from "./useSignGeometry";
 import HaloGlow from "./HaloGlow";
@@ -22,6 +23,10 @@ interface ConfigSceneProps {
   shapes: THREE.Shape[];
   /** Raceways and cabinets of the visitor's drawing: plain painted boxes between the wall and the letters. */
   backing?: THREE.Shape[];
+  /** The new configurator: the wall hides itself when the camera is behind it. */
+  around?: boolean;
+  /** Let the face or the sides glow softly once (a control that changes them is pointed at); `at` restarts it. */
+  glow?: { surface: "face" | "sides"; at: number } | null;
   config: LightConfig;
   state: ConfiguratorState;
   /** Mount the sign on a fascia panel of this size (in the scene's own units) instead of an endless wall. */
@@ -73,7 +78,33 @@ function Backing({ shapes, gap, depth }: { shapes: THREE.Shape[]; gap: number; d
   );
 }
 
-function SignScene({ shapes, backing, config, state, facade, bare }: ConfigSceneProps) {
+/**
+ * One soft glow, in and out, over the face or the sides: an orange veil just over the letter's own surface, so it works
+ * with every material (owner, 2026-11-23: the part a control changes is shown; "the blinking is cool but too much").
+ */
+function PartGlow({ geometry, glow }: { geometry: THREE.BufferGeometry; glow: { surface: "face" | "sides"; at: number } }) {
+  const face = useRef<THREE.MeshBasicMaterial>(null);
+  const sides = useRef<THREE.MeshBasicMaterial>(null);
+  const started = useRef(0);
+  useEffect(() => {
+    started.current = performance.now();
+  }, [glow.at, glow.surface]);
+  useFrame(() => {
+    const t = (performance.now() - started.current) / 1400;
+    const strength = t >= 0 && t < 1 ? Math.sin(Math.PI * t) * 0.22 : 0;
+    if (face.current) face.current.opacity = glow.surface === "face" ? strength : 0;
+    if (sides.current) sides.current.opacity = glow.surface === "sides" ? strength : 0;
+  });
+  const veil = { color: "#f1671c", transparent: true, opacity: 0, depthWrite: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2, toneMapped: false } as const;
+  return (
+    <mesh geometry={geometry} renderOrder={4}>
+      <meshBasicMaterial ref={face} attach="material-0" {...veil} />
+      <meshBasicMaterial ref={sides} attach="material-1" {...veil} />
+    </mesh>
+  );
+}
+
+function SignScene({ shapes, backing, config, state, facade, bare, around, glow }: ConfigSceneProps) {
   const { light, profile } = config;
   const { sizeIn } = state;
   const geometry = useSignGeometry(shapes, depthWorldFor(state.depthMm, sizeIn), profile, mmToWorld(NEON_MAX_ROUND_MM, sizeIn));
@@ -133,9 +164,10 @@ function SignScene({ shapes, backing, config, state, facade, bare }: ConfigScene
         {face}
       </mesh>
 
+      {glow ? <PartGlow geometry={geometry} glow={glow} /> : null}
       {backing?.length ? <Backing shapes={backing} gap={gap} depth={depth} /> : null}
 
-      {!bare && <BackdropWall gap={gap} background={background} wall={wall} size={facade ? { w: facade.width, h: facade.height } : undefined} />}
+      {!bare && <BackdropWall gap={gap} background={background} wall={wall} hideFromBehind={around} size={facade ? { w: facade.width, h: facade.height } : undefined} />}
       {state.mounting === "standoff" && <Spacers shapes={shapes} height={height} sizeIn={sizeIn} />}
 
       {wallSpill && (
