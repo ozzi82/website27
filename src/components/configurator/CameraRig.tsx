@@ -4,6 +4,7 @@ import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import {
+  AROUND_LIMITS,
   HOME_VIEW,
   VIEW_LIMITS,
   VIEW_TARGET,
@@ -38,7 +39,8 @@ const ZOOM_STEP = 0.78;
  * limited so the sign cannot be lost or the camera pushed behind the wall. Commands from outside the
  * canvas ease toward a goal view (and back to the middle of the sign) instead of jumping; grabbing the scene cancels them.
  */
-const CameraRig = forwardRef<CameraApi>(function CameraRig(_props, ref) {
+const CameraRig = forwardRef<CameraApi, { /** Let the camera go all the way round the sign (the wall hides itself from behind). */ around?: boolean }>(function CameraRig({ around = false }, ref) {
+  const limits = around ? AROUND_LIMITS : VIEW_LIMITS;
   const controls = useRef<OrbitControlsImpl>(null);
   const goal = useRef<View | null>(null);
   const goalTarget = useRef<THREE.Vector3 | null>(null);
@@ -77,7 +79,7 @@ const CameraRig = forwardRef<CameraApi>(function CameraRig(_props, ref) {
   useFrame((_, delta) => {
     const goalView = goal.current;
     if (!goalView) return;
-    const next = dampView(current(), clampView(goalView), delta);
+    const next = dampView(current(), clampView(goalView, limits), delta);
     const c = controls.current;
     const gt = goalTarget.current;
     if (c && gt) c.target.lerp(gt, 1 - Math.exp(-9 * delta));
@@ -113,8 +115,8 @@ const CameraRig = forwardRef<CameraApi>(function CameraRig(_props, ref) {
       zoomSpeed={0.8}
       minDistance={VIEW_LIMITS.minRadius}
       maxDistance={VIEW_LIMITS.maxRadius}
-      minAzimuthAngle={VIEW_LIMITS.minTheta}
-      maxAzimuthAngle={VIEW_LIMITS.maxTheta}
+      minAzimuthAngle={around ? -Infinity : VIEW_LIMITS.minTheta}
+      maxAzimuthAngle={around ? Infinity : VIEW_LIMITS.maxTheta}
       minPolarAngle={VIEW_LIMITS.minPhi}
       maxPolarAngle={VIEW_LIMITS.maxPhi}
       onStart={() => {

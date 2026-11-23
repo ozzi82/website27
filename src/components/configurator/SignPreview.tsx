@@ -5,7 +5,7 @@ import * as THREE from "three";
 import CameraRig, { type CameraApi } from "./CameraRig";
 import ConfigScene from "./ConfigScene";
 import PreviewFrame from "./PreviewFrame";
-import { HOME_POSITION, STEP_VIEWS, type StepFocus } from "./cameraMath";
+import { HOME_POSITION, STEP_VIEWS, type StepFocus, PART_SURFACE, PART_VIEWS, type PartFocus } from "./cameraMath";
 import { NightProvider, useNightEffect } from "./NightContext";
 import { getBackground, type BackgroundDef } from "./backgrounds";
 import { makeWallLook, wallLookAt } from "./wallLook";
@@ -29,6 +29,10 @@ interface SignPreviewProps {
   renderBar?: (camera: { zoomIn: () => void; zoomOut: () => void; reset: () => void }, tools: { download: () => void; downloading: boolean }) => ReactNode;
   /** The step of the configurator that is open: the camera eases to the view that shows what it changes. */
   focus?: StepFocus | null;
+  /** The new configurator: a control is pointed at; the camera turns to what it changes and that part glows once. */
+  part?: { key: PartFocus; at: number } | null;
+  /** The new configurator: the camera may go all the way round, and the wall hides itself from behind. */
+  around?: boolean;
   /** Labels pinned to points of the sign while a step is open (the measures, "this colour", "the light"). Not part of downloads. */
   markers?: StepMarker[];
   /** Stop drawing (the picture stays) while something else covers the preview, so it does not compete for the graphics card. */
@@ -241,7 +245,7 @@ export function SnapshotBridge({ captureRef, width, quality }: { captureRef: Mut
   return null;
 }
 
-export default function SignPreview({ shapes, backing, config, state, captureRef, hideHint, renderBar, paused, focus, markers }: SignPreviewProps) {
+export default function SignPreview({ shapes, backing, config, state, captureRef, hideHint, renderBar, paused, focus, markers, part, around }: SignPreviewProps) {
   const isNight = state.dayNight === "night";
   // At night the room goes dark so the lit parts carry the picture. An unlit
   // letter (LP 1) has nothing to glow, so it keeps a dim key light and stays readable.
@@ -253,6 +257,11 @@ export default function SignPreview({ shapes, backing, config, state, captureRef
   useEffect(() => {
     if (focus) camera.current?.goTo(STEP_VIEWS[focus]);
   }, [focus]);
+  useEffect(() => {
+    if (part) camera.current?.goTo(PART_VIEWS[part.key]);
+  }, [part]);
+  const surface = part ? PART_SURFACE[part.key] : null;
+  const glow = useMemo(() => (part && surface ? { surface, at: part.at } : null), [part, surface]);
 
   // The busy state lives in PreviewFrame: re-rendering this component would make r3f reset the pixel ratio mid-capture.
   async function download() {
@@ -280,8 +289,8 @@ export default function SignPreview({ shapes, backing, config, state, captureRef
       <Canvas shadows camera={CAMERA} dpr={DPR} frameloop={paused ? "never" : "always"}>
         <NightProvider isNight={isNight}>
           <SceneAtmosphere dark={dark} background={getBackground(state.background)} />
-          <ConfigScene shapes={shapes} backing={backing} config={config} state={state} />
-          <CameraRig ref={camera} />
+          <ConfigScene shapes={shapes} backing={backing} config={config} state={state} around={around} glow={glow} />
+          <CameraRig ref={camera} around={around} />
           {markers && markers.length > 0 && <StepMarkers markers={markers} />}
           {captureRef && <SnapshotBridge captureRef={captureRef} />}
           <HiResBridge renderRef={hiRes} />

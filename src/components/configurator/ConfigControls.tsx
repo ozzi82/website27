@@ -1,4 +1,5 @@
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useId, useState, type ReactNode } from "react";
+import type { PartFocus } from "./cameraMath";
 import { AlertTriangle, Info } from "lucide-react";
 import type { LightConfig } from "../../data/configurations";
 import { BACKGROUNDS } from "./backgrounds";
@@ -12,6 +13,8 @@ import { LP1_FINISHES, getLp1Finish, isLp1, type Lp1Build } from "./lp1Materials
 import { MAX_SIZE_IN, MIN_SIZE_IN, MM_PER_INCH, dimensionsIn, sizeFromHeightIn, sizeFromWidthIn } from "./realSize";
 
 interface ConfigControlsProps {
+  /** The new configurator: told which part of the sign the control being pointed at changes. */
+  onPart?: (part: PartFocus) => void;
   config: LightConfig;
   state: ConfiguratorState;
   onChange: (state: ConfiguratorState) => void;
@@ -33,9 +36,14 @@ export type ControlGroup = "all" | "size" | "colour" | "light" | "look";
 const BIG = "[&_label]:py-1.5 [&_label]:text-sm [&_label]:font-semibold lg:[&_label]:py-1 lg:[&_label]:text-[13px]";
 
 /** One compact row: a short label on the left, the control on the right. */
-function Row({ label, htmlFor, labelId, children }: { label: string; htmlFor?: string; labelId?: string; children: ReactNode }) {
+/** Told which part of the sign the control under the pointer (or with the focus) changes; null outside the new configurator. */
+const PartContext = createContext<((part: PartFocus) => void) | null>(null);
+
+function Row({ label, htmlFor, labelId, children, part }: { label: string; htmlFor?: string; labelId?: string; children: ReactNode; /** What this control changes on the sign. */ part?: PartFocus }) {
+  const point = useContext(PartContext);
+  const show = part && point ? () => point(part) : undefined;
   return (
-    <div className="grid grid-cols-[5.25rem_minmax(0,1fr)] items-center gap-x-3 lg:grid-cols-1 lg:gap-y-2">
+    <div onPointerEnter={show} onFocus={show} className="grid grid-cols-[5.25rem_minmax(0,1fr)] items-center gap-x-3 lg:grid-cols-1 lg:gap-y-2">
       {htmlFor ? (
         <label htmlFor={htmlFor} className="text-sm font-medium lg:font-normal lg:text-muted-foreground">
           {label}
@@ -51,6 +59,8 @@ function Row({ label, htmlFor, labelId, children }: { label: string; htmlFor?: s
 }
 
 interface ColorRowProps {
+  /** What the colour is on (the new configurator turns the view there). */
+  part?: PartFocus;
   /** Short visible label ("Paint"). */
   label: string;
   /** Accessible name of the group and base of each swatch's name ("Paint color"). */
@@ -62,10 +72,10 @@ interface ColorRowProps {
   allowCustom?: boolean;
 }
 
-function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true }: ColorRowProps) {
+function ColorRow({ label, legend, value, swatches, onChange, allowCustom = true, part }: ColorRowProps) {
   const labelId = useId();
   return (
-    <Row label={label} labelId={labelId}>
+    <Row label={label} labelId={labelId} part={part}>
       <div role="group" aria-label={legend} className="flex flex-wrap items-start gap-1.5 lg:gap-x-4 lg:gap-y-3">
         {swatches.map((s) => (
           <div key={s.hex} className="flex flex-col items-center gap-1.5 lg:w-14">
@@ -175,7 +185,7 @@ function SizeInputs({ sizeIn, aspect, onSize }: { sizeIn: number; aspect: number
   );
 }
 
-export default function ConfigControls({ config, state, onChange, strokeRatio = null, adviceInPreview = false, aspect = 1, lines = 1, group = "all" }: ConfigControlsProps) {
+export default function ConfigControls({ config, state, onChange, strokeRatio = null, adviceInPreview = false, aspect = 1, lines = 1, group = "all", onPart }: ConfigControlsProps) {
   const g = (...names: ControlGroup[]) => group === "all" || names.includes(group);
   const set = (patch: Partial<ConfiguratorState>) => onChange({ ...state, ...patch });
 
@@ -192,13 +202,14 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
   const singleDepth = depthOptions.length === 1;
 
   return (
+    <PartContext.Provider value={onPart ?? null}>
     <div className="space-y-2 [@media(min-height:830px)]:space-y-4">
       {/* The choices that change what is built (and the price): kept together in one highlighted block. */}
       {g("size", "colour") && (
       <section aria-label="Size and mounting" className={group === "all" ? "space-y-2.5 rounded-xl border border-primary/40 bg-primary/5 p-3" : "space-y-3"}>
       {group === "all" && <p className="mono-label text-primary">Size · mounting</p>}
       {flat && g("colour") && (
-          <Row label="Finish" labelId="finish-label">
+          <Row part="face" label="Finish" labelId="finish-label">
             <div role="radiogroup" aria-label="Finish" className="flex flex-wrap items-center gap-1.5">
               {LP1_FINISHES.map((f) => (
                 <label
@@ -225,7 +236,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
           </Row>
       )}
       {flat && g("size") && (
-          <Row label="Build" labelId="build-label">
+          <Row part="paint" label="Build" labelId="build-label">
             <SegmentedControl<Lp1Build>
               label="Build"
               className={BIG}
@@ -241,7 +252,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
       )}
 
       {config.variant && g("size") && (
-        <Row label="Lighting" labelId="variant-label">
+        <Row part="light" label="Lighting" labelId="variant-label">
           <SegmentedControl<"face" | "face-halo">
             label="Lighting"
             className={BIG}
@@ -257,12 +268,12 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
 
       {g("size") && (
       <>
-      <Row label="Size" labelId="size-label">
+      <Row part="size" label="Size" labelId="size-label">
         <SizeInputs sizeIn={state.sizeIn} aspect={aspect} onSize={(sizeIn) => set({ sizeIn })} />
       </Row>
 
       <div className="grid gap-3 lg:grid-cols-2 lg:gap-4">
-      <Row label="Depth" labelId="depth-label">
+      <Row part="depth" label="Depth" labelId="depth-label">
         <SegmentedControl
           label="Depth"
           value={state.depthMm}
@@ -277,7 +288,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
         />
       </Row>
       {mounts.length > 1 && (
-        <Row label="Mounting" labelId="mounting-label">
+        <Row part="mounting" label="Mounting" labelId="mounting-label">
           <SegmentedControl
             label="Mounting"
             className={BIG}
@@ -299,6 +310,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
 
       {hasPaint && g("colour") && (
         <ColorRow
+          part={flat ? "face" : "paint"}
           label={flat ? "Colour" : "Paint"}
           legend={flat ? "Acrylic color" : "Paint color"}
           value={state.color}
@@ -309,6 +321,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
 
       {lights && g("light") && (
         <ColorRow
+          part="light"
           label="Glow"
           legend="Glow color"
           value={state.glowColor}
@@ -319,7 +332,7 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
       )}
 
       {lights && g("light") && (
-        <Row label="Brightness" htmlFor={brightnessId}>
+        <Row part="light" label="Brightness" htmlFor={brightnessId}>
           <div className="flex items-center gap-2">
             <input
               id={brightnessId}
@@ -419,5 +432,6 @@ export default function ConfigControls({ config, state, onChange, strokeRatio = 
       </details>
       )}
     </div>
+    </PartContext.Provider>
   );
 }
