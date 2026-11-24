@@ -16,6 +16,9 @@ interface BackdropWallProps {
   hideFromBehind?: boolean;
 }
 
+/** How strongly a photographed wall's relief shows. */
+const NORMAL_SCALE = new THREE.Vector2(1, 1);
+
 /** World size of the wall. */
 export const WALL_SIZE = { w: 120, h: 60 };
 
@@ -56,11 +59,13 @@ export default function BackdropWall({ gap, background, wall, size = WALL_SIZE, 
       {/* The same canvas serves as colour, relief and (faintly) self-lit texture, so the wall keeps its character in the dark. */}
       <meshStandardMaterial
         ref={material}
+        key={wall?.normal ? "photo" : "drawn"}
         map={map}
-        bumpMap={map}
-        bumpScale={background.day.bumpScale}
-        emissiveMap={map}
+        {...(wall?.normal
+          ? { normalMap: wall.normal, normalScale: NORMAL_SCALE }
+          : { bumpMap: map, bumpScale: background.day.bumpScale })}
         roughness={background.day.roughness}
+        emissiveMap={map}
       />
     </mesh>
   );

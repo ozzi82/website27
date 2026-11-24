@@ -97,7 +97,9 @@ const LINEAR = Float32Array.from({ length: 256 }, (_, i) => {
 });
 
 export interface WallTexture {
-  texture: THREE.CanvasTexture;
+  texture: THREE.Texture;
+  /** A photographed wall also has its relief as a picture. */
+  normal?: THREE.Texture;
   /** Average linear luminance of the texture. */
   meanLuminance: number;
 }
