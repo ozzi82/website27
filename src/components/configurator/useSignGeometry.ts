@@ -7,6 +7,8 @@ import { bevelStrength } from "./strokeGuard";
 
 const TUBE_SEGMENTS = 8;
 const CURVE_SEGMENTS = 12;
+/** The eased front edge as a share of the 0.5 in routing tool: about 1.5 mm. */
+const EDGE_SHARE = 0.12;
 /** Walls turn smooth below this angle between neighbouring faces, so curved letters and the rounded edge do not facet. */
 const CREASE_ANGLE = (35 * Math.PI) / 180;
 
@@ -94,6 +96,25 @@ export function useSignGeometry(
         for (let i = 0; i < pos.count; i++) if (pos.getZ(i) < 0) pos.setZ(i, 0);
         return smoothed(extruded);
       }
+    }
+
+    // A fabricated letter's front edge is never knife-sharp: a small eased edge (about 1.5 mm) catches a highlight, which
+    // is much of what makes a letter look made of metal and not cut from card. Thin strokes and shallow letters get less, hairlines none.
+    const edge = profile === "standard" && strength > 0 ? Math.min(neonToolWorld * EDGE_SHARE, depth * 0.2, halfStroke * 0.3) : 0;
+    if (edge > 1e-5) {
+      const extruded = new THREE.ExtrudeGeometry(shapes, {
+        depth: depth - edge,
+        bevelEnabled: true,
+        bevelThickness: edge,
+        bevelSize: edge,
+        bevelOffset: -edge,
+        bevelSegments: 2,
+        curveSegments: CURVE_SEGMENTS,
+      });
+      // As for the tube: the back half of the symmetric bevel is flattened onto the wall plane.
+      const pos = extruded.attributes.position;
+      for (let i = 0; i < pos.count; i++) if (pos.getZ(i) < 0) pos.setZ(i, 0);
+      return smoothed(extruded);
     }
 
     return smoothed(

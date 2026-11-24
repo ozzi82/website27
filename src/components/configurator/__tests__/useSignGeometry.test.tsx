@@ -177,3 +177,26 @@ describe("useSignGeometry", () => {
     });
   });
 });
+
+describe("useSignGeometry: the eased front edge of a standard letter", () => {
+  const square = () => {
+    const s = new THREE.Shape();
+    s.moveTo(0, 0);
+    s.lineTo(1, 0);
+    s.lineTo(1, 1);
+    s.lineTo(0, 1);
+    s.closePath();
+    return [s];
+  };
+
+  it("keeps the letter's depth and outline, with a flat back on the wall, and adds edge faces", () => {
+    const shapes = square();
+    const g = renderHook(() => useSignGeometry(shapes, 0.1, "standard")).result.current;
+    g.computeBoundingBox();
+    expect(g.boundingBox!.min.z).toBeCloseTo(0, 6);
+    expect(g.boundingBox!.max.z).toBeCloseTo(0.1, 6);
+    expect(g.boundingBox!.max.x - g.boundingBox!.min.x).toBeCloseTo(1, 6);
+    const flat = renderHook(() => useSignGeometry(shapes, 0.1, "flat")).result.current;
+    expect(g.attributes.position.count).toBeGreaterThan(flat.attributes.position.count);
+  });
+});

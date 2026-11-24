@@ -16,11 +16,11 @@ describe("BACKGROUNDS", () => {
     expect(BACKGROUNDS.some((b) => /wood|plaster/i.test(b.id + b.label))).toBe(false);
   });
 
-  it("keeps the original concrete look exactly (the brochure wall)", () => {
+  it("keeps the original concrete colours (the brochure wall); the tile is the photographed 2.7 m piece at real size", () => {
     const concrete = getBackground("concrete");
     expect(concrete.day).toEqual({ color: "#8d929d", roughness: 0.92, bumpScale: 0.9, scene: "#2b3242" });
     expect(concrete.night).toEqual({ color: "#363a44", emissive: "#171a20", emissiveIntensity: 1, scene: "#04060a" });
-    expect(concrete.tile).toEqual({ w: 6, h: 6 });
+    expect(concrete.tile).toEqual({ w: 2.56, h: 2.56 });
   });
 
   it("makes the light concrete clearly lighter than the concrete, and the warm one warmer", () => {
