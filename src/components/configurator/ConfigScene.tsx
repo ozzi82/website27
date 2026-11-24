@@ -39,7 +39,8 @@ interface ConfigSceneProps {
 // light and feeds the bloom; `spread` is its reach around the outline in world units.
 const WALL_SPILL: Record<Exclude<WallSpill, "none">, { scale: number; spread: number }> = {
   standoff: { scale: 1.7, spread: 0.8 },
-  flush: { scale: 4.2, spread: 0.4 },
+  // Three quarters of the first value (owner, 2026-11-24: the LP 3.2 halo was too much).
+  flush: { scale: 3.15, spread: 0.4 },
 };
 
 // A face that already glows (LP 11-FB) only needs a tight, restrained halo: the face's own bloom does the rest, and a wide one reads as a blur.
