@@ -62,7 +62,8 @@ function brushedPainter(): (u: number, v: number) => Rgb {
   const lines = Array.from({ length: SIZE }, () => hair());
   return (u, v) => {
     const row = lines[Math.floor(v * SIZE) % SIZE];
-    const streak = (row - 0.5) * 0.16 + (fine(u, v * 90) - 0.5) * 0.08 + (coarse(u, v * 40) - 0.5) * 0.04;
+    // Barely visible (owner, 2026-11-24): a real brushed letter shows its grain only close up.
+    const streak = (row - 0.5) * 0.035 + (fine(u, v * 90) - 0.5) * 0.018 + (coarse(u, v * 40) - 0.5) * 0.008;
     const l = 0.76 + streak;
     return [l * 0.98, l * 0.985, l];
   };
@@ -72,7 +73,7 @@ function brushedRoughness(): (u: number, v: number) => Rgb {
   const fine = makeTileableNoise(5, 43);
   const coarse = makeTileableNoise(3, 41);
   return (u, v) => {
-    const r = 0.4 + (coarse(u, v * 40) - 0.5) * 0.06 + (fine(u, v * 90) - 0.5) * 0.1;
+    const r = 0.4 + (coarse(u, v * 40) - 0.5) * 0.02 + (fine(u, v * 90) - 0.5) * 0.035;
     return [r, r, r];
   };
 }
@@ -82,8 +83,8 @@ export function makeBrushedTextures(): Lp1Textures {
   const map = paint(brushedPainter(), THREE.SRGBColorSpace);
   const roughnessMap = paint(brushedRoughness(), THREE.NoColorSpace);
   // Grain this fine needs a small tile, or it reads as broad bands across a letter.
-  map?.repeat.set(1.4, 1.4);
-  roughnessMap?.repeat.set(1.4, 1.4);
+  map?.repeat.set(6, 6);
+  roughnessMap?.repeat.set(6, 6);
   map?.updateMatrix();
   roughnessMap?.updateMatrix();
   return { map, roughnessMap };
